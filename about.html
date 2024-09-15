@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Akino Store</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(to right, #4CAF50, #087f23);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 2.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 85%;
+            margin: 3rem auto;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .about-text h2 {
+            color: #087f23;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-section {
+            background-color: #087f23;
+            color: white;
+            text-align: center;
+            padding: 3rem;
+            margin-top: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-section a:hover {
+            background-color: #087f23;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #333;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-section a {
+                font-size: 1.1rem;
+                padding: 0.7rem 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Akino Store - Layanan Digital & Game</h1>
+</header>
+
+<div class="container">
+    <div class="about-content">
+        <div class="about-text">
+            <h2>Tentang AkinoCh - Akino Store</h2>
+            <p>
+                Selamat datang di Akino Store, platform terpercaya untuk semua kebutuhan layanan digital, game, dan 
+                sosial media Anda. Kami berkomitmen untuk memberikan solusi terbaik bagi para gamer, pebisnis, 
+                maupun individu yang ingin meningkatkan kehadiran digital mereka.
+            </p>
+            <p>
+                Dengan layanan unggulan yang mencakup suntik akun game, pembelian koin, hingga peningkatan engagement 
+                di sosial media, kami hadir untuk mendukung semua level kebutuhan digital Anda. Akino Store adalah 
+                partner yang tepat untuk membuat kehadiran digital Anda lebih kuat.
+            </p>
+        </div>
+        <div class="about-image">
+            <img src="20240912_193441_0000.png" alt="Akino Store Image">
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <h2>Bergabung dengan Ribuan Pengguna Puas!</h2>
+    <p><a href="https://api.whatsapp.com/send?phone=62895809185015">Hubungi Kami di WhatsApp</a></p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Akino Store. Semua Hak Dilindungi.</p>
+</footer>
+
+</body>
+</html>

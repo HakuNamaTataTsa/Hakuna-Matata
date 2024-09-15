@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Akino Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .order-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .order-form h1 {
+            margin-top: 0;
+        }
+
+        .order-form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .order-form input, .order-form textarea, .order-form select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .order-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-form button:hover {
+            background-color: #218838;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .disabled {
+            display: none;
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - Akino Store</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-menu li {
+            border-bottom: 1px solid #444;
+        }
+
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a {
+            padding: 0.5rem;
+            color: #fff;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #575757;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .dropdown-menu {
+                position: static;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            .menu-toggle:hover {
+                background-color: #575757;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+            </div>
+            <button class="menu-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Service</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index2.html">Fr Legends</a></li>
+                        <li><a href="index1.html">Car Parking Multiplayer</a></li>
+                        <li><a href="index3.html">Layanan Sosial Media</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content of the main page -->
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
+<body>
+    <div class="container">
+        <div class="order-form">
+            <h1>Order Layanan</h1>
+            <form id="order-form">
+                <!-- Layanan yang dipilih dari halaman utama -->
+                <input type="hidden" id="selected-service" name="selected-service" value="">
+
+                <!-- NOTE hanya muncul saat Login Akun dipilih -->
+                <div id="note" class="note hidden">
+                    <strong>NOTE:</strong>
+                    Pastikan Sign Out Sebelum Proses
+                </div>
+
+                <!-- Bagian Metode -->
+                <div id="login-section">
+                    <label for="login-type">Pilih Metode</label>
+                    <select id="login-type" name="login-type" onchange="toggleLoginFields(this.value)">
+                        <option value="--Harap Pilih--">--Harap Pilih--</option>
+                        <option value="Login Akun">Login Akun</option>
+                        <option value="Lewat Room">Lewat Room</option>
+                    </select>
+
+                    <div id="login-fields" class="hidden">
+                        <label for="email">Alamat Email:</label>
+                        <input type="email" id="email" name="email">
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+
+                    <div id="room-id-field" class="hidden">
+                        <label for="room-id">ID Akun:</label>
+                        <input type="text" id="room-id" name="room-id">
+                    </div>
+                </div>
+
+                <label for="payment">Pembayaran:</label>
+                <select id="payment" name="payment">
+                    <option value="Dana">Dana</option>
+                    <option value="Qris all pay">Qris all pay</option>
+                </select>
+
+                <!-- Special fields for Request Livery Mobil -->
+                <div id="livery-fields" class="hidden">
+                    <label for="livery-upload">Upload Foto Livery (Unggah Secara Manual di WhatsApp):</label>
+                    <input type="file" id="livery-upload" name="livery-upload">
+
+                    <label for="car-photo">Mobil yang dibuat Livery (Unggah Secara Manual di WhatsApp):</label>
+                    <input type="file" id="car-photo" name="car-photo">
+                </div>
+
+                <!-- Special fields for Stock Mobil Murah -->
+                <div id="stock-fields" class="hidden">
+                    <label for="stock-link">Link Stock Mobil Murah:</label>
+                    <input type="text" id="stock-link" name="stock-link" value="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" readonly>
+
+                    <label for="screenshot-upload" class="hidden">Upload Screenshot Mobil yang Dipilih (Unggah Secara Manual di WhatsApp):</label>
+                    <input type="file" id="screenshot-upload" name="screenshot-upload" class="hidden">
+                </div>
+
+                <button type="button" id="submit-button" class="disabled" onclick="submitOrder()">Kirim Pesanan</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('service');
+        }
+
+        function toggleLoginFields(value) {
+            const note = document.getElementById('note');
+            const loginFields = document.getElementById('login-fields');
+            const roomIdField = document.getElementById('room-id-field');
+            const submitButton = document.getElementById('submit-button');
+
+            if (value === 'Login Akun') {
+                note.classList.remove('hidden');
+                loginFields.classList.remove('hidden');
+                roomIdField.classList.add('hidden');
+                submitButton.classList.remove('disabled');
+            } else if (value === 'Lewat Room') {
+                note.classList.add('hidden');
+                loginFields.classList.add('hidden');
+                roomIdField.classList.remove('hidden');
+                submitButton.classList.remove('disabled');
+            } else {
+                note.classList.add('hidden');
+                loginFields.classList.add('hidden');
+                roomIdField.classList.add('hidden');
+                submitButton.classList.add('disabled');
+            }
+        }
+
+        function initializeForm() {
+            const selectedService = getQueryParams();
+            const submitButton = document.getElementById('submit-button');
+            const stockFields = document.getElementById('stock-fields');
+            const loginSection = document.getElementById('login-section');
+
+            if (selectedService) {
+                document.getElementById('selected-service').value = selectedService;
+
+                if (selectedService === 'Request Livery Mobil') {
+                    document.getElementById('livery-fields').classList.remove('hidden');
+                    loginSection.classList.add('hidden');
+                    submitButton.classList.remove('disabled');
+                } else if (selectedService === 'Stock Mobil Murah Bisa Pilih Disini') {
+                    stockFields.classList.remove('hidden');
+                    document.getElementById('login-section').classList.add('hidden');
+                    submitButton.classList.remove('disabled');
+                } else {
+                    document.getElementById('livery-fields').classList.add('hidden');
+                    stockFields.classList.add('hidden');
+                    loginSection.classList.remove('hidden');
+                    submitButton.classList.add('disabled');
+                }
+            }
+        }
+
+        function submitOrder() {
+            const selectedService = document.getElementById('selected-service').value;
+            const loginType = document.getElementById('login-type').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const roomId = document.getElementById('room-id').value;
+            const paymentMethod = document.getElementById('payment').value;
+
+            let message = `Order Layanan: ${selectedService}\nMetode: ${loginType}\nPembayaran: ${paymentMethod}`;
+
+            if (loginType === 'Login Akun') {
+                message += `\nEmail: ${email}\nPassword: ${password}`;
+            } else if (loginType === 'Lewat Room') {
+                message += `\nID Akun: ${roomId}`;
+            }
+
+            // Add a message for manual image upload
+            message += `\n\nHarap unggah foto atau dokumen yang diperlukan (seperti screenshot atau livery) secara manual di chat ini.`;
+
+            // Encode the message for use in URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Direct to WhatsApp
+            const whatsappURL = `https://api.whatsapp.com/send?phone=62895809185015&text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Initialize the form on page load
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Akino Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .order-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .order-form h1 {
+            margin-top: 0;
+        }
+
+        .order-form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .order-form input, .order-form textarea, .order-form select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .order-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-form button:hover {
+            background-color: #218838;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - Akino Store</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-menu li {
+            border-bottom: 1px solid #444;
+        }
+
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a {
+            padding: 0.5rem;
+            color: #fff;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #575757;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .dropdown-menu {
+                position: static;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            .menu-toggle:hover {
+                background-color: #575757;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+            </div>
+            <button class="menu-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Service</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index2.html">Fr Legends</a></li>
+                        <li><a href="index1.html">Car Parking Multiplayer</a></li>
+                        <li><a href="index3.html">Layanan Sosial Media</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content of the main page -->
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Akino Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .order-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .order-form h1 {
+            margin-top: 0;
+        }
+
+        .order-form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .order-form input, .order-form textarea, .order-form select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .order-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-form button:hover {
+            background-color: #218838;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-form">
+            <h1>Order Layanan Sosial Media</h1>
+            <form id="order-form">
+                <!-- Layanan yang dipilih dari halaman utama -->
+                <input type="hidden" id="selected-service" name="selected-service" value="">
+
+                <!-- Pilihan Layanan -->
+                <label for="service-type">Pilih Layanan:</label>
+                <select id="service-type" name="service-type">
+                    <option value="Follower">Follower</option>
+                    <option value="View">View</option>
+                    <option value="Like">Like</option>
+                </select>
+
+                <!-- Kolom Jumlah Pesanan -->
+                <label for="quantity">Jumlah Pesanan:</label>
+                <input type="number" id="quantity" name="quantity" min="1">
+
+                <!-- Kolom Username Sosial Media -->
+                <label for="username">Username Sosial Media:</label>
+                <input type="text" id="username" name="username">
+
+                <label for="payment">Pembayaran:</label>
+                <select id="payment" name="payment">
+                    <option value="Dana">Dana</option>
+                    <option value="Qris all pay">Qris all pay</option>
+                </select>
+
+                <button type="button" id="submit-button" onclick="submitOrder()">Kirim Pesanan</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('service');
+        }
+
+        function initializeForm() {
+            const selectedService = getQueryParams();
+            
+            if (selectedService) {
+                document.getElementById('selected-service').value = selectedService;
+            }
+        }
+
+        function submitOrder() {
+            const selectedService = document.getElementById('selected-service').value;
+            const serviceType = document.getElementById('service-type').value;
+            const quantity = document.getElementById('quantity').value;
+            const username = document.getElementById('username').value;
+            const paymentMethod = document.getElementById('payment').value;
+
+            let message = `Order Layanan: ${selectedService}\nLayanan: ${serviceType}\nJumlah: ${quantity}\nUsername: ${username}\nPembayaran: ${paymentMethod}`;
+
+            // Encode the message for use in URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Direct to WhatsApp
+            const whatsappURL = `https://api.whatsapp.com/send?phone=6289687163314&text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Initialize the form on page load
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>
