@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta name="msapplication-TileImage" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+<meta property="og:site_name" content="Cloudinary">
+<meta property="og:title" content="AkinoCh/Akino Store">
+<meta property="og:description" content="Digital and Game">
+<meta property="og:image" itemprop="image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+<meta property="og:type" content="website" />
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
+<meta property="og:url">
+<content="https://akinocpm.my.id/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akino Store - Layanan Jasa Terbaik</title>
+    <style>
+        /* Reset margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Untitled design_20240912_192348_0000.png');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Judul dengan animasi typing */
+        h1 {
+            font-size: 56px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #FFDD57;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid;
+            width: 100%; /* Lebar diatur ke 100% */
+            max-width: 0;
+            animation-fill-mode: forwards; /* Memastikan animasi selesai dengan benar */
+        }
+
+        /* Efek typing */
+        @keyframes typing {
+            from { max-width: 0; }
+            to { max-width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #FFDD57; }
+        }
+
+        /* Deskripsi animasi bergeser */
+        p {
+            font-size: 22px;
+            margin-bottom: 50px;
+            font-weight: 300;
+            animation: slideIn 2s ease-in-out;
+        }
+
+        /* Efek slide-in */
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 2s ease-in-out;
+        }
+        .button {
+            padding: 15px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: transparent;
+            border: 2px solid #FFDD57;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.5s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .button:hover {
+            background-color: #FFDD57;
+            color: #121212;
+            transform: scale(1.05);
+        }
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+        .button:hover::before {
+            left: -50%;
+        }
+
+        /* Sosial media container */
+        .social-media {
+            position: absolute;
+            bottom: 60px; /* Naikkan agar ada jarak dengan copyright */
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Ikon sosial media */
+        .social-media a {
+            font-size: 24px;
+            color: #FFDD57;
+            transition: color 0.3s ease;
+        }
+        .social-media a:hover {
+            color: #fff;
+        }
+
+        /* Partikel animasi */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .particles div {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #FFDD57;
+            border-radius: 50%;
+            animation: move 10s infinite;
+        }
+
+        /* Gerakan partikel */
+        @keyframes move {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px);
+                opacity: 0;
+            }
+        }
+
+        /* Animasi fadeInUp */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Copyright section */
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: #FFDD57;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Media Query untuk Mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - Akino Store</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-menu li {
+            border-bottom: 1px solid #444;
+        }
+
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a {
+            padding: 0.5rem;
+            color: #fff;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #575757;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .dropdown-menu {
+                position: static;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            .menu-toggle:hover {
+                background-color: #575757;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+            </div>
+            <button class="menu-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Service</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="FrLegends.html">Fr Legends</a></li>
+                        <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+                        <li><a href="CarParkingMultiplayer2.html">Car Parking Multiplayer 2</a></li>
+                        <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+                        <li><a href="DigitalInvitation.html">Web Digital Invitation</a></li>
+                        <li><a href="JasaTItipAkun.html">Jasa Titip Akun</a></li>
+                    </ul>
+                </li>
+                <li><a href="https://wa.me/62895809185015" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content of the main page -->
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
+<body>
+
+    <div class="container">
+        <h1>Akino Store</h1>
+        <p>Pilihan Jasa Terbaik untuk Kebutuhan Anda</p>
+        <div class="button-container">
+            <a href="FrLegends.html" class="button">Fr Legends</a>
+            <a href="JasaTItipAkun.html" class="button">Jasa Titip Akun</a></li>
+            <a href="DigitalInvitation.html" class="button">Web Digital Invitation</a>
+            <a href="CarParkingMultiplayer.html" class="button">Car Parking Multiplayer</a>
+            <a href="CarParkingMultiplayer2.html" class="button">Car Parking Multiplayer 2</a>
+            <a href="SosialMedia.html" class="button">Layanan Sosial Media TikTok</a>
+            <a href="SosialMedia.html" class="button">Layanan Sosial Media Instagram</a>
+        </div>
+        <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+        <div class="particles">
+            <!-- Partikel untuk latar belakang -->
+            <div style="left: 20%; animation-duration: 12s;"></div>
+            <div style="left: 40%; animation-duration: 9s;"></div>
+            <div style="left: 60%; animation-duration: 10s;"></div>
+            <div style="left: 80%; animation-duration: 14s;"></div>
+            <div style="left: 50%; animation-duration: 11s;"></div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            &copy; 2024 Akino Store. All Rights Reserved.
+        </div>
+    </div>
+
+    <!-- Link Font Awesome untuk Ikon Sosial Media -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</body>
+</html>

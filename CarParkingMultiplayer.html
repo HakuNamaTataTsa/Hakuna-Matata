@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="msapplication-TileImage" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+<meta property="og:site_name" content="Cloudinary">
+<meta property="og:title" content="AkinoCh/Akino Store">
+<meta property="og:description" content="Car Parking Multiplayer">
+<meta property="og:image" itemprop="image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+<meta property="og:type" content="website" />
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
+<meta property="og:url">
+<content="https://akinocpm.my.id/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkinoCh</title>
+    <link rel=".png" href="gg~2.png" type="image/x-.png">
+</head>
+<body>
+    <!-- Konten situs web Anda -->
+</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulasan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkinoCh Music</title>
+    <style>
+        .music-section {
+            background-color: #f4f4f4;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .music-section h2 {
+            text-align: center;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .playlist-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .playlist-item {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .playlist-item img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .playlist-item span {
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .video-player {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Navigation buttons for slider */
+        .slider-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .slider-btn:hover {
+            background-color: #555;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akino Store - Jasa Game Car Parking Multiplayer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 2rem 0;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin: 1rem auto;
+        }
+
+        .slider {
+            position: relative;
+            max-width: 100%;
+            margin: 1rem auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 5s ease;
+            width: 100%; /* Adjust based on number of slides */
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        .service-card h2 {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .service-card p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .service-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .service-card button {
+            margin-top: 10px;
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-card button:hover {
+            background-color: #218838;
+        }
+
+        .social-media {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-media a {
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        .social-media img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-media img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+
+        .highlight {
+            background-color: #fff8e1;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .highlight h2 {
+            margin-top: 0;
+            color: #f57c00;
+        }
+
+        .highlight p {
+            font-size: 1.2rem;
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 1rem 0;
+            }
+
+            .service-card {
+                padding: 1rem;
+            }
+
+            .social-media img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - Akino Store</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-menu li {
+            border-bottom: 1px solid #444;
+        }
+
+        .dropdown-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a {
+            padding: 0.5rem;
+            color: #fff;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #575757;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .dropdown-menu {
+                position: static;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            .menu-toggle:hover {
+                background-color: #575757;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+            </div>
+            <button class="menu-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#">Service</a>
+                    <ul class="dropdown-menu"><li><a href="FrLegends.html">Fr Legends</a></li>
+                        <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+                        <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+                        <li><a href="DigitalInvitation.html">Web Digital Invitation</a></li>
+                        
+                    </ul>
+                </li>
+                <li><a href="https://wa.me/62895809185015" target="_blank">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Content of the main page -->
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
+    <header>
+        <h1>Akino Store</h1>
+        <h2>Layanan Digital,Game dan Sosial Media</h2>
+    </header>
+
+    <div class="container">
+        <!-- Slider -->
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <img src="1.png" alt="Slide 1">
+                </div>
+                <div class="slide">
+                    <img src="2.png" alt="Slide 2">
+                </div>
+                <div class="slide">
+                    <img src="3.png" alt="Slide 3">
+                </div>
+            </div>
+        </div>
+
+        <!-- Highlight Section -->
+        <div class="highlight">
+            <h2>Selamat Datang di Akino Store!</h2>
+            <p>Kami menyediakan berbagai layanan untuk meningkatkan pengalaman bermain Game dan Sosial Media Anda. Jelajahi layanan kami dan pesan sesuai kebutuhan Anda!</p>
+        </div>
+        <!-- Section AkinoCh Music -->
+    <div class="music-section">
+        <h2>AkinoCh Music</h2>
+
+        <div class="video-player">
+            <iframe id="video-player" src="https://www.youtube.com/embed/Rrd8D1rdVx8" allowfullscreen></iframe>
+        </div>
+
+        <!-- Playlist Slider -->
+        <div class="slider-container">
+            <button class="slider-btn prev" onclick="slide(-1)">&#10094;</button>
+            <div class="playlist-slider" id="playlist-slider">
+                <div class="playlist-item" onclick="playVideo('Rrd8D1rdVx8')">
+                    <img src="https://img.youtube.com/vi/Rrd8D1rdVx8/0.jpg" alt="AkinoCh - Rembulan">
+                    <span>1. AkinoCh - Rembulan</span>
+                </div>
+                <div class="playlist-item" onclick="playVideo('u6v__GZ739g')">
+                    <img src="https://img.youtube.com/vi/u6v__GZ739g/0.jpg" alt="AkinoCh - Sinar Harapan">
+                    <span>2. AkinoCh - Sinar Harapan</span>
+                </div>
+                <div class="playlist-item" onclick="playVideo('LEw39rXdXm4')">
+                    <img src="https://img.youtube.com/vi/LEw39rXdXm4/0.jpg" alt="AkinoCh - Racun">
+                    <span>3. AkinoCh - Racun</span>
+                </div>
+                <div class="playlist-item" onclick="playVideo('6bRXuDMDik0')">
+                    <img src="https://img.youtube.com/vi/6bRXuDMDik0/0.jpg" alt="AkinoCh - Cahaya Mimpi">
+                    <span>4. AkinoCh - Cahaya Mimpi</span>
+                </div>
+                <div class="playlist-item" onclick="playVideo('i_UJW-pr_8Q')">
+                    <img src="https://img.youtube.com/vi/i_UJW-pr_8Q/0.jpg" alt="AkinoCh - Bayang-Bayang yang Hilang">
+                    <span>5. AkinoCh - Bayang-Bayang yang Hilang</span>
+                </div>
+            </div>
+            <button class="slider-btn next" onclick="slide(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to play selected video
+        function playVideo(videoId) {
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+
+        // Function to slide the playlist left or right
+        function slide(direction) {
+            const slider = document.getElementById('playlist-slider');
+            slider.scrollLeft += direction * 220; // Move by 220px (approx width of one playlist item)
+        }
+    </script>
+</body>
+</html>
+
+        <!-- Daftar Layanan -->
+        <div class="service-card">
+            <h2>Car Parking Multiplayer</h2>
+            <img src="20240911_122112_0000.png" alt="Tune Up">
+            <h2>Tune Up</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=Tune%20Up">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122314_0000.png" alt="Tune Up Suara Asli/ECU">
+            <h2>Tune Up Suara Asli/ECU</h2>
+            <p>Harga Rp 3.000,- Rupiah/Mobil (3 Mobil Rp 8.000,-)</p>
+            <a href="order.html?service=Tune%20Up%20Suara%20Asli/ECU">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122413_0000.png" alt="FFA">
+            <h2>FFA</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=FFA">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122501_0000.png" alt="FFA Suara Asli/ECU">
+            <h2>FFA Suara Asli/ECU</h2>
+            <p>Harga Rp 3.000,- Rupiah/Mobil (3 Mobil Rp 8.000,-)</p>
+            <a href="order.html?service=FFA%20Suara%20Asli/ECU">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122520_0000.png" alt="Glitch">
+            <h2>Glitch</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=Glitch">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122545_0000.png" alt="Glitch Suara Asli/ECU">
+            <h2>Glitch Suara Asli/ECU</h2>
+            <p>Harga Rp 3.000,- Rupiah/Mobil (3 Mobil Rp 8.000,-)</p>
+            <a href="order.html?service=Glitch%20Suara%20Asli/ECU">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122655_0000.png" alt="Chrome/Bakar Body/Velg">
+            <h2>Chrome/Bakar Body/Velg</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=Chrome/Bakar%20Body/Velg">
+                <button>Pesan</button>
+            </a>
+        </div>
+        <div class="service-card">
+            <img src="20240911_122743_0000.png" alt="Custom Spoiler/Trondol">
+            <h2>Custom Spoiler/Trondol</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=Custom%20Spoiler/Trondol">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_122808_0000.png" alt="Alis nyala/Kaliper">
+            <h2>Alis nyala/Kaliper</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil (3 Mobil Rp 5.000,-)</p>
+            <a href="order.html?service=Alis%20nyala/Kaliper">
+                <button>Pesan</button>
+            </a>
+        </div>
+<div class="service-card">
+            <img src="20240911_122850_0000.png" alt="Suntik Uang+Coin">
+            <h2>Suntik Uang+Coin</h2>
+            <p>Harga Rp 5.000,-</p>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <a href="order.html?service=Suntik%20Uang+Coin">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="Untitled design_20240911_122925_0000.png" alt="Suntik Uang">
+            <h2>Suntik Uang</h2>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <p>Harga Rp 3.000,-</p>
+            <a href="order.html?service=Suntik%20Uang%20Saja">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="Untitled design_20240911_122937_0000.png" alt="Suntik Coin">
+            <h2>Suntik Coin</h2>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <p>Harga Rp 3.000,-</p>
+            <a href="order.html?service=Suntik%20Coin%20Saja">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_123259_0000.png" alt="Paket Akun King">
+            <h2>Paket Akun King Akun Baru/Lama</h2>
+            <p>Unlock Fitur, Uang Game Full, Bebas Request Coin diisi berapa dan Custom ID - Rp 30.000,- (Akun Baru/Akun Lama)</p>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <a href="order.html?service=Paket%20Akun%20King">
+                <button>Pesan</button>
+            </a>
+        </div>
+        
+        <div class="service-card">
+            <img src="20240911_125220_0000.png" alt="Costum ID">
+            <h2>Custom ID</h2>
+            <p>Bebas Request Custom ID - Rp 10.000,- (Akun Baru/Akun Lama)</p>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <a href="order.html?service=Coatum%20ID">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_123349_0000.png" alt="Unlock All Fitur Akun Baru/Lama">
+            <h2>Unlock All Fitur Akun Baru/Lama</h2>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <p>Rp 15.000,- Rupiah (Bonus Uang Game Full & Request Coin)</p>
+            <a href="order.html?service=Unlock%20All%20Fitur%20Akun%20Baru/Lama">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="20240911_123453_0000.png" alt="Joki Rank Akun Ke King">
+            <h2>Joki Rank Akun Ke King Akun Bru/Lama</h2>
+            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
+            <p>Rp 25.000,- (Akun Baru/Lama)</p>
+            <a href="order.html?service=Joki%20Rank%20Akun%20Ke%20King">
+                <button>Pesan</button>
+            </a>
+        </div>
+        
+
+        <div class="service-card">
+            <img src="20240911_123629_0000.png" alt="Request Livery Mobil">
+            <h2>Request Livery Mobil</h2>
+            <p>Rp 15.000,- sampai Rp 50.000,- (Tergantung tingkat kesulitan design)</p>
+            <a href="order.html?service=Request%20Livery%20Mobil">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+          <img src="20240911_125134_0000.png" alt="Stock Mobil Murah Bisa Pilih Disini">
+            <h2>Stock Mobil Murah Bisa Pilih Disini</h2>
+            <p class="note">NOTE : Screenshot Mobil yang Dipilih Lalu Klik Pesan</p>
+            <p><a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank">Klik disini untuk melihat stock mobil murah</a></p>
+            <a href="order.html?service=Stock%20Mobil%20Murah%20Bisa%20Pilih%20Disini">
+            <button>Pesan</button>
+            </a>
+        </div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolom Komentar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .comment-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .comment-section h1 {
+      text-align: center;
+      color: #333;
+    }
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+    }
+    .comment-form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .comment-form input, .comment-form textarea {
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .comment-form button {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .comment-form button:hover {
+      background-color: #0056b3;
+    }
+    .comments {
+      margin-top: 20px;
+    }
+    .comment {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      margin-bottom: 10px;
+    }
+    .comment strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .comment small {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="comment-section">
+    <h1>Kolom Komentar</h1>
+    <form id="commentForm" class="comment-form">
+      <label for="name">Nama:</label>
+      <input type="text" id="name" placeholder="Nama Anda" required>
+      <label for="comment">Komentar:</label>
+      <textarea id="comment" rows="4" placeholder="Tulis komentar di sini..." required></textarea>
+      <button type="submit">Kirim Komentar</button>
+    </form>
+    <div id="comments" class="comments">
+      <!-- Komentar akan muncul di sini -->
+    </div>
+  </div>
+
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d",
+      measurementId: "G-HL4YHXR22B"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Form submission to Firestore
+    document.getElementById('commentForm').addEventListener('submit', async (event) => {
+      event.preventDefault();  // Prevent form from refreshing the page
+      const name = document.getElementById('name').value;
+      const comment = document.getElementById('comment').value;
+
+      try {
+        // Add comment to the 'akinoweb' collection with 'name' and 'message' fields
+        await addDoc(collection(db, "akinoweb"), {
+          name: name,
+          message: comment,
+          timestamp: new Date()
+        });
+
+        // Clear the form fields
+        document.getElementById('name').value = '';
+        document.getElementById('comment').value = '';
+
+        // Display updated comments
+        displayComments();
+
+        alert("Komentar berhasil dikirim!");
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("Gagal mengirim komentar: " + error.message);  // Tambahkan pesan kesalahan untuk debugging
+      }
+    });
+
+    // Function to display comments from Firestore
+    async function displayComments() {
+      const querySnapshot = await getDocs(collection(db, "akinoweb"));
+      const commentsList = document.getElementById('comments');
+      commentsList.innerHTML = '';  // Clear the comment list
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        commentsList.innerHTML += `
+          <div class="comment">
+            <strong>${data.name}</strong>
+            <p>${data.message}</p>
+            <small>${data.timestamp.toDate().toLocaleString()}</small>
+          </div>
+        `;
+      });
+    }
+
+    // Display comments when page loads
+    window.onload = function() {
+      displayComments();
+    };
+  </script>
+</body>
+</html>
+
+</html>
+
+        <div class="social-media">
+            <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1">
+                <img src="20240911_125712_0000.png" alt="TikTok">
+            </a>
+            <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==">
+                <img src="20240911_125840_0000.png" alt="Instagram">
+            </a>
+            <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4">
+                <img src="20240911_125746_0000.png" alt="YouTube">
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>Copyright &copy; 2024 Akino Store. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+         const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            const offset = -index * 100;
+            slides.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            slideIndex = (slideIndex + 1) % totalSlides;
+            showSlide(slideIndex);
+        }
+
+        setInterval(nextSlide, 3000); // Change slide every 3 seconds
+    </script>
+
+</body>
+</html>
+            
