@@ -437,10 +437,10 @@
                 <li><a href="about.html">About</a></li>
                 <li class="dropdown">
                     <a href="#">Service</a>
-                    <ul class="dropdown-menu"><li><a href="FrLegends.html">Fr Legends</a></li>
+                    <ul class="dropdown-menu">
                         <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
                         <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
-                        <li><a href="DigitalInvitation.html">Web Digital Invitation</a></li>
+                        <li><a href="designedit.html">Design/Edit Foto</a></li>
                         
                     </ul>
                 </li>
@@ -466,7 +466,7 @@
 </html>
     <header>
         <h1>Akino Store</h1>
-        <h2>Layanan Digital,Game dan Sosial Media</h2>
+        <h2></h2>
     </header>
 
     <div class="container">
@@ -490,56 +490,7 @@
             <h2>Selamat Datang di Akino Store!</h2>
             <p>Kami menyediakan berbagai layanan untuk meningkatkan pengalaman bermain Game dan Sosial Media Anda. Jelajahi layanan kami dan pesan sesuai kebutuhan Anda!</p>
         </div>
-        <!-- Section AkinoCh Music -->
-    <div class="music-section">
-        <h2>AkinoCh Music</h2>
-
-        <div class="video-player">
-            <iframe id="video-player" src="https://www.youtube.com/embed/Rrd8D1rdVx8" allowfullscreen></iframe>
-        </div>
-
-        <!-- Playlist Slider -->
-        <div class="slider-container">
-            <button class="slider-btn prev" onclick="slide(-1)">&#10094;</button>
-            <div class="playlist-slider" id="playlist-slider">
-                <div class="playlist-item" onclick="playVideo('Rrd8D1rdVx8')">
-                    <img src="https://img.youtube.com/vi/Rrd8D1rdVx8/0.jpg" alt="AkinoCh - Rembulan">
-                    <span>1. AkinoCh - Rembulan</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('u6v__GZ739g')">
-                    <img src="https://img.youtube.com/vi/u6v__GZ739g/0.jpg" alt="AkinoCh - Sinar Harapan">
-                    <span>2. AkinoCh - Sinar Harapan</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('LEw39rXdXm4')">
-                    <img src="https://img.youtube.com/vi/LEw39rXdXm4/0.jpg" alt="AkinoCh - Racun">
-                    <span>3. AkinoCh - Racun</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('6bRXuDMDik0')">
-                    <img src="https://img.youtube.com/vi/6bRXuDMDik0/0.jpg" alt="AkinoCh - Cahaya Mimpi">
-                    <span>4. AkinoCh - Cahaya Mimpi</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('i_UJW-pr_8Q')">
-                    <img src="https://img.youtube.com/vi/i_UJW-pr_8Q/0.jpg" alt="AkinoCh - Bayang-Bayang yang Hilang">
-                    <span>5. AkinoCh - Bayang-Bayang yang Hilang</span>
-                </div>
-            </div>
-            <button class="slider-btn next" onclick="slide(1)">&#10095;</button>
-        </div>
-    </div>
-
-    <script>
-        // Function to play selected video
-        function playVideo(videoId) {
-            const videoPlayer = document.getElementById('video-player');
-            videoPlayer.src = `https://www.youtube.com/embed/${videoId}`;
-        }
-
-        // Function to slide the playlist left or right
-        function slide(direction) {
-            const slider = document.getElementById('playlist-slider');
-            slider.scrollLeft += direction * 220; // Move by 220px (approx width of one playlist item)
-        }
-    </script>
+       
 </body>
 </html>
 
@@ -624,66 +575,42 @@
                 <button>Pesan</button>
             </a>
         </div>
+
+        <div class="service-card">
+            <img src="sirine.png" alt="Alis nyala/Kaliper">
+            <h2>Unlock Sirine</h2>
+            <p>Harga Rp 5.000,- Rupiah/Mobil</p>
+            <a href="order.html?service=Unlock%20Paid/Premium%20Car">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="mobil berbayar.png" alt="Alis nyala/Kaliper">
+            <h2>Unlock Paid/Premium Car</h2>
+            <p>Harga Rp 2.000,- Rupiah/Mobil</p>
+            <a href="order.html?service=Unlock%20Paid/Premium%20Car">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">
+            <img src="mobil berbayar.png" alt="Alis nyala/Kaliper">
+            <h2>Unlock Paid/Premium Car+Sirine</h2>
+            <p>Harga Rp 5.000,- Rupiah/Mobil</p>
+            <a href="order.html?service=Unlock%20Paid/Premium%20Car+Sirine">
+                <button>Pesan</button>
+            </a>
+        </div>
 <div class="service-card">
             <img src="20240911_122850_0000.png" alt="Suntik Uang+Coin">
-            <h2>Suntik Uang+Coin</h2>
+            <h2>Suntik Uang+Coin (bebas mau request berapapun)</h2>
             <p>Harga Rp 5.000,-</p>
             <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
             <a href="order.html?service=Suntik%20Uang+Coin">
                 <button>Pesan</button>
             </a>
         </div>
-
-        <div class="service-card">
-            <img src="Untitled design_20240911_122925_0000.png" alt="Suntik Uang">
-            <h2>Suntik Uang</h2>
-            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
-            <p>Harga Rp 3.000,-</p>
-            <a href="order.html?service=Suntik%20Uang%20Saja">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="Untitled design_20240911_122937_0000.png" alt="Suntik Coin">
-            <h2>Suntik Coin</h2>
-            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
-            <p>Harga Rp 3.000,-</p>
-            <a href="order.html?service=Suntik%20Coin%20Saja">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="20240911_123259_0000.png" alt="Paket Akun King">
-            <h2>Paket Akun King Akun Baru/Lama</h2>
-            <p>Unlock Fitur, Uang Game Full, Bebas Request Coin diisi berapa dan Custom ID - Rp 30.000,- (Akun Baru/Akun Lama)</p>
-            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
-            <a href="order.html?service=Paket%20Akun%20King">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="20240911_123349_0000.png" alt="Unlock All Fitur Akun Baru/Lama">
-            <h2>Unlock All Fitur Akun Baru/Lama</h2>
-            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
-            <p>Rp 15.000,- Rupiah (Bonus Uang Game Full & Request Coin)</p>
-            <a href="order.html?service=Unlock%20All%20Fitur%20Akun%20Baru/Lama">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="20240911_123453_0000.png" alt="Joki Rank Akun Ke King">
-            <h2>Joki Rank Akun Ke King Akun Bru/Lama</h2>
-            <p class="note">NOTE : Wajib Pilih Metode Login Akun</p>
-            <p>Rp 25.000,- (Akun Baru/Lama)</p>
-            <a href="order.html?service=Joki%20Rank%20Akun%20Ke%20King">
-                <button>Pesan</button>
-            </a>
-        </div>
-        
 
         <div class="service-card">
             <img src="20240911_123629_0000.png" alt="Request Livery Mobil">
@@ -794,13 +721,14 @@
 
     // Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-      authDomain: "akinowedding-73271.firebaseapp.com",
-      projectId: "akinowedding-73271",
-      storageBucket: "akinowedding-73271.appspot.com",
-      messagingSenderId: "307666594440",
-      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d",
-      measurementId: "G-HL4YHXR22B"
+        apiKey: "AIzaSyDNeI0D2fgiwNdHi9Kq9Tu6IhfEP0X7RiE",
+  authDomain: "akinoch-6bdaf.firebaseapp.com",
+  databaseURL: "https://akinoch-6bdaf-default-rtdb.firebaseio.com",
+  projectId: "akinoch-6bdaf",
+  storageBucket: "akinoch-6bdaf.firebasestorage.app",
+  messagingSenderId: "1065243747768",
+  appId: "1:1065243747768:web:61986291cb48a31cb2db4d",
+  measurementId: "G-RFK6RJYYTM"
     };
 
     // Initialize Firebase

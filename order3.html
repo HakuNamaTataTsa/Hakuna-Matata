@@ -74,10 +74,6 @@
         .hidden {
             display: none;
         }
-
-        .disabled {
-            display: none;
-        }
     </style>
 </head>
 <!DOCTYPE html>
@@ -251,44 +247,111 @@
             });
         });
     </script>
-</body>
-</html>
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Akino Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .order-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .order-form h1 {
+            margin-top: 0;
+        }
+
+        .order-form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .order-form input, .order-form textarea, .order-form select {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .order-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .order-form button:hover {
+            background-color: #218838;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .note strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
 <body>
     <div class="container">
         <div class="order-form">
-            <h1>Order Layanan</h1>
+            <h1>Order Layanan Sosial Media</h1>
             <form id="order-form">
                 <!-- Layanan yang dipilih dari halaman utama -->
                 <input type="hidden" id="selected-service" name="selected-service" value="">
 
-                <!-- NOTE hanya muncul saat Login Akun dipilih -->
-                <div id="note" class="note hidden">
-                    <strong>NOTE:</strong>
-                    Pastikan Sign Out Sebelum Proses
-                </div>
+                <!-- Pilihan Layanan -->
+                <label for="service-type">Pilih Layanan:</label>
+                <select id="service-type" name="service-type">
+                    <option value="--Harap Pilih--">--Harap Pilih--</option>
+                    <option value="View">Logo</option>
+                    <option value="Like">Banner</option>
+                    <option value="Like">Feed Social Media</option>
+                    <option value="Like">Poster</option>
+                    <option value="Like">Edit Foto</option>
+                    <option value="Like">Lainnya</option>
+                </select>
 
-                <!-- Bagian Metode -->
-                <div id="login-section">
-                    <label for="login-type">Pilih Metode</label>
-                    <select id="login-type" name="login-type" onchange="toggleLoginFields(this.value)">
-                        <option value="--Harap Pilih--">--Harap Pilih--</option>
-                        <option value="Login Akun">Login Akun</option>
-                        <option value="Lewat Room">Lewat Room</option>
-                    </select>
+                <!-- Kolom Brief -->
+                <label for="username">Brief/Detail project (Wajib) :</label>
+                <input type="text" id="username" name="username">
 
-                    <div id="login-fields" class="hidden">
-                        <label for="email">Alamat Email:</label>
-                        <input type="email" id="email" name="email">
-
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password">
-                    </div>
-
-                    <div id="room-id-field" class="hidden">
-                        <label for="room-id">ID Akun:</label>
-                        <input type="text" id="room-id" name="room-id">
-                    </div>
-                </div>
+                 <!-- Kolom Brief -->
+                 <label for="username">Referensi/Contoh/Sample yang di inginkan (Optional) :</label>
+                 <input type="file" id="username" name="username">
 
                 <label for="payment">Pembayaran:</label>
                 <select id="payment" name="payment">
@@ -296,25 +359,7 @@
                     <option value="Qris all pay">Qris all pay</option>
                 </select>
 
-                <!-- Special fields for Request Livery Mobil -->
-                <div id="livery-fields" class="hidden">
-                    <label for="livery-upload">Upload Foto Livery (Unggah Secara Manual di WhatsApp):</label>
-                    <input type="file" id="livery-upload" name="livery-upload">
-
-                    <label for="car-photo">Mobil yang dibuat Livery (Unggah Secara Manual di WhatsApp):</label>
-                    <input type="file" id="car-photo" name="car-photo">
-                </div>
-
-                <!-- Special fields for Stock Mobil Murah -->
-                <div id="stock-fields" class="hidden">
-                    <label for="stock-link">Link Stock Mobil Murah:</label>
-                    <input type="text" id="stock-link" name="stock-link" value="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" readonly>
-
-                    <label for="screenshot-upload" class="hidden">Upload Screenshot Mobil yang Dipilih (Unggah Secara Manual di WhatsApp):</label>
-                    <input type="file" id="screenshot-upload" name="screenshot-upload" class="hidden">
-                </div>
-
-                <button type="button" id="submit-button" class="disabled" onclick="submitOrder()">Kirim Pesanan</button>
+                <button type="button" id="submit-button" onclick="submitOrder()">Kirim Pesanan</button>
             </form>
         </div>
     </div>
@@ -399,6 +444,40 @@
 
             // Direct to WhatsApp
             const whatsappURL = `https://api.whatsapp.com/send?phone=62895809185015&text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Initialize the form on page load
+        document.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('service');
+        }
+
+        function initializeForm() {
+            const selectedService = getQueryParams();
+            
+            if (selectedService) {
+                document.getElementById('selected-service').value = selectedService;
+            }
+        }
+
+        function submitOrder() {
+            const selectedService = document.getElementById('selected-service').value;
+            const serviceType = document.getElementById('service-type').value;
+            const quantity = document.getElementById('quantity').value;
+            const username = document.getElementById('username').value;
+            const paymentMethod = document.getElementById('payment').value;
+
+            let message = `Order Layanan: ${selectedService}\nLayanan: ${serviceType}\nJumlah: ${quantity}\nUsername: ${username}\nPembayaran: ${paymentMethod}`;
+
+            // Encode the message for use in URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Direct to WhatsApp
+            const whatsappURL = `https://api.whatsapp.com/send?phone=6289687163314&text=${encodedMessage}`;
             window.open(whatsappURL, '_blank');
         }
 
