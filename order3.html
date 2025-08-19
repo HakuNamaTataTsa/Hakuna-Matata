@@ -337,21 +337,21 @@
                 <label for="service-type">Pilih Layanan:</label>
                 <select id="service-type" name="service-type">
                     <option value="--Harap Pilih--">--Harap Pilih--</option>
-                    <option value="View">Logo</option>
-                    <option value="Like">Banner</option>
-                    <option value="Like">Feed Social Media</option>
-                    <option value="Like">Poster</option>
-                    <option value="Like">Edit Foto</option>
-                    <option value="Like">Lainnya</option>
+                    <option value="Logo">Logo</option>
+                    <option value="Banner">Banner</option>
+                    <option value="Feed Social Media">Feed Social Media</option>
+                    <option value="Poster">Poster</option>
+                    <option value="Edit Foto">Edit Foto</option>
+                    <option value="Lainnya">Lainnya</option>
                 </select>
 
                 <!-- Kolom Brief -->
-                <label for="username">Brief/Detail project (Wajib) :</label>
-                <input type="text" id="username" name="username">
+                <label for="brief">Brief/Detail project (Wajib) :</label>
+                <input type="text" id="brief" name="brief">
 
-                 <!-- Kolom Brief -->
-                 <label for="username">Referensi/Contoh/Sample yang di inginkan (Optional) :</label>
-                 <input type="file" id="username" name="username">
+                 <!-- Kolom Referensi -->
+                 <label for="referensi">Referensi/Contoh/Sample yang di inginkan (Optional) :</label>
+                 <input type="file" id="referensi" name="referensi">
 
                 <label for="payment">Pembayaran:</label>
                 <select id="payment" name="payment">
@@ -370,68 +370,22 @@
             return params.get('service');
         }
 
-        function toggleLoginFields(value) {
-            const note = document.getElementById('note');
-            const loginFields = document.getElementById('login-fields');
-            const roomIdField = document.getElementById('room-id-field');
-            const submitButton = document.getElementById('submit-button');
-
-            if (value === 'Login Akun') {
-                note.classList.remove('hidden');
-                loginFields.classList.remove('hidden');
-                roomIdField.classList.add('hidden');
-                submitButton.classList.remove('disabled');
-            } else if (value === 'Lewat Room') {
-                note.classList.add('hidden');
-                loginFields.classList.add('hidden');
-                roomIdField.classList.remove('hidden');
-                submitButton.classList.remove('disabled');
-            } else {
-                note.classList.add('hidden');
-                loginFields.classList.add('hidden');
-                roomIdField.classList.add('hidden');
-                submitButton.classList.add('disabled');
-            }
-        }
-
         function initializeForm() {
             const selectedService = getQueryParams();
-            const submitButton = document.getElementById('submit-button');
-            const stockFields = document.getElementById('stock-fields');
-            const loginSection = document.getElementById('login-section');
-
+            
             if (selectedService) {
                 document.getElementById('selected-service').value = selectedService;
-
-                if (selectedService === 'Request Livery Mobil') {
-                    document.getElementById('livery-fields').classList.remove('hidden');
-                    loginSection.classList.add('hidden');
-                    submitButton.classList.remove('disabled');
-                } else if (selectedService === 'Stock Mobil Murah Bisa Pilih Disini') {
-                    stockFields.classList.remove('hidden');
-                    document.getElementById('login-section').classList.add('hidden');
-                    submitButton.classList.remove('disabled');
-                } else {
-                    document.getElementById('livery-fields').classList.add('hidden');
-                    stockFields.classList.add('hidden');
-                    loginSection.classList.remove('hidden');
-                    submitButton.classList.add('disabled');
-                }
             }
         }
 
         function submitOrder() {
-        const serviceType = document.getElementById('service-type').value;
-        const brief = document.getElementById('username').value;
-        const paymentMethod = document.getElementById('payment').value;
+            const selectedService = document.getElementById('selected-service').value;
+            const serviceType = document.getElementById('service-type').value;
+            const brief = document.getElementById('brief').value;
+            const referensi = document.getElementById('referensi').value;
+            const paymentMethod = document.getElementById('payment').value;
 
-        let message = `Order Layanan: ${serviceType}\nBrief: ${brief}\nPembayaran: ${paymentMethod}`;
-
-        // Encode message
-        const encodedMessage = encodeURIComponent(message);
-
-            // Add a message for manual image upload
-            message += `\n\nHarap unggah foto atau dokumen yang diperlukan (seperti screenshot atau livery) secara manual di chat ini.`;
+            let message = `Order Layanan: ${selectedService}\nJasa: ${serviceType}\nBrief/Detail project: ${brief}\nReferensi/Contoh/Sample yang di inginkan: ${referensi}\nPembayaran: ${paymentMethod}`;
 
             // Encode the message for use in URL
             const encodedMessage = encodeURIComponent(message);

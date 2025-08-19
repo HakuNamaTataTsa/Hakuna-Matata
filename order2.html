@@ -342,11 +342,11 @@
                 </select>
 
                  <!-- Pilihan Sosmed -->
-                 <label for="service-type">Pilih Sosial Media :</label>
-                 <select id="service-type" name="service-type">
+                 <label for="email-type">Pilih Sosial Media :</label>
+                 <select id="email-type" name="email-type">
                     <option value="--Harap Pilih--">--Harap Pilih--</option>
-                     <option value="Follower">Tiktok</option>
-                     <option value="View">Instagram</option>
+                     <option value="TIktok">Tiktok</option>
+                     <option value="Instagram">Instagram</option>
                  </select>
 
                 <!-- Kolom Jumlah Pesanan -->
@@ -385,11 +385,12 @@
         function submitOrder() {
             const selectedService = document.getElementById('selected-service').value;
             const serviceType = document.getElementById('service-type').value;
+            const emailType = document.getElementById('email-type').value;
             const quantity = document.getElementById('quantity').value;
             const username = document.getElementById('username').value;
             const paymentMethod = document.getElementById('payment').value;
 
-            let message = `Order Layanan: ${selectedService}\nLayanan: ${serviceType}\nJumlah: ${quantity}\nUsername: ${username}\nPembayaran: ${paymentMethod}`;
+            let message = `Order Layanan: ${selectedService}\nSuntik: ${serviceType}\nSosial Media: ${emailType}\nJumlah: ${quantity}\nPembayaran: ${paymentMethod}`;
 
             // Encode the message for use in URL
             const encodedMessage = encodeURIComponent(message);
