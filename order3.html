@@ -450,39 +450,5 @@
         // Initialize the form on page load
         document.addEventListener('DOMContentLoaded', initializeForm);
     </script>
-    <script>
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('service');
-        }
-
-        function initializeForm() {
-            const selectedService = getQueryParams();
-            
-            if (selectedService) {
-                document.getElementById('selected-service').value = selectedService;
-            }
-        }
-
-        function submitOrder() {
-            const selectedService = document.getElementById('selected-service').value;
-            const serviceType = document.getElementById('service-type').value;
-            const quantity = document.getElementById('quantity').value;
-            const username = document.getElementById('username').value;
-            const paymentMethod = document.getElementById('payment').value;
-
-            let message = `Order Layanan: ${selectedService}\nLayanan: ${serviceType}\nJumlah: ${quantity}\nUsername: ${username}\nPembayaran: ${paymentMethod}`;
-
-            // Encode the message for use in URL
-            const encodedMessage = encodeURIComponent(message);
-
-            // Direct to WhatsApp
-            const whatsappURL = `https://api.whatsapp.com/send?phone=6289687163314&text=${encodedMessage}`;
-            window.open(whatsappURL, '_blank');
-        }
-
-        // Initialize the form on page load
-        document.addEventListener('DOMContentLoaded', initializeForm);
-    </script>
 </body>
 </html>
