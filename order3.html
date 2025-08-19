@@ -421,20 +421,14 @@
         }
 
         function submitOrder() {
-            const selectedService = document.getElementById('selected-service').value;
-            const loginType = document.getElementById('login-type').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const roomId = document.getElementById('room-id').value;
-            const paymentMethod = document.getElementById('payment').value;
+        const serviceType = document.getElementById('service-type').value;
+        const brief = document.getElementById('username').value;
+        const paymentMethod = document.getElementById('payment').value;
 
-            let message = `Order Layanan: ${selectedService}\nMetode: ${loginType}\nPembayaran: ${paymentMethod}`;
+        let message = `Order Layanan: ${serviceType}\nBrief: ${brief}\nPembayaran: ${paymentMethod}`;
 
-            if (loginType === 'Login Akun') {
-                message += `\nEmail: ${email}\nPassword: ${password}`;
-            } else if (loginType === 'Lewat Room') {
-                message += `\nID Akun: ${roomId}`;
-            }
+        // Encode message
+        const encodedMessage = encodeURIComponent(message);
 
             // Add a message for manual image upload
             message += `\n\nHarap unggah foto atau dokumen yang diperlukan (seperti screenshot atau livery) secara manual di chat ini.`;
