@@ -631,45 +631,46 @@
             </a>
         </div>
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kolom Komentar</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-    .comment-section {
+    .guest-book {
       max-width: 800px;
       margin: 20px auto;
       padding: 20px;
-      background: #fff;
+      background: #ffffff;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    .comment-section h1 {
+
+    .guest-book h1 {
       text-align: center;
       color: #333;
     }
-    .comment-form {
+
+    .guest-book form {
       display: flex;
       flex-direction: column;
     }
-    .comment-form label {
+
+    .guest-book label {
       margin-bottom: 5px;
       font-weight: bold;
     }
-    .comment-form input, .comment-form textarea {
+
+    .guest-book input, .guest-book textarea {
       margin-bottom: 10px;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #ddd;
       border-radius: 4px;
     }
-    .comment-form button {
+
+    .guest-book button {
       padding: 10px;
       background-color: #007bff;
       color: #fff;
@@ -677,39 +678,44 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    .comment-form button:hover {
+
+    .guest-book button:hover {
       background-color: #0056b3;
     }
-    .comments {
+
+    .messages {
       margin-top: 20px;
     }
-    .comment {
+
+    .message {
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      background: #f9f9f9;
+      background: #ffffff;
       margin-bottom: 10px;
     }
-    .comment strong {
+
+    .message strong {
       display: block;
       margin-bottom: 5px;
     }
-    .comment small {
+
+    .message small {
       color: #666;
     }
   </style>
 </head>
 <body>
-  <div class="comment-section">
+  <div class="guest-book">
     <h1>Kolom Komentar</h1>
-    <form id="commentForm" class="comment-form">
+    <form id="messageForm">
       <label for="name">Nama:</label>
-      <input type="text" id="name" placeholder="Nama Anda" required>
-      <label for="comment">Komentar:</label>
-      <textarea id="comment" rows="4" placeholder="Tulis komentar di sini..." required></textarea>
+      <input type="text" id="name" required>
+      <label for="message">Ucapan:</label>
+      <textarea id="message" rows="4" required></textarea>
       <button type="submit">Kirim Komentar</button>
     </form>
-    <div id="comments" class="comments">
+    <div id="messages" class="messages">
       <!-- Komentar akan muncul di sini -->
     </div>
   </div>
