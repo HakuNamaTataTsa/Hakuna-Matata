@@ -633,8 +633,8 @@
       const comment = document.getElementById('comment').value;
 
       try {
-        // Add comment to the 'akinoweb' collection with 'name' and 'message' fields
-        await addDoc(collection(db, "akinoweb"), {
+        // Add comment to the 'messages' collection with 'name' and 'message' fields
+        await addDoc(collection(db, "messages"), {
           name: name,
           message: comment,
           timestamp: new Date()
@@ -656,7 +656,7 @@
 
     // Function to display comments from Firestore
     async function displayComments() {
-      const querySnapshot = await getDocs(collection(db, "akinoweb"));
+      const querySnapshot = await getDocs(collection(db, "messages"));
       const commentsList = document.getElementById('comments');
       commentsList.innerHTML = '';  // Clear the comment list
 
