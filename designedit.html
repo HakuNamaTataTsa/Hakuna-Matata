@@ -606,13 +606,12 @@
   </div>
 
   <script type="module">
-    // Import Firebase SDK
+    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    // Firebase configuration
+    // Your web app's Firebase configuration
     const firebaseConfig = {
-       const firebaseConfig = {
       apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
       authDomain: "akinowedding-73271.firebaseapp.com",
       projectId: "akinowedding-73271",
@@ -626,44 +625,34 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Form submission to Firestore
-    document.getElementById('commentForm').addEventListener('submit', async (event) => {
-      event.preventDefault();  // Prevent form from refreshing the page
+    document.getElementById('messageForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
       const name = document.getElementById('name').value;
-      const comment = document.getElementById('comment').value;
+      const message = document.getElementById('message').value;
 
       try {
-        // Add comment to the 'messages' collection with 'name' and 'message' fields
         await addDoc(collection(db, "messages"), {
           name: name,
-          message: comment,
+          message: message,
           timestamp: new Date()
         });
-
-        // Clear the form fields
+        alert("Ucapan berhasil dikirim!");
         document.getElementById('name').value = '';
-        document.getElementById('comment').value = '';
-
-        // Display updated comments
-        displayComments();
-
-        alert("Komentar berhasil dikirim!");
-      } catch (error) {
-        console.error("Error adding document: ", error);
-        alert("Gagal mengirim komentar: " + error.message);  // Tambahkan pesan kesalahan untuk debugging
+        document.getElementById('message').value = '';
+        displayMessages();
+      } catch (e) {
+        console.error("Error adding document: ", e);
       }
     });
 
-    // Function to display comments from Firestore
-    async function displayComments() {
+    async function displayMessages() {
       const querySnapshot = await getDocs(collection(db, "messages"));
-      const commentsList = document.getElementById('comments');
-      commentsList.innerHTML = '';  // Clear the comment list
-
+      const messagesList = document.getElementById('messages');
+      messagesList.innerHTML = '';
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        commentsList.innerHTML += `
-          <div class="comment">
+        messagesList.innerHTML += `
+          <div class="message">
             <strong>${data.name}</strong>
             <p>${data.message}</p>
             <small>${data.timestamp.toDate().toLocaleString()}</small>
@@ -672,10 +661,10 @@
       });
     }
 
-    // Display comments when page loads
+    // Display messages on page load
     window.onload = function() {
-      displayComments();
-    };
+      displayMessages();
+    }
   </script>
 </body>
 </html>
