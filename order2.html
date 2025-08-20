@@ -390,7 +390,7 @@
             const username = document.getElementById('username').value;
             const paymentMethod = document.getElementById('payment').value;
 
-            let message = `Order Layanan: ${selectedService}\nSuntik: ${serviceType}\nSosial Media: ${emailType}\nJumlah: ${quantity}\nPembayaran: ${paymentMethod}`;
+            let message = `Order Layanan: ${selectedService}\nSuntik: ${serviceType}\nSosial Media: ${emailType}\nJumlah: ${quantity}\nLink yang akan di Suntik : ${username}\nPembayaran: ${paymentMethod}`;
 
             // Encode the message for use in URL
             const encodedMessage = encodeURIComponent(message);
