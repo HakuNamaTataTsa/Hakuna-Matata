@@ -466,7 +466,6 @@
 </html>
     <header>
         <h1>Akino Store</h1>
-        <h2>Layanan Digital,Game dan Sosial Media</h2>
     </header>
 
     <div class="container">
@@ -490,58 +489,6 @@
             <h2>Selamat Datang di Akino Store!</h2>
             <p>Kami menyediakan berbagai layanan untuk meningkatkan pengalaman bermain Game dan Sosial Media Anda. Jelajahi layanan kami dan pesan sesuai kebutuhan Anda!</p>
         </div>
-        <!-- Section AkinoCh Music -->
-    <div class="music-section">
-        <h2>AkinoCh Music</h2>
-
-        <div class="video-player">
-            <iframe id="video-player" src="https://www.youtube.com/embed/Rrd8D1rdVx8" allowfullscreen></iframe>
-        </div>
-
-        <!-- Playlist Slider -->
-        <div class="slider-container">
-            <button class="slider-btn prev" onclick="slide(-1)">&#10094;</button>
-            <div class="playlist-slider" id="playlist-slider">
-                <div class="playlist-item" onclick="playVideo('Rrd8D1rdVx8')">
-                    <img src="https://img.youtube.com/vi/Rrd8D1rdVx8/0.jpg" alt="AkinoCh - Rembulan">
-                    <span>1. AkinoCh - Rembulan</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('u6v__GZ739g')">
-                    <img src="https://img.youtube.com/vi/u6v__GZ739g/0.jpg" alt="AkinoCh - Sinar Harapan">
-                    <span>2. AkinoCh - Sinar Harapan</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('LEw39rXdXm4')">
-                    <img src="https://img.youtube.com/vi/LEw39rXdXm4/0.jpg" alt="AkinoCh - Racun">
-                    <span>3. AkinoCh - Racun</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('6bRXuDMDik0')">
-                    <img src="https://img.youtube.com/vi/6bRXuDMDik0/0.jpg" alt="AkinoCh - Cahaya Mimpi">
-                    <span>4. AkinoCh - Cahaya Mimpi</span>
-                </div>
-                <div class="playlist-item" onclick="playVideo('i_UJW-pr_8Q')">
-                    <img src="https://img.youtube.com/vi/i_UJW-pr_8Q/0.jpg" alt="AkinoCh - Bayang-Bayang yang Hilang">
-                    <span>5. AkinoCh - Bayang-Bayang yang Hilang</span>
-                </div>
-            </div>
-            <button class="slider-btn next" onclick="slide(1)">&#10095;</button>
-        </div>
-    </div>
-
-    <script>
-        // Function to play selected video
-        function playVideo(videoId) {
-            const videoPlayer = document.getElementById('video-player');
-            videoPlayer.src = `https://www.youtube.com/embed/${videoId}`;
-        }
-
-        // Function to slide the playlist left or right
-        function slide(direction) {
-            const slider = document.getElementById('playlist-slider');
-            slider.scrollLeft += direction * 220; // Move by 220px (approx width of one playlist item)
-        }
-    </script>
-</body>
-</html>
 
         <!-- Daftar Layanan -->
         <div class="service-card">
@@ -557,7 +504,7 @@
         <div class="service-card">   
             <img src="car coin cpm2.png" alt="Coin Car/Mobil Koin">
             <h2>Coin Car/Mobil Koin</h2>
-            <p>Harga Rp 5.000,- Rupiah/Mobil</p>
+            <p>Harga Rp 15.000,- Rupiah/Mobil</p>
             <p class="note">Mobil Saja, TIdak Termasuk Bodykit</p>
             <a href="order.html?service=Coin%20Car/Mobil%20Koin%20Cpm2">
                 <button>Pesan</button>
@@ -565,51 +512,46 @@
         </div>
 
         <div class="service-card">   
-            <img src="Error.png" alt="Coin Car/Mobil Koin">
-            <h2>Car Coin/Mobil Koin + Stock Livery</h2>
-            <p>Harga Rp 10.000,- Rupiah/Mobil</p>
-            <p class="note">Screenshoot Stock livery yang di pilih saat melakukan pemesanan</p>
-            <a href="order.html?service=Car%20Coin/Mobil%20Koin%20+%20Stock%20Livery%20Cpm2">
+            <img src="rank king.png" alt="Coin Car/Mobil Koin">
+            <h2>Joki Rank Ke King</h2>
+            <p>Harga Rp 20.000,- Rupiah/Mobil</p>
+            <p class="note">Mobil Saja, TIdak Termasuk Bodykit</p>
+            <a href="order.html?service=Coin%20Car/Mobil%20Koin%20Cpm2">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">   
+            <img src="vinyl cpm1 ke cpm2.png" alt="Coin Car/Mobil Koin">
+            <h2>Copy Livery CPM 1 ke CPM 2</h2>
+            <p>Harga Rp 25.000,- Rupiah/Mobil</p>
+            <p class="note">Sudah Termasuk Mobil CPM 2</p>
+            <p class="note">Sign out Akun Sebelum Proses</p>
+            <a href="order4.html?service=Coin%20Car/Mobil%20Koin%20Cpm2">
+                <button>Pesan</button>
+            </a>
+        </div>
+
+        <div class="service-card">   
+            <img src="vinyl cpm1 ke cpm2.png" alt="Coin Car/Mobil Koin">
+            <h2>Copy Livery CPM 1 ke CPM 2</h2>
+            <p>Harga Rp 20.000,- Rupiah/Mobil</p>
+            <p class="note">Belum Termasuk Mobil CPM 2</p>
+            <p class="note">Sign out Akun Sebelum Proses</p>
+            <a href="order4.html?service=Coin%20Car/Mobil%20Koin%20Cpm2">
                 <button>Pesan</button>
             </a>
         </div>
 
         <div class="service-card">
-            <img src="bodykit cpm2.png" alt="Coin Car/Mobil Koin + Bodykit">
-            <h2>Coin Car/Mobil Koin + Bodykit</h2>
-            <p>Harga Rp 7.000,- Rupiah/Mobil</p>
-            <a href="order.html?service=Coin%20Car/Mobil%20Koin%20+%20Bodykit%20Cpm2">
+            <img src="Error.png" alt="Unlock All Slot Car">
+            <h2>Unlock All Slot Car (20 SLot)</h2>
+            <p>Harga Rp 30.000,- Rupiah/Mobil</p>
+            <a href="order.html?service=Unlock%20All%20Slot%20Car">
                 <button>Pesan</button>
             </a>
         </div>
 
-        <div class="service-card">
-            <img src="Error.png" alt="Coin Car/Mobil Koin + Paint(Body/Velg)">
-            <h2>Coin Car/Mobil Koin + Paint(Body/Velg)</h2>
-            <p>Harga Rp 7.000,- Rupiah/Mobil</p>
-            <p class="note">Pilih Salah Satu Body/Velg</p>
-            <a href="order.html?service=Coin%20Car/Mobil%20Koin%20+%20Paint(Body/Velg)%20Cpm2">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="caliper brake cpm2.png" alt="Coin Car/Mobil Koin + Caliper/Brakes">
-            <h2>Coin Car/Mobil Koin + Caliper/Brakes</h2>
-            <p>Harga Rp 7.000,- Rupiah/Mobil</p>
-            <p class="note">Pilih Salah Satu Caliper/Brakes</p>
-            <a href="order.html?service=Coin%20Car/Mobil%20Koin%20+%20Caliper/Brakes%Cpm2">
-                <button>Pesan</button>
-            </a>
-        </div>
-
-        <div class="service-card">
-            <img src="Error.png" alt="Paket Car Coin/Mobil Koin">
-            <h2>Paket Car Coin/Mobil Koin</h2>
-            <p>Harga Rp 15.000,- Rupiah/Mobil</p>
-            <p class="note">Paket meliputi Mobil+Paint+Bodykit+Caliper+Brakes</p>
-            <a href="order.html?service=Paket%20Car%20Coin/Mobil%20Coin%Cpm2">
-                <button>Pesan</button>
             </a>
         </div>
 

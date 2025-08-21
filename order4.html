@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order - Akino Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 2rem;
+    }
+    .order-form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .order-form h1 { margin-top: 0; }
+    .order-form label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    .order-form input, .order-form select {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .order-form button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .order-form button:hover { background-color: #218838; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="order-form">
+      <h1>Order Layanan</h1>
+      <form id="order-form">
+        <input type="hidden" id="selected-service" name="selected-service" value="Car Parking Multiplayer">
+
+        <label for="emailcpm1">Email Akun CPM 1 :</label>
+        <input type="email" id="emailcpm1" name="emailcpm1">
+        <label for="pwcpm1">Password CPM 1 :</label>
+        <input type="password" id="pwcpm1" name="pwcpm1">
+
+        <label for="emailcpm2">Email Akun CPM 2 :</label>
+        <input type="email" id="emailcpm2" name="emailcpm2">
+        <label for="pwcpm2">Password CPM 2 :</label>
+        <input type="password" id="pwcpm2" name="pwcpm2">
+
+        <p><strong>⚠️ Pastikan Sign Out Sebelum Proses !!</strong></p>
+
+        <label for="payment">Pembayaran:</label>
+        <select id="payment" name="payment">
+          <option value="Dana">Dana</option>
+          <option value="Qris all pay">Qris all pay</option>
+        </select>
+
+        <button type="button" onclick="submitOrder()">Kirim Pesanan</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function submitOrder() {
+      const selectedService = document.getElementById('selected-service').value;
+      const emailcpm1 = document.getElementById('emailcpm1').value;
+      const pwcpm1 = document.getElementById('pwcpm1').value;
+      const emailcpm2 = document.getElementById('emailcpm2').value;
+      const pwcpm2 = document.getElementById('pwcpm2').value;
+      const paymentMethod = document.getElementById('payment').value;
+
+      let message = `Order Layanan: ${selectedService}\n\n` +
+                    `CPM 1:\nEmail: ${emailcpm1}\nPassword: ${pwcpm1}\n\n` +
+                    `CPM 2:\nEmail: ${emailcpm2}\nPassword: ${pwcpm2}\n\n` +
+                    `⚠️ Pastikan Sign Out Sebelum Proses !!\n\n` +
+                    `Pembayaran: ${paymentMethod}`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://api.whatsapp.com/send?phone=6289687163314&text=${encodedMessage}`;
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+</body>
+</html>
