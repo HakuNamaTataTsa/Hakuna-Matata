@@ -574,162 +574,211 @@
             </a>
         </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kolom Komentar</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-    }
-    .comment-section {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .comment-section h1 {
-      text-align: center;
-      color: #333;
-    }
-    .comment-form {
-      display: flex;
-      flex-direction: column;
-    }
-    .comment-form label {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .comment-form input, .comment-form textarea {
-      margin-bottom: 10px;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    .comment-form button {
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .comment-form button:hover {
-      background-color: #0056b3;
-    }
-    .comments {
-      margin-top: 20px;
-    }
-    .comment {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: #f9f9f9;
-      margin-bottom: 10px;
-    }
-    .comment strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-    .comment small {
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <div class="comment-section">
-    <h1>Kolom Komentar</h1>
-    <form id="commentForm" class="comment-form">
-      <label for="name">Nama:</label>
-      <input type="text" id="name" placeholder="Nama Anda" required>
-      <label for="comment">Komentar:</label>
-      <textarea id="comment" rows="4" placeholder="Tulis komentar di sini..." required></textarea>
-      <button type="submit">Kirim Komentar</button>
-    </form>
-    <div id="comments" class="comments">
-      <!-- Komentar akan muncul di sini -->
-    </div>
-  </div>
-
-  <script type="module">
-    // Import Firebase SDK
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-      authDomain: "akinowedding-73271.firebaseapp.com",
-      projectId: "akinowedding-73271",
-      storageBucket: "akinowedding-73271.appspot.com",
-      messagingSenderId: "307666594440",
-      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d",
-      measurementId: "G-HL4YHXR22B"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Form submission to Firestore
-    document.getElementById('commentForm').addEventListener('submit', async (event) => {
-      event.preventDefault();  // Prevent form from refreshing the page
-      const name = document.getElementById('name').value;
-      const comment = document.getElementById('comment').value;
-
-      try {
-        // Add comment to the 'akinoweb' collection with 'name' and 'message' fields
-        await addDoc(collection(db, "akinoweb"), {
-          name: name,
-          message: comment,
-          timestamp: new Date()
-        });
-
-        // Clear the form fields
-        document.getElementById('name').value = '';
-        document.getElementById('comment').value = '';
-
-        // Display updated comments
-        displayComments();
-
-        alert("Komentar berhasil dikirim!");
-      } catch (error) {
-        console.error("Error adding document: ", error);
-        alert("Gagal mengirim komentar: " + error.message);  // Tambahkan pesan kesalahan untuk debugging
-      }
-    });
-
-    // Function to display comments from Firestore
-    async function displayComments() {
-      const querySnapshot = await getDocs(collection(db, "akinoweb"));
-      const commentsList = document.getElementById('comments');
-      commentsList.innerHTML = '';  // Clear the comment list
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        commentsList.innerHTML += `
-          <div class="comment">
-            <strong>${data.name}</strong>
-            <p>${data.message}</p>
-            <small>${data.timestamp.toDate().toLocaleString()}</small>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Kolom Komentar</title>
+          <style>
+            .guest-book {
+              max-width: 800px;
+              margin: 20px auto;
+              padding: 20px;
+              background: #ffffff;
+              border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        
+            .guest-book h1 {
+              text-align: center;
+              color: #333;
+            }
+        
+            .guest-book form {
+              display: flex;
+              flex-direction: column;
+            }
+        
+            .guest-book label {
+              margin-bottom: 5px;
+              font-weight: bold;
+            }
+        
+            .guest-book input, .guest-book textarea {
+              margin-bottom: 10px;
+              padding: 10px;
+              font-size: 16px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+            }
+        
+            .guest-book button {
+              padding: 10px;
+              background-color: #007bff;
+              color: #fff;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+        
+            .guest-book button:hover {
+              background-color: #0056b3;
+            }
+        
+            .messages {
+              margin-top: 20px;
+              max-height: 400px; /* supaya bisa scroll */
+              overflow-y: auto;
+              -webkit-overflow-scrolling: touch; /* biar smooth di HP */
+            }
+        
+            .message {
+              padding: 10px;
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              background: #ffffff;
+              margin-bottom: 10px;
+            }
+        
+            .message strong {
+              display: block;
+              margin-bottom: 5px;
+            }
+        
+            .message small {
+              color: #666;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="guest-book">
+            <h1>Kolom Komentar</h1>
+            <form id="messageForm">
+              <label for="name">Nama:</label>
+              <input type="text" id="name" required>
+              <label for="message">Komentar:</label>
+              <textarea id="message" rows="4" required></textarea>
+              <button type="submit">Kirim Komentar</button>
+            </form>
+            <div id="messages" class="messages">
+              <!-- Komentar akan muncul di sini -->
+            </div>
           </div>
-        `;
-      });
-    }
-
-    // Display comments when page loads
-    window.onload = function() {
-      displayComments();
-    };
-  </script>
-</body>
-</html>
+        
+          <script type="module">
+            // Import Firebase
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+            import { 
+              getFirestore, collection, addDoc, query, orderBy, limit, 
+              serverTimestamp, onSnapshot, startAfter, getDocs 
+            } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+        
+            // Konfigurasi Firebase
+            const firebaseConfig = {
+              apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+              authDomain: "akinowedding-73271.firebaseapp.com",
+              projectId: "akinowedding-73271",
+              storageBucket: "akinowedding-73271.appspot.com",
+              messagingSenderId: "307666594440",
+              appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+            };
+        
+            // Inisialisasi
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+        
+            const form = document.getElementById('messageForm');
+            const messagesDiv = document.getElementById('messages');
+        
+            let lastVisible = null;
+            let loading = false;
+        
+            // Tambah komentar baru
+            form.addEventListener('submit', async (event) => {
+              event.preventDefault();
+              const name = document.getElementById('name').value.trim();
+              const message = document.getElementById('message').value.trim();
+        
+              if (name && message) {
+                await addDoc(collection(db, "messages"), {
+                  name,
+                  message,
+                  timestamp: serverTimestamp()
+                });
+                form.reset();
+              }
+            });
+        
+            // Load 10 komentar pertama (terbaru di atas, realtime)
+            function loadInitialMessages() {
+              const q = query(
+                collection(db, "messages"),
+                orderBy("timestamp", "desc"),
+                limit(10)
+              );
+        
+              onSnapshot(q, (snapshot) => {
+                messagesDiv.innerHTML = "";
+                snapshot.forEach((doc) => {
+                  renderMessage(doc.data());
+                });
+        
+                // auto scroll ke atas setelah render
+                messagesDiv.scrollTop = 0;
+        
+                if (snapshot.docs.length > 0) {
+                  lastVisible = snapshot.docs[snapshot.docs.length - 1];
+                }
+              });
+            }
+        
+            // Scroll untuk load komentar lama
+            messagesDiv.addEventListener("scroll", async () => {
+              if (loading) return;
+              if (messagesDiv.scrollTop + messagesDiv.clientHeight >= messagesDiv.scrollHeight - 10) {
+                loading = true;
+                if (lastVisible) {
+                  const nextQ = query(
+                    collection(db, "messages"),
+                    orderBy("timestamp", "desc"),
+                    startAfter(lastVisible),
+                    limit(10)
+                  );
+                  const nextSnap = await getDocs(nextQ);
+                  nextSnap.forEach((doc) => {
+                    renderMessage(doc.data(), true);
+                  });
+                  if (nextSnap.docs.length > 0) {
+                    lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
+                  }
+                }
+                loading = false;
+              }
+            });
+        
+            // Render satu komentar
+            function renderMessage(data, appendBottom = true) {
+              const div = document.createElement("div");
+              div.className = "message";
+              div.innerHTML = `
+                <strong>${data.name}</strong>
+                <p>${data.message}</p>
+                <small>${data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : ""}</small>
+              `;
+        
+              if (appendBottom) {
+                messagesDiv.appendChild(div);
+              } else {
+                messagesDiv.prepend(div);
+              }
+            }
+        
+            // Panggil pertama kali
+            loadInitialMessages();
+          </script>
+        </body>
+        </html>
 
 </html>
 
