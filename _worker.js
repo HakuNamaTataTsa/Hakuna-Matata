@@ -1,15 +1,7 @@
 export default {
   async fetch(request) {
     const url = new URL(request.url);
-    
-    // Hanya proxy request yang ada query parameter (panggilan API)
-    // File statis seperti /SosialMedia.html TIDAK punya query parameter
-    // jadi akan dilempar (return undefined = fallback ke file statis)
-    if (!url.search) {
-      return;
-    }
-
-    const targetUrl = 'https://jasmediaone.id/api' + url.pathname + url.search;
+    const targetUrl = 'https://jasmediaone.id/api' + url.pathname.replace('/api', '') + url.search;
 
     if (request.method === 'OPTIONS') {
       return new Response(null, {
