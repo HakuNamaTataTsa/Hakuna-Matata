@@ -1,407 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order - Akino Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 2rem;
-        }
-
-        .order-form {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .order-form h1 {
-            margin-top: 0;
-        }
-
-        .order-form label {
-            display: block;
-            margin: 1rem 0 0.5rem;
-        }
-
-        .order-form input, .order-form textarea, .order-form select {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .order-form button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .order-form button:hover {
-            background-color: #218838;
-        }
-
-        .note {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-
-        .note strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index - Akino Store</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 1rem;
-        }
-
-        .navbar .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: block;
-        }
-
-        .nav-links a:hover {
-            background-color: #575757;
-            border-radius: 4px;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #333;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 150px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .dropdown-menu li {
-            border-bottom: 1px solid #444;
-        }
-
-        .dropdown-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a {
-            padding: 0.5rem;
-            color: #fff;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #575757;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                display: none;
-                width: 100%;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links .dropdown-menu {
-                position: static;
-            }
-
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                padding: 1rem;
-            }
-
-            .menu-toggle {
-                display: block;
-                background-color: #333;
-                color: #fff;
-                border: none;
-                padding: 0.5rem 1rem;
-                cursor: pointer;
-                font-size: 1rem;
-            }
-
-            .menu-toggle:hover {
-                background-color: #575757;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Sosial Media - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
+    .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;font-weight:500;transition:all .25s}
+    .nav-links a:hover{color:var(--fg);background:var(--bg-card)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
+    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
+    .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
+    .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center}
+    @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .page-hero{padding:7rem 2rem 2rem;text-align:center}
+    .page-hero h1{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:.4rem}
+    .page-hero p{color:var(--muted);font-size:.95rem}
+    .form-wrap{max-width:560px;margin:2rem auto;padding:0 2rem 4rem}
+    .order-form{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
+    .order-form label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:.35rem;margin-top:1.25rem}
+    .order-form label:first-child{margin-top:0}
+    .order-form select,.order-form input[type="text"],.order-form input[type="number"]{width:100%;padding:.7rem 1rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .2s;appearance:auto}
+    .order-form select:focus,.order-form input:focus{border-color:var(--accent)}
+    .order-form select option{background:#15151f;color:var(--fg)}
+    .btn-submit{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;margin-top:1.5rem;background:var(--accent);color:#0a0a0f;border:none;border-radius:12px;font-family:var(--font-body);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .25s}
+    .btn-submit:hover{box-shadow:0 4px 20px rgba(255,221,87,.3);transform:translateY(-2px)}
+    .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+    @media(max-width:768px){.navbar{padding:.75rem 1rem}.menu-toggle{display:flex}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}.nav-links.active{display:flex}.dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}.form-wrap{padding:0 1.25rem 3rem}}
+  </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-            </div>
-            <button class="menu-toggle">☰</button>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li class="dropdown">
-                    <a href="#">Service</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-                        <li><a href="CarParkingMultiplayer2.html">Car Parking Multiplayer 2</a></li>
-                        <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
-                        <li><a href="designedit.html">Design/Edit Foto</a></li>
-                </li>
-                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <!-- Content of the main page -->
-    </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">Akino Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          
+          <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+          <li><a href="designedit.html">Design / Edit Foto</a></li>
+        </ul>
+      </li>
+      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+    </ul>
+  </nav>
 
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-        });
-    </script>
-</body><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order - Akino Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+  <section class="page-hero">
+    <h1>Order Sosial Media</h1>
+    <p>Like/View TikTok & Instagram</p>
+  </section>
 
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 2rem;
-        }
+  <div class="form-wrap">
+    <div class="order-form">
+      <input type="hidden" id="selected-service" value="">
 
-        .order-form {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
+      <label for="service-type">Pilih Layanan</label>
+      <select id="service-type">
+        <option value="">-- Harap Pilih --</option>
+        <option value="View">View</option>
+        <option value="Like">Like</option>
+      </select>
 
-        .order-form h1 {
-            margin-top: 0;
-        }
+      <label for="sosmed-type">Pilih Sosial Media</label>
+      <select id="sosmed-type">
+        <option value="">-- Harap Pilih --</option>
+        <option value="TikTok">TikTok</option>
+        <option value="Instagram">Instagram</option>
+      </select>
 
-        .order-form label {
-            display: block;
-            margin: 1rem 0 0.5rem;
-        }
+      <label for="quantity">Jumlah Pesanan</label>
+      <input type="number" id="quantity" min="1" placeholder="Contoh: 1000">
 
-        .order-form input, .order-form textarea, .order-form select {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+      <label for="link">Paste Link yang akan di Suntik</label>
+      <input type="text" id="link" placeholder="https://www.tiktok.com/...">
 
-        .order-form button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+      <label for="payment">Pembayaran</label>
+      <select id="payment">
+        <option value="Dana">Dana</option>
+        <option value="Qris all pay">Qris All Pay</option>
+      </select>
 
-        .order-form button:hover {
-            background-color: #218838;
-        }
-
-        .note {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-
-        .note strong {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="order-form">
-            <h1>Order Layanan Sosial Media</h1>
-            <form id="order-form">
-                <!-- Layanan yang dipilih dari halaman utama -->
-                <input type="hidden" id="selected-service" name="selected-service" value="">
-
-                <!-- Pilihan Layanan -->
-                <label for="service-type">Pilih Layanan:</label>
-                <select id="service-type" name="service-type">
-                    <option value="--Harap Pilih--">--Harap Pilih--</option>
-                    <option value="View">View</option>
-                    <option value="Like">Like</option>
-                </select>
-
-                 <!-- Pilihan Sosmed -->
-                 <label for="email-type">Pilih Sosial Media :</label>
-                 <select id="email-type" name="email-type">
-                    <option value="--Harap Pilih--">--Harap Pilih--</option>
-                     <option value="TIktok">Tiktok</option>
-                     <option value="Instagram">Instagram</option>
-                 </select>
-
-                <!-- Kolom Jumlah Pesanan -->
-                <label for="quantity">Jumlah Pesanan :</label>
-                <input type="number" id="quantity" name="quantity" min="1">
-
-                <!-- Kolom Username Sosial Media -->
-                <label for="username">Pastekan Link yang akan di Suntik :</label>
-                <input type="text" id="username" name="username">
-
-                <label for="payment">Pembayaran:</label>
-                <select id="payment" name="payment">
-                    <option value="Dana">Dana</option>
-                    <option value="Qris all pay">Qris all pay</option>
-                </select>
-
-                <button type="button" id="submit-button" onclick="submitOrder()">Kirim Pesanan</button>
-            </form>
-        </div>
+      <button type="button" class="btn-submit" onclick="submitOrder()">
+        <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
+      </button>
     </div>
+  </div>
 
-    <script>
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('service');
-        }
+  <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
-        function initializeForm() {
-            const selectedService = getQueryParams();
-            
-            if (selectedService) {
-                document.getElementById('selected-service').value = selectedService;
-            }
-        }
+  <script>
+    document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('active'));
+    const s=new URLSearchParams(window.location.search).get('service');
+    if(s) document.getElementById('selected-service').value=s;
 
-        function submitOrder() {
-            const selectedService = document.getElementById('selected-service').value;
-            const serviceType = document.getElementById('service-type').value;
-            const emailType = document.getElementById('email-type').value;
-            const quantity = document.getElementById('quantity').value;
-            const username = document.getElementById('username').value;
-            const paymentMethod = document.getElementById('payment').value;
-
-            let message = `Order Layanan: ${selectedService}\nSuntik: ${serviceType}\nSosial Media: ${emailType}\nJumlah: ${quantity}\nLink yang akan di Suntik : ${username}\nPembayaran: ${paymentMethod}`;
-
-            // Encode the message for use in URL
-            const encodedMessage = encodeURIComponent(message);
-
-            // Direct to WhatsApp
-            const whatsappURL = `https://api.whatsapp.com/send?phone=6289687163314&text=${encodedMessage}`;
-            window.open(whatsappURL, '_blank');
-        }
-
-        // Initialize the form on page load
-        document.addEventListener('DOMContentLoaded', initializeForm);
-    </script>
+    function submitOrder(){
+      const svc=document.getElementById('selected-service').value;
+      const type=document.getElementById('service-type').value;
+      const sosmed=document.getElementById('sosmed-type').value;
+      const qty=document.getElementById('quantity').value;
+      const link=document.getElementById('link').value;
+      const pay=document.getElementById('payment').value;
+      const msg=`Order Layanan: ${svc}\nSuntik: ${type}\nSosial Media: ${sosmed}\nJumlah: ${qty}\nLink: ${link}\nPembayaran: ${pay}`;
+      window.open(`https://api.whatsapp.com/send?phone=6289687163314&text=${encodeURIComponent(msg)}`,'_blank');
+    }
+  </script>
 </body>
 </html>

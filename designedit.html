@@ -1,768 +1,578 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta name="msapplication-TileImage" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
-<meta property="og:site_name" content="Cloudinary">
-<meta property="og:title" content="AkinoCh/Akino Store">
-<meta property="og:description" content="Car Parking Multiplayer">
-<meta property="og:image" itemprop="image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
-<meta property="og:type" content="website" />
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="300">
-<meta property="og:image:height" content="300">
-<meta property="og:url">
-<content="https://akinocpm.my.id/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AkinoCh</title>
-    <link rel=".png" href="gg~2.png" type="image/x-.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Akino Store - Design & Edit Foto">
+  <meta property="og:description" content="Jasa desain logo dan edit foto profesional">
+  <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+  <meta property="og:type" content="website">
+  <title>Design / Edit Foto - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;
+      --muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);
+      --border:rgba(255,255,255,0.07);--radius:16px;
+      --font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+    ::selection{background:var(--accent);color:#000}
+
+    /* ── Navbar ── */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
+    .navbar.scrolled{background:rgba(7,7,13,.92)}
+    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
+    .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;font-weight:500;transition:all .25s}
+    .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
+    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
+    .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
+    .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center}
+    @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+    /* ── Page Hero ── */
+    .page-hero{padding:7rem 2rem 2rem;text-align:center;position:relative}
+    .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent)}
+    .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.5rem}
+    .page-hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto;line-height:1.6}
+
+    /* ── Slider ── */
+    .slider-wrap{max-width:900px;margin:2rem auto;padding:0 2rem}
+    .slider{position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid var(--border)}
+    .slides{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+    .slide{min-width:100%}.slide img{width:100%;display:block}
+    .slider-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1rem}
+    .slider-dots span{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s}
+    .slider-dots span.active{background:var(--accent);width:24px;border-radius:4px}
+
+    /* ── Section ── */
+    .sec{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+    .sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem}
+    .sec-label::before{content:'';width:18px;height:1px;background:var(--accent)}
+    .sec-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem;line-height:1.15}
+    .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7;max-width:480px}
+    .sec-header{margin-bottom:2.5rem}
+    .sec-header.center{text-align:center}
+    .sec-header.center .sec-desc{margin:0 auto}
+
+    .sec-divider{max-width:1100px;margin:0 auto;padding:0 2rem}
+    .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+    /* ── Services Grid ── */
+    .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .srv-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem 1.5rem;transition:all .35s;position:relative;overflow:hidden}
+    .srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .35s}
+    .srv-card:hover{border-color:rgba(255,221,87,.2);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+    .srv-card:hover::before{opacity:1}
+    .srv-icon{width:46px;height:46px;border-radius:12px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--accent);margin-bottom:1.1rem}
+    .srv-card h3{font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:.4rem}
+    .srv-card p{font-size:.82rem;color:var(--muted);line-height:1.6}
+    .srv-card .file-note{display:inline-block;margin-top:.75rem;font-size:.72rem;color:var(--accent);padding:.2rem .6rem;border-radius:50px;background:var(--accent-dim);border:1px solid rgba(255,221,87,.15)}
+    .srv-price{display:inline-block;margin-top:.6rem;font-family:var(--font-display);font-size:.82rem;font-weight:600;color:var(--accent);padding:.25rem .7rem;border-radius:50px;background:var(--accent-dim)}
+
+    /* ── Portfolio Grid + Filter ── */
+    .pf-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .pf-btn{padding:.4rem 1rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .25s}
+    .pf-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
+    .pf-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+    .pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .pf-item{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);aspect-ratio:1;cursor:pointer;transition:all .35s}
+    .pf-item:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4);border-color:rgba(255,221,87,.2)}
+    .pf-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+    .pf-item:hover img{transform:scale(1.08)}
+    .pf-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(7,7,13,.9) 0%,rgba(7,7,13,.1) 50%,transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;opacity:0;transition:opacity .35s}
+    .pf-item:hover .pf-overlay{opacity:1}
+    .pf-overlay h4{font-family:var(--font-display);font-size:.92rem;font-weight:600}
+    .pf-overlay span{font-size:.7rem;color:var(--accent);font-weight:500;margin-top:.2rem}
+
+    /* ── Process ── */
+    .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative}
+    .proc-grid::before{content:'';position:absolute;top:34px;left:60px;right:60px;height:1px;background:var(--border)}
+    .proc-step{text-align:center;position:relative;z-index:1}
+    .proc-num{width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--accent);margin:0 auto .9rem;transition:all .35s}
+    .proc-step:hover .proc-num{background:var(--accent);color:#0a0a0f;border-color:var(--accent);box-shadow:0 0 20px rgba(255,221,87,.3)}
+    .proc-step h4{font-family:var(--font-display);font-size:.9rem;font-weight:600;margin-bottom:.3rem}
+    .proc-step p{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+    /* ── Pricing ── */
+    .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;transition:all .35s;position:relative}
+    .price-card.feat{border-color:var(--accent);background:linear-gradient(to bottom,rgba(255,221,87,.04),transparent 60%)}
+    .price-card.feat::before{content:'Populer';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:.2rem .9rem;border-radius:50px;background:var(--accent);color:#0a0a0f;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+    .price-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+    .price-card h3{font-family:var(--font-display);font-size:1.05rem;font-weight:600;margin-bottom:.4rem}
+    .price-card .amt{font-family:var(--font-display);font-size:2.1rem;font-weight:700;color:var(--accent);margin:.8rem 0}
+    .price-card .amt small{font-size:.82rem;font-weight:400;color:var(--muted)}
+    .price-features{list-style:none;text-align:left;margin-bottom:1.5rem}
+    .price-features li{font-size:.8rem;color:var(--fg-dim,#c0c0d0);padding:.35rem 0;display:flex;align-items:center;gap:.5rem}
+    .price-features li i{color:var(--accent);font-size:.65rem;flex-shrink:0}
+    .price-features li.off{color:var(--muted);text-decoration:line-through}
+    .price-features li.off i{color:var(--muted)}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.85rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .35s}
+    .btn-primary{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 20px rgba(255,221,87,.2)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,221,87,.35)}
+    .btn-ghost{background:transparent;color:var(--fg);border:1px solid var(--border)}
+    .btn-ghost:hover{border-color:rgba(255,221,87,.2);color:var(--accent);background:var(--accent-dim)}
+
+    /* ── Guestbook ── */
+    .gb-wrap{max-width:700px;margin:0 auto}
+    .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
+    .gb-hdr{text-align:center;margin-bottom:1.5rem}
+    .gb-hdr h2{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:.3rem}
+    .gb-hdr p{font-size:.8rem;color:var(--muted)}
+    .gb label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
+    .gb input,.gb textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s;margin-bottom:1rem}
+    .gb input:focus,.gb textarea:focus{border-color:var(--accent)}
+    .gb textarea{resize:vertical;min-height:76px}
+    .gb-submit{padding:.65rem 1.4rem;background:var(--accent);color:#0a0a0f;border:none;border-radius:var(--radius-sm);font-weight:600;font-family:var(--font-body);font-size:.84rem;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
+    .gb-submit:hover{box-shadow:0 4px 18px rgba(255,221,87,.3);transform:translateY(-1px)}
+    .gb-msgs{margin-top:1.5rem;max-height:380px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+    .gb-msg{padding:.9rem;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.7rem;transition:border-color .25s}
+    .gb-msg:hover{border-color:rgba(255,255,255,.1)}
+    .gb-msg strong{display:block;font-size:.85rem;margin-bottom:.2rem}
+    .gb-msg p{font-size:.82rem;color:var(--fg-dim,#c0c0d0);line-height:1.5}
+    .gb-msg small{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:.25rem;display:block}
+
+    /* ── CTA ── */
+    .cta-box{max-width:750px;margin:0 auto;padding:3rem 2rem;border-radius:var(--radius);background:linear-gradient(135deg,rgba(255,221,87,.06),rgba(120,80,255,.03));border:1px solid rgba(255,221,87,.12);text-align:center;position:relative;overflow:hidden}
+    .cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(255,221,87,.06),transparent 70%)}
+    .cta-box h2{font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.6rem;position:relative}
+    .cta-box p{color:var(--muted);font-size:.95rem;margin-bottom:1.5rem;position:relative}
+
+    /* ── Social ── */
+    .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
+    .social-row a{width:42px;height:42px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:all .3s;text-decoration:none}
+    .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
+
+    /* ── Footer ── */
+    .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+
+    /* ── Lightbox ── */
+    .lightbox{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);align-items:center;justify-content:center;padding:2rem}
+    .lightbox.active{display:flex;animation:fadeIn .25s ease}
+    .lightbox img{max-width:90vw;max-height:85vh;border-radius:var(--radius);object-fit:contain;box-shadow:0 40px 80px rgba(0,0,0,.5)}
+    .lb-close{position:absolute;top:1.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+    .lb-close:hover{background:rgba(255,255,255,.15)}
+
+    /* ── Scroll Reveal ── */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── Responsive ── */
+    @media(max-width:1024px){
+      .srv-grid{grid-template-columns:repeat(2,1fr)}
+      .pf-grid{grid-template-columns:repeat(2,1fr)}
+      .proc-grid{grid-template-columns:repeat(2,1fr);gap:2rem}
+      .proc-grid::before{display:none}
+      .price-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      .navbar{padding:.75rem 1rem}
+      .menu-toggle{display:flex}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
+      .nav-links.active{display:flex}
+      .dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}
+      .srv-grid{grid-template-columns:1fr}
+      .pf-grid{grid-template-columns:1fr 1fr}
+      .price-grid{grid-template-columns:1fr}
+      .cta-box{padding:2rem 1.25rem}
+    }
+    @media(max-width:480px){
+      .pf-grid{grid-template-columns:1fr}
+      .proc-grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <!-- Konten situs web Anda -->
-</body>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulasan</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AkinoCh Music</title>
-    <style>
-    .service-card .order-button {
-            display: inline-block;
-            padding: 10px 30px;
-            margin: 15px 0;
-            background-color: #218838;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: bold;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card .order-button:hover {
-            background-color: #218838;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .music-section {
-            background-color: #f4f4f4;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
 
-        .music-section h2 {
-            text-align: center;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .playlist-slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            gap: 1rem;
-            padding: 1rem 0;
-        }
-
-        .playlist-item {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .playlist-item img {
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .playlist-item span {
-            display: block;
-            margin-top: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .video-player {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .video-player iframe {
-            width: 100%;
-            max-width: 600px;
-            height: 350px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        /* Navigation buttons for slider */
-        .slider-btn {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .slider-btn:hover {
-            background-color: #555;
-        }
-
-        .slider-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akino Store - Jasa Game Car Parking Multiplayer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 1.5rem;
-        }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            padding: 2rem 0;
-        }
-
-        .logo {
-            max-width: 200px;
-            margin: 1rem auto;
-        }
-
-        .slider {
-            position: relative;
-            max-width: 100%;
-            margin: 1rem auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .slides {
-            display: flex;
-            transition: transform 5s ease;
-            width: 100%; /* Adjust based on number of slides */
-        }
-
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-        }
-
-        .slide img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .service-card {
-            background-color: #fff;
-            margin: 1rem 0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-        }
-
-        .service-card h2 {
-            margin: 0.5rem 0;
-            color: #333;
-        }
-
-        .service-card p {
-            margin: 0.5rem 0;
-            font-size: 1.1rem;
-        }
-
-        .service-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .service-card button {
-            margin-top: 10px;
-            padding: 12px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .service-card button:hover {
-            background-color: #218838;
-        }
-
-        .social-media {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .social-media a {
-            margin: 0 15px;
-            display: inline-block;
-        }
-
-        .social-media img {
-            width: 40px;
-            height: 40px;
-            transition: transform 0.3s ease;
-        }
-
-        .social-media img:hover {
-            transform: scale(1.1);
-        }
-
-        .footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-
-        .highlight {
-            background-color: #fff8e1;
-            padding: 1rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .highlight h2 {
-            margin-top: 0;
-            color: #f57c00;
-        }
-
-        .highlight p {
-            font-size: 1.2rem;
-        }
-
-        .note {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #e74c3c;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 1rem 0;
-            }
-
-            .service-card {
-                padding: 1rem;
-            }
-
-            .social-media img {
-                width: 35px;
-                height: 35px;
-            }
-        }
-    </style>
-</head>
-<body>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index - Akino Store</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 1rem;
-        }
-
-        .navbar .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: block;
-        }
-
-        .nav-links a:hover {
-            background-color: #575757;
-            border-radius: 4px;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #333;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 150px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .dropdown-menu li {
-            border-bottom: 1px solid #444;
-        }
-
-        .dropdown-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a {
-            padding: 0.5rem;
-            color: #fff;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #575757;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                display: none;
-                width: 100%;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links .dropdown-menu {
-                position: static;
-            }
-
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                padding: 1rem;
-            }
-
-            .menu-toggle {
-                display: block;
-                background-color: #333;
-                color: #fff;
-                border: none;
-                padding: 0.5rem 1rem;
-                cursor: pointer;
-                font-size: 1rem;
-            }
-
-            .menu-toggle:hover {
-                background-color: #575757;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-            </div>
-            <button class="menu-toggle">☰</button>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li class="dropdown">
-                    <a href="#">Service</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-                        <li><a href="CarParkingMultiplayer2.html">Car Parking Multiplayer 2</a></li>
-                        <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
-                        <li><a href="designedit.html">Design/Edit Foto</a></li>
-                </li>
-                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <!-- Content of the main page -->
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-        });
-    </script>
-</body>
-</html>
-    <header>
-        <h1>Akino Store</h1>
-    </header>
-
-    <div class="container">
-        <!-- Slider -->
-        <div class="slider">
-            <div class="slides">
-                <div class="slide">
-                    <img src="1.png" alt="Slide 1">
-                </div>
-                <div class="slide">
-                    <img src="2.png" alt="Slide 2">
-                </div>
-                <div class="slide">
-                    <img src="3.png" alt="Slide 3">
-                </div>
-            </div>
-        </div>
-
-        <!-- Highlight Section -->
-        <div class="highlight">
-            <h2>Selamat Datang di Akino Store!</h2>
-            <p>Kami menyediakan berbagai layanan untuk meningkatkan pengalaman bermain Game dan Sosial Media Anda. Jelajahi layanan kami dan pesan sesuai kebutuhan Anda!</p>
-        </div>
-       
-</body>
-    <header>
-        <h1>Akino Store - Layanan Design/Edit Foto</h1>
-    </header>
-
-    <main>
-        <!-- Layanan Sosial Media TikTok -->
-        <div class="service-card">
-            <img src="Poster Akino.jpg" alt="Layanan Sosial Media TikTok"> <!-- Ganti dengan gambar asli -->
-            <h2>Design/Edit Foto</h2>
-            <p class="price">Mulai dari Rp. 5.000,-</p>
-            <p class="note">NOTE : Pilih jenis jasa di kolom pesan</p>
-            <a href="order3.html?service=Design/Editi%20Foto" class="order-button">Pesan Sekarang</a>
-        </div>
-    </main>
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Kolom Komentar</title>
-      <style>
-        .guest-book {
-          max-width: 800px;
-          margin: 20px auto;
-          padding: 20px;
-          background: #ffffff;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    
-        .guest-book h1 {
-          text-align: center;
-          color: #333;
-        }
-    
-        .guest-book form {
-          display: flex;
-          flex-direction: column;
-        }
-    
-        .guest-book label {
-          margin-bottom: 5px;
-          font-weight: bold;
-        }
-    
-        .guest-book input, .guest-book textarea {
-          margin-bottom: 10px;
-          padding: 10px;
-          font-size: 16px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
-    
-        .guest-book button {
-          padding: 10px;
-          background-color: #007bff;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-    
-        .guest-book button:hover {
-          background-color: #0056b3;
-        }
-    
-        .messages {
-          margin-top: 20px;
-          max-height: 400px; /* supaya bisa scroll */
-          overflow-y: auto;
-          -webkit-overflow-scrolling: touch; /* biar smooth di HP */
-        }
-    
-        .message {
-          padding: 10px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          background: #ffffff;
-          margin-bottom: 10px;
-        }
-    
-        .message strong {
-          display: block;
-          margin-bottom: 5px;
-        }
-    
-        .message small {
-          color: #666;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="guest-book">
-        <h1>Kolom Komentar</h1>
-        <form id="messageForm">
-          <label for="name">Nama:</label>
-          <input type="text" id="name" required>
-          <label for="message">Komentar:</label>
-          <textarea id="message" rows="4" required></textarea>
-          <button type="submit">Kirim Komentar</button>
-        </form>
-        <div id="messages" class="messages">
-          <!-- Komentar akan muncul di sini -->
-        </div>
+  <!-- ═══ Navbar ═══ -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">Akino Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          
+          <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+          <li><a href="designedit.html" style="color:var(--accent)">Design / Edit Foto</a></li>
+        </ul>
+      </li>
+      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="page-hero">
+    <h1>Design / <span style="color:var(--accent)">Edit Foto</span></h1>
+    <p>Desain logo, edit foto, poster, social media content — dengan file mentah PSD/CDR/EPS lengkap.</p>
+  </section>
+
+  <!-- ═══ Slider ═══ -->
+      <div class="slides" id="slides">
+  </div>
+
+  <!-- ═══ Layanan ═══ -->
+  <div class="sec-divider"><hr></div>
+  <section class="sec">
+    <div class="sec-header center reveal">
+      <div class="sec-label">Layanan</div>
+      <h2 class="sec-title">Apa yang Bisa Kami Bantu</h2>
+      <p class="sec-desc">Berbagai layanan desain dan editing untuk kebutuhan personal maupun bisnis kamu.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-fingerprint"></i></div>
+        <h3>Desain Logo</h3>
+        <p>Logo unik dan memorable yang merepresentasikan identitas brand kamu secara sempurna.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: CDR / EPS</span>
+        <span class="srv-price">Mulai Rp 50.000</span>
       </div>
-    
-      <script type="module">
-        // Import Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { 
-          getFirestore, collection, addDoc, query, orderBy, limit, 
-          serverTimestamp, onSnapshot, startAfter, getDocs 
-        } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    
-        // Konfigurasi Firebase
-        const firebaseConfig = {
-          apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-          authDomain: "akinowedding-73271.firebaseapp.com",
-          projectId: "akinowedding-73271",
-          storageBucket: "akinowedding-73271.appspot.com",
-          messagingSenderId: "307666594440",
-          appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
-        };
-    
-        // Inisialisasi
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-    
-        const form = document.getElementById('messageForm');
-        const messagesDiv = document.getElementById('messages');
-    
-        let lastVisible = null;
-        let loading = false;
-    
-        // Tambah komentar baru
-        form.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const name = document.getElementById('name').value.trim();
-          const message = document.getElementById('message').value.trim();
-    
-          if (name && message) {
-            await addDoc(collection(db, "messages"), {
-              name,
-              message,
-              timestamp: serverTimestamp()
-            });
-            form.reset();
-          }
-        });
-    
-        // Load 10 komentar pertama (terbaru di atas, realtime)
-        function loadInitialMessages() {
-          const q = query(
-            collection(db, "messages"),
-            orderBy("timestamp", "desc"),
-            limit(10)
-          );
-    
-          onSnapshot(q, (snapshot) => {
-            messagesDiv.innerHTML = "";
-            snapshot.forEach((doc) => {
-              renderMessage(doc.data());
-            });
-    
-            // auto scroll ke atas setelah render
-            messagesDiv.scrollTop = 0;
-    
-            if (snapshot.docs.length > 0) {
-              lastVisible = snapshot.docs[snapshot.docs.length - 1];
-            }
-          });
-        }
-    
-        // Scroll untuk load komentar lama
-        messagesDiv.addEventListener("scroll", async () => {
-          if (loading) return;
-          if (messagesDiv.scrollTop + messagesDiv.clientHeight >= messagesDiv.scrollHeight - 10) {
-            loading = true;
-            if (lastVisible) {
-              const nextQ = query(
-                collection(db, "messages"),
-                orderBy("timestamp", "desc"),
-                startAfter(lastVisible),
-                limit(10)
-              );
-              const nextSnap = await getDocs(nextQ);
-              nextSnap.forEach((doc) => {
-                renderMessage(doc.data(), true);
-              });
-              if (nextSnap.docs.length > 0) {
-                lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
-              }
-            }
-            loading = false;
-          }
-        });
-    
-        // Render satu komentar
-        function renderMessage(data, appendBottom = true) {
-          const div = document.createElement("div");
-          div.className = "message";
-          div.innerHTML = `
-            <strong>${data.name}</strong>
-            <p>${data.message}</p>
-            <small>${data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : ""}</small>
-          `;
-    
-          if (appendBottom) {
-            messagesDiv.appendChild(div);
-          } else {
-            messagesDiv.prepend(div);
-          }
-        }
-    
-        // Panggil pertama kali
-        loadInitialMessages();
-      </script>
-    </body>
-    </html>
- 
-</html>
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+        <h3>Edit Foto</h3>
+        <p>Retouching, color grading, background removal, dan manipulasi foto sesuai kebutuhan.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: PSD</span>
+        <span class="srv-price">Mulai Rp 10.000</span>
+      </div>
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-id-card"></i></div>
+        <h3>Brand Identity</h3>
+        <p>Paket lengkap identitas brand: logo, palet warna, tipografi, dan brand guidelines.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: CDR/EPS + PSD</span>
+        <span class="srv-price">Mulai Rp 200.000</span>
+      </div>
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-image"></i></div>
+        <h3>Poster & Banner</h3>
+        <p>Desain poster event, banner promosi, dan material marketing yang eye-catching.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: PSD / CDR</span>
+        <span class="srv-price">Mulai Rp 25.000</span>
+      </div>
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-th-large"></i></div>
+        <h3>Social Media Content</h3>
+        <p>Desain feed Instagram, carousel, story, dan konten media sosial lainnya.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: PSD</span>
+        <span class="srv-price">Mulai Rp 15.000</span>
+      </div>
+      <div class="srv-card reveal">
+        <div class="srv-icon"><i class="fas fa-file-image"></i></div>
+        <h3>Photo Manipulation</h3>
+        <p>Kreasi visual artistik dengan teknik manipulasi foto tingkat lanjut.</p>
+        <span class="file-note"><i class="fas fa-file-zipper"></i> File mentah: PSD</span>
+        <span class="srv-price">Mulai Rp 30.000</span>
+      </div>
+    </div>
+  </section>
 
-        <div class="social-media">
-            <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1">
-                <img src="20240911_125712_0000.png" alt="TikTok">
-            </a>
-            <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==">
-                <img src="20240911_125840_0000.png" alt="Instagram">
-            </a>
-            <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4">
-                <img src="20240911_125746_0000.png" alt="YouTube">
-            </a>
-        </div>
-
-        <footer class="footer">
-            <p>Copyright &copy; 2024 Akino Store. All rights reserved.</p>
-        </footer>
+  <!-- ═══ Portfolio ═══ -->
+  <div class="sec-divider"><hr></div>
+  <section class="sec">
+    <div class="sec-header center reveal">
+      <div class="sec-label">Portfolio</div>
+      <h2 class="sec-title">Karya Terbaru</h2>
+      <p class="sec-desc">Kumpulan hasil project terbaik yang telah kami kerjakan.</p>
     </div>
 
-    <script>
-         const slides = document.querySelector('.slides');
-        const totalSlides = document.querySelectorAll('.slide').length;
-        let slideIndex = 0;
+    <div class="pf-filters reveal">
+      <button class="pf-btn active" data-filter="all">Semua</button>
+      <button class="pf-btn" data-filter="logo">Logo</button>
+      <button class="pf-btn" data-filter="edit">Edit Foto</button>
+      <button class="pf-btn" data-filter="poster">Poster</button>
+      <button class="pf-btn" data-filter="social">Social Media</button>
+    </div>
 
-        function showSlide(index) {
-            const offset = -index * 100;
-            slides.style.transform = `translateX(${offset}%)`;
+    <div class="pf-grid" id="pfGrid">
+      <!--
+        GANTI: Ganti semua src di bawah dengan screenshot karya kamu sendiri.
+        data-category menentukan filter mana yang menampilkannya.
+      -->
+      <div class="pf-item reveal" data-category="logo" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-logo1/600/600" alt="Logo 1" loading="lazy">
+        <div class="pf-overlay"><h4>Brand Logo — Tech Startup</h4><span>Logo Design</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="edit" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-edit1/600/600" alt="Edit 1" loading="lazy">
+        <div class="pf-overlay"><h4>Portrait Retouching</h4><span>Photo Edit</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="poster" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-poster1/600/600" alt="Poster 1" loading="lazy">
+        <div class="pf-overlay"><h4>Event Poster — Music Fest</h4><span>Poster Design</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="logo" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-logo2/600/600" alt="Logo 2" loading="lazy">
+        <div class="pf-overlay"><h4>Logo — Coffee Shop</h4><span>Logo Design</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="social" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-social1/600/600" alt="Social 1" loading="lazy">
+        <div class="pf-overlay"><h4>Instagram Feed Bundle</h4><span>Social Media</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="edit" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-edit2/600/600" alt="Edit 2" loading="lazy">
+        <div class="pf-overlay"><h4>Product Photography Edit</h4><span>Photo Edit</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="poster" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-poster2/600/600" alt="Poster 2" loading="lazy">
+        <div class="pf-overlay"><h4>Promo Banner — E-Commerce</h4><span>Poster Design</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="logo" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-logo3/600/600" alt="Logo 3" loading="lazy">
+        <div class="pf-overlay"><h4>Logo — Fitness Brand</h4><span>Logo Design</span></div>
+      </div>
+      <div class="pf-item reveal" data-category="social" onclick="openLB(this)">
+        <img src="https://picsum.photos/seed/akino-social2/600/600" alt="Social 2" loading="lazy">
+        <div class="pf-overlay"><h4>Story Template Pack</h4><span>Social Media</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Proses Kerja ═══ -->
+  <div class="sec-divider"><hr></div>
+  <section class="sec">
+    <div class="sec-header center reveal">
+      <div class="sec-label">Proses</div>
+      <h2 class="sec-title">Bagaimana Kami Bekerja</h2>
+      <p class="sec-desc">Alur kerja simpel dan transparan agar kamu bisa pantau progres project.</p>
+    </div>
+    <div class="proc-grid">
+      <div class="proc-step reveal">
+        <div class="proc-num">01</div>
+        <h4>Konsultasi</h4>
+        <p>Diskusi kebutuhan, referensi, dan detail project melalui chat.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">02</div>
+        <h4>Sketsa & Konsep</h4>
+        <p>Membuat draft awal dan konsep desain untuk persetujuan kamu.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">03</div>
+        <h4>Revisi & Final</h4>
+        <p>Perbaikan berdasarkan feedback hingga hasil sesuai keinginan.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">04</div>
+        <h4>File Siap Pakai</h4>
+        <p>Kirim file final + file mentah (PSD/CDR/EPS) sesuai kebutuhan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Harga ═══ -->
+  <div class="sec-divider"><hr></div>
+  <section class="sec">
+    <div class="sec-header center reveal">
+      <div class="sec-label">Harga</div>
+      <h2 class="sec-title">Paket Harga</h2>
+      <p class="sec-desc">Pilih paket yang sesuai dengan kebutuhan dan budget kamu.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <h3>Starter</h3>
+        <p style="font-size:.8rem;color:var(--muted)">Cocok untuk kebutuhan sederhana</p>
+        <div class="amt">Rp 50K <small>/ project</small></div>
+        <ul class="price-features">
+          <li><i class="fas fa-check"></i> 1 konsep desain</li>
+          <li><i class="fas fa-check"></i> 2x revisi</li>
+          <li><i class="fas fa-check"></i> File PNG & JPG</li>
+          <li class="off"><i class="fas fa-xmark"></i> File mentah (PSD/CDR/EPS)</li>
+          <li class="off"><i class="fas fa-xmark"></i> Brand guidelines</li>
+        </ul>
+        <a href="https://wa.me/6289687163314?text=Halo,%20saya%20tertarik%20paket%20Starter%20Design" target="_blank" class="btn btn-ghost" style="width:100%;justify-content:center">Pilih Paket</a>
+      </div>
+      <div class="price-card feat reveal">
+        <h3>Professional</h3>
+        <p style="font-size:.8rem;color:var(--muted)">Paling banyak dipilih klien</p>
+        <div class="amt">Rp 150K <small>/ project</small></div>
+        <ul class="price-features">
+          <li><i class="fas fa-check"></i> 3 konsep desain</li>
+          <li><i class="fas fa-check"></i> 5x revisi</li>
+          <li><i class="fas fa-check"></i> File PNG, JPG, SVG</li>
+          <li><i class="fas fa-check"></i> File mentah PSD (foto) / CDR/EPS (design)</li>
+          <li class="off"><i class="fas fa-xmark"></i> Brand guidelines</li>
+        </ul>
+        <a href="https://wa.me/6289687163314?text=Halo,%20saya%20tertarik%20paket%20Professional%20Design" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center">Pilih Paket</a>
+      </div>
+      <div class="price-card reveal">
+        <h3>Premium</h3>
+        <p style="font-size:.8rem;color:var(--muted)">Untuk brand yang serius</p>
+        <div class="amt">Rp 350K <small>/ project</small></div>
+        <ul class="price-features">
+          <li><i class="fas fa-check"></i> Unlimited konsep</li>
+          <li><i class="fas fa-check"></i> Unlimited revisi</li>
+          <li><i class="fas fa-check"></i> Semua format file</li>
+          <li><i class="fas fa-check"></i> File mentah PSD/CDR/EPS lengkap</li>
+          <li><i class="fas fa-check"></i> Brand guidelines lengkap</li>
+        </ul>
+        <a href="https://wa.me/6289687163314?text=Halo,%20saya%20tertarik%20paket%20Premium%20Design" target="_blank" class="btn btn-ghost" style="width:100%;justify-content:center">Pilih Paket</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Komentar Klien (Firebase) ═══ -->
+  <div class="sec-divider"><hr></div>
+  <section class="sec">
+    <div class="gb-wrap reveal">
+      <div class="gb">
+        <div class="gb-hdr">
+          <div class="sec-label" style="justify-content:center">Testimoni</div>
+          <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Komentar Klien</h2>
+          <p>Tulis pengalaman kamu menggunakan jasa design kami</p>
+        </div>
+        <form class="gb" id="messageForm">
+          <label for="gb-name">Nama</label>
+          <input type="text" id="gb-name" required placeholder="Masukkan nama kamu">
+          <label for="gb-msg">Komentar</label>
+          <textarea id="gb-msg" rows="3" required placeholder="Tulis pengalaman kamu..."></textarea>
+          <button type="submit" class="gb-submit"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
+        </form>
+        <div id="gbMsgs" class="gb-msgs"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="sec" style="padding-top:0">
+    <div class="cta-box reveal">
+      <h2>Punya Project di Pikiran?</h2>
+      <p>Ceritakan ide kamu dan biarkan kami mewujudkannya menjadi visual yang memukau. Konsultasi gratis!</p>
+      <a href="https://wa.me/6289687163314?text=Halo,%20saya%20ingin%20konsultasi%20project%20design" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Chat WhatsApp Sekarang</a>
+    </div>
+  </section>
+
+  <!-- ═══ Social ═══ -->
+  <div class="social-row">
+    <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
+
+  <!-- ═══ Lightbox ═══ -->
+  <div class="lightbox" id="lightbox" onclick="closeLB(event)">
+    <button class="lb-close" onclick="closeLB(event)"><i class="fas fa-xmark"></i></button>
+    <img id="lbImg" src="" alt="Preview">
+  </div>
+
+  <!-- ═══ Script Utama ═══ -->
+  <script>
+    // Navbar
+    window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
+    document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
+
+    // Slider
+    var slides=document.getElementById('slides'),totalSlides=slides.children.length,slideIndex=0;
+    var dotsC=document.getElementById('sliderDots');
+    for(var i=0;i<totalSlides;i++){var d=document.createElement('span');d.addEventListener('click',function(idx){return function(){goSlide(idx)}}(i));dotsC.appendChild(d)}
+    function goSlide(i){slideIndex=i;slides.style.transform='translateX(-'+(i*100)+'%)';document.querySelectorAll('.slider-dots span').forEach(function(d,idx){d.classList.toggle('active',idx===i)})}
+    goSlide(0);setInterval(function(){goSlide((slideIndex+1)%totalSlides)},4000);
+
+    // Portfolio filter
+    var pfBtns=document.querySelectorAll('.pf-btn');
+    var pfItems=document.querySelectorAll('.pf-item');
+    pfBtns.forEach(function(btn){
+      btn.addEventListener('click',function(){
+        pfBtns.forEach(function(b){b.classList.remove('active')});
+        btn.classList.add('active');
+        var f=btn.dataset.filter;
+        pfItems.forEach(function(item){
+          if(f==='all'||item.dataset.category===f){item.style.display='';item.style.animation='fadeInUp .4s ease both'}
+          else{item.style.display='none'}
+        });
+      });
+    });
+
+    // Lightbox
+    function openLB(el){document.getElementById('lbImg').src=el.querySelector('img').src;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden'}
+    function closeLB(e){if(e.target===document.getElementById('lightbox')||e.target.closest('.lb-close')){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow=''}});
+
+    // Scroll reveal
+    var revEls=document.querySelectorAll('.reveal');
+    var revObs=new IntersectionObserver(function(entries){entries.forEach(function(entry,idx){if(entry.isIntersecting){setTimeout(function(){entry.target.classList.add('visible')},idx*50);revObs.unobserve(entry.target)}})},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+    revEls.forEach(function(el){revObs.observe(el)});
+  </script>
+
+  <!-- ═══ Firebase Guestbook (WAJIB terpisah, type="module") ═══ -->
+  <script type="module">
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,addDoc,query,orderBy,limit,serverTimestamp,onSnapshot,startAfter,getDocs}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig={
+      apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain:"akinowedding-73271.firebaseapp.com",
+      projectId:"akinowedding-73271",
+      storageBucket:"akinowedding-73271.appspot.com",
+      messagingSenderId:"307666594440",
+      appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+
+    const app=initializeApp(firebaseConfig);
+    const db=getFirestore(app);
+    const form=document.getElementById('messageForm');
+    const msgsDiv=document.getElementById('gbMsgs');
+    let lastVisible=null,loading=false;
+
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      var n=document.getElementById('gb-name').value.trim();
+      var m=document.getElementById('gb-msg').value.trim();
+      if(n&&m){await addDoc(collection(db,"messages"),{name:n,message:m,timestamp:serverTimestamp()});form.reset()}
+    });
+
+    function loadInitial(){
+      const q=query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10));
+      onSnapshot(q,function(snap){
+        msgsDiv.innerHTML="";
+        snap.forEach(function(doc){renderMsg(doc.data())});
+        msgsDiv.scrollTop=0;
+        if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1];
+      });
+    }
+
+    msgsDiv.addEventListener("scroll",async function(){
+      if(loading)return;
+      if(msgsDiv.scrollTop+msgsDiv.clientHeight>=msgsDiv.scrollHeight-10){
+        loading=true;
+        if(lastVisible){
+          const nq=query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10));
+          const ns=await getDocs(nq);
+          ns.forEach(function(doc){renderMsg(doc.data(),true)});
+          if(ns.docs.length>0)lastVisible=ns.docs[ns.docs.length-1];
         }
+        loading=false;
+      }
+    });
 
-        function nextSlide() {
-            slideIndex = (slideIndex + 1) % totalSlides;
-            showSlide(slideIndex);
-        }
+    function renderMsg(data,appendBottom){
+      if(appendBottom===undefined)appendBottom=true;
+      var div=document.createElement("div");
+      div.className="gb-msg";
+      div.innerHTML="<strong>"+data.name+"</strong><p>"+data.message+"</p><small>"+(data.timestamp?new Date(data.timestamp.seconds*1000).toLocaleString():"")+"</small>";
+      if(appendBottom){msgsDiv.appendChild(div)}else{msgsDiv.prepend(div)}
+    }
 
-        setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    </script>
+    loadInitial();
+  </script>
 
+</body>
 </html>

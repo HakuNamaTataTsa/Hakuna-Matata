@@ -1,768 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta name="msapplication-TileImage" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
-<meta property="og:site_name" content="Cloudinary">
-<meta property="og:title" content="AkinoCh/Akino Store">
-<meta property="og:description" content="Car Parking Multiplayer">
-<meta property="og:image" itemprop="image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
-<meta property="og:type" content="website" />
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="300">
-<meta property="og:image:height" content="300">
-<meta property="og:url">
-<content="https://akinocpm.my.id/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AkinoCh</title>
-    <link rel=".png" href="gg~2.png" type="image/x-.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan Sosial Media - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .navbar.scrolled{background:rgba(7,7,13,.92)}
+    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
+    .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;font-weight:500;transition:all .25s}
+    .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
+    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
+    .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
+    .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center}
+    @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .page-hero{padding:7rem 2rem 2rem;text-align:center;position:relative}
+    .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent)}
+    .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.5rem}
+    .page-hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto}
+
+    .services-section{max-width:1100px;margin:3rem auto;padding:0 2rem}
+    .section-title{font-family:var(--font-display);font-size:1.4rem;font-weight:600;text-align:center;margin-bottom:2rem}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+    .service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .35s}
+    .service-card:hover{border-color:rgba(255,221,87,.2);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+    .service-card img{width:100%;height:200px;object-fit:cover;border-bottom:1px solid var(--border)}
+    .service-card .card-body{padding:1.5rem}
+    .service-card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:.4rem}
+    .service-card .price{color:var(--accent);font-weight:600;font-size:1rem;margin-bottom:.25rem}
+    .service-card .note{color:#f87171;font-size:.8rem;margin-bottom:1rem}
+    .btn-order{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.4rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.85rem;font-weight:600;text-decoration:none;transition:all .25s}
+    .btn-order:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 20px rgba(255,221,87,.3)}
+    .guestbook-section{max-width:700px;margin:4rem auto;padding:0 2rem}
+    .guestbook{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
+    .guestbook h2{font-family:var(--font-display);font-size:1.2rem;text-align:center;margin-bottom:1.5rem}
+    .guestbook label{display:block;font-size:.82rem;font-weight:500;color:var(--muted);margin-bottom:.35rem}
+    .guestbook input,.guestbook textarea{width:100%;padding:.7rem 1rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:var(--font-body);font-size:.9rem;margin-bottom:1rem;outline:none;transition:border-color .2s}
+    .guestbook input:focus,.guestbook textarea:focus{border-color:var(--accent)}
+    .guestbook textarea{resize:vertical;min-height:80px}
+    .guestbook .btn-submit{padding:.7rem 1.5rem;background:var(--accent);color:#0a0a0f;border:none;border-radius:10px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .25s}
+    .guestbook .btn-submit:hover{box-shadow:0 4px 20px rgba(255,221,87,.3);transform:translateY(-1px)}
+    .messages{margin-top:1.5rem;max-height:350px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+    .message{padding:1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;margin-bottom:.75rem}
+    .message strong{display:block;font-size:.9rem;margin-bottom:.3rem}
+    .message p{font-size:.85rem;color:var(--muted);line-height:1.5}
+    .message small{font-size:.72rem;color:rgba(255,255,255,.25)}
+    .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
+    .social-row a{width:44px;height:44px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;transition:all .3s;text-decoration:none}
+    .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
+    .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+    @media(max-width:768px){.navbar{padding:.75rem 1rem}.menu-toggle{display:flex}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}.nav-links.active{display:flex}.dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}.services-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-    <!-- Konten situs web Anda -->
-</body>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulasan</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AkinoCh Music</title>
-    <style>
-    .service-card .order-button {
-            display: inline-block;
-            padding: 10px 30px;
-            margin: 15px 0;
-            background-color: #218838;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: bold;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card .order-button:hover {
-            background-color: #218838;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-        }
-        .music-section {
-            background-color: #f4f4f4;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
 
-        .music-section h2 {
-            text-align: center;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .playlist-slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            gap: 1rem;
-            padding: 1rem 0;
-        }
-
-        .playlist-item {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .playlist-item img {
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .playlist-item span {
-            display: block;
-            margin-top: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .video-player {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .video-player iframe {
-            width: 100%;
-            max-width: 600px;
-            height: 350px;
-            border: none;
-            border-radius: 8px;
-        }
-
-        /* Navigation buttons for slider */
-        .slider-btn {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .slider-btn:hover {
-            background-color: #555;
-        }
-
-        .slider-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akino Store - Jasa Game Car Parking Multiplayer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 1.5rem;
-        }
-
-        .container {
-            width: 90%;
-            margin: auto;
-            padding: 2rem 0;
-        }
-
-        .logo {
-            max-width: 200px;
-            margin: 1rem auto;
-        }
-
-        .slider {
-            position: relative;
-            max-width: 100%;
-            margin: 1rem auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .slides {
-            display: flex;
-            transition: transform 5s ease;
-            width: 100%; /* Adjust based on number of slides */
-        }
-
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-        }
-
-        .slide img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .service-card {
-            background-color: #fff;
-            margin: 1rem 0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-        }
-
-        .service-card h2 {
-            margin: 0.5rem 0;
-            color: #333;
-        }
-
-        .service-card p {
-            margin: 0.5rem 0;
-            font-size: 1.1rem;
-        }
-
-        .service-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .service-card button {
-            margin-top: 10px;
-            padding: 12px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .service-card button:hover {
-            background-color: #218838;
-        }
-
-        .social-media {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .social-media a {
-            margin: 0 15px;
-            display: inline-block;
-        }
-
-        .social-media img {
-            width: 40px;
-            height: 40px;
-            transition: transform 0.3s ease;
-        }
-
-        .social-media img:hover {
-            transform: scale(1.1);
-        }
-
-        .footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-
-        .highlight {
-            background-color: #fff8e1;
-            padding: 1rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .highlight h2 {
-            margin-top: 0;
-            color: #f57c00;
-        }
-
-        .highlight p {
-            font-size: 1.2rem;
-        }
-
-        .note {
-            margin-top: 10px;
-            font-size: 1rem;
-            color: #e74c3c;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                padding: 1rem 0;
-            }
-
-            .service-card {
-                padding: 1rem;
-            }
-
-            .social-media img {
-                width: 35px;
-                height: 35px;
-            }
-        }
-    </style>
-</head>
-<body>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index - Akino Store</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 1rem;
-        }
-
-        .navbar .logo img {
-            height: 40px;
-            width: auto;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: block;
-        }
-
-        .nav-links a:hover {
-            background-color: #575757;
-            border-radius: 4px;
-        }
-
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #333;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 150px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .dropdown-menu li {
-            border-bottom: 1px solid #444;
-        }
-
-        .dropdown-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a {
-            padding: 0.5rem;
-            color: #fff;
-            display: block;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #575757;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                display: none;
-                width: 100%;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links .dropdown-menu {
-                position: static;
-            }
-
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                padding: 1rem;
-            }
-
-            .menu-toggle {
-                display: block;
-                background-color: #333;
-                color: #fff;
-                border: none;
-                padding: 0.5rem 1rem;
-                cursor: pointer;
-                font-size: 1rem;
-            }
-
-            .menu-toggle:hover {
-                background-color: #575757;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-            </div>
-            <button class="menu-toggle">☰</button>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li class="dropdown">
-                    <a href="#">Service</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-                        <li><a href="CarParkingMultiplayer2.html">Car Parking Multiplayer 2</a></li>
-                        <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
-                        <li><a href="designedit.html">Design/Edit Foto</a></li>
-                </li>
-                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <!-- Content of the main page -->
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-
-            menuToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-            });
-        });
-    </script>
-</body>
-</html>
-    <header>
-        <h1>Akino Store</h1>
-    </header>
-
-    <div class="container">
-        <!-- Slider -->
-        <div class="slider">
-            <div class="slides">
-                <div class="slide">
-                    <img src="1.png" alt="Slide 1">
-                </div>
-                <div class="slide">
-                    <img src="2.png" alt="Slide 2">
-                </div>
-                <div class="slide">
-                    <img src="3.png" alt="Slide 3">
-                </div>
-            </div>
-        </div>
-
-        <!-- Highlight Section -->
-        <div class="highlight">
-            <h2>Selamat Datang di Akino Store!</h2>
-            <p>Kami menyediakan berbagai layanan untuk meningkatkan pengalaman bermain Game dan Sosial Media Anda. Jelajahi layanan kami dan pesan sesuai kebutuhan Anda!</p>
-        </div>
-       
-</body>
-    <header>
-        <h1>Akino Store - Layanan Sosial Media</h1>
-    </header>
-
-    <main>
-        <!-- Layanan Sosial Media TikTok -->
-        <div class="service-card">
-            <img src="likeview saja.jpg" alt="Layanan Sosial Media TikTok"> <!-- Ganti dengan gambar asli -->
-            <h2>Like/View Tiktok/Instagram</h2>
-            <p class="price">Mulai dari Rp. 2.500,-</p>
-            <p class="note">NOTE : Pilih salah satu Like atau View</p>
-            <a href="order2.html?service=Like/View%20Tiktok/Instagram" class="order-button">Pesan Sekarang</a>
-        </div>
-    </main>
-
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Kolom Komentar</title>
-      <style>
-        .guest-book {
-          max-width: 800px;
-          margin: 20px auto;
-          padding: 20px;
-          background: #ffffff;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    
-        .guest-book h1 {
-          text-align: center;
-          color: #333;
-        }
-    
-        .guest-book form {
-          display: flex;
-          flex-direction: column;
-        }
-    
-        .guest-book label {
-          margin-bottom: 5px;
-          font-weight: bold;
-        }
-    
-        .guest-book input, .guest-book textarea {
-          margin-bottom: 10px;
-          padding: 10px;
-          font-size: 16px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
-    
-        .guest-book button {
-          padding: 10px;
-          background-color: #007bff;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-    
-        .guest-book button:hover {
-          background-color: #0056b3;
-        }
-    
-        .messages {
-          margin-top: 20px;
-          max-height: 400px; /* supaya bisa scroll */
-          overflow-y: auto;
-          -webkit-overflow-scrolling: touch; /* biar smooth di HP */
-        }
-    
-        .message {
-          padding: 10px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          background: #ffffff;
-          margin-bottom: 10px;
-        }
-    
-        .message strong {
-          display: block;
-          margin-bottom: 5px;
-        }
-    
-        .message small {
-          color: #666;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="guest-book">
-        <h1>Kolom Komentar</h1>
-        <form id="messageForm">
-          <label for="name">Nama:</label>
-          <input type="text" id="name" required>
-          <label for="message">Komentar:</label>
-          <textarea id="message" rows="4" required></textarea>
-          <button type="submit">Kirim Komentar</button>
-        </form>
-        <div id="messages" class="messages">
-          <!-- Komentar akan muncul di sini -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">Akino Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          
+          <li><a href="SosialMedia.html" style="color:var(--accent)">Layanan Sosial Media</a></li>
+          <li><a href="designedit.html">Design / Edit Foto</a></li>
+        </ul>
+      </li>
+      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <h1>Layanan <span style="color:var(--accent)">Sosial Media</span></h1>
+    <p>Tingkatkan engagement sosial media kamu dengan layanan kami.</p>
+  </section>
+
+
+
+  <section class="services-section">
+    <h2 class="section-title">Pilih Layanan</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="likeview saja.jpg" alt="Like/View">
+        <div class="card-body">
+          <h3>Like / View TikTok & Instagram</h3>
+          <div class="price">Mulai dari Rp 2.500</div>
+          <div class="note">NOTE: Pilih salah satu Like atau View</div>
+          <a href="order2.html?service=Like/View%20Tiktok/Instagram" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan Sekarang</a>
         </div>
       </div>
-    
-      <script type="module">
-        // Import Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { 
-          getFirestore, collection, addDoc, query, orderBy, limit, 
-          serverTimestamp, onSnapshot, startAfter, getDocs 
-        } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    
-        // Konfigurasi Firebase
-        const firebaseConfig = {
-          apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-          authDomain: "akinowedding-73271.firebaseapp.com",
-          projectId: "akinowedding-73271",
-          storageBucket: "akinowedding-73271.appspot.com",
-          messagingSenderId: "307666594440",
-          appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
-        };
-    
-        // Inisialisasi
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-    
-        const form = document.getElementById('messageForm');
-        const messagesDiv = document.getElementById('messages');
-    
-        let lastVisible = null;
-        let loading = false;
-    
-        // Tambah komentar baru
-        form.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const name = document.getElementById('name').value.trim();
-          const message = document.getElementById('message').value.trim();
-    
-          if (name && message) {
-            await addDoc(collection(db, "messages"), {
-              name,
-              message,
-              timestamp: serverTimestamp()
-            });
-            form.reset();
-          }
+    </div>
+  </section>
+
+  <section class="guestbook-section">
+    <div class="guestbook">
+      <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Kolom Komentar</h2>
+      <form id="messageForm">
+        <label for="name">Nama</label>
+        <input type="text" id="name" required placeholder="Masukkan nama kamu">
+        <label for="message">Komentar</label>
+        <textarea id="message" rows="3" required placeholder="Tulis komentar..."></textarea>
+        <button type="submit" class="btn-submit">Kirim Komentar</button>
+      </form>
+      <div id="messages" class="messages"></div>
+    </div>
+  </section>
+
+  <div class="social-row">
+    <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    const slides = document.getElementById('slides');
+    const totalSlides = slides.children.length;
+    let slideIndex = 0;
+    const dotsContainer = document.getElementById('sliderDots');
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.addEventListener('click', () => goSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+    function goSlide(i) {
+      slideIndex = i;
+      slides.style.transform = 'translateX(-' + (i * 100) + '%)';
+      document.querySelectorAll('.slider-dots span').forEach((d, idx) => {
+        d.classList.toggle('active', idx === i);
+      });
+    }
+    goSlide(0);
+    setInterval(() => goSlide((slideIndex + 1) % totalSlides), 4000);
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, query, orderBy, limit,
+      serverTimestamp, onSnapshot, startAfter, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('messageForm');
+    const messagesDiv = document.getElementById('messages');
+
+    let lastVisible = null;
+    let loading = false;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (name && message) {
+        await addDoc(collection(db, "messages"), {
+          name: name,
+          message: message,
+          timestamp: serverTimestamp()
         });
-    
-        // Load 10 komentar pertama (terbaru di atas, realtime)
-        function loadInitialMessages() {
-          const q = query(
+        form.reset();
+      }
+    });
+
+    function loadInitialMessages() {
+      const q = query(
+        collection(db, "messages"),
+        orderBy("timestamp", "desc"),
+        limit(10)
+      );
+
+      onSnapshot(q, (snapshot) => {
+        messagesDiv.innerHTML = "";
+        snapshot.forEach((doc) => {
+          renderMessage(doc.data());
+        });
+        messagesDiv.scrollTop = 0;
+
+        if (snapshot.docs.length > 0) {
+          lastVisible = snapshot.docs[snapshot.docs.length - 1];
+        }
+      });
+    }
+
+    messagesDiv.addEventListener("scroll", async () => {
+      if (loading) return;
+      if (messagesDiv.scrollTop + messagesDiv.clientHeight >= messagesDiv.scrollHeight - 10) {
+        loading = true;
+        if (lastVisible) {
+          const nextQ = query(
             collection(db, "messages"),
             orderBy("timestamp", "desc"),
+            startAfter(lastVisible),
             limit(10)
           );
-    
-          onSnapshot(q, (snapshot) => {
-            messagesDiv.innerHTML = "";
-            snapshot.forEach((doc) => {
-              renderMessage(doc.data());
-            });
-    
-            // auto scroll ke atas setelah render
-            messagesDiv.scrollTop = 0;
-    
-            if (snapshot.docs.length > 0) {
-              lastVisible = snapshot.docs[snapshot.docs.length - 1];
-            }
+          const nextSnap = await getDocs(nextQ);
+          nextSnap.forEach((doc) => {
+            renderMessage(doc.data(), true);
           });
-        }
-    
-        // Scroll untuk load komentar lama
-        messagesDiv.addEventListener("scroll", async () => {
-          if (loading) return;
-          if (messagesDiv.scrollTop + messagesDiv.clientHeight >= messagesDiv.scrollHeight - 10) {
-            loading = true;
-            if (lastVisible) {
-              const nextQ = query(
-                collection(db, "messages"),
-                orderBy("timestamp", "desc"),
-                startAfter(lastVisible),
-                limit(10)
-              );
-              const nextSnap = await getDocs(nextQ);
-              nextSnap.forEach((doc) => {
-                renderMessage(doc.data(), true);
-              });
-              if (nextSnap.docs.length > 0) {
-                lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
-              }
-            }
-            loading = false;
-          }
-        });
-    
-        // Render satu komentar
-        function renderMessage(data, appendBottom = true) {
-          const div = document.createElement("div");
-          div.className = "message";
-          div.innerHTML = `
-            <strong>${data.name}</strong>
-            <p>${data.message}</p>
-            <small>${data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : ""}</small>
-          `;
-    
-          if (appendBottom) {
-            messagesDiv.appendChild(div);
-          } else {
-            messagesDiv.prepend(div);
+          if (nextSnap.docs.length > 0) {
+            lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
           }
         }
-    
-        // Panggil pertama kali
-        loadInitialMessages();
-      </script>
-    </body>
-    </html>
- 
-</html>
+        loading = false;
+      }
+    });
 
-        <div class="social-media">
-            <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1">
-                <img src="20240911_125712_0000.png" alt="TikTok">
-            </a>
-            <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==">
-                <img src="20240911_125840_0000.png" alt="Instagram">
-            </a>
-            <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4">
-                <img src="20240911_125746_0000.png" alt="YouTube">
-            </a>
-        </div>
+    function renderMessage(data, appendBottom = true) {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML =
+        "<strong>" + data.name + "</strong>" +
+        "<p>" + data.message + "</p>" +
+        "<small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
 
-        <footer class="footer">
-            <p>Copyright &copy; 2024 Akino Store. All rights reserved.</p>
-        </footer>
-    </div>
+      if (appendBottom) {
+        messagesDiv.appendChild(div);
+      } else {
+        messagesDiv.prepend(div);
+      }
+    }
 
-    <script>
-         const slides = document.querySelector('.slides');
-        const totalSlides = document.querySelectorAll('.slide').length;
-        let slideIndex = 0;
+    loadInitialMessages();
+  </script>
 
-        function showSlide(index) {
-            const offset = -index * 100;
-            slides.style.transform = `translateX(${offset}%)`;
-        }
-
-        function nextSlide() {
-            slideIndex = (slideIndex + 1) % totalSlides;
-            showSlide(slideIndex);
-        }
-
-        setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    </script>
-
+</body>
 </html>

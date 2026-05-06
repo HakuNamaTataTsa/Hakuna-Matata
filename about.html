@@ -1,214 +1,200 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tentang Kami - Akino Store</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #e0eafc, #cfdef3);
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang Kami - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #07070d; --bg-card: rgba(255,255,255,0.04); --fg: #f0f0f5;
+      --muted: #7a7a90; --accent: #FFDD57; --accent-dim: rgba(255,221,87,0.15);
+      --border: rgba(255,255,255,0.07); --radius: 16px;
+      --font-display: 'Space Grotesk', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--fg); overflow-x: hidden; }
 
-        header {
-            background: linear-gradient(to right, #4CAF50, #087f23);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            font-size: 2.5rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
+    /* Navbar */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; background: rgba(7,7,13,0.7);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .navbar.scrolled { background: rgba(7,7,13,0.92); }
+    .nav-brand { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+    .nav-links { list-style: none; display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; padding: 0.5rem 1rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; transition: all 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--fg); background: var(--bg-card); }
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      background: rgba(15,15,25,0.95); backdrop-filter: blur(20px);
+      border: 1px solid var(--border); border-radius: 12px;
+      min-width: 240px; padding: 0.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .dropdown:hover .dropdown-menu { display: block; animation: fadeDown 0.25s ease; }
+    .dropdown-menu a { display: block; padding: 0.65rem 1rem; border-radius: 8px; font-size: 0.85rem; white-space: nowrap; }
+    .dropdown-menu a:hover { background: var(--accent-dim); color: var(--accent); }
+    .menu-toggle { display: none; background: none; border: 1px solid var(--border); color: var(--fg); font-size: 1.3rem; cursor: pointer; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateX(-50%) translateY(-8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
-        header h1 {
-            margin: 0;
-        }
+    /* Page Hero */
+    .page-hero {
+      padding: 8rem 2rem 3rem; text-align: center;
+      position: relative;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700; letter-spacing: -1px; margin-bottom: 0.75rem;
+    }
+    .page-hero p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
 
-        .container {
-            width: 85%;
-            margin: 3rem auto;
-        }
+    /* About Content */
+    .about-section {
+      max-width: 1000px; margin: 0 auto; padding: 3rem 2rem;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .about-text h2 {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .about-text h2 .accent { color: var(--accent); }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; font-size: 0.95rem; }
+    .about-image img {
+      width: 100%; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: transform 0.4s;
+    }
+    .about-image img:hover { transform: scale(1.02); }
 
-        .about-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
-            justify-content: space-between;
-        }
+    /* Stats */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      max-width: 700px; margin: 3rem auto; padding: 0 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+      color: var(--accent); margin-bottom: 0.25rem;
+    }
+    .stat-card .label { font-size: 0.8rem; color: var(--muted); }
 
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-            animation: fadeIn 2s ease-in-out;
-        }
+    /* CTA */
+    .cta-box {
+      max-width: 700px; margin: 2rem auto 4rem; padding: 3rem 2rem;
+      background: linear-gradient(135deg, rgba(255,221,87,0.08), rgba(255,167,38,0.05));
+      border: 1px solid rgba(255,221,87,0.15); border-radius: var(--radius);
+      text-align: center;
+    }
+    .cta-box h2 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; border-radius: 12px;
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none; transition: all 0.3s;
+    }
+    .btn-primary { background: var(--accent); color: #0a0a0f; box-shadow: 0 4px 24px rgba(255,221,87,0.25); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,221,87,0.35); }
 
-        .about-text h2 {
-            color: #087f23;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
+    /* Footer */
+    .footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); }
 
-        .about-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-
-        .about-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .about-image img:hover {
-            transform: scale(1.05);
-        }
-
-        .cta-section {
-            background-color: #087f23;
-            color: white;
-            text-align: center;
-            padding: 3rem;
-            margin-top: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            animation: slideIn 1.5s ease-in-out;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-section a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            background-color: #4CAF50;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .cta-section a:hover {
-            background-color: #087f23;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: #333;
-            color: white;
-            font-size: 0.9rem;
-            margin-top: 2rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 5px;
-            background-color: #4CAF50;
-            border-radius: 5px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .about-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .about-text h2 {
-                font-size: 1.8rem;
-            }
-
-            .cta-section h2 {
-                font-size: 2rem;
-            }
-
-            .cta-section a {
-                font-size: 1.1rem;
-                padding: 0.7rem 1.8rem;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .navbar { padding: 0.75rem 1rem; }
+      .menu-toggle { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; background: rgba(7,7,13,0.97);
+        backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem;
+      }
+      .nav-links.active { display: flex; }
+      .dropdown-menu { position: static; transform: none; box-shadow: none; background: rgba(255,255,255,0.03); border: none; min-width: auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Akino Store - Layanan Digital & Game</h1>
-</header>
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">Akino Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li class="dropdown">
+        <a href="#">Service <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:4px;"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          
+          <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+          <li><a href="designedit.html">Design / Edit Foto</a></li>
+        </ul>
+      </li>
+      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+    </ul>
+  </nav>
 
-<div class="container">
-    <div class="about-content">
-        <div class="about-text">
-            <h2>Tentang AkinoCh - Akino Store</h2>
-            <p>
-                Selamat datang di Akino Store, platform terpercaya untuk semua kebutuhan layanan digital, game, dan 
-                sosial media Anda. Kami berkomitmen untuk memberikan solusi terbaik bagi para gamer, pebisnis, 
-                maupun individu yang ingin meningkatkan kehadiran digital mereka.
-            </p>
-            <p>
-                Dengan layanan unggulan yang mencakup suntik akun game, pembelian koin, hingga peningkatan engagement 
-                di sosial media, kami hadir untuk mendukung semua level kebutuhan digital Anda. Akino Store adalah 
-                partner yang tepat untuk membuat kehadiran digital Anda lebih kuat.
-            </p>
-        </div>
-        <div class="about-image">
-            <img src="20240912_193441_0000.png" alt="Akino Store Image">
-        </div>
+  <section class="page-hero">
+    <h1>Tentang <span style="color:var(--accent)">Akino Store</span></h1>
+    <p>Kenali lebih dekat platform layanan digital terpercaya kamu.</p>
+  </section>
+
+  <section class="about-section">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Partner Digital <span class="accent">Terbaik</span> Kamu</h2>
+        <p>Selamat datang di Akino Store, platform terpercaya untuk semua kebutuhan layanan digital, game, dan sosial media Anda. Kami berkomitmen untuk memberikan solusi terbaik bagi para gamer, pebisnis, maupun individu yang ingin meningkatkan kehadiran digital mereka.</p>
+        <p>Dengan layanan unggulan yang mencakup suntik akun game, pembelian koin, hingga peningkatan engagement di sosial media, kami hadir untuk mendukung semua level kebutuhan digital Anda. Akino Store adalah partner yang tepat untuk membuat kehadiran digital Anda lebih kuat.</p>
+      </div>
+      <div class="about-image">
+        <img src="20240912_193441_0000.png" alt="Akino Store">
+      </div>
     </div>
-</div>
+  </section>
 
-<div class="cta-section">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="num">1000+</div>
+      <div class="label">Customer Puas</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">50+</div>
+      <div class="label">Jenis Layanan</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">24/7</div>
+      <div class="label">Support Aktif</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
     <h2>Bergabung dengan Ribuan Pengguna Puas!</h2>
-    <p><a href="https://api.whatsapp.com/send?phone=6289687163314">Hubungi Kami di WhatsApp</a></p>
-</div>
+    <p>Hubungi kami sekarang dan dapatkan layanan terbaik.</p>
+    <a href="https://api.whatsapp.com/send?phone=6289687163314" class="btn btn-primary" target="_blank"><i class="fab fa-whatsapp"></i> Hubungi WhatsApp</a>
+  </div>
 
-<footer>
-    <p>&copy; 2024 Akino Store. Semua Hak Dilindungi.</p>
-</footer>
+  <footer class="footer">&copy; 2024 Akino Store. Semua Hak Dilindungi.</footer>
 
+  <script>
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40));
+    document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+  </script>
 </body>
 </html>
