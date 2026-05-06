@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Layanan Sosial Media - Akino Store</title>
   <meta property="og:title" content="Akino Store - Layanan Sosial Media">
   <meta property="og:description" content="Jasa suntik followers, likes, views Instagram, TikTok, YouTube.">
   <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
   <meta property="og:type" content="website">
+  <title>Layanan Sosial Media - Akino Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--radius-sm:10px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--bg-elevated:#0e0e18;--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--radius-sm:10px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
     body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
@@ -25,9 +25,9 @@
     .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;transition:all .25s}
     .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
     .dropdown{position:relative}
-    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown-menu{display:none;position:absolute;top:calc(100%+8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
     .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
-    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
+    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap;color:var(--fg-dim);text-decoration:none}
     .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
     .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:var(--radius-sm);align-items:center;justify-content:center}
     @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
@@ -42,9 +42,7 @@
     .sec-label::before{content:'';width:18px;height:1px;background:var(--accent)}
     .sec-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem;line-height:1.15}
     .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7;max-width:480px}
-    .sec-header{margin-bottom:2rem}
-    .sec-header.center{text-align:center}
-    .sec-header.center .sec-desc{margin:0 auto}
+    .sec-header{margin-bottom:2rem}.sec-header.center{text-align:center}.sec-header.center .sec-desc{margin:0 auto}
     .sec-divider{max-width:1100px;margin:0 auto;padding:0 2rem}
     .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 
@@ -58,7 +56,6 @@
     .cat-btn{padding:.38rem .95rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.76rem;font-weight:500;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
     .cat-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
     .cat-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
-    .cat-btn .cat-count{font-size:.65rem;background:rgba(0,0,0,.15);padding:.1rem .4rem;border-radius:20px;font-weight:600}
     .cat-btn.active .cat-count{background:rgba(0,0,0,.2)}
     .srv-count{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
 
@@ -66,7 +63,8 @@
     .srv-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:all .35s;display:flex;flex-direction:column}
     .srv-card:hover{border-color:rgba(255,221,87,.2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.25)}
     .srv-card-top{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem}
-    .srv-cat-icon{width:38px;height:38px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--accent);flex-shrink:0}
+    .srv-cat-icon{width:38px;height:38px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+    .srv-cat-icon img{width:100%;height:100%;object-fit:contain;padding:6px}
     .srv-card-top h3{font-family:var(--font-display);font-size:.88rem;font-weight:600;line-height:1.35;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
     .srv-meta{display:flex;gap:.75rem;margin-bottom:.6rem;flex-wrap:wrap}
     .srv-tag{font-size:.68rem;padding:.2rem .55rem;border-radius:50px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--fg-dim)}
@@ -75,24 +73,39 @@
     .srv-price .price-unit{font-size:.68rem;color:var(--muted)}
     .btn-order{padding:.5rem 1.1rem;border-radius:var(--radius-sm);background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.35rem}
     .btn-order:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
+    .error-state{text-align:center;padding:3rem 1rem}
+    .error-state i{font-size:2.5rem;color:var(--muted);margin-bottom:1rem}
+    .error-state h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.5rem}
+    .error-state p{font-size:.85rem;color:var(--muted);margin-bottom:1.25rem}
+    .btn-retry{padding:.55rem 1.3rem;border-radius:var(--radius-sm);background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s}
+    .btn-retry:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
 
     .modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
     .modal-overlay.active{display:flex;animation:fadeIn .2s ease}
-    .modal-card{background:var(--bg-elevated,#0e0e18);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:460px;position:relative;max-height:90vh;overflow-y:auto}
+    .modal-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:460px;position:relative;max-height:90vh;overflow-y:auto}
     .modal-close{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--fg);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
     .modal-close:hover{background:rgba(255,255,255,.1)}
     .modal-card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:.25rem;padding-right:2.5rem}
-    .modal-card .modal-cat{font-size:.75rem;color:var(--accent);margin-bottom:1.25rem}
+    .modal-card .modal-cat{font-size:.75rem;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center}
     .form-group{margin-bottom:1rem}
     .form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
-    .form-group input,.form-group select,.form-group textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
-    .form-group textarea{resize:vertical;min-height:76px}
+    .form-group input,.form-group textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
+    .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
     .form-group .hint{font-size:.7rem;color:var(--muted);margin-top:.25rem}
     .pay-note{font-size:.72rem;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .85rem;margin-bottom:1rem;display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
     .pay-note i{color:var(--accent);margin-top:2px;flex-shrink:0}
     .btn-submit{width:100%;padding:.75rem;border-radius:var(--radius-sm);background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
     .btn-submit:hover{box-shadow:0 4px 20px rgba(255,221,87,.3)}
+    .btn-submit:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+
+    .price-calc{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem 1rem;margin-bottom:1rem}
+    .pc-row{display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;font-size:.82rem}
+    .pc-label{color:var(--muted)}
+    .pc-val{font-weight:600;color:var(--fg-dim)}
+    .pc-total{color:var(--accent);font-size:1rem;font-family:var(--font-display)}
+
+    .order-result{font-size:.82rem;padding:.65rem .85rem;border-radius:var(--radius-sm);margin-bottom:1rem;animation:fadeInUp .3s ease}
+    .order-result.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171}
 
     .status-wrap{max-width:500px;margin:0 auto}
     .status-form{display:flex;gap:.75rem;margin-bottom:1rem}
@@ -104,9 +117,6 @@
     .sr-row:last-child{border-bottom:none}
     .sr-label{color:var(--muted)}
     .sr-val{font-weight:600}
-    .sr-val.pending{color:#f59e0b}
-    .sr-val.processing{color:#3b82f6}
-    .sr-val.done{color:#22c55e}
     .sr-val.error{color:#ef4444}
 
     .gb-wrap{max-width:700px;margin:0 auto}
@@ -126,7 +136,6 @@
     .gb-msg strong{display:block;font-size:.85rem;margin-bottom:.2rem}
     .gb-msg p{font-size:.82rem;color:var(--fg-dim);line-height:1.5}
     .gb-msg small{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:.25rem;display:block}
-
     .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
     .social-row a{width:42px;height:42px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:all .3s;text-decoration:none}
     .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
@@ -160,7 +169,7 @@
         <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
         <ul class="dropdown-menu">
           <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-          <li><a href="CarParkingMultiplayer2.html">Car Parking Multiplayer 2</a></li>
+          
           <li><a href="SosialMedia.html" style="color:var(--accent)">Layanan Sosial Media</a></li>
           <li><a href="designedit.html">Design / Edit Foto</a></li>
         </ul>
@@ -185,6 +194,7 @@
   </section>
 
   <div class="sec-divider"><hr></div>
+
   <section class="sec">
     <div class="sec-header center reveal">
       <div class="sec-label">Info</div>
@@ -201,6 +211,7 @@
   </section>
 
   <div class="sec-divider"><hr></div>
+
   <section class="sec">
     <div class="gb-wrap reveal">
       <div class="gb">
@@ -209,7 +220,7 @@
           <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Komentar Klien</h2>
           <p>Tulis pengalaman kamu menggunakan layanan kami</p>
         </div>
-        <form class="gb" id="messageForm">
+        <form id="messageForm">
           <label for="gb-name">Nama</label>
           <input type="text" id="gb-name" required placeholder="Masukkan nama kamu">
           <label for="gb-msg">Komentar</label>
@@ -235,6 +246,7 @@
       <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
       <h3 id="mName">-</h3>
       <div class="modal-cat" id="mCat">-</div>
+      <div id="mResult"></div>
       <div class="form-group">
         <label>Link Target</label>
         <input type="text" id="mLink" placeholder="https://www.instagram.com/username">
@@ -258,222 +270,366 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════
-     DATA LAYANAN — EDIT SESUAI KEINGINAN KAMU
-     ═══════════════════════════════════════════════
-     Hapus file _worker.js, _routes.json, functions/ kalau sudah dibuat
-     ═══════════════════════════════════════════════ -->
   <script>
+    /* ========== FORMAT RUPIAH ========== */
+    function fRp(n) {
+      return 'Rp ' + Math.ceil(n).toLocaleString('id-ID');
+    }
+
+    /* ========== DATA LAYANAN (SERVICES) ========== */
     var SERVICES = [
-      // ── Instagram ──
-      {id:1, name:'Instagram Followers [HQ]', category:'Instagram', rate:4500, min:100, max:100000, icon:'fab fa-instagram'},
-      {id:2, name:'Instagram Likes [HQ]', category:'Instagram', rate:3500, min:100, max:50000, icon:'fab fa-instagram'},
-      {id:3, name:'Instagram Views [Reels/Video]', category:'Instagram', rate:2000, min:100, max:100000, icon:'fab fa-instagram'},
-      {id:4, name:'Instagram Views [Feed Post]', category:'Instagram', rate:2500, min:100, max:100000, icon:'fab fa-instagram'},
-      {id:5, name:'Instagram Views [IGTV]', category:'Instagram', rate:3000, min:100, max:100000, icon:'fab fa-instagram'},
-      {id:6, name:'Instagram Comments [Random]', category:'Instagram', rate:5000, min:10, max:5000, icon:'fab fa-instagram'},
-      {id:7, name:'Instagram Saves [Post]', category:'Instagram', rate:4000, min:100, max:10000, icon:'fab fa-instagram'},
-      {id:8, name:'Instagram Auto Like [Post]', category:'Instagram', rate:3000, min:100, max:5000, icon:'fab fa-instagram'},
-      {id:9, name:'Instagram Live Views', category:'Instagram', rate:2500, min:100, max:100000, icon:'fab fa-instagram'},
-      {id:10, name:'Instagram Story Views', category:'Instagram', rate:2000, min:100, max:50000, icon:'fab fa-instagram'},
-
-      // ── TikTok ──
-      {id:11, name:'TikTok Followers [HQ]', category:'TikTok', rate:4000, min:100, max:100000, icon:'fab fa-tiktok'},
-      {id:12, name:'TikTok Likes', category:'TikTok', rate:3000, min:100, max:50000, icon:'fab fa-tiktok'},
-      {id:13, name:'TikTok Views [Video]', category:'TikTok', rate:1500, min:100, max:1000000, icon:'fab fa-tiktok'},
-      {id:14, name:'TikTok Views [Live]', category:'TikTok', rate:2000, min:100, max:50000, icon:'fab fa-tiktok'},
-      {id:15, name:'TikTok Shares', category:'TikTok', rate:3500, min:100, max:10000, icon:'fab fa-tiktok'},
-      {id:16, name:'TikTok Saves [Post]', category:'TikTok', rate:3000, min:100, max:10000, icon:'fab fa-tiktok'},
-      {id:17, name:'TikTok Comments', category:'TikTok', rate:4000, min:50, max:5000, icon:'fab fa-tiktok'},
-      {id:18, name:'TikTok Favorites', category:'TikTok', rate:3500, min:100, max:10000, icon:'fab fa-tiktok'},
-      {id:19, name:'TikTok Live Stream Views', category:'TikTok', rate:1800, min:100, max:100000, icon:'fab fa-tiktok'},
-
-      // ── YouTube ──
-      {id:20, name:'YouTube Subscribers [HQ]', category:'YouTube', rate:6000, min:100, max:100000, icon:'fab fa-youtube'},
-      {id:21, name:'YouTube Views [Video]', category:'YouTube', rate:1500, min:500, max:500000, icon:'fab fa-youtube'},
-      {id:22, name:'YouTube Watch Hours', category:'YouTube', rate:2000, min:100, max:4000, icon:'fab fa-youtube'},
-      {id:23, name:'YouTube Shorts Views', category:'YouTube', rate:1000, min:100, max:500000, icon:'fab fa-youtube'},
-      {id:24, name:'YouTube Likes', category:'YouTube', rate:2500, min:100, max:10000, icon:'fab fa-youtube'},
-      {id:25, name:'YouTube Comments', category:'YouTube', rate:3500, min:50, max:5000, icon:'fab fa-youtube'},
-      {id:26, name:'YouTube Saves', category:'YouTube', rate:3000, min:100, max:10000, icon:'fab fa-youtube'},
-      {id:27, name:'YouTube Live Views', category:'YouTube', rate:1800, min:100, max:100000, icon:'fab fa-youtube'},
-
-      // ── Facebook ──
-      {id:28, name:'Facebook Page Likes', category:'Facebook', rate:3500, min:100, max:50000, icon:'fab fa-facebook'},
-      {                  name:'Facebook Post Reach', category:'Facebook', rate:2000, min:500, max:50000, icon:'fab fa-facebook'},
-      {id:30, name:'Facebook Video Views', category:'Facebook', rate:1500, min:500, max:100000, icon:'fab fa-facebook'},
-      {id:31, name:'Facebook Post Shares', category:'Facebook', rate:3000, min:100, max:10000, icon:'fab fa-facebook'},
-      {id:32, name:'Facebook Followers [HQ]', category:'Facebook', rate:5000, min:100, max:100000, icon:'fab fa-facebook'},
-      {id:33, name:'Facebook Likes [Post Photo]', category:'Facebook', rate:3000, min:100, max:5000, icon:'fab fa-facebook'},
-      {id:34, name:'Facebook Comments', category:'Facebook', rate:4000, min:50, max:5000, icon:'fab fa-facebook'},
-      {id:35, name:'Facebook Reactions', category:'Facebook', rate:2500, min:100, max:10000, icon:'fab fa-facebook'},
-      {id:36, name:'Facebook Live Views', category:'Facebook', rate:1800, min:100, max:100000, icon:'fab fa-facebook'},
-
-      // ── Twitter/X ──
-      {id:37, name:'Twitter/X Followers [HQ]', category:'Twitter', rate:5000, min:100, max:100000, icon:'fab fa-x-twitter'},
-      {id:38, name:'Twitter/X Likes [Post]', category:'Twitter', rate:3500, min:100, max:10000, icon:'fab fa-x-twitter'},
-      {id:39, name:'Twitter/X Retweets [Post]', category:'Twitter', rate:4500, min:100, max:10000, icon:'fab fa-x-twitter'},
-      {id:40, name:'Twitter/X Comments', category:'Twitter', rate:4000, min:50, max:5000, icon:'fab fa-x-twitter'},
-      {id:41, name:'Twitter/X Auto Post', category:'Twitter', rate:6000, min:1, max:1, icon:'fab fa-x-twitter'},
-
-      // ── Telegram ──
-      {id:42, name:'Telegram Members [Group]', category:'Telegram', rate:3000, min:100, max:5000, icon:'fab fa-telegram'},
-      {id:43, name:'Telegram Post Views', category:'Telegram', rate:1500, min:500, max:100000, icon:'fab fa-telegram'},
-      {id:44, name:'Telegram Reactions', category:'Telegram', rate:2500, min:100, max:10000, icon:'fab fa-telegram'},
-      {id:45, name:'Telegram Channel Members', category:'Telegram', rate:4000, min:100, max:100000, icon:'fab fa-telegram'},
-
-      // ── Spotify ──
-      {id:46, name:'Spotify Followers [HQ]', category:'Spotify', rate:4000, min:100, max:100000, icon:'fab fa-spotify'},
-      {id:47, name:'Spotify Plays [Track]', category:'Spotify', rate:2000, min:100, max:100000, icon:'fab fa-spotify'},
-      {id:48, name:'Spotify Monthly Listeners', category:'Spotify', rate:3000, min:100, max:50000, icon:'fab fa-spotify'},
-      {id:49, name:'Spotify Saves [Track]', category:'Spotify', rate:2500, min:100, max:10000, icon:'fab fa-spotify'},
-      {id:50, name:'Spotify Playlist Followers', category:'Spotify', rate:3500, min:100, max:5000, icon:'fab fa-spotify'},
-      {id:51, name:'Spotify Pre-Saves', category:'Spotify', rate:5000, min:100, max:10000, icon:'fab fa-spotify'},
-
-      // ── LinkedIn ──
-      {id:52, name:'LinkedIn Connections [HQ]', category:'LinkedIn', rate:6000, min:100, max:50000, icon:'fab fa-linkedin'},
-      {id:53, name:'LinkedIn Post Likes', category:'LinkedIn', rate:3500, min:100, max:10000, icon:'fab fa-linkedin'},
-      {id:54, name:'LinkedIn Post Views', category:'LinkedIn', rate:2000, min:500, max:100000, icon:'fab fa-linkedin'},
-      {id:55, name:'LinkedIn Comments', category:'LinkedIn', rate:4000, min:50, max:5000, icon:'fab fa-linkedin'},
-      {id:56, name:'LinkedIn Profile Views', category:'LinkedIn', rate:2500, min:100, max:50000, icon:'fab fa-linkedin'},
-      {id:57, name:'LinkedIn Company Followers', category:'LinkedIn', rate:8000, min:100, max:100000, icon:'fab fa-linkedin'},
-
-      // ── Lainnya ──
-      {id:58, name:'Pinterest Followers', category:'Pinterest', rate:4000, min:100, max:100000, icon:'fab fa-pinterest'},
-      {id:59, name:'Pinterest Saves', category:'Pinterest', rate:3000, min:100, max:10000, icon:'fab fa-pinterest'},
-      {id:60, name:'Pinterest Repins', category:'Pinterest', rate:3500, min:100, max:10000, icon:'fab fa-pinterest'},
-      {id:61, name:'Pinterest Views', category:'Pinterest', rate:2000, min:100, max:100000, icon:'fab fa-pinterest'},
-      {id:62, name:'Shopee Views', category:'Shopee', rate:3000, min:500, max:100000, icon:'fas fa-shopping-bag'},
-      {id:63, name:'Shopee Likes', category:'Shopee', rate:2500, min:100, max:50000, icon:'fas fa-shopping-bag'},
-      {id:64, name:'Shopee Followers', category:'Shopee', rate:5000, min:100, max:5000, icon:'fas fa-shopping-bag'},
+      { id:1,  category:'instagram', name:'Followers Instagram [Real Aktif]',     min:100,   max:50000,  rate:15000 },
+      { id:2,  category:'instagram', name:'Followers Instagram [Premium HQ]',     min:100,   max:100000, rate:8000 },
+      { id:3,  category:'instagram', name:'Likes Instagram Post [Real]',          min:50,    max:20000,  rate:5000 },
+      { id:4,  category:'instagram', name:'Likes Instagram Post [Premium]',       min:50,    max:30000,  rate:3500 },
+      { id:5,  category:'instagram', name:'Views Instagram Reels / Video',        min:500,   max:1000000,rate:1200 },
+      { id:6,  category:'instagram', name:'Views Instagram Story',                min:100,   max:50000,  rate:1500 },
+      { id:7,  category:'instagram', name:'Comments Instagram [Custom Text]',     min:10,    max:5000,   rate:25000 },
+      { id:8,  category:'instagram', name:'Saves / Bookmark Instagram Post',      min:100,   max:10000,  rate:6000 },
+      { id:9,  category:'tiktok',    name:'Followers TikTok [Real Aktif]',        min:100,   max:50000,  rate:18000 },
+      { id:10, category:'tiktok',    name:'Followers TikTok [Premium]',           min:100,   max:100000, rate:10000 },
+      { id:11, category:'tiktok',    name:'Likes TikTok Video',                   min:100,   max:50000,  rate:4000 },
+      { id:12, category:'tiktok',    name:'Views TikTok Video',                   min:1000,  max:5000000,rate:800 },
+      { id:13, category:'tiktok',    name:'Views TikTok Live',                    min:500,   max:100000, rate:1000 },
+      { id:14, category:'tiktok',    name:'Shares TikTok Video',                  min:100,   max:10000,  rate:8000 },
+      { id:15, category:'youtube',   name:'Subscribers YouTube [Real]',           min:50,    max:20000,  rate:35000 },
+      { id:16, category:'youtube',   name:'Views YouTube Video',                  min:500,   max:1000000,rate:1500 },
+      { id:17, category:'youtube',   name:'Watch Hours YouTube',                  min:100,   max:4000,   rate:50000 },
+      { id:18, category:'youtube',   name:'Likes YouTube Video',                  min:50,    max:50000,  rate:6000 },
+      { id:19, category:'youtube',   name:'Comments YouTube [Custom]',            min:10,    max:2000,   rate:30000 },
+      { id:20, category:'facebook',  name:'Followers Facebook Profile',           min:100,   max:30000,  rate:12000 },
+      { id:21, category:'facebook',  name:'Likes Facebook Page',                  min:100,   max:50000,  rate:8000 },
+      { id:22, category:'facebook',  name:'Likes Facebook Post',                  min:50,    max:20000,  rate:5000 },
+      { id:23, category:'facebook',  name:'Views Facebook Video',                 min:500,   max:500000, rate:1500 },
+      { id:24, category:'twitter',   name:'Followers Twitter / X',                min:100,   max:20000,  rate:20000 },
+      { id:25, category:'twitter',   name:'Likes Twitter / X Post',               min:50,    max:10000,  rate:7000 },
+      { id:26, category:'twitter',   name:'Retweets Twitter / X',                 min:50,    max:5000,   rate:10000 },
+      { id:27, category:'telegram',  name:'Members Telegram Channel',             min:500,   max:100000, rate:15000 },
+      { id:28, category:'telegram',  name:'Views Telegram Post',                  min:100,   max:100000, rate:2000 },
+      { id:29, category:'telegram',  name:'Reactions Telegram Post',              min:50,    max:10000,  rate:8000 },
+      { id:30, category:'spotify',   name:'Followers Spotify Artist',             min:100,   max:50000,  rate:12000 },
+      { id:31, category:'spotify',   name:'Plays Spotify Track',                  min:1000,  max:1000000,rate:2000 },
+      { id:32, category:'spotify',   name:'Monthly Listeners Spotify',            min:100,   max:50000,  rate:18000 },
+      { id:33, category:'linkedin',  name:'Followers LinkedIn',                   min:100,   max:10000,  rate:25000 },
+      { id:34, category:'linkedin',  name:'Connections LinkedIn',                 min:50,    max:5000,   rate:30000 },
+      { id:35, category:'linkedin',  name:'Likes LinkedIn Post',                  min:50,    max:5000,   rate:8000 },
+      { id:36, category:'shopee',    name:'Followers Shopee',                     min:100,   max:10000,  rate:10000 },
+      { id:37, category:'shopee',    name:'Likes Shopee Product',                 min:50,    max:5000,   rate:6000 },
+      { id:38, category:'shopee',    name:'Rating Shopee 5 Bintang',              min:10,    max:500,    rate:15000 }
     ];
 
+    /* ========== LOGO SVG ========== */
+    var LOGOS = {
+      'instagram': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="12" width="76" height="76" rx="20"/><circle cx="50" cy="50" r="16"/><circle cx="72" cy="28" r="4" fill="white" stroke="none"/></svg>'),
+      'tiktok': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><path d="M65 15v48a20 20 0 01-20 20 20 20 0 01-20-20 20 20 0 0120-20c2 0 4 .3 6 .8V55a30 30 0 00-6-.6 30 30 0 00-30 30 30 30 0 0030 30 30 30 0 0030-30V40a38 38 0 0020 6V25a28 28 0 01-20-10z"/></svg>'),
+      'youtube': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><rect x="10" y="20" width="80" height="60" rx="14"/><path d="M40 35v30l25-15z" fill="#07070d"/></svg>'),
+      'facebook': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><path d="M56 90V55h12l2-14H56v-9c0-4 1-7 7-7h8V12s-7-1-13-1c-14 0-23 8-23 23v10H23v14h12v35z"/></svg>'),
+      'twitter': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><path d="M50 10L15 85h18l17-30 17 30h18z"/></svg>'),
+      'telegram': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><circle cx="50" cy="50" r="38"/><path d="M30 52l10 4 4 14 8-8 12 10-18-34z" fill="#07070d"/></svg>'),
+      'spotify': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><circle cx="50" cy="50" r="38"/><path d="M32 40a30 30 0 0136 0M32 50a24 24 0 0128 0M32 60a18 18 0 0120 0" fill="none" stroke="#07070d" stroke-width="4" stroke-linecap="round"/></svg>'),
+      'linkedin': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><rect x="12" y="12" width="76" height="76" rx="18"/><rect x="24" y="40" width="10" height="36" rx="2"/><circle cx="29" cy="30" r="6"/><path d="M42 76V52h10v4s4-6 14-6c10 0 12 7 12 7v19H68V58s0-6-6-6-8 6-8 6v18z"/></svg>'),
+      'shopee': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><path d="M20 35h60l8 30H12z"/><rect x="15" y="65" width="70" height="8" rx="4"/><circle cx="32" cy="78" r="6" fill="none" stroke="white" stroke-width="4"/><circle cx="68" cy="78" r="6" fill="none" stroke="white" stroke-width="4"/></svg>'),
+      'pinterest': 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><circle cx="50" cy="50" r="38"/><path d="M42 75c-2 6-4 12-6 18" fill="none" stroke="#07070d" stroke-width="5" stroke-linecap="round"/><circle cx="55" cy="45" r="18" fill="none" stroke="#07070d" stroke-width="5"/></svg>')
+    };
+
+    /* ========== STATE ========== */
     var categories = [];
     var activeCat = 'all';
     var currentSrv = null;
 
-    var catIcons = {
-      'instagram':'fab fa-instagram','tiktok':'fab fa-tiktok','youtube':'fab fa-youtube',
-      'facebook':'fab fa-facebook','twitter':'fab fa-x-twitter','telegram':'fab fa-telegram',
-      'spotify':'fab fa-spotify','linkedin':'fab fa-linkedin','pinterest':'fab fa-pinterest',
-      'shopee':'fas fa-shopping-bag'
-    };
-    function getCatIcon(c){return catIcons[c.toLowerCase()]||'fas fa-globe'}
-    function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
+    /* ========== NAVBAR ========== */
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+    document.getElementById('searchInput').addEventListener('input', function() {
+      renderFiltered();
+    });
 
-    window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
-    document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
-    document.getElementById('searchInput').addEventListener('input',function(){renderFiltered()});
-
-    function renderCategories(){
-      categories=[...new Set(SERVICES.map(function(s){return s.category}))].sort();
-      var w=document.getElementById('catTabs');
-      var h='<button class="cat-btn active" data-cat="all">Semua <span class="cat-count">'+SERVICES.length+'</span></button>';
-      categories.forEach(function(c){
-        var cnt=SERVICES.filter(function(s){return s.category===c}).length;
-        h+='<button class="cat-btn" data-cat="'+c+'"><i class="'+getCatIcon(c)+'"></i> '+c+' <span class="cat-count">'+cnt+'</span></button>';
+    /* ========== RENDER KATEGORI ========== */
+    function renderCategories() {
+      categories = [];
+      SERVICES.forEach(function(s) {
+        if (categories.indexOf(s.category) === -1) categories.push(s.category);
       });
-      w.innerHTML=h;
-      w.querySelectorAll('.cat-btn').forEach(function(b){
-        b.addEventListener('click',function(){
-          w.querySelectorAll('.cat-btn').forEach(function(x){x.classList.remove('active')});
+      categories.sort();
+
+      var w = document.getElementById('catTabs');
+      var h = '<button class="cat-btn active" data-cat="all">Semua <span class="cat-count">' + SERVICES.length + '</span></button>';
+      categories.forEach(function(c) {
+        var cnt = SERVICES.filter(function(s) { return s.category === c; }).length;
+        h += '<button class="cat-btn" data-cat="' + c + '"><img src="' + LOGOS[c] + '" alt="' + c + '" style="width:18px;height:18px;border-radius:5px;vertical-align:middle;margin-right:4px">' + c.charAt(0).toUpperCase() + c.slice(1) + ' <span class="cat-count">' + cnt + '</span></button>';
+      });
+      w.innerHTML = h;
+
+      w.querySelectorAll('.cat-btn').forEach(function(b) {
+        b.addEventListener('click', function() {
+          w.querySelectorAll('.cat-btn').forEach(function(x) { x.classList.remove('active'); });
           b.classList.add('active');
-          activeCat=b.dataset.cat;
+          activeCat = b.dataset.cat;
           renderFiltered();
         });
       });
     }
 
-    function renderFiltered(){
-      var s=document.getElementById('searchInput').value.toLowerCase().trim();
-      var f=SERVICES.filter(function(sv){
-        return(activeCat==='all'||sv.category===activeCat)&&(!s||sv.name.toLowerCase().indexOf(s)!==-1||sv.category.toLowerCase().indexOf(s)!==-1);
+    /* ========== RENDER LAYANAN ========== */
+    function renderFiltered() {
+      var s = document.getElementById('searchInput').value.toLowerCase().trim();
+      var f = SERVICES.filter(function(sv) {
+        var catOk = (activeCat === 'all' || sv.category === activeCat);
+        var searchOk = (!s || sv.name.toLowerCase().indexOf(s) !== -1 || sv.category.toLowerCase().indexOf(s) !== -1);
+        return catOk && searchOk;
       });
-      document.getElementById('srvCount').textContent='Menampilkan '+f.length+' layanan';
-      var g=document.getElementById('srvGrid');g.style.display='';
-      if(!f.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)"><i class="fas fa-search" style="font-size:2rem;margin-bottom:.75rem;display:block"></i>Tidak ada layanan yang cocok.</div>';return}
-      var h='';
-      f.forEach(function(sv,i){
-        h+='<div class="srv-card" style="animation:fadeInUp .4s ease '+(i*0.03)+'s both"><div class="srv-card-top"><div class="srv-cat-icon"><i class="'+getCatIcon(sv.category)+'"></i></div><h3>'+sv.name+'</h3></div><div class="srv-meta"><span class="srv-tag">Min: '+sv.min.toLocaleString('id-ID')+'</span><span class="srv-tag">Max: '+sv.max.toLocaleString('id-ID')+'</span></div><div class="srv-price"><div><div class="price-val">'+fRp(sv.rate)+'</div><div class="price-unit">/ 1000</div></div><button class="btn-order" onclick="openModal('+sv.id+')"><i class="fas fa-cart-plus"></i> Pesan</button></div></div>';
+
+      document.getElementById('srvCount').textContent = 'Menampilkan ' + f.length + ' layanan';
+
+      var g = document.getElementById('srvGrid');
+      g.style.display = '';
+
+      if (!f.length) {
+        g.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)"><i class="fas fa-search" style="font-size:2rem;margin-bottom:.75rem;display:block"></i>Tidak ada layanan yang cocok.</div>';
+        return;
+      }
+
+      var h = '';
+      f.forEach(function(sv, i) {
+        h += '<div class="srv-card" style="animation:fadeInUp .4s ease ' + (i * 0.03) + 's both">' +
+          '<div class="srv-card-top">' +
+            '<div class="srv-cat-icon"><img src="' + LOGOS[sv.category] + '" alt="' + sv.category + '"></div>' +
+            '<h3>' + sv.name + '</h3>' +
+          '</div>' +
+          '<div class="srv-meta">' +
+            '<span class="srv-tag">Min: ' + sv.min.toLocaleString('id-ID') + '</span>' +
+            '<span class="srv-tag">Max: ' + sv.max.toLocaleString('id-ID') + '</span>' +
+          '</div>' +
+          '<div class="srv-price">' +
+            '<div><div class="price-val">' + fRp(sv.rate) + '</div><div class="price-unit">/ 1000</div></div>' +
+            '<button class="btn-order" onclick="openModal(' + sv.id + ')"><i class="fas fa-cart-plus"></i> Pesan</button>' +
+          '</div>' +
+        '</div>';
       });
-      g.innerHTML=h;
+      g.innerHTML = h;
     }
 
-    function openModal(sid){
-      currentSrv=SERVICES.find(function(s){return s.id===sid});
-      if(!currentSrv) return;
-      document.getElementById('mName').textContent=currentSrv.name;
-      document.getElementById('mCat').innerHTML='<i class="'+getCatIcon(currentSrv.category)+'"></i> '+currentSrv.category;
-      document.getElementById('mLink').value='';
-      document.getElementById('mQty').value='';
-      document.getElementById('mQty').min=currentSrv.min;
-      document.getElementById('mQty').max=currentSrv.max;
-      document.getElementById('mHint').textContent='Contoh: https://www.instagram.com/username';
-      document.getElementById('mQtyHint').textContent='Min: '+currentSrv.min.toLocaleString('id-ID')+' — Max: '+currentSrv.max.toLocaleString('id-ID');
-      document.getElementById('pcRate').textContent=fRp(currentSrv.rate)+' / 1000';
-      document.getElementById('pcQty').textContent='-';
-      document.getElementById('pcTotal').textContent='-';
+    /* ========== MODAL ========== */
+    function openModal(sid) {
+      currentSrv = SERVICES.find(function(s) { return s.id === sid; });
+      if (!currentSrv) return;
+
+      document.getElementById('mName').textContent = currentSrv.name;
+      document.getElementById('mCat').innerHTML = '<img src="' + LOGOS[currentSrv.category] + '" alt="' + currentSrv.category + '" style="width:20px;height:20px;border-radius:6px;margin-right:6px">' + currentSrv.category.charAt(0).toUpperCase() + currentSrv.category.slice(1);
+      document.getElementById('mResult').innerHTML = '';
+      document.getElementById('mLink').value = '';
+      document.getElementById('mQty').value = '';
+      document.getElementById('mQty').min = currentSrv.min;
+      document.getElementById('mQty').max = currentSrv.max;
+      document.getElementById('mHint').textContent = 'Contoh: https://www.instagram.com/username';
+      document.getElementById('mQtyHint').textContent = 'Min: ' + currentSrv.min.toLocaleString('id-ID') + ' — Max: ' + currentSrv.max.toLocaleString('id-ID');
+      document.getElementById('pcRate').textContent = fRp(currentSrv.rate) + ' / 1000';
+      document.getElementById('pcQty').textContent = '-';
+      document.getElementById('pcTotal').textContent = '-';
+
       document.getElementById('orderModal').classList.add('active');
-      document.body.style.overflow='hidden';
-      setTimeout(function(){document.getElementById('mLink').focus()},200);
-    }
-    function closeModal(){document.getElementById('orderModal').classList.remove('active');document.body.style.overflow='';currentSrv=null}
-    document.getElementById('orderModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
-
-    function calcPrice(){
-      if(!currentSrv) return;
-      var q=parseInt(document.getElementById('mQty').value)||0;
-      if(q<=0){document.getElementById('pcQty').textContent='-';document.getElementById('pcTotal').textContent='-';return}
-      document.getElementById('pcQty').textContent=q.toLocaleString('id-ID');
-      document.getElementById('pcTotal').textContent=fRp((q/1000)*currentSrv.rate);
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() { document.getElementById('mLink').focus(); }, 200);
     }
 
-    function submitOrder(){
-      if(!currentSrv) return;
-      var link=document.getElementById('mLink').value.trim();
-      var qty=parseInt(document.getElementById('mQty').value)||0;
-      var rd=document.getElementById('mResult');
-      if(!link){rd.innerHTML='<div class="order-result error">Link target wajib diisi.</div>';return}
-      if(qty<currentSrv.min||qty>currentSrv.max){rd.innerHTML='<div class="order-result error">Jumlah harus antara '+currentSrv.min.toLocaleString('id-ID')+' — '+currentSrv.max.toLocaleString('id-ID')+'.</div>';return}
-      var total=(qty/1000)*currentSrv.rate;
-      var msg='*PESANAN SOSIAL MEDIA*\n\nLayanan: '+currentSrv.name+'\nKategori: '+currentSrv.category+'\nJumlah: '+qty.toLocaleString('id-ID')+'\nLink: '+link+'\n\nTotal Bayar: *'+fRp(totalBayar)+'*\n\nPembayaran: Dana/Qris +62 896-8716-3314\n\nHarap lampiran bukti transfer nanti.';
-      window.open('https://api.whatsapp.com/send?phone=62896871633314&text='+encodeURIComponent(msg),'_blank');
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('active');
+      document.body.style.overflow = '';
+      currentSrv = null;
+    }
+
+    /* ========== KALKULASI HARGA ========== */
+    function calcPrice() {
+      if (!currentSrv) return;
+      var q = parseInt(document.getElementById('mQty').value) || 0;
+      if (q <= 0) {
+        document.getElementById('pcQty').textContent = '-';
+        document.getElementById('pcTotal').textContent = '-';
+        return;
+      }
+      document.getElementById('pcQty').textContent = q.toLocaleString('id-ID');
+      document.getElementById('pcTotal').textContent = fRp((q / 1000) * currentSrv.rate);
+    }
+
+    /* ========== SUBMIT ORDER ========== */
+    function submitOrder() {
+      if (!currentSrv) return;
+
+      var link = document.getElementById('mLink').value.trim();
+      var qty = parseInt(document.getElementById('mQty').value) || 0;
+      var rd = document.getElementById('mResult');
+
+      if (!link) {
+        rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Link target wajib diisi.</div>';
+        return;
+      }
+      if (qty < currentSrv.min || qty > currentSrv.max) {
+        rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Jumlah harus antara ' + currentSrv.min.toLocaleString('id-ID') + ' — ' + currentSrv.max.toLocaleString('id-ID') + '.</div>';
+        return;
+      }
+
+      var total = (qty / 1000) * currentSrv.rate;
+      var msg = '*PESANAN SOSIAL MEDIA*\n\n' +
+        'Layanan: ' + currentSrv.name + '\n' +
+        'Kategori: ' + currentSrv.category + '\n' +
+        'Jumlah: ' + qty.toLocaleString('id-ID') + '\n' +
+        'Link: ' + link + '\n\n' +
+        'Total Bayar: *' + fRp(total) + '*\n\n' +
+        'Pembayaran: Dana/Qris +62 896-8716-3314\n\n' +
+        'Harap lampirkan bukti transfer nanti.';
+
+      window.open('https://api.whatsapp.com/send?phone=6289687163314&text=' + encodeURIComponent(msg), '_blank');
       closeModal();
     }
 
-    async function checkStatus(){
-      var oid=document.getElementById('statusInput').value.trim();
-      var rd=document.getElementById('statusResult');
-      var btn=document.getElementById('statusBtn');
-      if(!oid){rd.classList.remove('show');return}
-      btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';btn.disabled=true;
-      rd.innerHTML='<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val">Silakan hubungi admin via WhatsApp untuk cek status pesanan kamu.</span></div>';
-      rd.classList.add('show');
-      btn.innerHTML='<i class="fas fa-search"></i> Cek';
-      btn.disabled=false;
-    }
-    document.getElementById('statusInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkStatus()});
+    /* ========== CEK STATUS ========== */
+    function checkStatus() {
+      var oid = document.getElementById('statusInput').value.trim();
+      var rd = document.getElementById('statusResult');
+      var btn = document.getElementById('statusBtn');
 
-    var revEls=document.querySelectorAll('.reveal');
-    var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible')},i*50);revObs.unobserve(e.target)}})},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
-    revEls.forEach(function(el){revObs.observe(el)});
+      if (!oid) { rd.classList.remove('show'); return; }
+
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      btn.disabled = true;
+
+      /* Simulasi delay */
+      setTimeout(function() {
+        rd.innerHTML = '<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val" style="color:var(--accent)">Silakan hubungi admin via WhatsApp untuk cek status pesanan kamu.</span></div>';
+        rd.classList.add('show');
+        btn.innerHTML = '<i class="fas fa-search"></i> Cek';
+        btn.disabled = false;
+      }, 800);
+    }
+
+    document.getElementById('statusInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkStatus();
+    });
+
+    /* ========== CLOSE MODAL KLIK OVERLAY ========== */
+    document.getElementById('orderModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    /* ========== SCROLL REVEAL ========== */
+    var revEls = document.querySelectorAll('.reveal');
+    var revObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          setTimeout(function() { e.target.classList.add('visible'); }, 80);
+          revObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    revEls.forEach(function(el) { revObs.observe(el); });
+
+    /* ========== INIT ========== */
     renderCategories();
     renderFiltered();
   </script>
 
   <!-- Firebase Guestbook -->
   <script type="module">
-    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import{getFirestore,collection,addDoc,query,orderBy,limit,serverTimestamp,onSnapshot,startAfter,getDocs}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    const firebaseConfig={apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"};
-    const app=initializeApp(firebaseConfig);const db=getFirestore(app);
-    const form=document.getElementById('messageForm');const msgsDiv=document.getElementById('gbMsgs');
-    let lastVisible=null,loading=false;
-    form.addEventListener('submit',async function(e){e.preventDefault();var n=document.getElementById('gb-name').value.trim(),m=document.getElementById('gb-msg').value.trim();if(n&&m){await addDoc(collection(db,"messages"),{name:n,message:m,timestamp:serverTimestamp()});form.reset()}});
-    function loadInitial(){const q=query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10));onSnapshot(q,function(snap){msgsDiv.innerHTML="";snap.forEach(function(doc){renderMsg(doc.data())});msgsDiv.scrollTop=0;if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1]});}
-    msgsDiv.addEventListener("scroll",async function(){if(loading)return;if(msgsDiv.scrollTop+msgsDiv.clientHeight>=msgsDiv.scrollHeight-10){loading=true;if(lastVisible){const nq=query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10));const ns=await getDocs(nq);ns.forEach(function(doc){renderMsg(doc.data(),true)});if(ns.docs.length>0)lastVisible=ns.docs[ns.docs.length-1]}loading=false}});
-    function renderMsg(data,appendBottom){if(appendBottom===undefined)appendBottom=true;var div=document.createElement("div");div.className="gb-msg";div.innerHTML="<strong>"+data.name+"</strong><p>"+data.message+"</p><small>"+(data.timestamp?new Date(data.timestamp.seconds*1000).toLocaleString():"")+"</small>";if(appendBottom){msgsDiv.appendChild(div)}else{msgsDiv.prepend(div)}}
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const form = document.getElementById('messageForm');
+    const msgsDiv = document.getElementById('gbMsgs');
+    let lastVisible = null;
+    let loading = false;
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var n = document.getElementById('gb-name').value.trim();
+      var m = document.getElementById('gb-msg').value.trim();
+      if (n && m) {
+        try {
+          await addDoc(collection(db, "messages"), {
+            name: n,
+            message: m,
+            timestamp: serverTimestamp()
+          });
+          form.reset();
+        } catch (err) {
+          console.error('Gagal mengirim komentar:', err);
+        }
+      }
+    });
+
+    function renderMsg(data, prepend) {
+      var div = document.createElement('div');
+      div.className = 'gb-msg';
+      var timeStr = '';
+      if (data.timestamp) {
+        var d = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+        timeStr = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+      }
+      div.innerHTML = '<strong>' + escapeHtml(data.name) + '</strong>' +
+        '<p>' + escapeHtml(data.message) + '</p>' +
+        (timeStr ? '<small>' + timeStr + '</small>' : '');
+      if (prepend) {
+        msgsDiv.prepend(div);
+      } else {
+        msgsDiv.appendChild(div);
+      }
+    }
+
+    function escapeHtml(text) {
+      var d = document.createElement('div');
+      d.textContent = text;
+      return d.innerHTML;
+    }
+
+    function loadInitial() {
+      var q = query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(10));
+      onSnapshot(q, function(snap) {
+        msgsDiv.innerHTML = '';
+        snap.forEach(function(doc) {
+          renderMsg(doc.data(), false);
+        });
+        msgsDiv.scrollTop = 0;
+        if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
+      }, function(err) {
+        console.error('Error loading messages:', err);
+        msgsDiv.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--muted);font-size:.85rem">Gagal memuat komentar.</div>';
+      });
+    }
+
+    msgsDiv.addEventListener("scroll", async function() {
+      if (loading) return;
+      if (msgsDiv.scrollTop + msgsDiv.clientHeight >= msgsDiv.scrollHeight - 10) {
+        loading = true;
+        if (lastVisible) {
+          try {
+            var nq = query(collection(db, "messages"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(10));
+            var ns = await getDocs(nq);
+            ns.forEach(function(doc) {
+              renderMsg(doc.data(), false);
+            });
+            if (ns.docs.length > 0) lastVisible = ns.docs[ns.docs.length - 1];
+          } catch (err) {
+            console.error('Error loading more:', err);
+          }
+        }
+        loading = false;
+      }
+    });
+
     loadInitial();
   </script>
 
