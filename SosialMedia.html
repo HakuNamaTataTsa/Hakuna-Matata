@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan Sosial Media - Akino Store</title>
   <meta property="og:title" content="Akino Store - Layanan Sosial Media">
-  <meta property="og:description" content="Jasa suntik followers, likes, views Instagram, TikTok, YouTube dan lainnya.">
+  <meta property="og:description" content="Jasa suntik followers, likes, views Instagram, TikTok, YouTube.">
   <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
   <meta property="og:type" content="website">
-  <title>Layanan Sosial Media - Akino Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all/all.min.css">
   <style>
     :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--radius-sm:10px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
     body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
     ::selection{background:var(--accent);color:#000}
+
     .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
     .navbar.scrolled{background:rgba(7,7,13,.92)}
     .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
@@ -24,29 +25,35 @@
     .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;transition:all .25s}
     .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
     .dropdown{position:relative}
-    .dropdown-menu{display:none;position:absolute;top:calc(100%+8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
     .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
     .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
     .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
     .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:var(--radius-sm);align-items:center;justify-content:center}
     @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
     .page-hero{padding:7rem 2rem 2rem;text-align:center;position:relative}
     .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent)}
     .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.5rem}
     .page-hero p{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
     .sec{padding:4rem 2rem;max-width:1100px;margin:0 auto}
     .sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem}
     .sec-label::before{content:'';width:18px;height:1px;background:var(--accent)}
     .sec-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem;line-height:1.15}
     .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7;max-width:480px}
-    .sec-header{margin-bottom:2rem}.sec-header.center{text-align:center}.sec-header.center .sec-desc{margin:0 auto}
+    .sec-header{margin-bottom:2rem}
+    .sec-header.center{text-align:center}
+    .sec-header.center .sec-desc{margin:0 auto}
     .sec-divider{max-width:1100px;margin:0 auto;padding:0 2rem}
     .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
     .search-wrap{max-width:480px;margin:0 auto 1.5rem;position:relative}
     .search-wrap i{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.9rem}
     .search-wrap input{width:100%;padding:.7rem 1rem .7rem 2.6rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:50px;color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
     .search-wrap input:focus{border-color:var(--accent)}
     .search-wrap input::placeholder{color:var(--muted)}
+
     .cat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:.75rem}
     .cat-btn{padding:.38rem .95rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.76rem;font-weight:500;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
     .cat-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
@@ -54,6 +61,7 @@
     .cat-btn .cat-count{font-size:.65rem;background:rgba(0,0,0,.15);padding:.1rem .4rem;border-radius:20px;font-weight:600}
     .cat-btn.active .cat-count{background:rgba(0,0,0,.2)}
     .srv-count{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+
     .srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
     .srv-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:all .35s;display:flex;flex-direction:column}
     .srv-card:hover{border-color:rgba(255,221,87,.2);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.25)}
@@ -67,15 +75,7 @@
     .srv-price .price-unit{font-size:.68rem;color:var(--muted)}
     .btn-order{padding:.5rem 1.1rem;border-radius:var(--radius-sm);background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.35rem}
     .btn-order:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
-    .skeleton-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
-    .skeleton-card{border-radius:var(--radius);height:170px;background:linear-gradient(90deg,var(--bg-card) 25%,rgba(255,255,255,.05) 50%,var(--bg-card) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
-    @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    .error-state{text-align:center;padding:3rem 1rem}
-    .error-state i{font-size:2.5rem;color:var(--muted);margin-bottom:1rem}
-    .error-state h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.5rem}
-    .error-state p{font-size:.85rem;color:var(--muted);margin-bottom:1.25rem}
-    .btn-retry{padding:.55rem 1.3rem;border-radius:var(--radius-sm);background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s}
-    .btn-retry:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
+
     .modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
     .modal-overlay.active{display:flex;animation:fadeIn .2s ease}
     .modal-card{background:var(--bg-elevated,#0e0e18);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:460px;position:relative;max-height:90vh;overflow-y:auto}
@@ -85,23 +85,15 @@
     .modal-card .modal-cat{font-size:.75rem;color:var(--accent);margin-bottom:1.25rem}
     .form-group{margin-bottom:1rem}
     .form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
-    .form-group input{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
-    .form-group input:focus{border-color:var(--accent)}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+    .form-group textarea{resize:vertical;min-height:76px}
     .form-group .hint{font-size:.7rem;color:var(--muted);margin-top:.25rem}
-    .price-calc{background:var(--accent-dim);border:1px solid rgba(255,221,87,.12);border-radius:var(--radius-sm);padding:.85rem 1rem;margin-bottom:1rem}
-    .price-calc .pc-row{display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.25rem}
-    .price-calc .pc-row:last-child{margin-bottom:0}
-    .price-calc .pc-label{color:var(--muted)}
-    .price-calc .pc-val{font-weight:600;color:var(--fg)}
-    .price-calc .pc-total{font-family:var(--font-display);font-size:1rem;color:var(--accent);font-weight:700}
     .pay-note{font-size:.72rem;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .85rem;margin-bottom:1rem;display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
     .pay-note i{color:var(--accent);margin-top:2px;flex-shrink:0}
     .btn-submit{width:100%;padding:.75rem;border-radius:var(--radius-sm);background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
     .btn-submit:hover{box-shadow:0 4px 20px rgba(255,221,87,.3)}
-    .btn-submit:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
-    .order-result{margin-top:1rem;padding:.85rem;border-radius:var(--radius-sm);text-align:center;font-size:.85rem;line-height:1.5}
-    .order-result.success{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#22c55e}
-    .order-result.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#ef4444}
+
     .status-wrap{max-width:500px;margin:0 auto}
     .status-form{display:flex;gap:.75rem;margin-bottom:1rem}
     .status-form input{flex:1;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
@@ -112,7 +104,11 @@
     .sr-row:last-child{border-bottom:none}
     .sr-label{color:var(--muted)}
     .sr-val{font-weight:600}
-    .sr-val.pending{color:#f59e0b}.sr-val.processing{color:#3b82f6}.sr-val.done{color:#22c55e}.sr-val.error{color:#ef4444}
+    .sr-val.pending{color:#f59e0b}
+    .sr-val.processing{color:#3b82f6}
+    .sr-val.done{color:#22c55e}
+    .sr-val.error{color:#ef4444}
+
     .gb-wrap{max-width:700px;margin:0 auto}
     .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
     .gb-hdr{text-align:center;margin-bottom:1.5rem}
@@ -130,14 +126,17 @@
     .gb-msg strong{display:block;font-size:.85rem;margin-bottom:.2rem}
     .gb-msg p{font-size:.82rem;color:var(--fg-dim);line-height:1.5}
     .gb-msg small{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:.25rem;display:block}
+
     .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
     .social-row a{width:42px;height:42px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:all .3s;text-decoration:none}
     .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
     .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+
     .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
     @media(max-width:768px){
       .navbar{padding:.75rem 1rem}.menu-toggle{display:flex}
       .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
@@ -172,7 +171,7 @@
 
   <section class="page-hero">
     <h1>Layanan <span style="color:var(--accent)">Sosial Media</span></h1>
-    <p>Followers, likes, views, dan layanan sosial media lainnya. Harga bersaing, proses cepat.</p>
+    <p>Followers, likes, views, dan layanan sosial media lainnya. Proses cepat, harga bersaing.</p>
   </section>
 
   <section class="sec">
@@ -182,30 +181,19 @@
     </div>
     <div class="cat-tabs reveal" id="catTabs"></div>
     <div class="srv-count reveal" id="srvCount"></div>
-    <div class="skeleton-grid" id="skeletonGrid">
-      <div class="skeleton-card"></div><div class="skeleton-card"></div>
-      <div class="skeleton-card"></div><div class="skeleton-card"></div>
-      <div class="skeleton-card"></div><div class="skeleton-card"></div>
-    </div>
-    <div class="error-state" id="errorState" style="display:none">
-      <i class="fas fa-exclamation-triangle"></i>
-      <h3>Gagal Memuat Layanan</h3>
-      <p id="errorMsg">Terjadi kesalahan saat mengambil data dari server.</p>
-      <button class="btn-retry" onclick="fetchServices()"><i class="fas fa-redo"></i> Coba Lagi</button>
-    </div>
-    <div class="srv-grid" id="srvGrid" style="display:none"></div>
+    <div class="srv-grid" id="srvGrid"></div>
   </section>
 
   <div class="sec-divider"><hr></div>
   <section class="sec">
     <div class="sec-header center reveal">
-      <div class="sec-label">Status</div>
+      <div class="sec-label">Info</div>
       <h2 class="sec-title">Cek Status Pesanan</h2>
-      <p class="sec-desc">Masukkan ID pesanan untuk melihat progres terbaru.</p>
+      <p class="sec-desc">Masukkan Order ID yang kamu terima saat pesan untuk melihat progres.</p>
     </div>
     <div class="status-wrap reveal">
       <div class="status-form">
-        <input type="text" id="statusInput" placeholder="Masukkan Order ID">
+        <input type="text" id="statusInput" placeholder="Contoh: AKINO-12345678">
         <button class="btn-order" onclick="checkStatus()" id="statusBtn" style="padding:.65rem 1.3rem;font-size:.85rem"><i class="fas fa-search"></i> Cek</button>
       </div>
       <div class="status-result" id="statusResult"></div>
@@ -254,7 +242,7 @@
       </div>
       <div class="form-group">
         <label>Jumlah Pesanan</label>
-        <input type="number" id="mQty" placeholder="Masukkan jumlah" oninput="calcPrice()">
+        <input type="number" id="mQty" placeholder="Masukkan jumlah" min="100" oninput="calcPrice()">
         <div class="hint" id="mQtyHint"></div>
       </div>
       <div class="price-calc" id="priceCalc">
@@ -264,38 +252,111 @@
       </div>
       <div class="pay-note">
         <i class="fas fa-info-circle"></i>
-        <span>Setelah klik Pesan, transfer pembayaran ke <strong>Dana/Qris +62 896-8716-3314</strong> sesuai total bayar.</span>
+        <span>Setelah klik Pesan, transfer pembayaran ke <strong>Dana/Qris +62 896-8716-3314</strong> sesuai total bayar, lalu kirim bukti transfer ke WhatsApp.</span>
       </div>
-      <button class="btn-submit" id="mSubmit" onclick="submitOrder()"><i class="fas fa-paper-plane"></i> Pesan Sekarang</button>
-      <div id="mResult"></div>
+      <button class="btn-submit" id="mSubmit" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Pesan via WhatsApp</button>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SCRIPT UTAMA
-       ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════
+     DATA LAYANAN — EDIT SESUAI KEINGINAN KAMU
+     ═══════════════════════════════════════════════
+     Hapus file _worker.js, _routes.json, functions/ kalau sudah dibuat
+     ═══════════════════════════════════════════════ -->
   <script>
-    /*
-      ┌─────────────────────────────────────────────┐
-      │  GANTI BARIS INI DENGAN URL WORKER KAMU    │
-      │  Contoh: https://api-proxy.akinoch.workers.dev│
-      └─────────────────────────────────────────────┘
-    */
-    var PROXY    = 'https://akinoch.pages.dev/api';
-    var API_KEY  = 'e83ae8a3db85e67a25a91887c05991b62594e6257608ec7210d4dc8d598f65c0';
-    var MARKUP   = 1.5;
+    var SERVICES = [
+      // ── Instagram ──
+      {id:1, name:'Instagram Followers [HQ]', category:'Instagram', rate:4500, min:100, max:100000, icon:'fab fa-instagram'},
+      {id:2, name:'Instagram Likes [HQ]', category:'Instagram', rate:3500, min:100, max:50000, icon:'fab fa-instagram'},
+      {id:3, name:'Instagram Views [Reels/Video]', category:'Instagram', rate:2000, min:100, max:100000, icon:'fab fa-instagram'},
+      {id:4, name:'Instagram Views [Feed Post]', category:'Instagram', rate:2500, min:100, max:100000, icon:'fab fa-instagram'},
+      {id:5, name:'Instagram Views [IGTV]', category:'Instagram', rate:3000, min:100, max:100000, icon:'fab fa-instagram'},
+      {id:6, name:'Instagram Comments [Random]', category:'Instagram', rate:5000, min:10, max:5000, icon:'fab fa-instagram'},
+      {id:7, name:'Instagram Saves [Post]', category:'Instagram', rate:4000, min:100, max:10000, icon:'fab fa-instagram'},
+      {id:8, name:'Instagram Auto Like [Post]', category:'Instagram', rate:3000, min:100, max:5000, icon:'fab fa-instagram'},
+      {id:9, name:'Instagram Live Views', category:'Instagram', rate:2500, min:100, max:100000, icon:'fab fa-instagram'},
+      {id:10, name:'Instagram Story Views', category:'Instagram', rate:2000, min:100, max:50000, icon:'fab fa-instagram'},
 
-    var allServices = [];
-    var categories  = [];
-    var activeCat   = 'all';
-    var currentSrv  = null;
+      // ── TikTok ──
+      {id:11, name:'TikTok Followers [HQ]', category:'TikTok', rate:4000, min:100, max:100000, icon:'fab fa-tiktok'},
+      {id:12, name:'TikTok Likes', category:'TikTok', rate:3000, min:100, max:50000, icon:'fab fa-tiktok'},
+      {id:13, name:'TikTok Views [Video]', category:'TikTok', rate:1500, min:100, max:1000000, icon:'fab fa-tiktok'},
+      {id:14, name:'TikTok Views [Live]', category:'TikTok', rate:2000, min:100, max:50000, icon:'fab fa-tiktok'},
+      {id:15, name:'TikTok Shares', category:'TikTok', rate:3500, min:100, max:10000, icon:'fab fa-tiktok'},
+      {id:16, name:'TikTok Saves [Post]', category:'TikTok', rate:3000, min:100, max:10000, icon:'fab fa-tiktok'},
+      {id:17, name:'TikTok Comments', category:'TikTok', rate:4000, min:50, max:5000, icon:'fab fa-tiktok'},
+      {id:18, name:'TikTok Favorites', category:'TikTok', rate:3500, min:100, max:10000, icon:'fab fa-tiktok'},
+      {id:19, name:'TikTok Live Stream Views', category:'TikTok', rate:1800, min:100, max:100000, icon:'fab fa-tiktok'},
+
+      // ── YouTube ──
+      {id:20, name:'YouTube Subscribers [HQ]', category:'YouTube', rate:6000, min:100, max:100000, icon:'fab fa-youtube'},
+      {id:21, name:'YouTube Views [Video]', category:'YouTube', rate:1500, min:500, max:500000, icon:'fab fa-youtube'},
+      {id:22, name:'YouTube Watch Hours', category:'YouTube', rate:2000, min:100, max:4000, icon:'fab fa-youtube'},
+      {id:23, name:'YouTube Shorts Views', category:'YouTube', rate:1000, min:100, max:500000, icon:'fab fa-youtube'},
+      {id:24, name:'YouTube Likes', category:'YouTube', rate:2500, min:100, max:10000, icon:'fab fa-youtube'},
+      {id:25, name:'YouTube Comments', category:'YouTube', rate:3500, min:50, max:5000, icon:'fab fa-youtube'},
+      {id:26, name:'YouTube Saves', category:'YouTube', rate:3000, min:100, max:10000, icon:'fab fa-youtube'},
+      {id:27, name:'YouTube Live Views', category:'YouTube', rate:1800, min:100, max:100000, icon:'fab fa-youtube'},
+
+      // ── Facebook ──
+      {id:28, name:'Facebook Page Likes', category:'Facebook', rate:3500, min:100, max:50000, icon:'fab fa-facebook'},
+      {                  name:'Facebook Post Reach', category:'Facebook', rate:2000, min:500, max:50000, icon:'fab fa-facebook'},
+      {id:30, name:'Facebook Video Views', category:'Facebook', rate:1500, min:500, max:100000, icon:'fab fa-facebook'},
+      {id:31, name:'Facebook Post Shares', category:'Facebook', rate:3000, min:100, max:10000, icon:'fab fa-facebook'},
+      {id:32, name:'Facebook Followers [HQ]', category:'Facebook', rate:5000, min:100, max:100000, icon:'fab fa-facebook'},
+      {id:33, name:'Facebook Likes [Post Photo]', category:'Facebook', rate:3000, min:100, max:5000, icon:'fab fa-facebook'},
+      {id:34, name:'Facebook Comments', category:'Facebook', rate:4000, min:50, max:5000, icon:'fab fa-facebook'},
+      {id:35, name:'Facebook Reactions', category:'Facebook', rate:2500, min:100, max:10000, icon:'fab fa-facebook'},
+      {id:36, name:'Facebook Live Views', category:'Facebook', rate:1800, min:100, max:100000, icon:'fab fa-facebook'},
+
+      // ── Twitter/X ──
+      {id:37, name:'Twitter/X Followers [HQ]', category:'Twitter', rate:5000, min:100, max:100000, icon:'fab fa-x-twitter'},
+      {id:38, name:'Twitter/X Likes [Post]', category:'Twitter', rate:3500, min:100, max:10000, icon:'fab fa-x-twitter'},
+      {id:39, name:'Twitter/X Retweets [Post]', category:'Twitter', rate:4500, min:100, max:10000, icon:'fab fa-x-twitter'},
+      {id:40, name:'Twitter/X Comments', category:'Twitter', rate:4000, min:50, max:5000, icon:'fab fa-x-twitter'},
+      {id:41, name:'Twitter/X Auto Post', category:'Twitter', rate:6000, min:1, max:1, icon:'fab fa-x-twitter'},
+
+      // ── Telegram ──
+      {id:42, name:'Telegram Members [Group]', category:'Telegram', rate:3000, min:100, max:5000, icon:'fab fa-telegram'},
+      {id:43, name:'Telegram Post Views', category:'Telegram', rate:1500, min:500, max:100000, icon:'fab fa-telegram'},
+      {id:44, name:'Telegram Reactions', category:'Telegram', rate:2500, min:100, max:10000, icon:'fab fa-telegram'},
+      {id:45, name:'Telegram Channel Members', category:'Telegram', rate:4000, min:100, max:100000, icon:'fab fa-telegram'},
+
+      // ── Spotify ──
+      {id:46, name:'Spotify Followers [HQ]', category:'Spotify', rate:4000, min:100, max:100000, icon:'fab fa-spotify'},
+      {id:47, name:'Spotify Plays [Track]', category:'Spotify', rate:2000, min:100, max:100000, icon:'fab fa-spotify'},
+      {id:48, name:'Spotify Monthly Listeners', category:'Spotify', rate:3000, min:100, max:50000, icon:'fab fa-spotify'},
+      {id:49, name:'Spotify Saves [Track]', category:'Spotify', rate:2500, min:100, max:10000, icon:'fab fa-spotify'},
+      {id:50, name:'Spotify Playlist Followers', category:'Spotify', rate:3500, min:100, max:5000, icon:'fab fa-spotify'},
+      {id:51, name:'Spotify Pre-Saves', category:'Spotify', rate:5000, min:100, max:10000, icon:'fab fa-spotify'},
+
+      // ── LinkedIn ──
+      {id:52, name:'LinkedIn Connections [HQ]', category:'LinkedIn', rate:6000, min:100, max:50000, icon:'fab fa-linkedin'},
+      {id:53, name:'LinkedIn Post Likes', category:'LinkedIn', rate:3500, min:100, max:10000, icon:'fab fa-linkedin'},
+      {id:54, name:'LinkedIn Post Views', category:'LinkedIn', rate:2000, min:500, max:100000, icon:'fab fa-linkedin'},
+      {id:55, name:'LinkedIn Comments', category:'LinkedIn', rate:4000, min:50, max:5000, icon:'fab fa-linkedin'},
+      {id:56, name:'LinkedIn Profile Views', category:'LinkedIn', rate:2500, min:100, max:50000, icon:'fab fa-linkedin'},
+      {id:57, name:'LinkedIn Company Followers', category:'LinkedIn', rate:8000, min:100, max:100000, icon:'fab fa-linkedin'},
+
+      // ── Lainnya ──
+      {id:58, name:'Pinterest Followers', category:'Pinterest', rate:4000, min:100, max:100000, icon:'fab fa-pinterest'},
+      {id:59, name:'Pinterest Saves', category:'Pinterest', rate:3000, min:100, max:10000, icon:'fab fa-pinterest'},
+      {id:60, name:'Pinterest Repins', category:'Pinterest', rate:3500, min:100, max:10000, icon:'fab fa-pinterest'},
+      {id:61, name:'Pinterest Views', category:'Pinterest', rate:2000, min:100, max:100000, icon:'fab fa-pinterest'},
+      {id:62, name:'Shopee Views', category:'Shopee', rate:3000, min:500, max:100000, icon:'fas fa-shopping-bag'},
+      {id:63, name:'Shopee Likes', category:'Shopee', rate:2500, min:100, max:50000, icon:'fas fa-shopping-bag'},
+      {id:64, name:'Shopee Followers', category:'Shopee', rate:5000, min:100, max:5000, icon:'fas fa-shopping-bag'},
+    ];
+
+    var categories = [];
+    var activeCat = 'all';
+    var currentSrv = null;
 
     var catIcons = {
       'instagram':'fab fa-instagram','tiktok':'fab fa-tiktok','youtube':'fab fa-youtube',
       'facebook':'fab fa-facebook','twitter':'fab fa-x-twitter','telegram':'fab fa-telegram',
-      'whatsapp':'fab fa-whatsapp','spotify':'fab fa-spotify','linkedin':'fab fa-linkedin',
-      'pinterest':'fab fa-pinterest','twitch':'fab fa-twitch','discord':'fab fa-discord',
-      'snapchat':'fab fa-snapchat','threads':'fab fa-threads'
+      'spotify':'fab fa-spotify','linkedin':'fab fa-linkedin','pinterest':'fab fa-pinterest',
+      'shopee':'fas fa-shopping-bag'
     };
     function getCatIcon(c){return catIcons[c.toLowerCase()]||'fas fa-globe'}
     function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
@@ -304,45 +365,12 @@
     document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
     document.getElementById('searchInput').addEventListener('input',function(){renderFiltered()});
 
-    async function fetchServices(){
-      document.getElementById('skeletonGrid').style.display='';
-      document.getElementById('errorState').style.display='none';
-      document.getElementById('srvGrid').style.display='none';
-      try{
-        var res=await fetch(PROXY+'?key='+API_KEY);
-        if(!res.ok) throw new Error('HTTP '+res.status);
-        var json=await res.json();
-        var data=[];
-        if(Array.isArray(json)) data=json;
-        else if(json.data&&Array.isArray(json.data)) data=json.data;
-        else if(json.result&&Array.isArray(json.result)) data=json.result;
-        else throw new Error('Format respons tidak dikenali');
-        allServices=data.map(function(s){
-          return{
-            id:String(s.service||s.id),
-            name:s.name||(s.service_name||'Tanpa nama'),
-            category:s.category||(s.type||'Lainnya'),
-            rate:parseFloat(s.rate||s.price||0),
-            min:parseInt(s.min||s.minimum||1)||1,
-            max:parseInt(s.max||s.maximum||1000000)||1000000
-          };
-        });
-        categories=[...new Set(allServices.map(function(s){return s.category}))].sort();
-        document.getElementById('skeletonGrid').style.display='none';
-        renderCategories();
-        renderFiltered();
-      }catch(err){
-        document.getElementById('skeletonGrid').style.display='none';
-        document.getElementById('errorState').style.display='';
-        document.getElementById('errorMsg').textContent=err.message||'Terjadi kesalahan.';
-      }
-    }
-
     function renderCategories(){
+      categories=[...new Set(SERVICES.map(function(s){return s.category}))].sort();
       var w=document.getElementById('catTabs');
-      var h='<button class="cat-btn active" data-cat="all">Semua <span class="cat-count">'+allServices.length+'</span></button>';
+      var h='<button class="cat-btn active" data-cat="all">Semua <span class="cat-count">'+SERVICES.length+'</span></button>';
       categories.forEach(function(c){
-        var cnt=allServices.filter(function(s){return s.category===c}).length;
+        var cnt=SERVICES.filter(function(s){return s.category===c}).length;
         h+='<button class="cat-btn" data-cat="'+c+'"><i class="'+getCatIcon(c)+'"></i> '+c+' <span class="cat-count">'+cnt+'</span></button>';
       });
       w.innerHTML=h;
@@ -358,7 +386,7 @@
 
     function renderFiltered(){
       var s=document.getElementById('searchInput').value.toLowerCase().trim();
-      var f=allServices.filter(function(sv){
+      var f=SERVICES.filter(function(sv){
         return(activeCat==='all'||sv.category===activeCat)&&(!s||sv.name.toLowerCase().indexOf(s)!==-1||sv.category.toLowerCase().indexOf(s)!==-1);
       });
       document.getElementById('srvCount').textContent='Menampilkan '+f.length+' layanan';
@@ -366,13 +394,13 @@
       if(!f.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)"><i class="fas fa-search" style="font-size:2rem;margin-bottom:.75rem;display:block"></i>Tidak ada layanan yang cocok.</div>';return}
       var h='';
       f.forEach(function(sv,i){
-        h+='<div class="srv-card" style="animation:fadeInUp .4s ease '+(i*0.03)+'s both"><div class="srv-card-top"><div class="srv-cat-icon"><i class="'+getCatIcon(sv.category)+'"></i></div><h3>'+sv.name+'</h3></div><div class="srv-meta"><span class="srv-tag">Min: '+sv.min.toLocaleString('id-ID')+'</span><span class="srv-tag">Max: '+sv.max.toLocaleString('id-ID')+'</span></div><div class="srv-price"><div><div class="price-val">'+fRp(Math.ceil(sv.rate*MARKUP))+'</div><div class="price-unit">/ 1000</div></div><button class="btn-order" onclick="openModal(\''+sv.id+'\')"><i class="fas fa-cart-plus"></i> Pesan</button></div></div>';
+        h+='<div class="srv-card" style="animation:fadeInUp .4s ease '+(i*0.03)+'s both"><div class="srv-card-top"><div class="srv-cat-icon"><i class="'+getCatIcon(sv.category)+'"></i></div><h3>'+sv.name+'</h3></div><div class="srv-meta"><span class="srv-tag">Min: '+sv.min.toLocaleString('id-ID')+'</span><span class="srv-tag">Max: '+sv.max.toLocaleString('id-ID')+'</span></div><div class="srv-price"><div><div class="price-val">'+fRp(sv.rate)+'</div><div class="price-unit">/ 1000</div></div><button class="btn-order" onclick="openModal('+sv.id+')"><i class="fas fa-cart-plus"></i> Pesan</button></div></div>';
       });
       g.innerHTML=h;
     }
 
     function openModal(sid){
-      currentSrv=allServices.find(function(s){return s.id===sid});
+      currentSrv=SERVICES.find(function(s){return s.id===sid});
       if(!currentSrv) return;
       document.getElementById('mName').textContent=currentSrv.name;
       document.getElementById('mCat').innerHTML='<i class="'+getCatIcon(currentSrv.category)+'"></i> '+currentSrv.category;
@@ -382,12 +410,9 @@
       document.getElementById('mQty').max=currentSrv.max;
       document.getElementById('mHint').textContent='Contoh: https://www.instagram.com/username';
       document.getElementById('mQtyHint').textContent='Min: '+currentSrv.min.toLocaleString('id-ID')+' — Max: '+currentSrv.max.toLocaleString('id-ID');
-      document.getElementById('pcRate').textContent=fRp(Math.ceil(currentSrv.rate*MARKUP))+' / 1000';
+      document.getElementById('pcRate').textContent=fRp(currentSrv.rate)+' / 1000';
       document.getElementById('pcQty').textContent='-';
       document.getElementById('pcTotal').textContent='-';
-      document.getElementById('mResult').innerHTML='';
-      document.getElementById('mSubmit').disabled=false;
-      document.getElementById('mSubmit').innerHTML='<i class="fas fa-paper-plane"></i> Pesan Sekarang';
       document.getElementById('orderModal').classList.add('active');
       document.body.style.overflow='hidden';
       setTimeout(function(){document.getElementById('mLink').focus()},200);
@@ -401,36 +426,20 @@
       var q=parseInt(document.getElementById('mQty').value)||0;
       if(q<=0){document.getElementById('pcQty').textContent='-';document.getElementById('pcTotal').textContent='-';return}
       document.getElementById('pcQty').textContent=q.toLocaleString('id-ID');
-      document.getElementById('pcTotal').textContent=fRp((q/1000)*Math.ceil(currentSrv.rate*MARKUP));
+      document.getElementById('pcTotal').textContent=fRp((q/1000)*currentSrv.rate);
     }
 
-    async function submitOrder(){
+    function submitOrder(){
       if(!currentSrv) return;
       var link=document.getElementById('mLink').value.trim();
       var qty=parseInt(document.getElementById('mQty').value)||0;
       var rd=document.getElementById('mResult');
-      var btn=document.getElementById('mSubmit');
       if(!link){rd.innerHTML='<div class="order-result error">Link target wajib diisi.</div>';return}
       if(qty<currentSrv.min||qty>currentSrv.max){rd.innerHTML='<div class="order-result error">Jumlah harus antara '+currentSrv.min.toLocaleString('id-ID')+' — '+currentSrv.max.toLocaleString('id-ID')+'.</div>';return}
-      btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Memproses...';rd.innerHTML='';
-      try{
-        var params='key='+API_KEY+'&action=add&service='+currentSrv.id+'&link='+encodeURIComponent(link)+'&quantity='+qty;
-        var res=await fetch(PROXY,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params});
-        var json=await res.json();
-        var oid=json.order_id||json.id||(json.data&&(json.data.order_id||json.data.id))||null;
-        if(oid){
-          var tb=fRp((qty/1000)*Math.ceil(currentSrv.rate*MARKUP));
-          rd.innerHTML='<div class="order-result success"><i class="fas fa-check-circle" style="font-size:1.2rem;margin-bottom:.4rem;display:block"></i><strong>Pesanan Berhasil!</strong><br>Order ID: <strong style="letter-spacing:1px">'+oid+'</strong><br>Total Bayar: <strong>'+tb+'</strong><br><br><span style="font-size:.78rem;color:var(--muted)">Transfer ke Dana/Qris +62 896-8716-3314, lalu cek status di bawah.</span></div>';
-          btn.innerHTML='<i class="fas fa-check"></i> Berhasil';
-        }else{
-          var msg=json.message||json.msg||'Gagal membuat pesanan.';
-          rd.innerHTML='<div class="order-result error"><i class="fas fa-times-circle" style="margin-right:.3rem"></i>'+msg+'</div>';
-          btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Pesan Sekarang';
-        }
-      }catch(err){
-        rd.innerHTML='<div class="order-result error"><i class="fas fa-times-circle" style="margin-right:.3rem"></i>Gagal terhubung ke server.</div>';
-        btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Pesan Sekarang';
-      }
+      var total=(qty/1000)*currentSrv.rate;
+      var msg='*PESANAN SOSIAL MEDIA*\n\nLayanan: '+currentSrv.name+'\nKategori: '+currentSrv.category+'\nJumlah: '+qty.toLocaleString('id-ID')+'\nLink: '+link+'\n\nTotal Bayar: *'+fRp(totalBayar)+'*\n\nPembayaran: Dana/Qris +62 896-8716-3314\n\nHarap lampiran bukti transfer nanti.';
+      window.open('https://api.whatsapp.com/send?phone=62896871633314&text='+encodeURIComponent(msg),'_blank');
+      closeModal();
     }
 
     async function checkStatus(){
@@ -439,30 +448,18 @@
       var btn=document.getElementById('statusBtn');
       if(!oid){rd.classList.remove('show');return}
       btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';btn.disabled=true;
-      try{
-        var res=await fetch(PROXY+'?key='+API_KEY+'&action=status&id='+oid);
-        var json=await res.json();
-        var d=json.data||json;
-        if(!d||(!d.status&&!d.charge)) throw new Error('x');
-        var st=d.status||'Unknown';
-        var sc='pending';
-        if(st.toLowerCase().indexOf('progress')!==-1||st.toLowerCase().indexOf('partial')!==-1) sc='processing';
-        else if(st.toLowerCase().indexOf('success')!==-1||st.toLowerCase().indexOf('complete')!==-1||st.toLowerCase()==='done') sc='done';
-        else if(st.toLowerCase().indexOf('error')!==-1||st.toLowerCase().indexOf('cancel')!==-1) sc='error';
-        rd.innerHTML='<div class="sr-row"><span class="sr-label">Order ID</span><span class="sr-val">'+(d.order_id||oid)+'</span></div><div class="sr-row"><span class="sr-label">Status</span><span class="sr-val '+sc+'">'+st+'</span></div><div class="sr-row"><span class="sr-label">Start Count</span><span class="sr-val">'+(parseInt(d.start_count)||0).toLocaleString('id-ID')+'</span></div><div class="sr-row"><span class="sr-label">Sisa</span><span class="sr-val">'+(parseInt(d.remains)||0).toLocaleString('id-ID')+'</span></div><div class="sr-row"><span class="sr-label">Biaya Modal</span><span class="sr-val">'+fRp(parseFloat(d.charge)||0)+'</span></div>';
-        rd.classList.add('show');
-      }catch(err){
-        rd.innerHTML='<div class="sr-row"><span class="sr-val error">Pesanan tidak ditemukan. Pastikan ID benar.</span></div>';
-        rd.classList.add('show');
-      }
-      btn.innerHTML='<i class="fas fa-search"></i> Cek';btn.disabled=false;
+      rd.innerHTML='<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val">Silakan hubungi admin via WhatsApp untuk cek status pesanan kamu.</span></div>';
+      rd.classList.add('show');
+      btn.innerHTML='<i class="fas fa-search"></i> Cek';
+      btn.disabled=false;
     }
     document.getElementById('statusInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkStatus()});
 
     var revEls=document.querySelectorAll('.reveal');
     var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible')},i*50);revObs.unobserve(e.target)}})},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
     revEls.forEach(function(el){revObs.observe(el)});
-    fetchServices();
+    renderCategories();
+    renderFiltered();
   </script>
 
   <!-- Firebase Guestbook -->
@@ -474,7 +471,7 @@
     const form=document.getElementById('messageForm');const msgsDiv=document.getElementById('gbMsgs');
     let lastVisible=null,loading=false;
     form.addEventListener('submit',async function(e){e.preventDefault();var n=document.getElementById('gb-name').value.trim(),m=document.getElementById('gb-msg').value.trim();if(n&&m){await addDoc(collection(db,"messages"),{name:n,message:m,timestamp:serverTimestamp()});form.reset()}});
-    function loadInitial(){const q=query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10));onSnapshot(q,function(snap){msgsDiv.innerHTML="";snap.forEach(function(doc){renderMsg(doc.data())});msgsDiv.scrollTop=0;if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1]})}
+    function loadInitial(){const q=query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10));onSnapshot(q,function(snap){msgsDiv.innerHTML="";snap.forEach(function(doc){renderMsg(doc.data())});msgsDiv.scrollTop=0;if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1]});}
     msgsDiv.addEventListener("scroll",async function(){if(loading)return;if(msgsDiv.scrollTop+msgsDiv.clientHeight>=msgsDiv.scrollHeight-10){loading=true;if(lastVisible){const nq=query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10));const ns=await getDocs(nq);ns.forEach(function(doc){renderMsg(doc.data(),true)});if(ns.docs.length>0)lastVisible=ns.docs[ns.docs.length-1]}loading=false}});
     function renderMsg(data,appendBottom){if(appendBottom===undefined)appendBottom=true;var div=document.createElement("div");div.className="gb-msg";div.innerHTML="<strong>"+data.name+"</strong><p>"+data.message+"</p><small>"+(data.timestamp?new Date(data.timestamp.seconds*1000).toLocaleString():"")+"</small>";if(appendBottom){msgsDiv.appendChild(div)}else{msgsDiv.prepend(div)}}
     loadInitial();
