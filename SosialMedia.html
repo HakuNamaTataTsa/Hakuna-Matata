@@ -20,7 +20,7 @@
 
     .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
     .navbar.scrolled{background:rgba(7,7,13,.92)}
-    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
+    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none;cursor:default;user-select:none}
     .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
     .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:500;transition:all .25s}
     .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
@@ -119,6 +119,85 @@
     .sr-val{font-weight:600}
     .sr-val.error{color:#ef4444}
 
+    /* ===== ORDER SUCCESS STATE ===== */
+    .order-success{text-align:center;padding:1.5rem 0;animation:fadeInUp .4s ease}
+    .success-icon{width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.6rem;color:#4ade80}
+    .order-success h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+    .order-success .os-label{font-size:.78rem;color:var(--muted);margin-bottom:.25rem}
+    .order-success .os-id{font-family:'Space Grotesk',monospace;font-size:1.3rem;font-weight:700;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:.4rem 1rem;border-radius:var(--radius-sm);margin-bottom:1rem;cursor:pointer;transition:all .2s;border:1px solid rgba(255,221,87,.2);letter-spacing:1px}
+    .order-success .os-id:hover{background:rgba(255,221,87,.25)}
+    .order-success .os-total{font-size:.92rem;color:var(--fg-dim);margin-bottom:.25rem}
+    .order-success .os-total strong{color:var(--accent);font-family:var(--font-display)}
+    .order-success .os-pay{font-size:.78rem;color:var(--muted);background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.6rem .85rem;margin:1rem 0;line-height:1.5;text-align:left}
+    .os-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+    .btn-wa-proof{width:100%;padding:.65rem;border-radius:var(--radius-sm);background:#25D366;color:#fff;border:none;font-family:var(--font-body);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .btn-wa-proof:hover{background:#1ebe57;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+    .btn-close-modal{width:100%;padding:.6rem;border-radius:var(--radius-sm);background:rgba(255,255,255,.05);color:var(--fg-dim);border:1px solid var(--border);font-family:var(--font-body);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .25s}
+    .btn-close-modal:hover{background:rgba(255,255,255,.1);color:var(--fg)}
+
+    /* ===== PESANAN TERBARU GRID ===== */
+    .orders-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem}
+    .order-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem;display:flex;flex-direction:column;gap:.35rem;transition:all .3s;animation:fadeInUp .4s ease both}
+    .order-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
+    .oc-id{font-size:.65rem;color:var(--muted);font-family:'Space Grotesk',monospace;letter-spacing:.5px}
+    .oc-name{font-size:.76rem;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .oc-qty{font-size:.7rem;color:var(--fg-dim)}
+    .oc-total{font-size:.82rem;font-weight:700;color:var(--accent);font-family:var(--font-display)}
+    .oc-status{display:inline-flex;align-items:center;gap:.3rem;font-size:.66rem;font-weight:600;padding:.18rem .5rem;border-radius:50px;width:fit-content;margin-top:.15rem}
+    .oc-status::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+    .oc-status.pending{background:rgba(255,221,87,.12);color:#FFDD57}
+    .oc-status.pending::before{animation:pulse 2s infinite}
+    .oc-status.paid{background:rgba(96,165,250,.12);color:#60a5fa}
+    .oc-status.processing{background:rgba(251,146,60,.12);color:#fb923c}
+    .oc-status.processing::before{animation:pulse 1.5s infinite}
+    .oc-status.completed{background:rgba(74,222,128,.12);color:#4ade80}
+    .oc-status.cancelled{background:rgba(248,113,113,.12);color:#f87171}
+    .oc-time{font-size:.62rem;color:rgba(255,255,255,.18);margin-top:auto;padding-top:.25rem}
+    .orders-empty{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.85rem}
+    .orders-empty i{font-size:2rem;margin-bottom:.75rem;display:block;opacity:.4}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* ===== ADMIN PANEL ===== */
+    .admin-modal .modal-card{max-width:800px;max-height:85vh}
+    .admin-login{text-align:center;padding:2rem 0}
+    .admin-login h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.5rem}
+    .admin-login p{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem}
+    .admin-login input{max-width:280px;margin:0 auto 1rem;display:block}
+    .admin-login .admin-error{color:#f87171;font-size:.8rem;margin-top:.5rem;min-height:1.2em}
+    .admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+    .admin-header h3{font-family:var(--font-display);font-size:1.05rem;font-weight:600}
+    .admin-header .admin-badge{font-size:.65rem;padding:.2rem .5rem;border-radius:50px;background:rgba(239,68,68,.12);color:#f87171;font-weight:600}
+    .admin-filter{display:flex;gap:.4rem;margin-bottom:1rem;flex-wrap:wrap}
+    .admin-filter button{padding:.3rem .7rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.7rem;font-weight:500;cursor:pointer;transition:all .2s}
+    .admin-filter button:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
+    .admin-filter button.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+    .admin-list{max-height:50vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+    .admin-item{background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem;margin-bottom:.5rem;transition:border-color .2s}
+    .admin-item:hover{border-color:rgba(255,255,255,.1)}
+    .ai-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap}
+    .ai-info{flex:1;min-width:200px}
+    .ai-id{font-size:.7rem;color:var(--muted);font-family:'Space Grotesk',monospace}
+    .ai-name{font-size:.82rem;font-weight:600;margin:.15rem 0}
+    .ai-meta{font-size:.72rem;color:var(--fg-dim);display:flex;gap:1rem;flex-wrap:wrap}
+    .ai-meta span{display:flex;align-items:center;gap:.3rem}
+    .ai-meta i{color:var(--muted);font-size:.65rem}
+    .ai-actions{display:flex;align-items:center;gap:.5rem}
+    .ai-actions select{padding:.35rem .5rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;color:var(--fg);font-family:var(--font-body);font-size:.75rem;outline:none;cursor:pointer}
+    .ai-actions select:focus{border-color:var(--accent)}
+    .ai-actions button{padding:.35rem .7rem;border-radius:6px;background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .ai-actions button:hover{box-shadow:0 2px 10px rgba(255,221,87,.25)}
+    .ai-customer{font-size:.72rem;color:var(--muted);padding-top:.4rem;border-top:1px solid var(--border);margin-top:.4rem;display:flex;gap:1rem;flex-wrap:wrap}
+    .admin-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
+
+    /* ===== TOAST ===== */
+    .toast{padding:.7rem 1rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.5rem;animation:toastIn .3s ease;backdrop-filter:blur(12px);border:1px solid var(--border);max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+    .toast.success{background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.2)}
+    .toast.error{background:rgba(239,68,68,.15);color:#f87171;border-color:rgba(239,68,68,.2)}
+    .toast.info{background:rgba(96,165,250,.15);color:#60a5fa;border-color:rgba(96,165,250,.2)}
+    .toast.out{animation:toastOut .3s ease forwards}
+    @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
+
     .gb-wrap{max-width:700px;margin:0 auto}
     .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
     .gb-hdr{text-align:center;margin-bottom:1.5rem}
@@ -146,6 +225,9 @@
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
+    @media(max-width:1024px){
+      .orders-grid{grid-template-columns:repeat(3,1fr)}
+    }
     @media(max-width:768px){
       .navbar{padding:.75rem 1rem}.menu-toggle{display:flex}
       .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
@@ -154,13 +236,21 @@
       .srv-grid{grid-template-columns:1fr}
       .modal-card{padding:1.5rem}
       .status-form{flex-direction:column}
+      .orders-grid{grid-template-columns:repeat(2,1fr)}
+      .ai-top{flex-direction:column}
+      .ai-actions{width:100%}
+      .ai-actions select{flex:1}
+      .ai-actions button{flex-shrink:0}
+    }
+    @media(max-width:480px){
+      .orders-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
 
   <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-brand">Akino Store</a>
+    <a href="index.html" class="nav-brand" id="navBrand">Akino Store</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
@@ -169,7 +259,6 @@
         <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
         <ul class="dropdown-menu">
           <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-          
           <li><a href="SosialMedia.html" style="color:var(--accent)">Layanan Sosial Media</a></li>
           <li><a href="designedit.html">Design / Edit Foto</a></li>
         </ul>
@@ -191,6 +280,22 @@
     <div class="cat-tabs reveal" id="catTabs"></div>
     <div class="srv-count reveal" id="srvCount"></div>
     <div class="srv-grid" id="srvGrid"></div>
+  </section>
+
+  <div class="sec-divider"><hr></div>
+
+  <!-- ===== PESANAN TERBARU ===== -->
+  <section class="sec">
+    <div class="sec-header center reveal">
+      <div class="sec-label">Tracking</div>
+      <h2 class="sec-title">Pesanan Terbaru</h2>
+      <p class="sec-desc">Status pesanan yang masuk ke sistem secara real-time.</p>
+    </div>
+    <div class="orders-grid reveal" id="ordersGrid"></div>
+    <div class="orders-empty reveal" id="ordersEmpty">
+      <i class="fas fa-inbox"></i>
+      Belum ada pesanan masuk.
+    </div>
   </section>
 
   <div class="sec-divider"><hr></div>
@@ -240,35 +345,79 @@
   </div>
   <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
-  <!-- Order Modal -->
+  <!-- ===== ORDER MODAL (dimodifikasi) ===== -->
   <div class="modal-overlay" id="orderModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
-      <h3 id="mName">-</h3>
-      <div class="modal-cat" id="mCat">-</div>
-      <div id="mResult"></div>
-      <div class="form-group">
-        <label>Link Target</label>
-        <input type="text" id="mLink" placeholder="https://www.instagram.com/username">
-        <div class="hint" id="mHint"></div>
+      <!-- Form state -->
+      <div id="mFormState">
+        <h3 id="mName">-</h3>
+        <div class="modal-cat" id="mCat">-</div>
+        <div id="mResult"></div>
+        <div class="form-group">
+          <label>Nama Pemesan</label>
+          <input type="text" id="mCustomerName" placeholder="Nama lengkap kamu">
+        </div>
+        <div class="form-group">
+          <label>No. WhatsApp</label>
+          <input type="text" id="mCustomerWA" placeholder="08xxxxxxxxxx">
+          <div class="hint">Untuk menghubungi jika diperlukan</div>
+        </div>
+        <div class="form-group">
+          <label>Link Target</label>
+          <input type="text" id="mLink" placeholder="https://www.instagram.com/username">
+          <div class="hint" id="mHint"></div>
+        </div>
+        <div class="form-group">
+          <label>Jumlah Pesanan</label>
+          <input type="number" id="mQty" placeholder="Masukkan jumlah" min="100" oninput="calcPrice()">
+          <div class="hint" id="mQtyHint"></div>
+        </div>
+        <div class="price-calc" id="priceCalc">
+          <div class="pc-row"><span class="pc-label">Harga per 1000</span><span class="pc-val" id="pcRate">-</span></div>
+          <div class="pc-row"><span class="pc-label">Jumlah</span><span class="pc-val" id="pcQty">-</span></div>
+          <div class="pc-row" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.3rem"><span class="pc-label">Total Bayar</span><span class="pc-val pc-total" id="pcTotal">-</span></div>
+        </div>
+        <div class="pay-note">
+          <i class="fas fa-info-circle"></i>
+          <span>Setelah pesan dibuat, transfer pembayaran ke <strong>Dana/Qris +62 896-8716-3314</strong> sesuai total bayar. Admin akan memverifikasi dan memproses pesanan kamu.</span>
+        </div>
+        <button class="btn-submit" id="mSubmit" onclick="submitOrder()"><i class="fas fa-cart-plus"></i> Pesan Sekarang</button>
       </div>
-      <div class="form-group">
-        <label>Jumlah Pesanan</label>
-        <input type="number" id="mQty" placeholder="Masukkan jumlah" min="100" oninput="calcPrice()">
-        <div class="hint" id="mQtyHint"></div>
-      </div>
-      <div class="price-calc" id="priceCalc">
-        <div class="pc-row"><span class="pc-label">Harga per 1000</span><span class="pc-val" id="pcRate">-</span></div>
-        <div class="pc-row"><span class="pc-label">Jumlah</span><span class="pc-val" id="pcQty">-</span></div>
-        <div class="pc-row" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.3rem"><span class="pc-label">Total Bayar</span><span class="pc-val pc-total" id="pcTotal">-</span></div>
-      </div>
-      <div class="pay-note">
-        <i class="fas fa-info-circle"></i>
-        <span>Setelah klik Pesan, transfer pembayaran ke <strong>Dana/Qris +62 896-8716-3314</strong> sesuai total bayar, lalu kirim bukti transfer ke WhatsApp.</span>
-      </div>
-      <button class="btn-submit" id="mSubmit" onclick="submitOrder()"><i class="fab fa-whatsapp"></i> Pesan via WhatsApp</button>
+      <!-- Success state -->
+      <div id="mSuccessState" style="display:none"></div>
     </div>
   </div>
+
+  <!-- ===== ADMIN MODAL (tersembunyi) ===== -->
+  <div class="modal-overlay admin-modal" id="adminModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeAdminModal()"><i class="fas fa-xmark"></i></button>
+      <!-- Login state -->
+      <div id="adminLogin">
+        <div class="admin-login">
+          <i class="fas fa-shield-halved" style="font-size:2rem;color:var(--accent);margin-bottom:1rem;display:block"></i>
+          <h3>Admin Panel</h3>
+          <p>Masukkan admin key untuk mengakses panel pengelolaan pesanan.</p>
+          <input type="password" id="adminKeyInput" placeholder="Admin key..." onkeydown="if(event.key==='Enter')adminLogin()">
+          <div class="admin-error" id="adminError"></div>
+          <button class="btn-submit" style="max-width:280px;margin:0 auto" onclick="adminLogin()"><i class="fas fa-lock"></i> Masuk</button>
+        </div>
+      </div>
+      <!-- Dashboard state -->
+      <div id="adminDash" style="display:none">
+        <div class="admin-header">
+          <h3><i class="fas fa-list-check" style="color:var(--accent);margin-right:.5rem"></i>Kelola Pesanan</h3>
+          <span class="admin-badge">ADMIN</span>
+        </div>
+        <div class="admin-filter" id="adminFilter"></div>
+        <div class="admin-list" id="adminList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST CONTAINER ===== -->
+  <div id="toastContainer" style="position:fixed;top:5rem;right:1.5rem;z-index:500;display:flex;flex-direction:column;gap:.5rem;pointer-events:none"></div>
 
   <script>
     /* ========== FORMAT RUPIAH ========== */
@@ -276,47 +425,80 @@
       return 'Rp ' + Math.ceil(n).toLocaleString('id-ID');
     }
 
-    /* ========== DATA LAYANAN (SERVICES) ========== */
+    /* ========== TOAST NOTIFICATION ========== */
+    function showToast(msg, type) {
+      type = type || 'info';
+      var icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+      var t = document.createElement('div');
+      t.className = 'toast ' + type;
+      t.style.pointerEvents = 'auto';
+      t.innerHTML = '<i class="fas ' + icons[type] + '"></i><span>' + msg + '</span>';
+      document.getElementById('toastContainer').appendChild(t);
+      setTimeout(function() {
+        t.classList.add('out');
+        setTimeout(function() { t.remove(); }, 300);
+      }, 3500);
+    }
+
+    /* ========== GENERATE ORDER ID ========== */
+    function generateOrderId() {
+      var now = Date.now();
+      var ts = String(now).slice(-4);
+      var rand = '';
+      for (var i = 0; i < 4; i++) { rand += Math.floor(Math.random() * 10); }
+      return 'AKINO-' + ts + rand;
+    }
+
+    /* ========== STATUS HELPERS ========== */
+    var STATUS_MAP = {
+      pending: 'Menunggu Pembayaran',
+      paid: 'Pembayaran Dikonfirmasi',
+      processing: 'Sedang Diproses',
+      completed: 'Selesai',
+      cancelled: 'Dibatalkan'
+    };
+
+    /* ========== DATA LAYANAN ========== */
     var SERVICES = [
       { id:1,  category:'instagram', name:'Instagram Followers [ 30 Day Refill ] No Drop',     min:100,   max:4000000,  rate:38600 },
-      { id:2,  category:'instagram', name:'Instagram Followers [ Max 1M ] Real People WIth Post Non Drop | Refill 60 Days',     min:100,   max:1000000, rate:22320 },
+      { id:2,  category:'instagram', name:'Instagram Followers [ Max 1M ] Real People With Post Non Drop | Refill 60 Days',     min:100,   max:1000000, rate:22320 },
       { id:3,  category:'instagram', name:'Instagram Followers Indonesia Drop Rate 5%-10% 15 Day Refill',     min:100,   max:200000,  rate:55000 },
       { id:4,  category:'instagram', name:'Instagram Followers Indonesia Less Drop/Awet Refill 1 Tahun',     min:500,   max:1000,  rate:70000 },
       { id:5,  category:'instagram', name:'Instagram Likes [Refill: No Drop]',          min:100,    max:500000,  rate:7949 },
       { id:6,  category:'instagram', name:'Instagram Likes [Refill: No] [Speed: 50K/Day] [Start Time: 0-1 Hour]',       min:50,    max:200000,  rate:9530 },
       { id:7,  category:'instagram', name:'Instagram Likes Indonesia Refill 30 Hari',       min:20,    max:20000,  rate:48209 },
-      { id:8,  category:'instagram', name:'Instagram Video Views [ All Link Work ] Super Fast [ Non Drop ]',        min:500,   max:1000000,rate:1200 },
+      { id:8,  category:'instagram', name:'Instagram Video Views [ All Link Work ] Super Fast [ Non Drop ]',        min:500,   max:1000000,rate:5074 },
       { id:9,  category:'instagram', name:'Instagram Story Impressions',                min:200,   max:1000000,  rate:8037 },
       { id:10,  category:'instagram', name:'Instagram Story View',     min:100,    max:1000000,   rate:5100 },
       { id:11,  category:'instagram', name:'Instagram Saves / Bookmark Instagram Post',      min:10,   max:100000,  rate:5062 },
       { id:12,  category:'instagram', name:'Instagram Repost [HQ Accounts Non Drop No Refill]',      min:1,   max:100000,  rate:16304 },
-      { id:13,  category:'tiktok',    name:'TikTok Followers No Drop Refill 30 Day',        min:10,   max:500000,  rate:57190 },
+      { id:13, category:'tiktok',    name:'TikTok Followers No Drop Refill 30 Day',        min:10,   max:500000,  rate:57190 },
       { id:14, category:'tiktok',    name:'TikTok Followers Real Account Low Drop Refill 7 Day',           min:10,   max:100000, rate:37849 },
-      { id:15, category:'tiktok',    name:'TikTok Followers 𝗛𝗤+𝗥𝗘𝗔𝗟 Refill 30 Day Non Drop',           min:10,   max:1000000, rate:52133 },
+      { id:15, category:'tiktok',    name:'TikTok Followers HQ+REAL Refill 30 Day Non Drop',           min:10,   max:1000000, rate:52133 },
       { id:16, category:'tiktok',    name:'TikTok Likes HQ & Real Profiles Non Drop No Refill',                   min:10,   max:50000000,  rate:6364 },
-      { id:17, category:'tiktok',    name:'TikTok Likes Bot Accounts𝐍𝐎 𝗥𝗘𝗙𝗜𝗟𝗟',                   min:10,  max:5000000,rate:5394 },
-      { id:18, category:'tiktok',    name:'TikTok - Views Unlimited [instant ] 10m',                    min:100,   max:10000000, rate:5430 },
-      { id:19, category:'tiktok',    name:'TikTok Views [Refill: 30D Start Time: 0-2 Hours] ',                  min:100,   max:2147483647,  rate:6579 },
-      { id:20, category:'tiktok',    name:'TikTok Saves [Refill: 30 Days Start Time: 10 Min]  ',                  min:10,   max:100000,  rate:5370 },
-      { id:21, category:'tiktok',    name:'TikTok Saves [HQ No Drop]  ',                  min:100,   max:2147483647,  rate:5118 },
-      { id:22, category:'tiktok',    name:'TikTok Tiktok Share [No Drop Start 0-15m Refill 30 Day]  ',                  min:100,   max:20000000,  rate: 9290 },
-      { id:23, category:'tiktok',    name:'TikTok Saves [Refill: 30D Start Time: 0 - 1 Hr]  ',                  min:10,   max:100000000,  rate: 5317 },
-      { id:24, category:'tiktok',    name:'TikTok Shares [Refill: No Start Time: Instant]  ',                  min:10,   max:100000000,  rate: 5378 },
+      { id:17, category:'tiktok',    name:'TikTok Likes Bot Accounts NO REFILL',                   min:10,  max:5000000,rate:5394 },
+      { id:18, category:'tiktok',    name:'TikTok Views Unlimited [instant] 10m',                    min:100,   max:10000000, rate:5430 },
+      { id:19, category:'tiktok',    name:'TikTok Views [Refill: 30D Start Time: 0-2 Hours]',                  min:100,   max:2147483647,  rate:6579 },
+      { id:20, category:'tiktok',    name:'TikTok Saves [Refill: 30 Days Start Time: 10 Min]',                  min:10,   max:100000,  rate:5370 },
+      { id:21, category:'tiktok',    name:'TikTok Saves [HQ No Drop]',                  min:100,   max:2147483647,  rate:5118 },
+      { id:22, category:'tiktok',    name:'TikTok Share [No Drop Start 0-15m Refill 30 Day]',                  min:100,   max:20000000,  rate:9290 },
+      { id:23, category:'tiktok',    name:'TikTok Saves [Refill: 30D Start Time: 0-1 Hr]',                  min:10,   max:100000000,  rate:5317 },
+      { id:24, category:'tiktok',    name:'TikTok Shares [Refill: No Start Time: Instant]',                  min:10,   max:100000000,  rate:5378 },
       { id:25, category:'youtube',   name:'Youtube Subscribers [ Non Drop 1 Month Tested 30 Days Refill ]',           min:50,    max:10000,  rate:511840 },
       { id:26, category:'youtube',   name:'YouTube Sub [ Real People Click NO REFILL Instant ]',           min:10,    max:10000,  rate:297242 },
-      { id:27, category:'youtube',   name:'YouTube Views [Non Drop Lifetime ♻️ Instant Start',                  min:50,   max:175000,rate:24655 },
+      { id:27, category:'youtube',   name:'YouTube Views [Non Drop Lifetime Instant Start]',                  min:50,   max:175000,rate:24655 },
       { id:28, category:'youtube',   name:'Youtube View [ Refill 365 Days]',                  min:100,   max:1000000,   rate:18283 },
       { id:29, category:'youtube',   name:'YouTube Likes [ Refill 30 Days INSTANT]',                  min:10,    max:30000,  rate:11793 },
-      { id:30, category:'facebook',  name:'Facebook Follower [ All Type Page/Profile ] [ Non Drop &amp; Best 🌟 ]',           min:100,   max:30000,  rate:12213 },
-      { id:31, category:'facebook',  name:'Facebook Profile/Page Followers [Max : 1M] [HQ Profile] [No Drop]',                  min:100,   max:50000,  rate:10902 },
+      { id:30, category:'facebook',  name:'Facebook Follower [ All Type Page/Profile ] [ Non Drop & Best ]',           min:100,   max:30000,  rate:12213 },
+      { id:31, category:'facebook',  name:'Facebook Profile/Page Followers [Max: 1M] [HQ Profile] [No Drop]',                  min:100,   max:50000,  rate:10902 },
       { id:32, category:'facebook',  name:'Facebook Views [ video/reels ]',                 min:500,   max:500000, rate:5605 },
-      { id:33, category:'facebook',  name:'Facebook Post Likes [Non Drop No Refill Instant ]',                 min:10,   max:500000, rate:9227 },
+      { id:33, category:'facebook',  name:'Facebook Post Likes [Non Drop No Refill Instant]',                 min:10,   max:500000, rate:9227 },
       { id:34, category:'twitter',   name:'Twitter / X Followers [Refill: No Start Time: 0-3 Hrs]',                min:10,   max:1000000,  rate:22650 },
-      { id:35, category:'twitter',   name:'Twitter / X Likes [Refill: No Start Time: 0 - 2 Hrs] ',               min:50,    max:10000,  rate:7847 },
-      { id:36, category:'twitter',   name:'Twitter / X Likes [Refill: 7D Start Time: 0-2 Hours] ',                 min:10,    max:2500,   rate:11958 },
+      { id:35, category:'twitter',   name:'Twitter / X Likes [Refill: No Start Time: 0-2 Hrs]',               min:50,    max:10000,  rate:7847 },
+      { id:36, category:'twitter',   name:'Twitter / X Likes [Refill: 7D Start Time: 0-2 Hours]',                 min:10,    max:2500,   rate:11958 },
       { id:37, category:'telegram',  name:'Telegram Members (Channel/Group) [ Super instant No Refill ]',             min:1,   max:100000, rate:5319 },
-      { id:38, category:'telegram',  name:'Telegram Post [ Non Drop Start 0-1 Hour]',                  min:100,   max:100000, rate:2000 },
-      { id:39, category:'telegram',  name:'Telegram - Premium Reactions - [👍🤩🎉🔥❤️🥰👏🏻 + Views]',              min:50,    max:10000,  rate:9412 },
+      { id:38, category:'telegram',  name:'Telegram Post Views [ Non Drop Start 0-1 Hour]',                  min:100,   max:100000, rate:2000 },
+      { id:39, category:'telegram',  name:'Telegram Premium Reactions [ + Views]',              min:50,    max:10000,  rate:9412 },
       { id:40, category:'shopee',    name:'Shopee Followers Indonesia [ Non Drop No Refill ]',                     min:100,   max:10000,  rate:20000 },
       { id:41, category:'shopee',    name:'Shopee Followers [ Indonesia HQ Profiles Non Drop No Refill ]',                 min:50,    max:5000,   rate:117894 },
     ];
@@ -336,6 +518,8 @@
     var categories = [];
     var activeCat = 'all';
     var currentSrv = null;
+    var adminAuthenticated = false;
+    var adminFilterStatus = 'all';
 
     /* ========== NAVBAR ========== */
     window.addEventListener('scroll', function() {
@@ -346,6 +530,21 @@
     });
     document.getElementById('searchInput').addEventListener('input', function() {
       renderFiltered();
+    });
+
+    /* ========== ADMIN ACCESS: Klik brand 5x ========== */
+    var brandClicks = 0;
+    var brandClickTimer = null;
+    document.getElementById('navBrand').addEventListener('click', function(e) {
+      e.preventDefault();
+      brandClicks++;
+      clearTimeout(brandClickTimer);
+      brandClickTimer = setTimeout(function() { brandClicks = 0; }, 2500);
+      if (brandClicks >= 5) {
+        brandClicks = 0;
+        clearTimeout(brandClickTimer);
+        openAdminModal();
+      }
     });
 
     /* ========== RENDER KATEGORI ========== */
@@ -418,9 +617,15 @@
       currentSrv = SERVICES.find(function(s) { return s.id === sid; });
       if (!currentSrv) return;
 
+      /* Reset ke form state */
+      document.getElementById('mFormState').style.display = '';
+      document.getElementById('mSuccessState').style.display = 'none';
+
       document.getElementById('mName').textContent = currentSrv.name;
       document.getElementById('mCat').innerHTML = '<img src="' + LOGOS[currentSrv.category] + '" alt="' + currentSrv.category + '" style="width:20px;height:20px;border-radius:6px;margin-right:6px">' + currentSrv.category.charAt(0).toUpperCase() + currentSrv.category.slice(1);
       document.getElementById('mResult').innerHTML = '';
+      document.getElementById('mCustomerName').value = '';
+      document.getElementById('mCustomerWA').value = '';
       document.getElementById('mLink').value = '';
       document.getElementById('mQty').value = '';
       document.getElementById('mQty').min = currentSrv.min;
@@ -433,7 +638,7 @@
 
       document.getElementById('orderModal').classList.add('active');
       document.body.style.overflow = 'hidden';
-      setTimeout(function() { document.getElementById('mLink').focus(); }, 200);
+      setTimeout(function() { document.getElementById('mCustomerName').focus(); }, 200);
     }
 
     function closeModal() {
@@ -455,14 +660,25 @@
       document.getElementById('pcTotal').textContent = fRp((q / 1000) * currentSrv.rate);
     }
 
-    /* ========== SUBMIT ORDER ========== */
+    /* ========== SUBMIT ORDER (disimpan ke Firebase, bukan redirect WA) ========== */
     function submitOrder() {
       if (!currentSrv) return;
 
+      var name = document.getElementById('mCustomerName').value.trim();
+      var wa = document.getElementById('mCustomerWA').value.trim();
       var link = document.getElementById('mLink').value.trim();
       var qty = parseInt(document.getElementById('mQty').value) || 0;
       var rd = document.getElementById('mResult');
+      var btn = document.getElementById('mSubmit');
 
+      if (!name) {
+        rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Nama pemesan wajib diisi.</div>';
+        return;
+      }
+      if (!wa) {
+        rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> No. WhatsApp wajib diisi.</div>';
+        return;
+      }
       if (!link) {
         rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Link target wajib diisi.</div>';
         return;
@@ -473,22 +689,89 @@
       }
 
       var total = (qty / 1000) * currentSrv.rate;
-      var msg = '*PESANAN SOSIAL MEDIA*\n\n' +
-        'Layanan: ' + currentSrv.name + '\n' +
-        'Kategori: ' + currentSrv.category + '\n' +
-        'Jumlah: ' + qty.toLocaleString('id-ID') + '\n' +
-        'Link: ' + link + '\n\n' +
-        'Total Bayar: *' + fRp(total) + '*\n\n' +
-        'Pembayaran: Dana/Qris +62 896-8716-3314\n\n' +
-        'Harap lampirkan bukti transfer nanti.';
+      var orderId = generateOrderId();
 
-      window.open('https://api.whatsapp.com/send?phone=6289687163314&text=' + encodeURIComponent(msg), '_blank');
-      closeModal();
+      /* Loading state */
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+      /* Kirim ke Firebase via global function yang di-expose oleh module script */
+      if (typeof window.saveOrderToFirebase === 'function') {
+        window.saveOrderToFirebase({
+          orderId: orderId,
+          serviceName: currentSrv.name,
+          category: currentSrv.category,
+          link: link,
+          quantity: qty,
+          total: Math.ceil(total),
+          rate: currentSrv.rate,
+          customerName: name,
+          customerWA: wa,
+          status: 'pending'
+        }).then(function() {
+          showOrderSuccess(orderId, total, name, wa);
+          showToast('Pesanan berhasil dibuat!', 'success');
+        }).catch(function(err) {
+          console.error('Gagal menyimpan pesanan:', err);
+          rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Gagal membuat pesanan. Coba lagi nanti.</div>';
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-cart-plus"></i> Pesan Sekarang';
+        });
+      } else {
+        /* Fallback jika Firebase belum siap */
+        rd.innerHTML = '<div class="order-result error"><i class="fas fa-exclamation-circle"></i> Sistem belum siap. Tunggu sebentar lalu coba lagi.</div>';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-cart-plus"></i> Pesan Sekarang';
+      }
     }
 
-    /* ========== CEK STATUS ========== */
+    /* ========== TAMPILKAN SUKSES DI MODAL ========== */
+    function showOrderSuccess(orderId, total, name, wa) {
+      document.getElementById('mFormState').style.display = 'none';
+      var ss = document.getElementById('mSuccessState');
+      ss.style.display = '';
+
+      var waMsg = 'Halo admin, saya ingin mengirim bukti pembayaran.\n\nOrder ID: ' + orderId + '\nNama: ' + name + '\nTotal: ' + fRp(total);
+
+      ss.innerHTML = '<div class="order-success">' +
+        '<div class="success-icon"><i class="fas fa-check"></i></div>' +
+        '<h3>Pesanan Berhasil Dibuat!</h3>' +
+        '<div class="os-label">Simpan Order ID ini untuk cek status:</div>' +
+        '<div class="os-id" onclick="copyOrderId(this)" title="Klik untuk salin">' + orderId + '</div>' +
+        '<div class="os-total">Total Bayar: <strong>' + fRp(total) + '</strong></div>' +
+        '<div class="os-pay"><i class="fas fa-wallet" style="color:var(--accent);margin-right:.35rem"></i>Transfer ke <strong>Dana/QRIS +62 896-8716-3314</strong> sesuai total bayar. Admin akan memverifikasi pembayaran kamu.</div>' +
+        '<div class="os-actions">' +
+          '<a href="https://wa.me/6289687163314?text=' + encodeURIComponent(waMsg) + '" target="_blank" class="btn-wa-proof" style="text-decoration:none"><i class="fab fa-whatsapp"></i> Kirim Bukti Transfer via WhatsApp</a>' +
+          '<button class="btn-close-modal" onclick="closeModal()">Tutup</button>' +
+        '</div>' +
+      '</div>';
+
+      /* Reset button */
+      var btn = document.getElementById('mSubmit');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-cart-plus"></i> Pesan Sekarang';
+    }
+
+    /* ========== SALIN ORDER ID ========== */
+    function copyOrderId(el) {
+      navigator.clipboard.writeText(el.textContent).then(function() {
+        showToast('Order ID disalin!', 'success');
+      }).catch(function() {
+        /* Fallback */
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        showToast('Order ID disalin!', 'success');
+      });
+    }
+
+    /* ========== CEK STATUS (query dari Firebase) ========== */
     function checkStatus() {
-      var oid = document.getElementById('statusInput').value.trim();
+      var oid = document.getElementById('statusInput').value.trim().toUpperCase();
       var rd = document.getElementById('statusResult');
       var btn = document.getElementById('statusBtn');
 
@@ -497,18 +780,184 @@
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
       btn.disabled = true;
 
-      /* Simulasi delay */
-      setTimeout(function() {
-        rd.innerHTML = '<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val" style="color:var(--accent)">Silakan hubungi admin via WhatsApp untuk cek status pesanan kamu.</span></div>';
+      if (typeof window.checkOrderFromFirebase === 'function') {
+        window.checkOrderFromFirebase(oid).then(function(order) {
+          if (order) {
+            var statusClass = order.status || 'pending';
+            rd.innerHTML =
+              '<div class="sr-row"><span class="sr-label">Order ID</span><span class="sr-val" style="font-family:var(--font-display);letter-spacing:.5px">' + escapeHtml(order.orderId) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Layanan</span><span class="sr-val">' + escapeHtml(order.serviceName) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Jumlah</span><span class="sr-val">' + (order.quantity || 0).toLocaleString('id-ID') + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Total Bayar</span><span class="sr-val" style="color:var(--accent)">' + fRp(order.total || 0) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Pemesan</span><span class="sr-val">' + escapeHtml(order.customerName) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Link Target</span><span class="sr-val" style="font-size:.75rem;word-break:break-all;max-width:220px;text-align:right">' + escapeHtml(order.link) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Status</span><span class="oc-status ' + statusClass + '">' + (STATUS_MAP[statusClass] || statusClass) + '</span></div>' +
+              '<div class="sr-row"><span class="sr-label">Waktu Pesan</span><span class="sr-val" style="font-size:.8rem;color:var(--fg-dim)">' + formatTime(order.createdAt) + '</span></div>';
+            rd.classList.add('show');
+          } else {
+            rd.innerHTML = '<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val error">Order ID tidak ditemukan. Pastikan ID yang dimasukkan benar.</span></div>';
+            rd.classList.add('show');
+          }
+          btn.innerHTML = '<i class="fas fa-search"></i> Cek';
+          btn.disabled = false;
+        }).catch(function(err) {
+          console.error('Gagal cek status:', err);
+          rd.innerHTML = '<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val error">Gagal mengecek status. Coba lagi nanti.</span></div>';
+          rd.classList.add('show');
+          btn.innerHTML = '<i class="fas fa-search"></i> Cek';
+          btn.disabled = false;
+        });
+      } else {
+        rd.innerHTML = '<div class="sr-row"><span class="sr-label">Info</span><span class="sr-val error">Sistem belum siap. Tunggu sebentar.</span></div>';
         rd.classList.add('show');
         btn.innerHTML = '<i class="fas fa-search"></i> Cek';
         btn.disabled = false;
-      }, 800);
+      }
     }
 
     document.getElementById('statusInput').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') checkStatus();
     });
+
+    /* ========== HELPERS ========== */
+    function escapeHtml(text) {
+      var d = document.createElement('div');
+      d.textContent = text || '';
+      return d.innerHTML;
+    }
+
+    function formatTime(ts) {
+      if (!ts) return '-';
+      var d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    /* ========== ADMIN MODAL ========== */
+    function openAdminModal() {
+      if (adminAuthenticated) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminDash').style.display = '';
+        renderAdminFilter();
+        if (typeof window.loadAdminOrders === 'function') window.loadAdminOrders();
+      } else {
+        document.getElementById('adminLogin').style.display = '';
+        document.getElementById('adminDash').style.display = 'none';
+        document.getElementById('adminKeyInput').value = '';
+        document.getElementById('adminError').textContent = '';
+      }
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() { document.getElementById('adminKeyInput').focus(); }, 200);
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('adminModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAdminModal();
+    });
+
+    function adminLogin() {
+      var key = document.getElementById('adminKeyInput').value.trim();
+      /* Ganti "akino2024" dengan admin key yang kamu inginkan */
+      if (key === 'akino2024') {
+        adminAuthenticated = true;
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminDash').style.display = '';
+        renderAdminFilter();
+        if (typeof window.loadAdminOrders === 'function') window.loadAdminOrders();
+        showToast('Berhasil masuk sebagai admin', 'success');
+      } else {
+        document.getElementById('adminError').textContent = 'Admin key salah!';
+        document.getElementById('adminKeyInput').value = '';
+        document.getElementById('adminKeyInput').focus();
+      }
+    }
+
+    function renderAdminFilter() {
+      var statuses = ['all', 'pending', 'paid', 'processing', 'completed', 'cancelled'];
+      var labels = { all: 'Semua', pending: 'Menunggu Bayar', paid: 'Dibayar', processing: 'Diproses', completed: 'Selesai', cancelled: 'Dibatalkan' };
+      var h = '';
+      statuses.forEach(function(s) {
+        h += '<button class="' + (adminFilterStatus === s ? 'active' : '') + '" onclick="setAdminFilter(\'' + s + '\')">' + labels[s] + '</button>';
+      });
+      document.getElementById('adminFilter').innerHTML = h;
+    }
+
+    function setAdminFilter(s) {
+      adminFilterStatus = s;
+      renderAdminFilter();
+      if (typeof window.filterAdminOrders === 'function') window.filterAdminOrders(s);
+    }
+
+    /* ===== RENDER ORDER CARD (dipanggil dari module) ===== */
+    window.renderPublicOrderCard = function(order, index) {
+      var statusClass = order.status || 'pending';
+      var card = document.createElement('div');
+      card.className = 'order-card';
+      card.style.animationDelay = (index * 0.05) + 's';
+      card.innerHTML =
+        '<div class="oc-id">' + escapeHtml(order.orderId) + '</div>' +
+        '<div class="oc-name">' + escapeHtml(order.serviceName) + '</div>' +
+        '<div class="oc-qty">Qty: ' + (order.quantity || 0).toLocaleString('id-ID') + '</div>' +
+        '<div class="oc-total">' + fRp(order.total || 0) + '</div>' +
+        '<div class="oc-status ' + statusClass + '">' + (STATUS_MAP[statusClass] || statusClass) + '</div>' +
+        '<div class="oc-time">' + formatTime(order.createdAt) + '</div>';
+      return card;
+    };
+
+    /* ===== RENDER ADMIN ITEM (dipanggil dari module) ===== */
+    window.renderAdminItem = function(order) {
+      var statusOptions = ['pending', 'paid', 'processing', 'completed', 'cancelled'];
+      var optH = '';
+      statusOptions.forEach(function(s) {
+        optH += '<option value="' + s + '"' + (order.status === s ? ' selected' : '') + '>' + STATUS_MAP[s] + '</option>';
+      });
+
+      var item = document.createElement('div');
+      item.className = 'admin-item';
+      item.id = 'admin-item-' + order.orderId;
+      item.innerHTML =
+        '<div class="ai-top">' +
+          '<div class="ai-info">' +
+            '<div class="ai-id">' + escapeHtml(order.orderId) + '</div>' +
+            '<div class="ai-name">' + escapeHtml(order.serviceName) + '</div>' +
+            '<div class="ai-meta">' +
+              '<span><i class="fas fa-layer-group"></i> ' + escapeHtml(order.category) + '</span>' +
+              '<span><i class="fas fa-hashtag"></i> ' + (order.quantity || 0).toLocaleString('id-ID') + '</span>' +
+              '<span><i class="fas fa-money-bill"></i> ' + fRp(order.total || 0) + '</span>' +
+              '<span><i class="fas fa-clock"></i> ' + formatTime(order.createdAt) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ai-actions">' +
+            '<select id="select-' + order.orderId + '">' + optH + '</select>' +
+            '<button onclick="updateOrderStatus(\'' + order.orderId + '\')"><i class="fas fa-save"></i> Update</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ai-customer">' +
+          '<span><i class="fas fa-user" style="margin-right:.3rem"></i>' + escapeHtml(order.customerName) + '</span>' +
+          '<span><i class="fab fa-whatsapp" style="margin-right:.3rem"></i>' + escapeHtml(order.customerWA) + '</span>' +
+          '<span style="word-break:break-all;max-width:300px"><i class="fas fa-link" style="margin-right:.3rem"></i>' + escapeHtml(order.link) + '</span>' +
+        '</div>';
+      return item;
+    };
+
+    /* ===== UPDATE ORDER STATUS (dipanggil dari tombol admin) ===== */
+    window.updateOrderStatus = function(orderId) {
+      var sel = document.getElementById('select-' + orderId);
+      if (!sel) return;
+      var newStatus = sel.value;
+      if (typeof window.updateOrderInFirebase === 'function') {
+        window.updateOrderInFirebase(orderId, newStatus).then(function() {
+          showToast('Status pesanan ' + orderId + ' diubah ke "' + STATUS_MAP[newStatus] + '"', 'success');
+        }).catch(function(err) {
+          console.error('Gagal update:', err);
+          showToast('Gagal mengubah status', 'error');
+        });
+      }
+    };
 
     /* ========== CLOSE MODAL KLIK OVERLAY ========== */
     document.getElementById('orderModal').addEventListener('click', function(e) {
@@ -532,10 +981,10 @@
     renderFiltered();
   </script>
 
-  <!-- Firebase Guestbook -->
+  <!-- ===== Firebase: Guestbook + Orders ===== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
@@ -548,6 +997,10 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    /* =============================================
+       GUESTBOOK (tidak diubah, sama seperti sebelumnya)
+       ============================================= */
     const form = document.getElementById('messageForm');
     const msgsDiv = document.getElementById('gbMsgs');
     let lastVisible = null;
@@ -582,16 +1035,12 @@
       div.innerHTML = '<strong>' + escapeHtml(data.name) + '</strong>' +
         '<p>' + escapeHtml(data.message) + '</p>' +
         (timeStr ? '<small>' + timeStr + '</small>' : '');
-      if (prepend) {
-        msgsDiv.prepend(div);
-      } else {
-        msgsDiv.appendChild(div);
-      }
+      if (prepend) { msgsDiv.prepend(div); } else { msgsDiv.appendChild(div); }
     }
 
     function escapeHtml(text) {
       var d = document.createElement('div');
-      d.textContent = text;
+      d.textContent = text || '';
       return d.innerHTML;
     }
 
@@ -599,9 +1048,7 @@
       var q = query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(10));
       onSnapshot(q, function(snap) {
         msgsDiv.innerHTML = '';
-        snap.forEach(function(doc) {
-          renderMsg(doc.data(), false);
-        });
+        snap.forEach(function(doc) { renderMsg(doc.data(), false); });
         msgsDiv.scrollTop = 0;
         if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
       }, function(err) {
@@ -618,19 +1065,121 @@
           try {
             var nq = query(collection(db, "messages"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(10));
             var ns = await getDocs(nq);
-            ns.forEach(function(doc) {
-              renderMsg(doc.data(), false);
-            });
+            ns.forEach(function(doc) { renderMsg(doc.data(), false); });
             if (ns.docs.length > 0) lastVisible = ns.docs[ns.docs.length - 1];
-          } catch (err) {
-            console.error('Error loading more:', err);
-          }
+          } catch (err) { console.error('Error loading more:', err); }
         }
         loading = false;
       }
     });
 
     loadInitial();
+
+    /* =============================================
+       ORDERS - Pesanan Terbaru (Real-time, 5/baris)
+       ============================================= */
+    const ordersGrid = document.getElementById('ordersGrid');
+    const ordersEmpty = document.getElementById('ordersEmpty');
+    let allPublicOrders = [];
+
+    function loadPublicOrders() {
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"), limit(10));
+      onSnapshot(q, function(snap) {
+        allPublicOrders = [];
+        snap.forEach(function(d) { allPublicOrders.push(d.data()); });
+        renderPublicOrders();
+      }, function(err) {
+        console.error('Gagal memuat pesanan:', err);
+        ordersGrid.innerHTML = '';
+        ordersEmpty.innerHTML = '<i class="fas fa-exclamation-triangle"></i>Gagal memuat pesanan.';
+        ordersEmpty.style.display = '';
+      });
+    }
+
+    function renderPublicOrders() {
+      ordersGrid.innerHTML = '';
+      if (allPublicOrders.length === 0) {
+        ordersEmpty.style.display = '';
+        return;
+      }
+      ordersEmpty.style.display = 'none';
+      allPublicOrders.forEach(function(order, i) {
+        if (typeof window.renderPublicOrderCard === 'function') {
+          ordersGrid.appendChild(window.renderPublicOrderCard(order, i));
+        }
+      });
+    }
+
+    loadPublicOrders();
+
+    /* =============================================
+       ORDER CRUD - Expose ke global scope
+       ============================================= */
+
+    /* Simpan pesanan baru */
+    window.saveOrderToFirebase = async function(orderData) {
+      const docRef = await addDoc(collection(db, "orders"), {
+        ...orderData,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+      return docRef.id;
+    };
+
+    /* Cek pesanan berdasarkan Order ID */
+    window.checkOrderFromFirebase = async function(orderId) {
+      const q = query(collection(db, "orders"), where("orderId", "==", orderId), limit(1));
+      const snap = await getDocs(q);
+      if (snap.empty) return null;
+      return snap.docs[0].data();
+    };
+
+    /* Update status pesanan (untuk admin) */
+    window.updateOrderInFirebase = async function(orderId, newStatus) {
+      /* Cari dokumen berdasarkan field orderId */
+      const q = query(collection(db, "orders"), where("orderId", "==", orderId), limit(1));
+      const snap = await getDocs(q);
+      if (snap.empty) throw new Error('Order tidak ditemukan');
+      const docRef = snap.docs[0].ref;
+      await updateDoc(docRef, {
+        status: newStatus,
+        updatedAt: serverTimestamp()
+      });
+    };
+
+    /* =============================================
+       ADMIN PANEL - Load & Filter semua pesanan
+       ============================================= */
+    let allAdminOrders = [];
+
+    window.loadAdminOrders = function() {
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"), limit(100));
+      onSnapshot(q, function(snap) {
+        allAdminOrders = [];
+        snap.forEach(function(d) { allAdminOrders.push(d.data()); });
+        filterAdminOrders(window.adminFilterStatus ? undefined : 'all');
+      }, function(err) {
+        console.error('Gagal memuat admin orders:', err);
+      });
+    };
+
+    window.filterAdminOrders = function(status) {
+      status = status || 'all';
+      var list = document.getElementById('adminList');
+      list.innerHTML = '';
+      var filtered = status === 'all' ? allAdminOrders : allAdminOrders.filter(function(o) { return o.status === status; });
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="admin-empty"><i class="fas fa-inbox" style="display:block;font-size:1.5rem;margin-bottom:.5rem;opacity:.4"></i>Tidak ada pesanan' + (status !== 'all' ? ' dengan status "' + status + '"' : '') + '.</div>';
+        return;
+      }
+
+      filtered.forEach(function(order) {
+        if (typeof window.renderAdminItem === 'function') {
+          list.appendChild(window.renderAdminItem(order));
+        }
+      });
+    };
   </script>
 
 </body>
