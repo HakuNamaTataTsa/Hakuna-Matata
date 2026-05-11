@@ -99,6 +99,7 @@
     .btn-submit:hover{box-shadow:0 4px 20px rgba(255,221,87,.3)}
     .btn-submit:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 
+    /* ===== STEP INDICATOR ===== */
     .step-indicator{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.25rem}
     .step-dot{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:600;color:var(--muted);transition:all .3s}
     .step-dot.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
@@ -107,6 +108,7 @@
     .step-line.done{background:rgba(34,197,94,.3)}
     .step-title{text-align:center;font-size:.85rem;font-weight:600;color:var(--fg-dim);margin-bottom:1.25rem}
 
+    /* ===== PAYMENT METHOD CARDS ===== */
     .pay-methods{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.25rem}
     .pay-method-card{display:flex;align-items:center;gap:.85rem;padding:.85rem 1rem;background:rgba(255,255,255,.02);border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .25s}
     .pay-method-card:hover{border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04)}
@@ -121,6 +123,7 @@
     .pmc-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:transparent;transition:all .25s;flex-shrink:0}
     .pay-method-card.selected .pmc-check{border-color:var(--accent);background:var(--accent);color:#0a0a0f}
 
+    /* ===== PAYMENT DETAIL ===== */
     .pay-detail{text-align:center;padding:.5rem 0}
     .pay-detail-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto .85rem}
     .pay-detail-icon.dana{background:rgba(16,142,233,.15);color:#108ee9}
@@ -148,6 +151,7 @@
     .btn-paid:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;transform:none}
     .pd-warning{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.75rem;line-height:1.5;padding:.5rem;background:rgba(255,255,255,.02);border-radius:6px}
 
+    /* ===== ORDER SUCCESS ===== */
     .order-success{text-align:center;padding:1.5rem 0;animation:fadeInUp .4s ease}
     .success-icon{width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.6rem;color:#4ade80}
     .order-success h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
@@ -164,6 +168,7 @@
     .btn-close-modal{width:100%;padding:.6rem;border-radius:var(--radius-sm);background:rgba(255,255,255,.05);color:var(--fg-dim);border:1px solid var(--border);font-family:var(--font-body);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .25s}
     .btn-close-modal:hover{background:rgba(255,255,255,.1);color:var(--fg)}
 
+    /* ===== PESANAN TERBARU GRID ===== */
     .orders-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem}
     .order-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem;display:flex;flex-direction:column;gap:.35rem;transition:all .3s;animation:fadeInUp .4s ease both}
     .order-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-2px)}
@@ -185,6 +190,7 @@
     .orders-empty i{font-size:2rem;margin-bottom:.75rem;display:block;opacity:.4}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
+    /* ===== STATUS CHECK ===== */
     .status-wrap{max-width:500px;margin:0 auto}
     .status-form{display:flex;gap:.75rem;margin-bottom:1rem}
     .status-form input{flex:1;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s}
@@ -197,6 +203,7 @@
     .sr-val{font-weight:600}
     .sr-val.error{color:#ef4444}
 
+    /* ===== ADMIN PANEL ===== */
     .admin-modal .modal-card{max-width:800px;max-height:85vh}
     .admin-login{text-align:center;padding:2rem 0}
     .admin-login h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.5rem}
@@ -228,6 +235,7 @@
     .ai-customer{font-size:.72rem;color:var(--muted);padding-top:.4rem;border-top:1px solid var(--border);margin-top:.4rem;display:flex;gap:1rem;flex-wrap:wrap}
     .admin-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
 
+    /* ===== TOAST ===== */
     .toast{padding:.7rem 1rem;border-radius:var(--radius-sm);font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.5rem;animation:toastIn .3s ease;backdrop-filter:blur(12px);border:1px solid var(--border);max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.4)}
     .toast.success{background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.2)}
     .toast.error{background:rgba(239,68,68,.15);color:#f87171;border-color:rgba(239,68,68,.2)}
@@ -369,6 +377,7 @@
   </div>
   <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
+  <!-- ===== ORDER MODAL (multi-step) ===== -->
   <div class="modal-overlay" id="orderModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
@@ -376,6 +385,7 @@
     </div>
   </div>
 
+  <!-- ===== ADMIN MODAL ===== -->
   <div class="modal-overlay admin-modal" id="adminModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeAdminModal()"><i class="fas fa-xmark"></i></button>
@@ -423,6 +433,8 @@
 
     var STATUS_MAP={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
 
+    /* ===== KONFIGURASI PEMBAYARAN ===== */
+    /* >>> GANTI DATA DI BAWAH INI DENGAN DATA ASLI KAMU <<< */
     var PAYMENT_METHODS=[
       {
         id:'dana',
@@ -441,6 +453,8 @@
         iconClass:'qris',
         desc:'Scan QRIS (All Payment)',
         type:'qris',
+        /* >>> GANTI URL GAMBAR QRIS KAMU DI BAWAH INI <<< */
+        /* Cara: buka app Dana → QRIS → screenshot → upload ke Cloudinary → paste URL-nya */
         qrisImage:'qris.png'
       },
       {
@@ -450,6 +464,7 @@
         iconClass:'bca',
         desc:'Transfer via BCA',
         type:'account',
+        /* >>> GANTI NOMOR BCA KAMU DI BAWAH INI <<< */
         number:'0601345985',
         holder:'Tesalonik Bagaskara'
       }
@@ -516,6 +531,7 @@
     document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
     document.getElementById('searchInput').addEventListener('input',function(){renderFiltered()});
 
+    /* Admin: klik brand 5x */
     var brandClicks=0,brandClickTimer=null;
     document.getElementById('navBrand').addEventListener('click',function(e){
       e.preventDefault();brandClicks++;clearTimeout(brandClickTimer);
@@ -523,6 +539,7 @@
       if(brandClicks>=5){brandClicks=0;clearTimeout(brandClickTimer);openAdminModal()}
     });
 
+    /* ===== STEP INDICATOR HTML ===== */
     function stepIndicatorHTML(step){
       var labels=['','Isi Pesanan','Pembayaran','Konfirmasi'];
       var h='<div class="step-indicator">';
@@ -536,6 +553,7 @@
       return h;
     }
 
+    /* ===== RENDER KATEGORI ===== */
     function renderCategories(){
       categories=[];SERVICES.forEach(function(s){if(categories.indexOf(s.category)===-1)categories.push(s.category)});categories.sort();
       var w=document.getElementById('catTabs');
@@ -558,6 +576,7 @@
       g.innerHTML=h;
     }
 
+    /* ===== MODAL: OPEN ===== */
     function openModal(sid){
       currentSrv=SERVICES.find(function(s){return s.id===sid});if(!currentSrv)return;
       currentStep=1;selectedPayMethod=null;orderFormData={};
@@ -566,6 +585,7 @@
     }
     function closeModal(){document.getElementById('orderModal').classList.remove('active');document.body.style.overflow='';currentSrv=null}
 
+    /* ===== STEP 1: FORM PESANAN ===== */
     function renderStep1(){
       var mc=document.getElementById('modalContent');
       mc.innerHTML=stepIndicatorHTML(1)+
@@ -588,6 +608,7 @@
       document.getElementById('pcTotal').textContent=fRp((q/1000)*currentSrv.rate);
     }
 
+    /* ===== VALIDATE & GO TO STEP 2 ===== */
     function goToStep2(){
       var name=document.getElementById('mName').value.trim();
       var wa=document.getElementById('mWA').value.trim();
@@ -606,6 +627,7 @@
       renderStep2();
     }
 
+    /* ===== STEP 2: PILIH PEMBAYARAN ===== */
     function renderStep2(){
       var mc=document.getElementById('modalContent');
       var cardsH='';
@@ -638,6 +660,7 @@
       renderStep3();
     }
 
+    /* ===== STEP 3: DETAIL PEMBAYARAN ===== */
     function renderStep3(){
       var pm=PAYMENT_METHODS.find(function(p){return p.id===selectedPayMethod});
       var mc=document.getElementById('modalContent');
@@ -671,6 +694,7 @@
       navigator.clipboard.writeText(num).then(function(){showToast('Nomor disalin!','success')}).catch(function(){showToast('Gagal menyalin','error')});
     }
 
+    /* ===== KONFIRMASI SUDAH BAYAR → SIMPAN KE FIREBASE ===== */
     function confirmPaid(){
       var btn=document.getElementById('btnPaid');
       btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Memproses...';
@@ -705,6 +729,7 @@
       }
     }
 
+    /* ===== SUCCESS SCREEN ===== */
     function showSuccessScreen(orderId,payMethodName){
       var mc=document.getElementById('modalContent');
       var waMsg='Halo admin, saya ingin mengirim bukti pembayaran.\n\nOrder ID: '+orderId+'\nNama: '+orderFormData.name+'\nMetode: '+payMethodName+'\nTotal: '+fRp(orderFormData.total);
@@ -728,6 +753,7 @@
       navigator.clipboard.writeText(el.textContent).then(function(){showToast('Order ID disalin!','success')}).catch(function(){showToast('Order ID disalin!','success')});
     }
 
+    /* ===== CEK STATUS ===== */
     function checkStatus(){
       var oid=document.getElementById('statusInput').value.trim().toUpperCase();
       var rd=document.getElementById('statusResult');var btn=document.getElementById('statusBtn');
@@ -756,6 +782,7 @@
     }
     document.getElementById('statusInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkStatus()});
 
+    /* ===== ADMIN ===== */
     function openAdminModal(){
       if(adminAuthenticated){document.getElementById('adminLogin').style.display='none';document.getElementById('adminDash').style.display='';renderAdminFilter();if(typeof window.loadAdminOrders==='function')window.loadAdminOrders()}
       else{document.getElementById('adminLogin').style.display='';document.getElementById('adminDash').style.display='none';document.getElementById('adminKeyInput').value='';document.getElementById('adminError').textContent=''}
@@ -779,6 +806,7 @@
     }
     function setAdminFilter(s){adminFilterStatus=s;renderAdminFilter();if(typeof window.filterAdminOrders==='function')window.filterAdminOrders(s)}
 
+    /* ===== RENDER HELPERS (dipanggil dari module) ===== */
     window.renderPublicOrderCard=function(order,i){
       var sc=order.status||'pending';var c=document.createElement('div');c.className='order-card';c.style.animationDelay=(i*0.05)+'s';
       c.innerHTML='<div class="oc-id">'+escapeHtml(order.orderId)+'</div><div class="oc-name">'+escapeHtml(order.serviceName)+'</div><div class="oc-qty">Qty: '+(order.quantity||0).toLocaleString('id-ID')+'</div><div class="oc-total">'+fRp(order.total||0)+'</div><div class="oc-status '+sc+'">'+(STATUS_MAP[sc]||sc)+'</div><div class="oc-time">'+formatTime(order.createdAt)+'</div>';
@@ -810,11 +838,12 @@
 
   <script type="module">
     import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import{getFirestore,collection,addDoc,query,orderBy,limit,onSnapshot,startAfter,getDocs,where,doc,updateDoc}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import{getFirestore,collection,addDoc,query,orderBy,limit,serverTimestamp,onSnapshot,startAfter,getDocs,where,doc,updateDoc}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     const firebaseConfig={apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"};
     const app=initializeApp(firebaseConfig);const db=getFirestore(app);
 
+    /* Guestbook */
     const form=document.getElementById('messageForm');const msgsDiv=document.getElementById('gbMsgs');let lastVisible=null,loading=false;
     form.addEventListener('submit',async function(e){e.preventDefault();var n=document.getElementById('gb-name').value.trim(),m=document.getElementById('gb-msg').value.trim();if(n&&m){try{await addDoc(collection(db,"messages"),{name:n,message:m,timestamp:serverTimestamp()});form.reset()}catch(err){console.error(err)}}});
     function renderMsg(data,prepend){var div=document.createElement('div');div.className='gb-msg';var ts='';if(data.timestamp){var d=data.timestamp.toDate?data.timestamp.toDate():new Date(data.timestamp);ts=d.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}div.innerHTML='<strong>'+escHtml(data.name)+'</strong><p>'+escHtml(data.message)+'</p>'+(ts?'<small>'+ts+'</small>':'');prepend?msgsDiv.prepend(div):msgsDiv.appendChild(div)}
@@ -823,15 +852,18 @@
     msgsDiv.addEventListener("scroll",async function(){if(loading)return;if(msgsDiv.scrollTop+msgsDiv.clientHeight>=msgsDiv.scrollHeight-10){loading=true;if(lastVisible){try{var nq=query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10));var ns=await getDocs(nq);ns.forEach(function(doc){renderMsg(doc.data(),false)});if(ns.docs.length>0)lastVisible=ns.docs[ns.docs.length-1]}catch(err){console.error(err)}}loading=false}});
     loadInitial();
 
+    /* Orders - Public */
     const ordersGrid=document.getElementById('ordersGrid');const ordersEmpty=document.getElementById('ordersEmpty');let allPublicOrders=[];
     function loadPublicOrders(){const q=query(collection(db,"orders"),orderBy("createdAt","desc"),limit(10));onSnapshot(q,function(snap){allPublicOrders=[];snap.forEach(function(d){allPublicOrders.push(d.data())});renderPublicOrders()},function(err){console.error(err);ordersGrid.innerHTML='';ordersEmpty.innerHTML='<i class="fas fa-exclamation-triangle"></i>Gagal memuat pesanan.';ordersEmpty.style.display=''})}
     function renderPublicOrders(){ordersGrid.innerHTML='';if(!allPublicOrders.length){ordersEmpty.style.display='';return}ordersEmpty.style.display='none';allPublicOrders.forEach(function(o,i){if(typeof window.renderPublicOrderCard==='function')ordersGrid.appendChild(window.renderPublicOrderCard(o,i))})}
     loadPublicOrders();
 
+    /* Order CRUD */
     window.saveOrderToFirebase=async function(data){const ref=await addDoc(collection(db,"orders"),{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});return ref.id};
     window.checkOrderFromFirebase=async function(orderId){const q=query(collection(db,"orders"),where("orderId","==",orderId),limit(1));const snap=await getDocs(q);if(snap.empty)return null;return snap.docs[0].data()};
     window.updateOrderInFirebase=async function(orderId,newStatus){const q=query(collection(db,"orders"),where("orderId","==",orderId),limit(1));const snap=await getDocs(q);if(snap.empty)throw new Error('Not found');await updateDoc(snap.docs[0].ref,{status:newStatus,updatedAt:serverTimestamp()})};
 
+    /* Admin */
     let allAdminOrders=[];
     window.loadAdminOrders=function(){const q=query(collection(db,"orders"),orderBy("createdAt","desc"),limit(100));onSnapshot(q,function(snap){allAdminOrders=[];snap.forEach(function(d){allAdminOrders.push(d.data())});filterAdminOrders('all')},function(err){console.error(err)})};
     window.filterAdminOrders=function(status){status=status||'all';var list=document.getElementById('adminList');list.innerHTML='';var filtered=status==='all'?allAdminOrders:allAdminOrders.filter(function(o){return o.status===status});if(!filtered.length){list.innerHTML='<div class="admin-empty"><i class="fas fa-inbox" style="display:block;font-size:1.5rem;margin-bottom:.5rem;opacity:.4"></i>Tidak ada pesanan.</div>';return}filtered.forEach(function(order){if(typeof window.renderAdminItem==='function')list.appendChild(window.renderAdminItem(order))})};
