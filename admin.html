@@ -166,7 +166,7 @@
 </head>
 <body>
 
-  <!-- ═══ LOGIN ═══ -->
+  <!-- LOGIN -->
   <div class="login-wrap" id="loginWrap">
     <div class="login-card">
       <div class="lc-icon"><i class="fas fa-shield-halved"></i></div>
@@ -178,7 +178,7 @@
     </div>
   </div>
 
-  <!-- ═══ DASHBOARD ═══ -->
+  <!-- DASHBOARD -->
   <div class="dash" id="dash">
     <div class="topbar">
       <div class="topbar-inner">
@@ -196,11 +196,10 @@
       <button class="tab-btn" onclick="switchTab('sosmed')"><i class="fas fa-share-nodes"></i> Sosial Media</button>
     </div>
 
-    <!-- ═══ TAB: STOCK MOBIL ═══ -->
+    <!-- TAB: STOCK MOBIL -->
     <div class="tab-panel active" id="tabStock">
       <div class="stats" id="stockStats"></div>
 
-      <!-- Tambah Stock -->
       <div class="form-card">
         <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru</h4>
         <div class="fr"><label>Link Post Instagram</label><input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/"><div class="hint">Buka post → 3 titik → Copy Link</div></div>
@@ -210,7 +209,6 @@
         <button class="btn-primary" id="addBtn" onclick="addStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
       </div>
 
-      <!-- Edit Harga -->
       <div class="edit-card" id="editCard" style="display:none">
         <h4><i class="fas fa-pen-to-square"></i> Edit Harga</h4>
         <div class="fr"><label>Item</label><input type="text" id="editName" readonly></div>
@@ -222,22 +220,19 @@
         </div>
       </div>
 
-      <!-- Tersedia -->
       <div class="sec-title"><i class="fas fa-check-circle"></i> Tersedia <span class="count" id="cntAvail">0</span></div>
       <div id="listAvail"></div>
       <hr class="divider">
 
-      <!-- Terjual -->
       <div class="sec-title" style="color:#f87171"><i class="fas fa-tag"></i> Terjual <span class="count" id="cntSold" style="background:rgba(248,113,113,.12);color:#f87171">0</span></div>
       <div id="listSold"></div>
       <hr class="divider">
 
-      <!-- Dihapus -->
       <div class="sec-title" style="color:var(--muted)"><i class="fas fa-trash"></i> Dihapus <span class="count" id="cntDel" style="background:rgba(255,255,255,.05);color:var(--muted)">0</span></div>
       <div id="listDel"></div>
     </div>
 
-    <!-- ═══ TAB: SOSIAL MEDIA ═══ -->
+    <!-- TAB: SOSIAL MEDIA -->
     <div class="tab-panel" id="tabSosmed">
       <div class="stats" id="sosmedStats"></div>
       <div class="filter-row" id="sosmedFilter"></div>
@@ -247,25 +242,18 @@
 
   <div class="toast-wrap" id="toasts"></div>
 
-  <!-- ════════════════════════════════════════════════════════ -->
-  <!-- SCRIPT: Login, UI, Stock Mobil (localStorage)           -->
-  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ -->
+  <!-- SCRIPT: Login, UI, Toast, Sosmed Render -->
+  <!-- ════════════════════════════════════════ -->
   <script>
     var PASS = 'bajingan011';
-    var SOLD_HOURS = 24;
-    var POSTS = [];
-    var editIdx = -1;
-    var soldTimer = null;
     var sosmedFilter = 'all';
     var sosmedOrders = [];
 
-    function ls(k,fb){try{return JSON.parse(localStorage.getItem(k))||fb}catch(e){return fb}}
-    function ss(k,v){localStorage.setItem(k,JSON.stringify(v))}
-    function getCode(u){var m=u.match(/\/p\/([A-Za-z0-9_-]+)/);return m?m[1]:null}
     function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
-    function firstLine(d){return d.split('\n')[0].trim()}
-    function getPrice(p){var e=ls('akino_price_edits',{});return e[getCode(p.url)]||p.price}
     function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
+
+    var STATUS_LABEL = {pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
 
     function toast(msg,type){
       var ic={ok:'fa-check-circle',err:'fa-exclamation-circle',info:'fa-info-circle'};
@@ -275,12 +263,11 @@
       setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},300)},3000);
     }
 
-    /* ── Login / Logout ── */
     function doLogin(){
       if(document.getElementById('passInput').value.trim()===PASS){
         document.getElementById('loginWrap').style.display='none';
         document.getElementById('dash').classList.add('active');
-        initStock();
+        if(window.initStock)window.initStock();
       }else{
         document.getElementById('loginErr').textContent='Password salah!';
       }
@@ -290,206 +277,27 @@
       document.getElementById('loginWrap').style.display='';
       document.getElementById('passInput').value='';
       document.getElementById('loginErr').textContent='';
-      if(soldTimer)clearInterval(soldTimer);
+      if(window.destroyStockTimer)window.destroyStockTimer();
     }
 
-    /* ── Tabs ── */
     function switchTab(tab){
       document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='stock'?0:1))});
       document.getElementById('tabStock').classList.toggle('active',tab==='stock');
       document.getElementById('tabSosmed').classList.toggle('active',tab==='sosmed');
     }
 
-    /* ══════════════════════════════════════
-       STOCK MOBIL
-    ══════════════════════════════════════ */
-    function buildPosts(){
-      var added=ls('akino_added',[]);
-      var deleted=ls('akino_deleted',{});
-      added.forEach(function(p){if(!p.addedAt)p.addedAt=0});
-      return added.filter(function(p){return !deleted[getCode(p.url)]});
-    }
-
-    function isAvail(code){return !ls('akino_sold',{})[code]&&!ls('akino_removed',{})[code]}
-
-    function cleanExpired(){
-      var sold=ls('akino_sold',{}),removed=ls('akino_removed',{}),now=Date.now(),ch=false;
-      Object.keys(sold).forEach(function(c){if(now-sold[c]>SOLD_HOURS*3600000){removed[c]=true;delete sold[c];ch=true}});
-      if(ch){ss('akino_sold',sold);ss('akino_removed',removed)}
-    }
-
-    function initStock(){
-      POSTS=buildPosts();
-      renderStock();
-      startSoldTimer();
-      window.addEventListener('storage',function(e){
-        if(e.key&&e.key.indexOf('akino_')===0){POSTS=buildPosts();renderStock()}
-      });
-    }
-
-    function renderStock(){
-      cleanExpired();
-      var sold=ls('akino_sold',{}),removed=ls('akino_removed',{}),edits=ls('akino_price_edits',{});
-      var avail=[],soldList=[],delList=[];
-      POSTS.forEach(function(p,i){
-        var c=getCode(p.url);
-        if(removed[c])delList.push({post:p,idx:i});
-        else if(sold[c])soldList.push({post:p,idx:i});
-        else avail.push({post:p,idx:i});
-      });
-
-      document.getElementById('stockStats').innerHTML=
-        '<div class="stat-card"><div class="sv yellow">'+POSTS.length+'</div><div class="sl">Total Stock</div></div>'+
-        '<div class="stat-card"><div class="sv green">'+avail.length+'</div><div class="sl">Tersedia</div></div>'+
-        '<div class="stat-card"><div class="sv red">'+soldList.length+'</div><div class="sl">Terjual</div></div>'+
-        '<div class="stat-card"><div class="sv blue">'+delList.length+'</div><div class="sl">Dihapus</div></div>';
-
-      document.getElementById('cntAvail').textContent=avail.length;
-      document.getElementById('cntSold').textContent=soldList.length;
-      document.getElementById('cntDel').textContent=delList.length;
-
-      /* Tersedia */
-      var ha='';
-      if(!avail.length)ha='<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
-      avail.forEach(function(o){
-        var p=o.post,price=getPrice(p),c=getCode(p.url),hasEdit=!!edits[c];
-        var statusHtml=hasEdit?'<span class="edited"><i class="fas fa-pen" style="font-size:.55rem"></i> Harga di-edit</span>':'';
-        ha+='<div class="item"><div class="item-icon"><i class="fas fa-car"></i></div>'+
-          '<div class="item-info"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div>'+
-          '<div class="ii-status">'+statusHtml+'</div></div>'+
-          '<div class="item-actions">'+
-            '<button class="btn-sm btn-edit" onclick="startEdit('+o.idx+')"><i class="fas fa-pen"></i> Edit Harga</button>'+
-            '<button class="btn-sm btn-sold" onclick="toggleSold('+o.idx+',true)"><i class="fas fa-tag"></i> Terjual</button>'+
-            '<button class="btn-sm btn-del" onclick="deletePost('+o.idx+')"><i class="fas fa-trash"></i> Hapus</button>'+
-          '</div></div>';
-      });
-      document.getElementById('listAvail').innerHTML=ha;
-
-      /* Terjual */
-      var hs='';
-      if(!soldList.length)hs='<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
-      soldList.forEach(function(o){
-        var p=o.post,price=getPrice(p),c=getCode(p.url);
-        var rem=SOLD_HOURS*3600000-(Date.now()-sold[c]);
-        var timerTxt=rem>0?fmtTimer(rem):'Segera dihapus';
-        hs+='<div class="item"><div class="item-icon sold"><i class="fas fa-car"></i></div>'+
-          '<div class="item-info sold"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div>'+
-          '<div class="ii-status"><span class="timer" data-code="'+c+'"><i class="fas fa-clock" style="font-size:.6rem"></i> '+timerTxt+'</span></div></div>'+
-          '<div class="item-actions"><button class="btn-sm btn-unsold" onclick="toggleSold('+o.idx+',false)"><i class="fas fa-rotate-left"></i> Batalkan</button></div></div>';
-      });
-      document.getElementById('listSold').innerHTML=hs;
-
-      /* Dihapus */
-      var hd='';
-      if(!delList.length)hd='<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
-      delList.forEach(function(o){
-        var p=o.post,price=getPrice(p);
-        hd+='<div class="item" style="opacity:.45"><div class="item-icon deleted"><i class="fas fa-car"></i></div>'+
-          '<div class="item-info deleted"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div></div>'+
-          '<div class="item-actions"><button class="btn-sm btn-restore" onclick="restorePost('+o.idx+')"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
-      });
-      document.getElementById('listDel').innerHTML=hd;
-    }
-
-    function fmtTimer(ms){
-      var h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);
-      return h+'j '+String(m).padStart(2,'0')+'m '+String(s).padStart(2,'0')+'s';
-    }
-
-    function startSoldTimer(){
-      if(soldTimer)clearInterval(soldTimer);
-      soldTimer=setInterval(function(){
-        var sold=ls('akino_sold',{}),now=Date.now(),refresh=false;
-        document.querySelectorAll('.timer[data-code]').forEach(function(el){
-          var c=el.dataset.code,rem=SOLD_HOURS*3600000-(now-sold[c]);
-          if(rem<=0){refresh=true;return}
-          el.innerHTML='<i class="fas fa-clock" style="font-size:.6rem"></i> '+fmtTimer(rem);
-        });
-        if(refresh){POSTS=buildPosts();renderStock()}
-      },1000);
-    }
-
-    /* ── Tambah Stock ── */
-    function addStock(){
-      var url=document.getElementById('addUrl').value.trim();
-      var price=document.getElementById('addPrice').value.trim();
-      var desc=document.getElementById('addDesc').value.trim();
-      var msg=document.getElementById('addMsg');
-      msg.className='form-msg';msg.style.display='none';
-
-      if(!url||!price||!desc){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';return}
-      if(!getCode(url)){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
-      if(POSTS.some(function(p){return getCode(p.url)===getCode(url)})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
-
-      var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      var added=ls('akino_added',[]);
-      added.push({url:url,price:price,desc:desc,addedAt:Date.now()});
-      ss('akino_added',added);
-      var c=getCode(url),sold=ls('akino_sold',{}),removed=ls('akino_removed',{});
-      delete sold[c];delete removed[c];ss('akino_sold',sold);ss('akino_removed',removed);
-
-      setTimeout(function(){
-        POSTS=buildPosts();renderStock();
-        msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
-        document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';
-        btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock';
-        setTimeout(function(){msg.style.display='none'},3000);
-      },400);
-    }
-
-    /* ── Edit Harga ── */
-    function startEdit(idx){
-      editIdx=idx;var p=POSTS[idx],price=getPrice(p);
-      document.getElementById('editCard').style.display='';
-      document.getElementById('editName').value=firstLine(p.desc);
-      document.getElementById('editOld').value=price;
-      document.getElementById('editNew').value='';document.getElementById('editNew').placeholder=price;
-      setTimeout(function(){document.getElementById('editNew').focus()},100);
-      document.getElementById('editCard').scrollIntoView({behavior:'smooth',block:'center'});
-    }
-    function savePrice(){
-      var v=document.getElementById('editNew').value.trim();
-      if(!v){document.getElementById('editNew').style.borderColor='#f87171';setTimeout(function(){document.getElementById('editNew').style.borderColor=''},1500);return}
-      var c=getCode(POSTS[editIdx].url),edits=ls('akino_price_edits',{});edits[c]=v;ss('akino_price_edits',edits);
-      cancelPrice();POSTS=buildPosts();renderStock();toast('Harga berhasil diubah','ok');
-    }
-    function cancelPrice(){editIdx=-1;document.getElementById('editCard').style.display='none';document.getElementById('editNew').style.borderColor=''}
-
-    /* ── Aksi Stock ── */
-    function toggleSold(idx,sold){
-      var c=getCode(POSTS[idx].url),sd=ls('akino_sold',{}),rd=ls('akino_removed',{});
-      if(sold){sd[c]=Date.now();delete rd[c]}else{delete sd[c]}
-      ss('akino_sold',sd);ss('akino_removed',rd);POSTS=buildPosts();renderStock();
-      toast(sold?'Ditandai terjual':'Dibatalkan dari terjual',sold?'info':'ok');
-    }
-    function deletePost(idx){
-      var c=getCode(POSTS[idx].url),rd=ls('akino_removed',{}),sd=ls('akino_sold',{});
-      rd[c]=true;delete sd[c];ss('akino_removed',rd);ss('akino_sold',sd);
-      POSTS=buildPosts();renderStock();toast('Stock dihapus','err');
-    }
-    function restorePost(idx){
-      var c=getCode(POSTS[idx].url),rd=ls('akino_removed',{}),sd=ls('akino_sold',{});
-      delete rd[c];delete sd[c];ss('akino_removed',rd);ss('akino_sold',sd);
-      POSTS=buildPosts();renderStock();toast('Stock dipulihkan','ok');
-    }
-
-    /* ══════════════════════════════════════
-       SOSIAL MEDIA (diisi oleh Firebase module)
-    ══════════════════════════════════════ */
-    var STATUS_LABEL={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
-
-    window.renderSosmedOrders=function(orders){
-      sosmedOrders=orders||[];
+    /* ═══ SOSIAL MEDIA RENDER ═══ */
+    window.renderSosmedOrders = function(orders){
+      sosmedOrders = orders || [];
       renderSosmedStats();
       renderSosmedFilter();
       renderSosmedList();
     };
 
     function renderSosmedStats(){
-      var o=sosmedOrders;
-      var cnt={pending:0,paid:0,processing:0,completed:0,cancelled:0};
+      var o = sosmedOrders, cnt = {pending:0,paid:0,processing:0,completed:0,cancelled:0};
       o.forEach(function(x){if(cnt[x.status]!==undefined)cnt[x.status]++});
-      document.getElementById('sosmedStats').innerHTML=
+      document.getElementById('sosmedStats').innerHTML =
         '<div class="stat-card"><div class="sv yellow">'+o.length+'</div><div class="sl">Total Pesanan</div></div>'+
         '<div class="stat-card"><div class="sv yellow">'+cnt.pending+'</div><div class="sl">Pending</div></div>'+
         '<div class="stat-card"><div class="sv blue">'+cnt.paid+'</div><div class="sl">Dibayar</div></div>'+
@@ -509,28 +317,21 @@
       document.getElementById('sosmedFilter').innerHTML=h;
     }
 
-    window.setSosmedFilter=function(s){sosmedFilter=s;renderSosmedFilter();renderSosmedList()};
+    window.setSosmedFilter = function(s){sosmedFilter=s;renderSosmedFilter();renderSosmedList()};
 
     function renderSosmedList(){
-      var filtered=sosmedFilter==='all'?sosmedOrders:sosmedOrders.filter(function(x){return x.status===sosmedFilter});
-      var el=document.getElementById('sosmedList');
+      var filtered = sosmedFilter==='all' ? sosmedOrders : sosmedOrders.filter(function(x){return x.status===sosmedFilter});
+      var el = document.getElementById('sosmedList');
       if(!filtered.length){el.innerHTML='<div class="empty"><i class="fas fa-inbox"></i>Tidak ada pesanan'+(sosmedFilter!=='all'?' dengan status ini':'')+'.</div>';return}
-
-      /* Build select options HTML (reusable) */
-      var optHtml=function(currentStatus){
-        var opts=['pending','paid','processing','completed','cancelled'];
-        return opts.map(function(s){
-          return '<option value="'+s+'"'+(s===currentStatus?' selected':'')+'>'+STATUS_LABEL[s]+'</option>';
+      var optHtml = function(cur){
+        return ['pending','paid','processing','completed','cancelled'].map(function(s){
+          return '<option value="'+s+'"'+(s===cur?' selected':'')+'>'+STATUS_LABEL[s]+'</option>';
         }).join('');
       };
-
       var h='';
       filtered.forEach(function(o){
-        /* Gunakan o.id (Firestore doc ID) sebagai identifier, bukan o.orderId */
-        var docId = o.id;
-        var orderId = o.orderId || '-';
-        var timeStr = o.createdAt ? new Date(o.createdAt.seconds * 1000).toLocaleString('id-ID') : '-';
-
+        var docId=o.id, orderId=o.orderId||'-';
+        var timeStr=o.createdAt?new Date(o.createdAt.seconds*1000).toLocaleString('id-ID'):'-';
         h+='<div class="order-item">'+
           '<div class="oi-top"><div class="oi-info">'+
             '<div class="oi-id">'+esc(orderId)+' <span class="badge '+o.status+'" style="margin-left:.4rem">'+(STATUS_LABEL[o.status]||o.status)+'</span></div>'+
@@ -556,50 +357,255 @@
       el.innerHTML=h;
     }
 
-    /* Dipanggil oleh module script saat status berhasil diupdate */
-    window.onOrderUpdated=function(){toast('Status pesanan berhasil diupdate','ok')};
-    window.onOrderUpdateError=function(err){toast('Gagal update: '+err,'err')};
+    window.onOrderUpdated = function(){toast('Status pesanan berhasil diupdate','ok')};
+    window.onOrderUpdateError = function(err){toast('Gagal update: '+err,'err')};
   </script>
 
-  <!-- ════════════════════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Sosial Media Orders                    -->
-  <!-- Menggunakan doc.id (bukan orderId) untuk update           -->
-  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════ -->
+  <!-- MODULE: Firebase — Stock Mobil (REALTIME) -->
+  <!-- ════════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const app = initializeApp({ apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain:"akinowedding-73271.firebaseapp.com", projectId:"akinowedding-73271", storageBucket:"akinowedding-73271.appspot.com", messagingSenderId:"307666594440", appId:"1:307666594440:web:e7d3496744464f4c6d0d3d" });
+    const db = getFirestore(app);
+
+    var SOLD_HOURS = 24;
+    var POSTS = [];
+    var editIdx = null;
+    var soldTimer = null;
+
+    function getCode(u) { var m = u.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
+    function escLocal(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function firstLine(d) { return d.split('\n')[0].trim(); }
+    function getEffectivePrice(p) { return p.editedPrice || p.price; }
+    function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000; return new Date(t).getTime(); }
+    function fmtTimer(ms) {
+      var h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000), s = Math.floor((ms % 60000) / 1000);
+      return h + 'j ' + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+    }
+
+    window.initStock = function() { startSoldTimer(); };
+    window.destroyStockTimer = function() { if (soldTimer) { clearInterval(soldTimer); soldTimer = null; } };
+
+    function renderStock() {
+      var avail = [], soldList = [], delList = [];
+      POSTS.forEach(function(p) {
+        if (p.status === 'deleted') delList.push(p);
+        else if (p.status === 'sold') soldList.push(p);
+        else avail.push(p);
+      });
+
+      document.getElementById('stockStats').innerHTML =
+        '<div class="stat-card"><div class="sv yellow">' + POSTS.length + '</div><div class="sl">Total Stock</div></div>' +
+        '<div class="stat-card"><div class="sv green">' + avail.length + '</div><div class="sl">Tersedia</div></div>' +
+        '<div class="stat-card"><div class="sv red">' + soldList.length + '</div><div class="sl">Terjual</div></div>' +
+        '<div class="stat-card"><div class="sv blue">' + delList.length + '</div><div class="sl">Dihapus</div></div>';
+
+      document.getElementById('cntAvail').textContent = avail.length;
+      document.getElementById('cntSold').textContent = soldList.length;
+      document.getElementById('cntDel').textContent = delList.length;
+
+      /* Tersedia */
+      var ha = '';
+      if (!avail.length) ha = '<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
+      avail.forEach(function(p) {
+        var price = getEffectivePrice(p), hasEdit = !!p.editedPrice;
+        var statusHtml = hasEdit ? '<span class="edited"><i class="fas fa-pen" style="font-size:.55rem"></i> Harga di-edit</span>' : '';
+        ha += '<div class="item"><div class="item-icon"><i class="fas fa-car"></i></div>' +
+          '<div class="item-info"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div>' +
+          '<div class="ii-status">' + statusHtml + '</div></div>' +
+          '<div class="item-actions">' +
+          '<button class="btn-sm btn-edit" data-id="' + p.id + '"><i class="fas fa-pen"></i> Edit Harga</button>' +
+          '<button class="btn-sm btn-sold" data-id="' + p.id + '"><i class="fas fa-tag"></i> Terjual</button>' +
+          '<button class="btn-sm btn-del" data-id="' + p.id + '"><i class="fas fa-trash"></i> Hapus</button>' +
+          '</div></div>';
+      });
+      var listAvailEl = document.getElementById('listAvail');
+      listAvailEl.innerHTML = ha;
+      listAvailEl.querySelectorAll('[data-id]').forEach(function(btn) {
+        var id = btn.getAttribute('data-id');
+        if (btn.classList.contains('btn-edit')) btn.addEventListener('click', function() { startEdit(id); });
+        else if (btn.classList.contains('btn-sold')) btn.addEventListener('click', function() { toggleSold(id, true); });
+        else if (btn.classList.contains('btn-del')) btn.addEventListener('click', function() { deletePost(id); });
+      });
+
+      /* Terjual */
+      var hs = '';
+      if (!soldList.length) hs = '<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
+      soldList.forEach(function(p) {
+        var price = getEffectivePrice(p);
+        var rem = SOLD_HOURS * 3600000 - (Date.now() - toMs(p.soldAt));
+        var timerTxt = rem > 0 ? fmtTimer(rem) : 'Segera dihapus';
+        hs += '<div class="item"><div class="item-icon sold"><i class="fas fa-car"></i></div>' +
+          '<div class="item-info sold"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div>' +
+          '<div class="ii-status"><span class="timer" data-soldat="' + toMs(p.soldAt) + '"><i class="fas fa-clock" style="font-size:.6rem"></i> ' + timerTxt + '</span></div></div>' +
+          '<div class="item-actions"><button class="btn-sm btn-unsold" data-id="' + p.id + '"><i class="fas fa-rotate-left"></i> Batalkan</button></div></div>';
+      });
+      var listSoldEl = document.getElementById('listSold');
+      listSoldEl.innerHTML = hs;
+      listSoldEl.querySelectorAll('.btn-unsold').forEach(function(btn) {
+        btn.addEventListener('click', function() { toggleSold(btn.getAttribute('data-id'), false); });
+      });
+
+      /* Dihapus */
+      var hd = '';
+      if (!delList.length) hd = '<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
+      delList.forEach(function(p) {
+        var price = getEffectivePrice(p);
+        hd += '<div class="item" style="opacity:.45"><div class="item-icon deleted"><i class="fas fa-car"></i></div>' +
+          '<div class="item-info deleted"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div></div>' +
+          '<div class="item-actions"><button class="btn-sm btn-restore" data-id="' + p.id + '"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
+      });
+      var listDelEl = document.getElementById('listDel');
+      listDelEl.innerHTML = hd;
+      listDelEl.querySelectorAll('.btn-restore').forEach(function(btn) {
+        btn.addEventListener('click', function() { restorePost(btn.getAttribute('data-id')); });
+      });
+    }
+
+    function startSoldTimer() {
+      if (soldTimer) clearInterval(soldTimer);
+      soldTimer = setInterval(function() {
+        document.querySelectorAll('.timer[data-soldat]').forEach(function(el) {
+          var soldAt = parseInt(el.dataset.soldat);
+          var rem = SOLD_HOURS * 3600000 - (Date.now() - soldAt);
+          if (rem <= 0) return;
+          el.innerHTML = '<i class="fas fa-clock" style="font-size:.6rem"></i> ' + fmtTimer(rem);
+        });
+      }, 1000);
+    }
+
+    /* ── Tambah Stock ── */
+    window.addStock = async function() {
+      var url = document.getElementById('addUrl').value.trim();
+      var price = document.getElementById('addPrice').value.trim();
+      var desc = document.getElementById('addDesc').value.trim();
+      var msg = document.getElementById('addMsg');
+      msg.className = 'form-msg'; msg.style.display = 'none';
+
+      if (!url || !price || !desc) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.'; return; }
+      if (!getCode(url)) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.'; return; }
+      if (POSTS.some(function(p) { return getCode(p.url) === getCode(url); })) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.'; return; }
+
+      var btn = document.getElementById('addBtn'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+      try {
+        await addDoc(collection(db, "carStock"), {
+          url: url, price: price, desc: desc,
+          addedAt: Date.now(), status: "available",
+          soldAt: null, editedPrice: ""
+        });
+        msg.className = 'form-msg ok show'; msg.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
+        document.getElementById('addUrl').value = ''; document.getElementById('addPrice').value = ''; document.getElementById('addDesc').value = '';
+        setTimeout(function() { msg.style.display = 'none'; }, 3000);
+      } catch (err) {
+        msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Gagal: ' + err.message;
+      } finally {
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Stock';
+      }
+    };
+
+    /* ── Edit Harga ── */
+    function startEdit(docId) {
+      editIdx = docId;
+      var post = POSTS.find(function(p) { return p.id === docId; });
+      if (!post) return;
+      var price = getEffectivePrice(post);
+      document.getElementById('editCard').style.display = '';
+      document.getElementById('editName').value = firstLine(post.desc);
+      document.getElementById('editOld').value = price;
+      document.getElementById('editNew').value = ''; document.getElementById('editNew').placeholder = price;
+      setTimeout(function() { document.getElementById('editNew').focus(); }, 100);
+      document.getElementById('editCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    window.savePrice = async function() {
+      var v = document.getElementById('editNew').value.trim();
+      if (!v) { document.getElementById('editNew').style.borderColor = '#f87171'; setTimeout(function() { document.getElementById('editNew').style.borderColor = ''; }, 1500); return; }
+      if (!editIdx) return;
+      try {
+        await updateDoc(doc(db, "carStock", editIdx), { editedPrice: v });
+        editIdx = null; document.getElementById('editCard').style.display = 'none';
+        toast('Harga berhasil diubah', 'ok');
+      } catch (err) { toast('Gagal mengubah harga', 'err'); }
+    };
+
+    window.cancelPrice = function() {
+      editIdx = null; document.getElementById('editCard').style.display = 'none'; document.getElementById('editNew').style.borderColor = '';
+    };
+
+    /* ── Aksi Stock ── */
+    async function toggleSold(docId, sold) {
+      try {
+        if (sold) {
+          await updateDoc(doc(db, "carStock", docId), { status: 'sold', soldAt: Date.now() });
+          toast('Ditandai terjual', 'info');
+        } else {
+          await updateDoc(doc(db, "carStock", docId), { status: 'available', soldAt: null });
+          toast('Dibatalkan dari terjual', 'ok');
+        }
+      } catch (err) { toast('Gagal: ' + err.message, 'err'); }
+    }
+
+    async function deletePost(docId) {
+      try {
+        await updateDoc(doc(db, "carStock", docId), { status: 'deleted', soldAt: null });
+        toast('Stock dihapus', 'err');
+      } catch (err) { toast('Gagal: ' + err.message, 'err'); }
+    }
+
+    async function restorePost(docId) {
+      try {
+        await updateDoc(doc(db, "carStock", docId), { status: 'available' });
+        toast('Stock dipulihkan', 'ok');
+      } catch (err) { toast('Gagal: ' + err.message, 'err'); }
+    }
+
+    /* === Real-time Listener === */
+    onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
+      POSTS = [];
+      snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+
+      /* Auto-cleanup: sold > 24 jam → otomatis jadi deleted */
+      var now = Date.now();
+      POSTS.forEach(function(p) {
+        if (p.status === 'sold' && p.soldAt) {
+          if (now - toMs(p.soldAt) > SOLD_HOURS * 3600000) {
+            updateDoc(doc(db, "carStock", p.id), { status: 'deleted', soldAt: null }).catch(function() {});
+          }
+        }
+      });
+
+      renderStock();
+      startSoldTimer();
+    }, (err) => { console.error("Stock listener error:", err); });
+  </script>
+
+  <!-- ════════════════════════════════════════ -->
+  <!-- MODULE: Firebase — Sosial Media Orders   -->
+  <!-- ════════════════════════════════════════ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-      authDomain: "akinowedding-73271.firebaseapp.com",
-      projectId: "akinowedding-73271",
-      storageBucket: "akinowedding-73271.appspot.com",
-      messagingSenderId: "307666594440",
-      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
-    };
-
-    const app = initializeApp(firebaseConfig);
+    const app = initializeApp({ apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain:"akinowedding-73271.firebaseapp.com", projectId:"akinowedding-73271", storageBucket:"akinowedding-73271.appspot.com", messagingSenderId:"307666594440", appId:"1:307666594440:web:e7d3496744464f4c6d0d3d" });
     const db = getFirestore(app);
 
-    /* ── Koleksi pesanan di Firebase ── */
     const ORDERS_COL = "orders";
 
-    /* ── Real-time listener: otomatis refresh saat ada pesanan baru/update ── */
     const q = query(collection(db, ORDERS_COL), orderBy("createdAt", "desc"));
     onSnapshot(q, (snap) => {
       const orders = [];
-      snap.forEach((d) => {
-        orders.push({ id: d.id, ...d.data() });
-      });
+      snap.forEach((d) => { orders.push({ id: d.id, ...d.data() }); });
       if (window.renderSosmedOrders) window.renderSosmedOrders(orders);
     }, (err) => {
       console.error("Firebase listener error:", err);
       if (window.renderSosmedOrders) window.renderSosmedOrders([]);
     });
 
-    /* ── Update status: pakai docId (Firestore document ID) BUKAN orderId ── */
     window.updateOrderStatus = async function(btnEl) {
-      /* Cari select yang berada di parent yang sama dengan tombol ini */
       var parent = btnEl.parentElement;
       var selectEl = parent.querySelector('select[data-docid]');
       if (!selectEl) return;
@@ -612,7 +618,6 @@
         return;
       }
 
-      /* Disable tombol sementara proses */
       var origText = btnEl.innerHTML;
       btnEl.disabled = true;
       btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
@@ -623,7 +628,6 @@
       } catch (err) {
         console.error("Update error:", err);
         if (window.onOrderUpdateError) window.onOrderUpdateError(err.message || err);
-        /* Kembalikan tombol */
         btnEl.disabled = false;
         btnEl.innerHTML = origText;
       }

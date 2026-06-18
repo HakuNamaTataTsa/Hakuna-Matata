@@ -267,8 +267,24 @@
 
   <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
+  <!-- UI Helpers -->
   <script>
-    var DEFAULT_POSTS = [];
+    function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function getFirstLine(d){return d.split('\n')[0].trim()}
+    window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
+    document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
+    var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}})},{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el)});
+  </script>
+
+  <!-- Firebase: Stock Mobil (REALTIME) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const app = initializeApp({ apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain:"akinowedding-73271.firebaseapp.com", projectId:"akinowedding-73271", storageBucket:"akinowedding-73271.appspot.com", messagingSenderId:"307666594440", appId:"1:307666594440:web:e7d3496744464f4c6d0d3d" });
+    const db = getFirestore(app);
+
     var WA_NUMBER = "6289687163314";
     var SOLD_HOURS = 24;
     var PER_PAGE = 10;
@@ -279,54 +295,28 @@
     var POSTS = [];
 
     function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
-    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-    function getFirstLine(d) { return d.split('\n')[0].trim(); }
+    function escLocal(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
     function parsePrice(str) { var n = parseInt(str.replace(/[^0-9]/g, '')); return isNaN(n) ? 0 : n; }
-    function ls(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e) { return fallback; } }
-    function ss(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+    function getEffectivePrice(post) { return post.editedPrice || post.price; }
+    function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000; return new Date(t).getTime(); }
 
-    /* Harga efektif (membaca hasil edit dari admin panel) */
-    function getEffectivePrice(post) {
-      var code = getCode(post.url);
-      var edits = ls('akino_price_edits', {});
-      return edits[code] || post.price;
-    }
-
-    function buildPosts() {
-      var added = ls('akino_added', []);
-      var deleted = ls('akino_deleted', {});
-      var all = DEFAULT_POSTS.concat(added);
-      all.forEach(function(p) { if (!p.addedAt) p.addedAt = 0; });
-      return all.filter(function(p) { return !deleted[getCode(p.url)]; });
-    }
-
-    function refreshAll() {
-      POSTS = buildPosts();
-      renderSold();
-      renderAvailable();
-    }
-
-    function isAvail(code) { return !ls('akino_sold', {})[code] && !ls('akino_removed', {})[code]; }
-
-    /* Auto-cleanup item terjual yang sudah melewati batas waktu */
-    function cleanExpired() {
-      var sold = ls('akino_sold', {}), removed = ls('akino_removed', {}), now = Date.now(), changed = false;
-      Object.keys(sold).forEach(function(code) {
-        if (now - sold[code] > SOLD_HOURS * 3600000) { removed[code] = true; delete sold[code]; changed = true; }
-      });
-      if (changed) { ss('akino_sold', sold); ss('akino_removed', removed); }
-    }
-
-    function setSort(sort) {
+    window.setSort = function(sort) {
       currentSort = sort;
       document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.sort === sort); });
       currentPage = 0;
       renderAvailable();
-    }
+    };
+
+    window.toggleSoldList = function() {
+      soldListOpen = !soldListOpen;
+      var list = document.getElementById('soldList'), btn = document.getElementById('soldToggle'), txt = document.getElementById('soldToggleText');
+      if (soldListOpen) { list.classList.remove('collapsed'); btn.classList.add('open'); txt.textContent = 'Sembunyikan'; }
+      else { list.classList.add('collapsed'); btn.classList.remove('open'); txt.textContent = 'Tampilkan'; }
+    };
 
     function getSortedAvail() {
-      var avail = POSTS.filter(function(p) { return isAvail(getCode(p.url)); });
-      if (currentSort === 'newest') { avail.sort(function(a, b) { return (b.addedAt || 0) - (a.addedAt || 0); }); }
+      var avail = POSTS.filter(function(p) { return p.status === 'available'; });
+      if (currentSort === 'newest') { avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt); }); }
       else if (currentSort === 'price-asc') { avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) - parsePrice(getEffectivePrice(b)); }); }
       else if (currentSort === 'price-desc') { avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) - parsePrice(getEffectivePrice(a)); }); }
       return avail;
@@ -334,25 +324,23 @@
 
     /* === Render daftar terjual === */
     function renderSold() {
-      cleanExpired();
-      var sold = ls('akino_sold', {}), codes = Object.keys(sold);
+      var now = Date.now();
+      var sold = POSTS.filter(function(p) { return p.status === 'sold'; });
       var section = document.getElementById('soldSection'), list = document.getElementById('soldList'), countEl = document.getElementById('soldCount');
-      if (codes.length === 0) { section.style.display = 'none'; return; }
+      if (sold.length === 0) { section.style.display = 'none'; return; }
       section.style.display = 'block';
-      countEl.textContent = codes.length + ' item';
+      countEl.textContent = sold.length + ' item';
       var h = '';
-      codes.forEach(function(code) {
-        var post = POSTS.find(function(p) { return getCode(p.url) === code; });
-        if (!post) return;
-        var rem = SOLD_HOURS * 3600000 - (Date.now() - sold[code]);
+      sold.forEach(function(post) {
+        var rem = SOLD_HOURS * 3600000 - (now - toMs(post.soldAt));
         if (rem <= 0) return;
         var hrs = Math.floor(rem / 3600000), mins = Math.floor((rem % 3600000) / 60000), secs = Math.floor((rem % 60000) / 1000);
         var price = getEffectivePrice(post);
-        h += '<div class="sold-card" id="sold-' + code + '"><div class="sold-card-info">' +
-          '<a href="' + post.url + '" target="_blank" class="sc-name">' + esc(getFirstLine(post.desc)) + '</a>' +
-          '<div class="sc-price">' + esc(price) + '</div></div><div class="sold-card-right">' +
+        h += '<div class="sold-card" id="sold-' + getCode(post.url) + '"><div class="sold-card-info">' +
+          '<a href="' + post.url + '" target="_blank" class="sc-name">' + escLocal(getFirstLine(post.desc)) + '</a>' +
+          '<div class="sc-price">' + escLocal(price) + '</div></div><div class="sold-card-right">' +
           '<div class="sold-badge"><i class="fas fa-check"></i> Terjual</div>' +
-          '<div class="sold-timer" data-code="' + code + '">Auto-hapus ' + hrs + 'j ' + String(mins).padStart(2,'0') + 'm ' + String(secs).padStart(2,'0') + 's</div>' +
+          '<div class="sold-timer" data-soldat="' + toMs(post.soldAt) + '">Auto-hapus ' + hrs + 'j ' + String(mins).padStart(2,'0') + 'm ' + String(secs).padStart(2,'0') + 's</div>' +
           '</div></div>';
       });
       list.innerHTML = h;
@@ -361,23 +349,13 @@
     function startTimer() {
       if (timerInterval) clearInterval(timerInterval);
       timerInterval = setInterval(function() {
-        var sold = ls('akino_sold', {}), now = Date.now(), refresh = false;
-        Object.keys(sold).forEach(function(code) {
-          var el = document.querySelector('.sold-timer[data-code="' + code + '"]');
-          if (!el) return;
-          var rem = SOLD_HOURS * 3600000 - (now - sold[code]);
-          if (rem <= 0) { refresh = true; return; }
+        document.querySelectorAll('.sold-timer[data-soldat]').forEach(function(el) {
+          var soldAt = parseInt(el.dataset.soldat);
+          var rem = SOLD_HOURS * 3600000 - (Date.now() - soldAt);
+          if (rem <= 0) return;
           el.textContent = 'Auto-hapus ' + Math.floor(rem / 3600000) + 'j ' + String(Math.floor((rem % 3600000) / 60000)).padStart(2,'0') + 'm ' + String(Math.floor((rem % 60000) / 1000)).padStart(2,'0') + 's';
         });
-        if (refresh) refreshAll();
       }, 1000);
-    }
-
-    function toggleSoldList() {
-      soldListOpen = !soldListOpen;
-      var list = document.getElementById('soldList'), btn = document.getElementById('soldToggle'), txt = document.getElementById('soldToggleText');
-      if (soldListOpen) { list.classList.remove('collapsed'); btn.classList.add('open'); txt.textContent = 'Sembunyikan'; }
-      else { list.classList.add('collapsed'); btn.classList.remove('open'); txt.textContent = 'Tampilkan'; }
     }
 
     /* === Pagination === */
@@ -408,13 +386,14 @@
       }
       avail.slice(start, end).forEach(function(post, i) {
         var code = getCode(post.url); if (!code) return;
-        var idx = POSTS.indexOf(post), price = getEffectivePrice(post);
+        var price = getEffectivePrice(post);
         var card = document.createElement('div'); card.className = 'ig-card';
         card.style.animation = 'fadeInUp .5s ease ' + (i * 0.06) + 's both';
         card.innerHTML = '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code + '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-          '<div class="ig-card-body"><div class="ig-card-price">' + esc(price) + '</div><div class="ig-card-desc">' + esc(post.desc) + '</div>' +
+          '<div class="ig-card-body"><div class="ig-card-price">' + escLocal(price) + '</div><div class="ig-card-desc">' + escLocal(post.desc) + '</div>' +
           '<div class="ig-card-footer"><a href="' + post.url + '" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat Post</a>' +
-          '<button class="btn-order-sm" onclick="orderPost(' + idx + ')"><i class="fab fa-whatsapp"></i> Pesan</button></div></div>';
+          '<button class="btn-order-sm" data-docid="' + post.id + '"><i class="fab fa-whatsapp"></i> Pesan</button></div></div>';
+        card.querySelector('.btn-order-sm').addEventListener('click', function() { orderPost(post.id); });
         grid.appendChild(card);
       });
       var pag = document.getElementById('pagination');
@@ -431,30 +410,29 @@
       } else { pag.style.display = 'none'; }
     }
 
-    function prevPage() { if (currentPage > 0) { currentPage--; renderAvailable(); scrollToGrid(); } }
-    function nextPage() { var tp = Math.ceil(getSortedAvail().length / PER_PAGE); if (currentPage < tp - 1) { currentPage++; renderAvailable(); scrollToGrid(); } }
+    window.prevPage = function() { if (currentPage > 0) { currentPage--; renderAvailable(); scrollToGrid(); } };
+    window.nextPage = function() { var tp = Math.ceil(getSortedAvail().length / PER_PAGE); if (currentPage < tp - 1) { currentPage++; renderAvailable(); scrollToGrid(); } };
     function goToPage(pg) { currentPage = pg; renderAvailable(); scrollToGrid(); }
     function scrollToGrid() { var g = document.getElementById('igGrid'); window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
 
-    function orderPost(idx) {
-      var post = POSTS[idx], price = getEffectivePrice(post);
+    function orderPost(docId) {
+      var post = POSTS.find(function(p) { return p.id === docId; });
+      if (!post) return;
+      var price = getEffectivePrice(post);
       var waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + post.desc + "\n\nLink: " + post.url;
       window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waMsg), '_blank');
     }
 
-    /* === Scroll & Menu === */
-    window.addEventListener('scroll', function() { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
-    document.getElementById('menuToggle').addEventListener('click', function() { document.getElementById('navLinks').classList.toggle('active'); });
-
-    /* === Reveal on Scroll === */
-    var revObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
-
-    /* === Init === */
-    refreshAll();
-    startTimer();
+    /* === Firebase Real-time Listener === */
+    onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
+      POSTS = [];
+      snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+      renderSold();
+      renderAvailable();
+      startTimer();
+    }, (err) => {
+      console.error("Stock listener error:", err);
+    });
   </script>
 
   <!-- Firebase: Komentar -->
@@ -486,19 +464,20 @@
         loading = true;
         if (lastVisible) {
           const snap = await getDocs(query(collection(db, "messages"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(10)));
-          snap.forEach((d) => renderMsg(d.data(), true));
+          snap.forEach((d) => renderMsg(d.data()));
           if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
         }
         loading = false;
       }
     });
 
-    function renderMsg(data, append = true) {
+    function renderMsg(data) {
       const div = document.createElement("div"); div.className = "gb-msg";
       div.innerHTML = "<strong>" + data.name + "</strong><p>" + data.message + "</p><small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
-      append ? gbMsgs.appendChild(div) : gbMsgs.prepend(div);
+      gbMsgs.appendChild(div);
     }
     loadMessages();
   </script>
+
 </body>
 </html>
