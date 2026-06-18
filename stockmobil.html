@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Akino Store - Stock Mobil Murah">
+  <meta property="og:description" content="Stock mobil CPM murah mulai 2rb">
+  <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
+  <title>Stock Mobil Murah - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--radius-sm:10px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+    ::selection{background:var(--accent);color:#000}
+
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
+    .navbar.scrolled{background:rgba(7,7,13,.92)}
+    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none;cursor:default;user-select:none}
+    .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;font-weight:500;transition:all .25s}
+    .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
+    .dropdown{position:relative}
+    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
+    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
+    .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
+    .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center}
+    @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+    .page-hero{padding:7rem 2rem 2rem;text-align:center;position:relative}
+    .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent)}
+    .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.5rem}
+    .page-hero p{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .info-bar{max-width:600px;margin:0 auto 2rem;padding:0 2rem}
+    .info-card{background:var(--accent-dim);border:1px solid rgba(255,221,87,0.2);border-radius:var(--radius);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .info-card .info-icon{width:44px;height:44px;border-radius:12px;background:var(--accent);color:#0a0a0f;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .info-card .info-text{flex:1;min-width:200px}
+    .info-card .info-text h3{font-family:var(--font-display);font-size:.95rem;font-weight:600;margin-bottom:.15rem}
+    .info-card .info-text p{font-size:.8rem;color:var(--muted);line-height:1.5}
+    .info-card .info-text span{color:var(--accent);font-weight:600}
+
+    .sec{padding:4rem 2rem;max-width:640px;margin:0 auto}
+    .sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem}
+    .sec-label::before{content:'';width:18px;height:1px;background:var(--accent)}
+    .sec-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem;line-height:1.15}
+    .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7}
+    .sec-header{margin-bottom:2rem;text-align:center}
+
+    .sold-section{margin-bottom:3rem}
+    .sold-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+    .sold-header-left{display:flex;align-items:center;gap:.6rem}
+    .sold-header-left h2{font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:#f87171}
+    .sold-header-left .sold-count{font-size:.72rem;padding:.2rem .6rem;border-radius:50px;background:rgba(248,113,113,.12);color:#f87171;font-weight:600}
+    .sold-toggle{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.75rem;font-weight:500;padding:.35rem .85rem;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem}
+    .sold-toggle:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
+    .sold-toggle.open{color:var(--accent);border-color:rgba(255,221,87,.2);background:var(--accent-dim)}
+    .sold-toggle.open i{transform:rotate(180deg)}
+    .sold-toggle i{transition:transform .25s;font-size:.6rem}
+
+    .sold-list{display:flex;flex-direction:column;gap:1rem;overflow:hidden;transition:max-height .4s ease,opacity .3s ease}
+    .sold-list.collapsed{max-height:0!important;opacity:0}
+
+    .sold-card{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.12);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;animation:fadeInUp .4s ease both}
+    .sold-card-img{width:60px;height:60px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+    .sold-card-info{flex:1;min-width:150px}
+    .sold-card-info .sc-name{font-family:var(--font-display);font-size:.88rem;font-weight:600;margin-bottom:.15rem;text-decoration:none;color:var(--fg);transition:color .2s}
+    .sold-card-info .sc-name:hover{color:var(--accent)}
+    .sold-card-info .sc-price{font-size:.8rem;color:var(--accent);font-weight:600}
+    .sold-card-right{text-align:right}
+    .sold-card-right .sold-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;padding:.2rem .6rem;border-radius:50px;background:rgba(248,113,113,.1);margin-bottom:.3rem}
+    .sold-card-right .sold-timer{font-size:.72rem;color:var(--muted);font-family:var(--font-display);font-weight:500}
+
+    .ig-list{display:flex;flex-direction:column;gap:1.25rem}
+    .ig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .35s}
+    .ig-card:hover{border-color:rgba(255,221,87,.2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+    .ig-card-embed{width:100%;min-height:400px;border:none;display:block;background:#fafafa}
+    .ig-card-body{padding:1.25rem 1.5rem}
+    .ig-card-price{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:.4rem}
+    .ig-card-desc{font-size:.85rem;color:var(--fg-dim);line-height:1.65;margin-bottom:1.1rem;white-space:pre-line}
+    .ig-card-footer{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding-top:.85rem;border-top:1px solid var(--border)}
+    .ig-card-footer a.ig-link{color:var(--muted);font-size:.82rem;text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.35rem}
+    .ig-card-footer a.ig-link:hover{color:var(--accent)}
+    .btn-order-sm{padding:.55rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
+    .btn-order-sm:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
+    .btn-order-sm.loading{pointer-events:none;opacity:.6}
+
+    .ig-load-more{display:flex;justify-content:center;margin-top:2.5rem}
+    .btn-load{padding:.7rem 2rem;border-radius:12px;background:var(--bg-card);color:var(--fg);border:1px solid var(--border);font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+    .btn-load:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+    .ig-counter{text-align:center;margin-bottom:2rem;font-size:.82rem;color:var(--muted)}
+    .ig-counter strong{color:var(--accent);font-family:var(--font-display)}
+
+    /* ── Guestbook / Komentar ── */
+    .gb-wrap{max-width:640px;margin:0 auto;padding:0 2rem}
+    .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
+    .gb-hdr{text-align:center;margin-bottom:1.5rem}
+    .gb-hdr h2{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:.3rem}
+    .gb-hdr p{font-size:.8rem;color:var(--muted)}
+    .gb label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
+    .gb input,.gb textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s;margin-bottom:1rem}
+    .gb input:focus,.gb textarea:focus{border-color:var(--accent)}
+    .gb textarea{resize:vertical;min-height:76px}
+    .gb-submit{padding:.65rem 1.4rem;background:var(--accent);color:#0a0a0f;border:none;border-radius:var(--radius-sm);font-weight:600;font-family:var(--font-body);font-size:.84rem;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
+    .gb-submit:hover{box-shadow:0 4px 18px rgba(255,221,87,.3);transform:translateY(-1px)}
+    .gb-msgs{margin-top:1.5rem;max-height:380px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+    .gb-msg{padding:.9rem;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.7rem;transition:border-color .25s}
+    .gb-msg:hover{border-color:rgba(255,255,255,.1)}
+    .gb-msg strong{display:block;font-size:.85rem;margin-bottom:.2rem}
+    .gb-msg p{font-size:.82rem;color:var(--fg-dim);line-height:1.5}
+    .gb-msg small{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:.25rem;display:block}
+
+    .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
+    .social-row a{width:42px;height:42px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:all .3s;text-decoration:none}
+    .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
+    .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
+
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    .chat-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+    .chat-float-label{background:rgba(15,15,25,0.92);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:.55rem 1rem;font-size:.78rem;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px) scale(.95);transition:all .3s ease;pointer-events:none}
+    .chat-float-label span{color:var(--accent);font-weight:600}
+    .chat-float:hover .chat-float-label{opacity:1;transform:translateY(0) scale(1)}
+    .chat-float-btn{width:56px;height:56px;border-radius:16px;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;box-shadow:0 4px 24px rgba(37,211,102,.35);transition:all .3s ease;text-decoration:none}
+    .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}
+    .chat-float-btn:active{transform:scale(.95)}
+
+    .dl-toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(15,15,25,.95);border:1px solid var(--border);border-radius:12px;padding:.7rem 1.2rem;font-size:.82rem;color:var(--fg-dim);display:flex;align-items:center;gap:.5rem;opacity:0;transition:all .35s ease;z-index:200;pointer-events:none;backdrop-filter:blur(12px);white-space:nowrap}
+    .dl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .dl-toast i{color:var(--accent);font-size:.9rem}
+
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
+    .modal-overlay.active{display:flex;animation:fadeIn .2s ease}
+    .modal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:540px;position:relative;max-height:88vh;overflow-y:auto}
+    .modal-close{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--fg);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10}
+    .modal-close:hover{background:rgba(255,255,255,.1)}
+
+    .admin-login{text-align:center;padding:1.5rem 0}
+    .admin-login i{font-size:2rem;color:var(--accent);margin-bottom:1rem;display:block}
+    .admin-login h3{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.5rem}
+    .admin-login p{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem}
+    .admin-login input{max-width:280px;width:100%;margin:0 auto 1rem;display:block;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;text-align:center}
+    .admin-login input:focus{border-color:var(--accent)}
+    .admin-error{color:#f87171;font-size:.8rem;min-height:1.2em}
+
+    .admin-dash h3{font-family:var(--font-display);font-size:1.05rem;font-weight:600;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem}
+    .admin-dash .admin-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
+    .admin-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:.75rem;display:flex;align-items:center;gap:1rem;transition:border-color .2s}
+    .admin-item:hover{border-color:rgba(255,255,255,.1)}
+    .admin-item img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+    .admin-item-info{flex:1;min-width:0}
+    .admin-item-info .ai-price{font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--accent)}
+    .admin-item-info .ai-desc{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}
+    .admin-item-info .ai-status{font-size:.68rem;font-weight:600;margin-top:.2rem}
+    .btn-sold{padding:.4rem .9rem;border-radius:8px;background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0}
+    .btn-sold:hover{background:#f87171;color:#fff;box-shadow:0 4px 12px rgba(248,113,113,.3)}
+    .btn-unsold{padding:.4rem .9rem;border-radius:8px;background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0}
+    .btn-unsold:hover{background:#4ade80;color:#0a0a0f}
+    .btn-restore{padding:.4rem .9rem;border-radius:8px;background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0;margin-top:.3rem}
+    .btn-restore:hover{background:#60a5fa;color:#fff}
+    .btn-delete{padding:.4rem .9rem;border-radius:8px;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0;margin-top:.3rem}
+    .btn-delete:hover{background:#ef4444;color:#fff}
+    .admin-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
+
+    .add-form{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+    .add-form h4{font-family:var(--font-display);font-size:.95rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .add-form h4 i{color:var(--accent)}
+    .form-row{margin-bottom:.85rem}
+    .form-row label{display:block;font-size:.75rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
+    .form-row input,.form-row textarea{width:100%;padding:.6rem .9rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:var(--font-body);font-size:.85rem;outline:none;transition:border-color .2s}
+    .form-row input:focus,.form-row textarea:focus{border-color:var(--accent)}
+    .form-row textarea{resize:vertical;min-height:70px}
+    .form-row .hint{font-size:.68rem;color:var(--muted);margin-top:.2rem}
+    .btn-add{width:100%;padding:.7rem;border-radius:10px;background:var(--accent);color:#0a0a0f;border:none;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .btn-add:hover{box-shadow:0 4px 20px rgba(255,221,87,.3);transform:translateY(-1px)}
+    .btn-add:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+    .form-result{font-size:.8rem;padding:.6rem .85rem;border-radius:10px;margin-top:.75rem;display:none}
+    .form-result.show{display:flex;align-items:center;gap:.4rem;animation:fadeInUp .3s ease}
+    .form-result.success{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);color:#4ade80}
+    .form-result.error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171}
+    .form-result i{font-size:.85rem}
+
+    .admin-divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1.5rem 0}
+
+    .sec-divider{max-width:640px;margin:0 auto;padding:0 2rem}
+    .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+    @media(max-width:768px){
+      .navbar{padding:.75rem 1rem}.menu-toggle{display:flex}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
+      .nav-links.active{display:flex}
+      .dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}
+      .ig-card-embed{min-height:320px}
+      .info-card{flex-direction:column;text-align:center}
+      .chat-float{bottom:1rem;right:1rem}
+      .chat-float-btn{width:50px;height:50px;border-radius:14px;font-size:1.4rem}
+      .sold-card{flex-direction:column;text-align:center;gap:.6rem}
+      .sold-card-right{text-align:center}
+      .admin-item{flex-direction:column;text-align:center;gap:.6rem}
+      .modal-card{max-width:95vw}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand" id="navBrand">Akino Store</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+          <li><a href="designedit.html">Design / Edit Foto</a></li>
+        </ul>
+      </li>
+      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="page-hero">
+    <h1>Stock Mobil <span style="color:var(--accent)">Murah</span></h1>
+    <p>Pilih mobil, klik Pesan — foto auto download, langsung redirect ke WhatsApp.</p>
+  </section>
+
+  <div class="info-bar">
+    <div class="info-card">
+      <div class="info-icon"><i class="fas fa-car"></i></div>
+      <div class="info-text">
+        <h3>Cara Pesan</h3>
+        <p>Klik <span>Pesan</span> → foto auto download → langsung chat WhatsApp admin. Kirim screenshot yang sudah di-download.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="sold-section" id="soldSection" style="display:none">
+      <div class="sold-header">
+        <div class="sold-header-left">
+          <h2><i class="fas fa-tag" style="margin-right:.4rem"></i>Mobil Terjual</h2>
+          <span class="sold-count" id="soldCount">0</span>
+        </div>
+        <button class="sold-toggle open" id="soldToggle" onclick="toggleSoldList()">
+          <span id="soldToggleText">Sembunyikan</span> <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+      <div class="sold-list" id="soldList"></div>
+    </div>
+
+    <div class="sec-header reveal">
+      <div class="sec-label" style="justify-content:center">Listing</div>
+      <h2 class="sec-title">Mobil yang Tersedia</h2>
+      <p class="sec-desc" style="margin:0 auto">Foto dari Instagram, keterangan lengkap per item.</p>
+    </div>
+    <div class="ig-counter reveal" id="igCounter"></div>
+    <div class="ig-list" id="igGrid"></div>
+    <div class="ig-load-more" id="loadMoreWrap" style="display:none">
+      <button class="btn-load" onclick="loadMore()"><i class="fas fa-chevron-down"></i> Lihat Lebih Banyak</button>
+    </div>
+  </section>
+
+  <div class="sec-divider"><hr></div>
+
+  <!-- Komentar / Guestbook -->
+  <div class="gb-wrap reveal">
+    <div class="gb">
+      <div class="gb-hdr">
+        <div class="sec-label" style="justify-content:center">Testimoni</div>
+        <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Komentar Klien</h2>
+        <p>Tulis pengalaman kamu membeli stock mobil di sini</p>
+      </div>
+      <form id="messageForm">
+        <label for="gb-name">Nama</label>
+        <input type="text" id="gb-name" required placeholder="Masukkan nama kamu">
+        <label for="gb-msg">Komentar</label>
+        <textarea id="gb-msg" rows="3" required placeholder="Tulis pengalaman kamu..."></textarea>
+        <button type="submit" class="gb-submit"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
+      </form>
+      <div id="gbMsgs" class="gb-msgs"></div>
+    </div>
+  </div>
+
+  <div class="social-row">
+    <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.instagram.com/akinostore_/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <div class="chat-float">
+    <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <div class="dl-toast" id="dlToast"><i class="fas fa-download"></i> <span id="dlToastText"></span></div>
+
+  <!-- Admin Modal -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeAdmin()"><i class="fas fa-xmark"></i></button>
+      <div id="adminLogin">
+        <div class="admin-login">
+          <i class="fas fa-shield-halved"></i>
+          <h3>Admin Panel</h3>
+          <p>Kelola stock mobil — tambah, hapus, tandai terjual.</p>
+          <input type="password" id="adminKey" placeholder="Password admin..." onkeydown="if(event.key==='Enter')adminLogin()">
+          <div class="admin-error" id="adminError"></div>
+          <button class="btn-order-sm" style="margin:0 auto;padding:.65rem 1.8rem;font-size:.88rem" onclick="adminLogin()"><i class="fas fa-lock"></i> Masuk</button>
+        </div>
+      </div>
+      <div id="adminDash" class="admin-dash" style="display:none">
+        <h3><i class="fas fa-list-check" style="color:var(--accent)"></i> Kelola Stock Mobil</h3>
+        <p class="admin-sub">Tambah stock baru, tandai terjual, atau hapus permanen.</p>
+
+        <div class="add-form">
+          <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru</h4>
+          <div class="form-row">
+            <label>Link Post Instagram</label>
+            <input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/">
+            <div class="hint">Buka post → 3 titik → Copy Link</div>
+          </div>
+          <div class="form-row">
+            <label>URL Gambar (untuk download)</label>
+            <input type="text" id="addImg" placeholder="https://scontent.cdninstagram.com/...">
+            <div class="hint">Klik foto post IG → buka di tab baru → copy URL</div>
+          </div>
+          <div class="form-row">
+            <label>Harga</label>
+            <input type="text" id="addPrice" placeholder="Rp 3.000">
+          </div>
+          <div class="form-row">
+            <label>Keterangan / Caption</label>
+            <textarea id="addDesc" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea>
+          </div>
+          <div class="form-result" id="addResult"></div>
+          <button class="btn-add" id="addBtn" onclick="addNewStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
+        </div>
+
+        <div class="admin-divider"></div>
+        <div id="adminList"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
+
+  <script>
+    // Stock default KOSONG — tambah via admin panel
+    var DEFAULT_POSTS = [];
+
+    var WA_NUMBER = "6289687163314";
+    var ADMIN_PASS = "bajingan011";
+    var SOLD_HOURS = 24;
+    var PER_PAGE = 10;
+    var currentPage = 0;
+    var soldListOpen = true;
+    var timerInterval = null;
+    var POSTS = [];
+
+    function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
+    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function getFirstLine(d) { return d.split('\n')[0].trim(); }
+
+    function ls(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) || fallback; }
+      catch(e) { return fallback; }
+    }
+    function ss(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+    function buildPosts() {
+      var added = ls('akino_added', []);
+      var deleted = ls('akino_deleted', {});
+      var all = DEFAULT_POSTS.concat(added);
+      return all.filter(function(p) { return !deleted[getCode(p.url)]; });
+    }
+
+    function refreshAll() {
+      POSTS = buildPosts();
+      renderSold();
+      renderAvailable();
+      if (document.getElementById('adminList')) renderAdminList();
+    }
+
+    function isAvail(code) {
+      return !ls('akino_sold', {})[code] && !ls('akino_removed', {})[code];
+    }
+
+    function cleanExpired() {
+      var sold = ls('akino_sold', {});
+      var removed = ls('akino_removed', {});
+      var now = Date.now();
+      var changed = false;
+      Object.keys(sold).forEach(function(code) {
+        if (now - sold[code] > SOLD_HOURS * 3600000) {
+          removed[code] = true;
+          delete sold[code];
+          changed = true;
+        }
+      });
+      if (changed) { ss('akino_sold', sold); ss('akino_removed', removed); }
+    }
+
+    function renderSold() {
+      cleanExpired();
+      var sold = ls('akino_sold', {});
+      var codes = Object.keys(sold);
+      var section = document.getElementById('soldSection');
+      var list = document.getElementById('soldList');
+      var countEl = document.getElementById('soldCount');
+
+      if (codes.length === 0) { section.style.display = 'none'; return; }
+      section.style.display = 'block';
+      countEl.textContent = codes.length + ' item';
+
+      var h = '';
+      codes.forEach(function(code) {
+        var post = POSTS.find(function(p) { return getCode(p.url) === code; });
+        if (!post) return;
+        var rem = SOLD_HOURS * 3600000 - (Date.now() - sold[code]);
+        if (rem <= 0) return;
+        var hrs = Math.floor(rem / 3600000);
+        var mins = Math.floor((rem % 3600000) / 60000);
+        var secs = Math.floor((rem % 60000) / 1000);
+
+        h += '<div class="sold-card" id="sold-' + code + '">' +
+          '<img class="sold-card-img" src="' + post.img + '" alt="" onerror="this.style.display=\'none\'">' +
+          '<div class="sold-card-info">' +
+            '<a href="' + post.url + '" target="_blank" class="sc-name">' + esc(getFirstLine(post.desc)) + '</a>' +
+            '<div class="sc-price">' + esc(post.price) + '</div>' +
+          '</div>' +
+          '<div class="sold-card-right">' +
+            '<div class="sold-badge"><i class="fas fa-check"></i> Terjual</div>' +
+            '<div class="sold-timer" data-code="' + code + '">Auto-hapus ' + hrs + 'j ' + String(mins).padStart(2,'0') + 'm ' + String(secs).padStart(2,'0') + 's</div>' +
+          '</div>' +
+        '</div>';
+      });
+      list.innerHTML = h;
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(function() {
+        var sold = ls('akino_sold', {});
+        var now = Date.now();
+        var refresh = false;
+        Object.keys(sold).forEach(function(code) {
+          var el = document.querySelector('.sold-timer[data-code="' + code + '"]');
+          if (!el) return;
+          var rem = SOLD_HOURS * 3600000 - (now - sold[code]);
+          if (rem <= 0) { refresh = true; return; }
+          var hrs = Math.floor(rem / 3600000);
+          var mins = Math.floor((rem % 3600000) / 60000);
+          var secs = Math.floor((rem % 60000) / 1000);
+          el.textContent = 'Auto-hapus ' + hrs + 'j ' + String(mins).padStart(2,'0') + 'm ' + String(secs).padStart(2,'0') + 's';
+        });
+        if (refresh) refreshAll();
+      }, 1000);
+    }
+
+    function toggleSoldList() {
+      soldListOpen = !soldListOpen;
+      var list = document.getElementById('soldList');
+      var btn = document.getElementById('soldToggle');
+      var txt = document.getElementById('soldToggleText');
+      if (soldListOpen) {
+        list.classList.remove('collapsed'); btn.classList.add('open'); txt.textContent = 'Sembunyikan';
+      } else {
+        list.classList.add('collapsed'); btn.classList.remove('open'); txt.textContent = 'Tampilkan';
+      }
+    }
+
+    function renderAvailable() {
+      var avail = POSTS.filter(function(p) { return isAvail(getCode(p.url)); });
+      var grid = document.getElementById('igGrid');
+      grid.innerHTML = '';
+
+      var total = avail.length;
+      var showing = Math.min(total, PER_PAGE);
+      document.getElementById('igCounter').innerHTML = total > 0
+        ? 'Menampilkan <strong>' + showing + '</strong> dari <strong>' + total + '</strong> mobil tersedia'
+        : '<strong>0</strong> mobil tersedia saat ini';
+
+      if (total === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:3rem 1rem;color:var(--muted)"><i class="fas fa-car-side" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:.3"></i>Semua stock mobil saat ini kosong.</div>';
+        document.getElementById('loadMoreWrap').style.display = 'none';
+        return;
+      }
+
+      var batch = avail.slice(currentPage * PER_PAGE, (currentPage + 1) * PER_PAGE);
+      batch.forEach(function(post, i) {
+        var code = getCode(post.url);
+        if (!code) return;
+        var idx = POSTS.indexOf(post);
+        var card = document.createElement('div');
+        card.className = 'ig-card';
+        card.style.animation = 'fadeInUp .5s ease ' + (i * 0.06) + 's both';
+        card.innerHTML =
+          '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code + '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+          '<div class="ig-card-body">' +
+            '<div class="ig-card-price">' + esc(post.price) + '</div>' +
+            '<div class="ig-card-desc">' + esc(post.desc) + '</div>' +
+            '<div class="ig-card-footer">' +
+              '<a href="' + post.url + '" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat Post</a>' +
+              '<button class="btn-order-sm" id="orderBtn-' + idx + '" onclick="orderPost(' + idx + ')"><i class="fab fa-whatsapp"></i> Pesan</button>' +
+            '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+
+      document.getElementById('loadMoreWrap').style.display =
+        (currentPage + 1) * PER_PAGE < avail.length ? 'flex' : 'none';
+    }
+
+    function loadMore() {
+      currentPage++;
+      renderAvailable();
+      window.scrollTo({ top: document.getElementById('igGrid').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function orderPost(idx) {
+      var post = POSTS[idx];
+      var btn = document.getElementById('orderBtn-' + idx);
+      if (!btn || btn.classList.contains('loading')) return;
+      btn.classList.add('loading');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Download...';
+
+      var waMsg = "Halo admin, saya mau pesan mobil:\n\n" + post.price + "\n" + post.desc + "\n\nLink: " + post.url;
+      var waUrl = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waMsg);
+
+      if (post.img) {
+        showDlToast("Mengunduh foto...");
+        fetch(post.img).then(function(r){return r.blob()}).then(function(blob){
+          var u = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = u; a.download = "stock-" + getCode(post.url) + ".jpg";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          URL.revokeObjectURL(u);
+          showDlToast("Foto tersimpan! Membuka WhatsApp...");
+          setTimeout(function(){window.open(waUrl,'_blank')},600);
+          btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+        }).catch(function(){
+          showDlToast("Download gagal, langsung buka WhatsApp...");
+          setTimeout(function(){window.open(waUrl,'_blank')},400);
+          btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+        });
+      } else {
+        setTimeout(function(){window.open(waUrl,'_blank')},200);
+        btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+      }
+    }
+
+    function showDlToast(t) {
+      var el = document.getElementById('dlToast');
+      document.getElementById('dlToastText').textContent = t;
+      el.classList.add('show');
+      setTimeout(function(){el.classList.remove('show')},2500);
+    }
+
+    var brandClicks = 0, brandTimer = null;
+    document.getElementById('navBrand').addEventListener('click', function(e) {
+      e.preventDefault(); brandClicks++; clearTimeout(brandTimer);
+      brandTimer = setTimeout(function(){brandClicks=0},2500);
+      if (brandClicks >= 5) { brandClicks = 0; clearTimeout(brandTimer); openAdmin(); }
+    });
+
+    function openAdmin() {
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('adminKey').value = '';
+      document.getElementById('adminError').textContent = '';
+      document.getElementById('adminLogin').style.display = '';
+      document.getElementById('adminDash').style.display = 'none';
+    }
+    function closeAdmin() {
+      document.getElementById('adminModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('adminModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAdmin();
+    });
+
+    function adminLogin() {
+      if (document.getElementById('adminKey').value.trim() === ADMIN_PASS) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminDash').style.display = '';
+        renderAdminList();
+      } else {
+        document.getElementById('adminError').textContent = 'Password salah!';
+      }
+    }
+
+    function addNewStock() {
+      var url = document.getElementById('addUrl').value.trim();
+      var img = document.getElementById('addImg').value.trim();
+      var price = document.getElementById('addPrice').value.trim();
+      var desc = document.getElementById('addDesc').value.trim();
+      var result = document.getElementById('addResult');
+      result.className = 'form-result';
+      result.style.display = 'none';
+
+      if (!url || !img || !price || !desc) {
+        result.className = 'form-result error show';
+        result.innerHTML = '<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';
+        return;
+      }
+      if (!getCode(url)) {
+        result.className = 'form-result error show';
+        result.innerHTML = '<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';
+        return;
+      }
+
+      var exists = POSTS.some(function(p) { return getCode(p.url) === getCode(url); });
+      if (exists) {
+        result.className = 'form-result error show';
+        result.innerHTML = '<i class="fas fa-exclamation-circle"></i> Post ini sudah ada di daftar stock.';
+        return;
+      }
+
+      var btn = document.getElementById('addBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+      var added = ls('akino_added', []);
+      added.push({ url: url, img: img, price: price, desc: desc });
+      ss('akino_added', added);
+
+      var code = getCode(url);
+      var sold = ls('akino_sold', {});
+      var removed = ls('akino_removed', {});
+      delete sold[code];
+      delete removed[code];
+      ss('akino_sold', sold);
+      ss('akino_removed', removed);
+
+      setTimeout(function() {
+        refreshAll();
+        result.className = 'form-result success show';
+        result.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
+        document.getElementById('addUrl').value = '';
+        document.getElementById('addImg').value = '';
+        document.getElementById('addPrice').value = '';
+        document.getElementById('addDesc').value = '';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Stock';
+        setTimeout(function(){ result.style.display = 'none'; }, 3000);
+      }, 500);
+    }
+
+    function renderAdminList() {
+      var sold = ls('akino_sold', {});
+      var removed = ls('akino_removed', {});
+      var list = document.getElementById('adminList');
+
+      if (POSTS.length === 0) {
+        list.innerHTML = '<div class="admin-empty"><i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:.5rem;opacity:.4"></i>Belum ada stock.</div>';
+        return;
+      }
+
+      var h = '';
+      POSTS.forEach(function(post, idx) {
+        var code = getCode(post.url);
+        var isSold = !!sold[code];
+        var isRemoved = !!removed[code];
+        var isAdded = ls('akino_added', []).some(function(a) { return getCode(a.url) === code; });
+
+        var statusHtml = '';
+        var actionHtml = '';
+
+        if (isRemoved) {
+          statusHtml = '<div class="ai-status" style="color:#f87171"><i class="fas fa-trash"></i> Dihapus permanen</div>';
+          actionHtml = '<button class="btn-restore" onclick="restorePost(' + idx + ')"><i class="fas fa-rotate-left"></i> Pulihkan</button>';
+        } else if (isSold) {
+          statusHtml = '<div class="ai-status" style="color:#f87171"><i class="fas fa-clock"></i> Di list terjual</div>';
+          actionHtml = '<button class="btn-unsold" onclick="toggleSold(' + idx + ',false)"><i class="fas fa-rotate-left"></i> Batalkan</button>';
+        } else {
+          if (isAdded) statusHtml = '<div class="ai-status" style="color:#60a5fa"><i class="fas fa-cloud-arrow-down"></i> Ditambah admin</div>';
+          actionHtml = '<button class="btn-sold" onclick="toggleSold(' + idx + ',true)"><i class="fas fa-tag"></i> Tandai Terjual</button>' +
+            '<button class="btn-delete" onclick="deletePost(' + idx + ')"><i class="fas fa-trash"></i> Hapus</button>';
+        }
+
+        h += '<div class="admin-item" style="' + (isRemoved ? 'opacity:.4' : '') + '">' +
+          '<img src="' + post.img + '" alt="" onerror="this.src=\'https://placehold.co/56x56/1a1a2e/FFDD57?text=Car\'">' +
+          '<div class="admin-item-info">' +
+            '<div class="ai-price">' + esc(post.price) + '</div>' +
+            '<div class="ai-desc">' + esc(getFirstLine(post.desc)) + '</div>' +
+            statusHtml +
+          '</div>' +
+          actionHtml +
+        '</div>';
+      });
+      list.innerHTML = h;
+    }
+
+    function toggleSold(idx, sold) {
+      var post = POSTS[idx];
+      var code = getCode(post.url);
+      var soldData = ls('akino_sold', {});
+      var removedData = ls('akino_removed', {});
+      if (sold) { soldData[code] = Date.now(); delete removedData[code]; }
+      else { delete soldData[code]; }
+      ss('akino_sold', soldData);
+      ss('akino_removed', removedData);
+      refreshAll();
+      currentPage = 0;
+    }
+
+    function restorePost(idx) {
+      var code = getCode(POSTS[idx].url);
+      var removed = ls('akino_removed', {});
+      var sold = ls('akino_sold', {});
+      delete removed[code];
+      delete sold[code];
+      ss('akino_removed', removed);
+      ss('akino_sold', sold);
+      refreshAll();
+      currentPage = 0;
+    }
+
+    function deletePost(idx) {
+      var post = POSTS[idx];
+      var code = getCode(post.url);
+      var removed = ls('akino_removed', {});
+      var sold = ls('akino_sold', {});
+      removed[code] = true;
+      delete sold[code];
+      ss('akino_removed', removed);
+      ss('akino_sold', sold);
+      refreshAll();
+      currentPage = 0;
+    }
+
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    var revObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
+
+    refreshAll();
+    startTimer();
+  </script>
+
+  <!-- Firebase: Komentar / Guestbook -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, query, orderBy, limit,
+      serverTimestamp, onSnapshot, startAfter, getDocs
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const gbForm = document.getElementById('messageForm');
+    const gbMsgs = document.getElementById('gbMsgs');
+
+    let lastVisible = null;
+    let loading = false;
+
+    gbForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('gb-name').value.trim();
+      const message = document.getElementById('gb-msg').value.trim();
+      if (name && message) {
+        await addDoc(collection(db, "messages"), {
+          name: name,
+          message: message,
+          timestamp: serverTimestamp()
+        });
+        gbForm.reset();
+      }
+    });
+
+    function loadMessages() {
+      const q = query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(10));
+      onSnapshot(q, (snap) => {
+        gbMsgs.innerHTML = "";
+        snap.forEach((d) => renderGbMsg(d.data()));
+        gbMsgs.scrollTop = 0;
+        if (snap.docs.length > 0) {
+          lastVisible = snap.docs[snap.docs.length - 1];
+        }
+      });
+    }
+
+    gbMsgs.addEventListener("scroll", async () => {
+      if (loading) return;
+      if (gbMsgs.scrollTop + gbMsgs.clientHeight >= gbMsgs.scrollHeight - 10) {
+        loading = true;
+        if (lastVisible) {
+          const nextQ = query(
+            collection(db, "messages"),
+            orderBy("timestamp", "desc"),
+            startAfter(lastVisible),
+            limit(10)
+          );
+          const nextSnap = await getDocs(nextQ);
+          nextSnap.forEach((d) => renderGbMsg(d.data(), true));
+          if (nextSnap.docs.length > 0) {
+            lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
+          }
+        }
+        loading = false;
+      }
+    });
+
+    function renderGbMsg(data, appendBottom = true) {
+      const div = document.createElement("div");
+      div.className = "gb-msg";
+      div.innerHTML =
+        "<strong>" + data.name + "</strong>" +
+        "<p>" + data.message + "</p>" +
+        "<small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
+      if (appendBottom) {
+        gbMsgs.appendChild(div);
+      } else {
+        gbMsgs.prepend(div);
+      }
+    }
+
+    loadMessages();
+  </script>
+
+</body>
+</html>

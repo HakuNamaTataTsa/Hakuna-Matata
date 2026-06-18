@@ -128,7 +128,7 @@
     .pay-detail-icon.bca{background:rgba(0,61,121,.15);color:#4a90d9}
     .pay-detail h4{font-family:var(--font-display);font-size:1.05rem;font-weight:600;margin-bottom:.5rem}
     .pay-detail .pd-subtitle{font-size:.78rem;color:var(--muted);margin-bottom:1rem}
-    .pd-account-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;cursor:pointer;transition:all .2s;position:relative}
+    .pd-account-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;cursor:pointer;transition:all .2s}
     .pd-account-box:hover{border-color:rgba(255,255,255,.15)}
     .pd-account-box:active{transform:scale(.98)}
     .pd-account-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.35rem}
@@ -264,36 +264,13 @@
     @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
     /* ── Floating Chat Admin ── */
-    .chat-float {
-      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
-      display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
-    }
-    .chat-float-label {
-      background: rgba(15,15,25,0.92); backdrop-filter: blur(12px);
-      border: 1px solid var(--border); border-radius: 10px;
-      padding: 0.55rem 1rem;
-      font-size: 0.78rem; color: var(--muted); white-space: nowrap;
-      opacity: 0; transform: translateY(6px) scale(0.95);
-      transition: all 0.3s ease; pointer-events: none;
-    }
-    .chat-float-label span { color: var(--accent); font-weight: 600; }
-    .chat-float:hover .chat-float-label {
-      opacity: 1; transform: translateY(0) scale(1);
-    }
-    .chat-float-btn {
-      width: 56px; height: 56px; border-radius: 16px;
-      background: #25D366; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 1.6rem;
-      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    .chat-float-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 8px 32px rgba(37,211,102,0.45);
-    }
-    .chat-float-btn:active { transform: scale(0.95); }
+    .chat-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+    .chat-float-label{background:rgba(15,15,25,.92);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:.55rem 1rem;font-size:.78rem;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px) scale(.95);transition:all .3s ease;pointer-events:none}
+    .chat-float-label span{color:var(--accent);font-weight:600}
+    .chat-float:hover .chat-float-label{opacity:1;transform:translateY(0) scale(1)}
+    .chat-float-btn{width:56px;height:56px;border-radius:16px;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;box-shadow:0 4px 24px rgba(37,211,102,.35);transition:all .3s ease;text-decoration:none}
+    .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}
+    .chat-float-btn:active{transform:scale(.95)}
 
     @media(max-width:1024px){.orders-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:768px){
@@ -324,6 +301,7 @@
         <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
         <ul class="dropdown-menu">
           <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+          <li><a href="topup.html">Top Up Game</a></li>
           <li><a href="SosialMedia.html" style="color:var(--accent)">Layanan Sosial Media</a></li>
           <li><a href="designedit.html">Design / Edit Foto</a></li>
         </ul>
@@ -412,7 +390,7 @@
 
   <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
-  <!-- ===== ORDER MODAL (multi-step) ===== -->
+  <!-- ORDER MODAL -->
   <div class="modal-overlay" id="orderModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
@@ -420,7 +398,7 @@
     </div>
   </div>
 
-  <!-- ===== ADMIN MODAL ===== -->
+  <!-- ADMIN MODAL -->
   <div class="modal-overlay admin-modal" id="adminModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeAdminModal()"><i class="fas fa-xmark"></i></button>
@@ -448,6 +426,7 @@
   <div id="toastContainer" style="position:fixed;top:5rem;right:1.5rem;z-index:500;display:flex;flex-direction:column;gap:.5rem;pointer-events:none"></div>
 
   <script>
+    /* ===== UTILITAS ===== */
     function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
 
     function showToast(msg,type){
@@ -468,12 +447,14 @@
 
     var STATUS_MAP={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
 
+    /* ===== KONFIGURASI PEMBAYARAN ===== */
     var PAYMENT_METHODS=[
       {id:'dana',name:'Dana',icon:'fa-wallet',iconClass:'dana',desc:'Transfer via Dana',type:'account',number:'+6289621711769',holder:'Tesalonika Bagaskara'},
       {id:'qris',name:'QRIS',icon:'fa-qrcode',iconClass:'qris',desc:'Scan QRIS (All Payment)',type:'qris',qrisImage:'qris.png'},
       {id:'bca',name:'BCA',icon:'fa-building-columns',iconClass:'bca',desc:'Transfer via BCA',type:'account',number:'0601345985',holder:'Tesalonik Bagaskara'}
     ];
 
+    /* ===== DATA LAYANAN ===== */
     var SERVICES=[
       {id:1,category:'instagram',name:'Instagram Followers [ 30 Day Refill ] No Drop',min:100,max:4000000,rate:38600},
       {id:2,category:'instagram',name:'Instagram Followers [ Max 1M ] Real People With Post Non Drop | Refill 60 Days',min:100,max:1000000,rate:22320},
@@ -528,9 +509,11 @@
       'shopee':'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white"><path d="M20 35h60l8 30H12z"/><rect x="15" y="65" width="70" height="8" rx="4"/><circle cx="32" cy="78" r="6" fill="none" stroke="white" stroke-width="4"/><circle cx="68" cy="78" r="6" fill="none" stroke="white" stroke-width="4"/></svg>')
     };
 
+    /* ===== STATE ===== */
     var categories=[],activeCat='all',currentSrv=null,adminAuthenticated=false,adminFilterStatus='all';
     var currentStep=1,selectedPayMethod=null,orderFormData={};
 
+    /* ===== EVENT LISTENERS ===== */
     window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
     document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
     document.getElementById('searchInput').addEventListener('input',function(){renderFiltered()});
@@ -542,6 +525,7 @@
       if(brandClicks>=5){brandClicks=0;clearTimeout(brandClickTimer);openAdminModal()}
     });
 
+    /* ===== STEP INDICATOR ===== */
     function stepIndicatorHTML(step){
       var labels=['','Isi Pesanan','Pembayaran','Konfirmasi'];
       var h='<div class="step-indicator">';
@@ -555,6 +539,7 @@
       return h;
     }
 
+    /* ===== RENDER KATEGORI ===== */
     function renderCategories(){
       categories=[];SERVICES.forEach(function(s){if(categories.indexOf(s.category)===-1)categories.push(s.category)});categories.sort();
       var w=document.getElementById('catTabs');
@@ -577,6 +562,7 @@
       g.innerHTML=h;
     }
 
+    /* ===== MODAL ===== */
     function openModal(sid){
       currentSrv=SERVICES.find(function(s){return s.id===sid});if(!currentSrv)return;
       currentStep=1;selectedPayMethod=null;orderFormData={};
@@ -585,6 +571,7 @@
     }
     function closeModal(){document.getElementById('orderModal').classList.remove('active');document.body.style.overflow='';currentSrv=null}
 
+    /* ===== STEP 1: FORM PESANAN ===== */
     function renderStep1(){
       var mc=document.getElementById('modalContent');
       mc.innerHTML=stepIndicatorHTML(1)+
@@ -595,308 +582,414 @@
         '<div class="form-group"><label>No. WhatsApp</label><input type="text" id="mWA" placeholder="08xxxxxxxxxx"><div class="hint">Untuk menghubungi jika diperlukan</div></div>'+
         '<div class="form-group"><label>Link Target</label><input type="text" id="mLink" placeholder="https://www.instagram.com/username"><div class="hint">Contoh: https://www.instagram.com/username</div></div>'+
         '<div class="form-group"><label>Jumlah Pesanan</label><input type="number" id="mQty" placeholder="Masukkan jumlah" min="'+currentSrv.min+'" max="'+currentSrv.max+'" oninput="calcPrice()"><div class="hint">Min: '+currentSrv.min.toLocaleString('id-ID')+' — Max: '+currentSrv.max.toLocaleString('id-ID')+'</div></div>'+
-        '<div class="price-calc"><div class="pc-row"><span class="pc-label">Harga per 1000</span><span class="pc-val" id="pcRate">'+fRp(currentSrv.rate)+' / 1000</span></div><div class="pc-row"><span class="pc-label">Jumlah</span><span class="pc-val" id="pcQty">-</span></div><div class="pc-row" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.3rem"><span class="pc-label">Total Bayar</span><span class="pc-val pc-total" id="pcTotal">-</span></div></div>'+
-        '<button class="btn-submit" onclick="goToStep2()"><i class="fas fa-arrow-right"></i> Lanjut ke Pembayaran</button>';
-      setTimeout(function(){document.getElementById('mName').focus()},200);
+        '<div class="price-calc" id="priceCalc" style="display:none"><div class="pc-row"><span class="pc-label">Jumlah</span><span class="pc-val" id="pcQty">0</span></div><div class="pc-row"><span class="pc-label">Harga / 1000</span><span class="pc-val" id="pcRate">'+fRp(currentSrv.rate)+'</span></div><div class="pc-row" style="border-top:1px solid var(--border);padding-top:.5rem;margin-top:.2rem"><span class="pc-label">Total</span><span class="pc-total" id="pcTotal">Rp 0</span></div></div>'+
+        '<button class="btn-submit" onclick="goStep2()" style="margin-top:.5rem"><i class="fas fa-arrow-right"></i> Lanjut ke Pembayaran</button>';
     }
 
     function calcPrice(){
-      if(!currentSrv)return;
       var qty=parseInt(document.getElementById('mQty').value)||0;
-      document.getElementById('pcQty').textContent=qty>0?qty.toLocaleString('id-ID'):'-';
-      if(qty>0){
-        var total=(qty/1000)*currentSrv.rate;
-        document.getElementById('pcTotal').textContent=fRp(total);
-      }else{
-        document.getElementById('pcTotal').textContent='-';
-      }
+      var pc=document.getElementById('priceCalc');
+      if(qty>0){pc.style.display='';document.getElementById('pcQty').textContent=qty.toLocaleString('id-ID');var total=(qty/1000)*currentSrv.rate;document.getElementById('pcTotal').textContent=fRp(total)}else{pc.style.display='none'}
     }
 
-    function goToStep2(){
+    function goStep2(){
       var name=document.getElementById('mName').value.trim();
       var wa=document.getElementById('mWA').value.trim();
       var link=document.getElementById('mLink').value.trim();
       var qty=parseInt(document.getElementById('mQty').value)||0;
-      var res=document.getElementById('mResult');res.innerHTML='';
-      if(!name||!wa||!link||!qty){
-        res.innerHTML='<div class="order-result error"><i class="fas fa-exclamation-triangle"></i> Lengkapi semua field.</div>';return;
-      }
-      if(qty<currentSrv.min||qty>currentSrv.max){
-        res.innerHTML='<div class="order-result error"><i class="fas fa-exclamation-triangle"></i> Jumlah harus antara '+currentSrv.min.toLocaleString('id-ID')+' dan '+currentSrv.max.toLocaleString('id-ID')+'.</div>';return;
-      }
-      orderFormData={name:name,wa:wa,link:link,qty:qty,total:Math.ceil((qty/1000)*currentSrv.rate)};
-      currentStep=2;renderStep2();
+      var res=document.getElementById('mResult');
+
+      if(!name){res.innerHTML='<div class="order-result error">Masukkan nama pemesan</div>';return}
+      if(!wa){res.innerHTML='<div class="order-result error">Masukkan nomor WhatsApp</div>';return}
+      if(!link){res.innerHTML='<div class="order-result error">Masukkan link target</div>';return}
+      if(qty<currentSrv.min||qty>currentSrv.max){res.innerHTML='<div class="order-result error">Jumlah harus antara '+currentSrv.min.toLocaleString('id-ID')+' dan '+currentSrv.max.toLocaleString('id-ID')+'</div>';return}
+
+      orderFormData={serviceName:currentSrv.name,category:currentSrv.category,name:name,wa:wa,link:link,qty:qty,total:Math.ceil((qty/1000)*currentSrv.rate)};
+      renderStep2();
     }
 
+    /* ===== STEP 2: PILIH PEMBAYARAN ===== */
     function renderStep2(){
       var mc=document.getElementById('modalContent');
       var h=stepIndicatorHTML(2)+
+        '<h3>Pilih Metode Pembayaran</h3>'+
+        '<div class="modal-cat">Total: <strong style="color:var(--accent);font-size:1rem">'+fRp(orderFormData.total)+'</strong></div>'+
         '<div class="pay-methods">';
       PAYMENT_METHODS.forEach(function(pm){
-        h+='<div class="pay-method-card" data-pay="'+pm.id+'" onclick="selectPay(\''+pm.id+'\')">'+
+        h+='<div class="pay-method-card" onclick="selectPayMethod(\''+pm.id+'\')" id="pmc-'+pm.id+'">'+
           '<div class="pmc-icon '+pm.iconClass+'"><i class="fas '+pm.icon+'"></i></div>'+
           '<div class="pmc-info"><div class="pmc-name">'+pm.name+'</div><div class="pmc-desc">'+pm.desc+'</div></div>'+
           '<div class="pmc-check"><i class="fas fa-check"></i></div></div>';
       });
-      h+='</div>'+
-        '<div class="pd-total-box"><span class="pd-total-label">Total Bayar</span><span class="pd-total-val">'+fRp(orderFormData.total)+'</span></div>'+
-        '<button class="btn-back" onclick="currentStep=1;renderStep1()"><i class="fas fa-arrow-left"></i> Kembali</button>'+
-        '<button class="btn-submit" id="btnGoStep3" onclick="goToStep3()" disabled><i class="fas fa-arrow-right"></i> Lanjut ke Konfirmasi</button>';
+      h+='</div><button class="btn-submit" onclick="goStep3()" id="btnGoStep3" disabled><i class="fas fa-arrow-right"></i> Lanjut</button>';
+      h+='<button class="btn-back" onclick="renderStep1()"><i class="fas fa-arrow-left"></i> Kembali</button>';
       mc.innerHTML=h;
     }
 
-    function selectPay(id){
+    function selectPayMethod(id){
       selectedPayMethod=PAYMENT_METHODS.find(function(p){return p.id===id});
       document.querySelectorAll('.pay-method-card').forEach(function(c){c.classList.remove('selected')});
-      document.querySelector('.pay-method-card[data-pay="'+id+'"]').classList.add('selected');
+      document.getElementById('pmc-'+id).classList.add('selected');
       document.getElementById('btnGoStep3').disabled=false;
     }
 
-    function goToStep3(){
+    function goStep3(){
       if(!selectedPayMethod)return;
-      orderFormData.payMethod=selectedPayMethod;
-      currentStep=3;renderStep3();
+      renderStep3();
     }
 
+    /* ===== STEP 3: DETAIL PEMBAYARAN ===== */
     function renderStep3(){
       var mc=document.getElementById('modalContent');
-      var pm=selectedPayMethod;
-      var h=stepIndicatorHTML(3)+'<div class="pay-detail">'+
-        '<div class="pay-detail-icon '+pm.iconClass+'"><i class="fas '+pm.icon+'"></i></div>'+
-        '<h4>Bayar via '+pm.name+'</h4><div class="pd-subtitle">Transfer sesuai nominal di bawah ini</div>';
-      if(pm.type==='account'){
-        h+='<div class="pd-account-box" onclick="copyAccount(\''+pm.number+'\')">'+
-          '<div class="pd-account-label">Nomor '+pm.name+'</div>'+
-          '<div class="pd-account-number">'+pm.number+'</div>'+
-          '<div class="pd-account-holder">a.n. '+pm.holder+'</div>'+
-          '<div class="pd-copy-hint"><i class="fas fa-copy"></i> Klik untuk salin</div></div>';
-      }else if(pm.type==='qris'){
-        h+='<div class="pd-qr-box"><img src="'+pm.qrisImage+'" alt="QRIS"></div>'+
-          '<div class="pd-qr-hint">Scan QRIS di atas menggunakan app e-wallet atau mobile banking</div>';
+      var h=stepIndicatorHTML(3)+
+        '<div class="pay-detail">'+
+          '<div class="pay-detail-icon '+selectedPayMethod.iconClass+'"><i class="fas '+selectedPayMethod.icon+'"></i></div>'+
+          '<h4>Pembayaran via '+selectedPayMethod.name+'</h4>'+
+          '<div class="pd-subtitle">Silakan transfer sesuai total di bawah ini</div>';
+
+      if(selectedPayMethod.type==='account'){
+        h+='<div class="pd-account-box" onclick="copyAccount(\''+selectedPayMethod.number+'\',this)">'+
+            '<div class="pd-account-label">Nomor '+selectedPayMethod.name+'</div>'+
+            '<div class="pd-account-number">'+selectedPayMethod.number+'</div>'+
+            '<div class="pd-account-holder">a.n. '+selectedPayMethod.holder+'</div>'+
+            '<div class="pd-copy-hint"><i class="fas fa-copy"></i> Klik untuk copy nomor</div></div>';
+      }else if(selectedPayMethod.type==='qris'){
+        h+='<div class="pd-qr-box"><img src="'+selectedPayMethod.qrisImage+'" alt="QRIS"></div>'+
+            '<div class="pd-qr-hint">Scan QRIS di atas menggunakan app e-wallet atau mobile banking</div>';
       }
-      h+='<div class="pd-total-box"><span class="pd-total-label">Total Bayar</span><span class="pd-total-val">'+fRp(orderFormData.total)+'</span></div></div>'+
-        '<button class="btn-back" onclick="currentStep=2;renderStep2()"><i class="fas fa-arrow-left"></i> Kembali</button>'+
-        '<button class="btn-paid" onclick="submitOrder()"><i class="fas fa-check-circle"></i> Saya Sudah Bayar</button>'+
-        '<div class="pd-warning">Setelah klik, kirim bukti pembayaran ke admin via WhatsApp.</div>';
+
+      h+='<div class="pd-total-box"><span class="pd-total-label">Total Pembayaran</span><span class="pd-total-val">'+fRp(orderFormData.total)+'</span></div>'+
+        '</div>'+
+        '<div class="pd-warning"><i class="fas fa-exclamation-triangle" style="color:var(--accent);margin-right:.3rem"></i>Transfer sesuai total. Jangan tambahkan angka unik. Pembayaran salah nominal akan memperlambat proses.</div>'+
+        '<button class="btn-paid" onclick="submitOrder()"><i class="fas fa-check"></i> Saya Sudah Bayar</button>'+
+        '<button class="btn-back" onclick="renderStep2()"><i class="fas fa-arrow-left"></i> Kembali</button>';
       mc.innerHTML=h;
     }
 
-    function copyAccount(num){
-      navigator.clipboard.writeText(num).then(function(){showToast('Nomor disalin!','success')}).catch(function(){showToast('Gagal menyalin','error')});
-    }
-
-    async function submitOrder(){
-      var orderId=generateOrderId();
-      var btn=document.querySelector('.btn-paid');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Memproses...';
-      try{
-        var {addDoc,collection,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js");
-        var {getFirestore}=await import("https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js");
-        var db=getFirestore(firebaseApp);
-        await addDoc(collection(db,"orders"),{
-          orderId:orderId,serviceName:currentSrv.name,category:currentSrv.category,
-          qty:orderFormData.qty,total:orderFormData.total,
-          customerName:orderFormData.name,customerWA:orderFormData.wa,targetLink:orderFormData.link,
-          payMethod:orderFormData.payMethod.id,payMethodName:orderFormData.payMethod.name,
-          status:'pending',timestamp:serverTimestamp()
-        });
-        renderSuccess(orderId);
-      }catch(e){
-        showToast('Gagal membuat pesanan: '+e.message,'error');
-        btn.disabled=false;btn.innerHTML='<i class="fas fa-check-circle"></i> Saya Sudah Bayar';
-      }
-    }
-
-    function renderSuccess(orderId){
-      var mc=document.getElementById('modalContent');
-      var pm=orderFormData.payMethod;
-      var waMsg='Halo admin, saya sudah melakukan pembayaran.%0A%0AOrder ID: '+orderId+'%0ALayanan: '+currentSrv.name+'%0AJumlah: '+orderFormData.qty.toLocaleString('id-ID')+'%0ATotal: '+fRp(orderFormData.total)+'%0ABayar via: '+pm.name+'%0ANama: '+orderFormData.name;
-      mc.innerHTML='<div class="order-success">'+
-        '<div class="success-icon"><i class="fas fa-check"></i></div>'+
-        '<h3>Pesanan Berhasil Dibuat!</h3>'+
-        '<div class="os-label">Order ID (klik untuk salin)</div>'+
-        '<div class="os-id" onclick="copyOrderId(\''+orderId+'\')">'+orderId+'</div>'+
-        '<div class="os-total">Total: <strong>'+fRp(orderFormData.total)+'</strong></div>'+
-        '<div class="os-pay-method"><i class="fas '+pm.icon+'"></i> '+pm.name+'</div>'+
-        '<div class="os-note"><i class="fas fa-info-circle" style="color:var(--accent);margin-right:.35rem"></i>Kirim bukti pembayaran (screenshot) ke admin via WhatsApp agar pesanan segera diproses.</div>'+
-        '<div class="os-actions">'+
-        '<a href="https://wa.me/6289687163314?text='+waMsg+'" target="_blank" class="btn-wa-proof"><i class="fab fa-whatsapp"></i> Kirim Bukti Bayar via WhatsApp</a>'+
-        '<button class="btn-close-modal" onclick="closeModal()"><i class="fas fa-xmark"></i> Tutup</button>'+
-        '</div></div>';
-    }
-
-    function copyOrderId(id){
-      navigator.clipboard.writeText(id).then(function(){showToast('Order ID disalin!','success')}).catch(function(){showToast('Gagal menyalin','error')});
-    }
-
-    function checkStatus(){
-      var id=document.getElementById('statusInput').value.trim().toUpperCase();
-      var res=document.getElementById('statusResult');
-      if(!id){res.classList.remove('show');return}
-      var btn=document.getElementById('statusBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
-      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js").then(function({getFirestore,collection,getDocs,query,where}){
-        var {initializeApp}=firebaseApp2;
-        var db=getFirestore(initializeApp(firebaseConfig2));
-        var q=query(collection(db,"orders"),where("orderId","==",id));
-        getDocs(q).then(function(snap){
-          btn.disabled=false;btn.innerHTML='<i class="fas fa-search"></i> Cek';
-          if(snap.empty){
-            res.innerHTML='<div class="sr-row"><span class="sr-label">Status</span><span class="sr-val error">Order ID tidak ditemukan</span></div>';
-            res.classList.add('show');return;
-          }
-          var d=snap.docs[0].data();
-          var statusClass=d.status;
-          res.innerHTML=
-            '<div class="sr-row"><span class="sr-label">Order ID</span><span class="sr-val">'+d.orderId+'</span></div>'+
-            '<div class="sr-row"><span class="sr-label">Layanan</span><span class="sr-val">'+d.serviceName+'</span></div>'+
-            '<div class="sr-row"><span class="sr-label">Jumlah</span><span class="sr-val">'+d.qty.toLocaleString('id-ID')+'</span></div>'+
-            '<div class="sr-row"><span class="sr-label">Total</span><span class="sr-val" style="color:var(--accent)">'+fRp(d.total)+'</span></div>'+
-            '<div class="sr-row"><span class="sr-label">Pembayaran</span><span class="sr-val">'+d.payMethodName+'</span></div>'+
-            '<div class="sr-row"><span class="sr-label">Status</span><span class="oc-status '+statusClass+'" style="margin:0">'+STATUS_MAP[d.status]||d.status+'</span></div>'+
-            (d.timestamp?'<div class="sr-row"><span class="sr-label">Waktu</span><span class="sr-val">'+new Date(d.timestamp.seconds*1000).toLocaleString()+'</span></div>':'');
-          res.classList.add('show');
-        }).catch(function(e){
-          btn.disabled=false;btn.innerHTML='<i class="fas fa-search"></i> Cek';
-          showToast('Gagal cek status','error');
-        });
+    function copyAccount(text,el){
+      navigator.clipboard.writeText(text).then(function(){
+        var hint=el.querySelector('.pd-copy-hint');
+        if(hint){var orig=hint.innerHTML;hint.innerHTML='<i class="fas fa-check" style="color:#4ade80"></i> Copied!';setTimeout(function(){hint.innerHTML=orig},1500)}
+        showToast('Nomor disalin!','success');
       });
     }
 
+    /* ===== STEP 4: SUKSES (dipanggil dari Firebase module) ===== */
+    function renderStep4(orderId){
+      var mc=document.getElementById('modalContent');
+      var waText='Halo Admin, saya sudah melakukan pembayaran untuk pesanan '+orderId+' ('+orderFormData.serviceName+'). Total: '+fRp(orderFormData.total)+' via '+selectedPayMethod.name+'. Terima kasih.';
+      var waURL='https://wa.me/6289687163314?text='+encodeURIComponent(waText);
+      mc.innerHTML=
+        '<div class="order-success">'+
+          '<div class="success-icon"><i class="fas fa-check"></i></div>'+
+          '<h3>Pesanan Berhasil Dibuat!</h3>'+
+          '<div class="os-label">Order ID (klik untuk copy)</div>'+
+          '<div class="os-id" onclick="copyText(\''+orderId+'\',this)">'+orderId+'</div>'+
+          '<div class="os-total">Total: <strong>'+fRp(orderFormData.total)+'</strong></div>'+
+          '<div class="os-pay-method"><i class="fas '+selectedPayMethod.icon+'"></i> '+selectedPayMethod.name+'</div>'+
+          '<div class="os-note"><i class="fas fa-info-circle" style="color:var(--accent);margin-right:.4rem"></i>Silakan transfer sesuai total di atas ke nomor yang ditampilkan sebelumnya. Setelah bayar, klik tombol di bawah untuk konfirmasi ke admin via WhatsApp.</div>'+
+          '<div class="os-actions">'+
+            '<a href="'+waURL+'" target="_blank" class="btn-wa-proof"><i class="fab fa-whatsapp"></i> Konfirmasi Pembayaran via WA</a>'+
+            '<button class="btn-close-modal" onclick="closeModal()"><i class="fas fa-xmark"></i> Tutup</button>'+
+          '</div>'+
+        '</div>';
+    }
+
+    function copyText(text,el){
+      navigator.clipboard.writeText(text).then(function(){
+        var orig=el.textContent;el.textContent='Copied!';setTimeout(function(){el.textContent=orig},1500);
+        showToast('Order ID disalin!','success');
+      });
+    }
+
+    /* ===== STUB: di-override oleh Firebase module ===== */
+    function checkStatus(){showToast('Memuat...','info')}
+    function submitOrder(){showToast('Memuat...','info')}
+    function adminLogin(){}
     function openAdminModal(){document.getElementById('adminModal').classList.add('active');document.body.style.overflow='hidden'}
     function closeAdminModal(){document.getElementById('adminModal').classList.remove('active');document.body.style.overflow=''}
-
-    function adminLogin(){
-      var key=document.getElementById('adminKeyInput').value.trim();
-      var err=document.getElementById('adminError');
-      if(key==='bajingan011'){
-        adminAuthenticated=true;
-        document.getElementById('adminLogin').style.display='none';
-        document.getElementById('adminDash').style.display='block';
-        renderAdminFilter();renderAdminList();
-      }else{err.textContent='Admin key salah!'}
-    }
-
-    function renderAdminFilter(){
-      var statuses=['all','pending','paid','processing','completed','cancelled'];
-      var labels={all:'Semua',pending:'Pending',paid:'Paid',processing:'Processing',completed:'Completed',cancelled:'Cancelled'};
-      var h='';statuses.forEach(function(s){h+='<button class="'+(adminFilterStatus===s?'active':'')+'" onclick="adminFilterStatus=\''+s+'\';renderAdminFilter();renderAdminList()">'+labels[s]+'</button>'});
-      document.getElementById('adminFilter').innerHTML=h;
-    }
-
-    function renderAdminList(){
-      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js").then(function({getFirestore,collection,getDocs,query,orderBy}){
-        var db=getFirestore(firebaseApp);
-        var q=query(collection(db,"orders"),orderBy("timestamp","desc"));
-        getDocs(q).then(function(snap){
-          var items=[];
-          snap.forEach(function(doc){items.push(doc.data())});
-          if(adminFilterStatus!=='all')items=items.filter(function(i){return i.status===adminFilterStatus});
-          var list=document.getElementById('adminList');
-          if(!items.length){list.innerHTML='<div class="admin-empty"><i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:.5rem;opacity:.4"></i>Tidak ada pesanan.</div>';return}
-          var h='';
-          items.forEach(function(d){
-            var statusClass=d.status;
-            h+='<div class="admin-item"><div class="ai-top"><div class="ai-info">'+
-              '<div class="ai-id">'+d.orderId+'</div><div class="ai-name">'+d.serviceName+'</div>'+
-              '<div class="ai-meta"><span><i class="fas fa-layer-group"></i> '+d.qty.toLocaleString('id-ID')+'</span><span><i class="fas fa-coins"></i> '+fRp(d.total)+'</span><span><i class="fas fa-wallet"></i> '+d.payMethodName+'</span></div></div>'+
-              '<div class="ai-actions"><select id="sel-'+d.orderId+'">';
-            Object.keys(STATUS_MAP).forEach(function(s){h+='<option value="'+s+'"'+(d.status===s?' selected':'')+'>'+STATUS_MAP[s]+'</option>'});
-            h+='</select><button onclick="updateOrderStatus(\''+d.orderId+'\')">Update</button></div></div>'+
-              '<div class="ai-customer"><span><i class="fas fa-user"></i> '+d.customerName+'</span><span><i class="fab fa-whatsapp"></i> '+d.customerWA+'</span><span><i class="fas fa-link"></i> '+d.targetLink+'</span></div></div>';
-          });
-          list.innerHTML=h;
-        });
-      });
-    }
-
-    function updateOrderStatus(orderId){
-      var sel=document.getElementById('sel-'+orderId);
-      if(!sel)return;
-      var newStatus=sel.value;
-      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js").then(function({getFirestore,collection,getDocs,query,where,updateDoc,doc}){
-        var db=getFirestore(firebaseApp);
-        var q=query(collection(db,"orders"),where("orderId","==",orderId));
-        getDocs(q).then(function(snap){
-          if(!snap.empty){
-            updateDoc(doc(db,"orders",snap.docs[0].id),{status:newStatus}).then(function(){
-              showToast('Status diperbarui','success');renderAdminList();renderOrders();
-            });
-          }
-        });
-      });
-    }
+    function setAdminFilter(s){adminFilterStatus=s}
+    function updateOrderStatus(docId){}
 
     /* ===== SCROLL REVEAL ===== */
-    var revealObs=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}});
-    },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-    document.querySelectorAll('.reveal').forEach(function(el){revealObs.observe(el)});
+    var revealEls=document.querySelectorAll('.reveal');
+    var revealObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
+    revealEls.forEach(function(el){revealObs.observe(el)});
 
     /* ===== INIT ===== */
     renderCategories();
     renderFiltered();
+  </script>
 
-    /* ===== FIREBASE (shared) ===== */
-    var firebaseConfig2={apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"};
-    var firebaseApp;
+  <!-- ===== FIREBASE MODULE ===== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, query, orderBy, limit,
+      serverTimestamp, onSnapshot, where, getDocs, doc, updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    (function initFirebase(){
-      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js").then(function({initializeApp}){
-        firebaseApp=initializeApp(firebaseConfig2);
-        var appRef=firebaseApp;
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
 
-        /* Guestbook */
-        import("https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js").then(function(Firestore){
-          var db=Firestore.getFirestore(appRef);
-          var gbForm=document.getElementById('messageForm');
-          var gbMsgs=document.getElementById('gbMsgs');
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-          gbForm.addEventListener('submit',async function(e){
-            e.preventDefault();
-            var name=document.getElementById('gb-name').value.trim();
-            var msg=document.getElementById('gb-msg').value.trim();
-            if(name&&msg){
-              await Firestore.addDoc(Firestore.collection(db,"sm_messages"),{name:name,message:msg,timestamp:Firestore.serverTimestamp()});
-              gbForm.reset();
-            }
-          });
+    /* ===== GUESTBOOK / KOMENTAR ===== */
+    const gbForm = document.getElementById('messageForm');
+    const gbMsgs = document.getElementById('gbMsgs');
 
-          var q=Firestore.query(Firestore.collection(db,"sm_messages"),Firestore.orderBy("timestamp","desc"),Firestore.limit(20));
-          Firestore.onSnapshot(q,function(snap){
-            gbMsgs.innerHTML='';
-            snap.forEach(function(doc){
-              var d=doc.data();
-              var div=document.createElement('div');div.className='gb-msg';
-              div.innerHTML='<strong>'+d.name+'</strong><p>'+d.message+'</p><small>'+(d.timestamp?new Date(d.timestamp.seconds*1000).toLocaleString():'')+'</small>';
-              gbMsgs.appendChild(div);
-            });
-          });
+    gbForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('gb-name').value.trim();
+      const message = document.getElementById('gb-msg').value.trim();
+      if (name && message) {
+        await addDoc(collection(db, "messages"), {
+          name: name,
+          message: message,
+          timestamp: serverTimestamp()
+        });
+        gbForm.reset();
+        showToast('Komentar terkirim!', 'success');
+      }
+    });
 
-          /* Orders real-time */
-          var oq=Firestore.query(Firestore.collection(db,"orders"),Firestore.orderBy("timestamp","desc"),Firestore.limit(10));
-          window.renderOrders=function(){
-            Firestore.getDocs(oq).then(function(snap){
-              var grid=document.getElementById('ordersGrid');
-              var empty=document.getElementById('ordersEmpty');
-              if(snap.empty){grid.style.display='none';empty.style.display='block';return}
-              grid.style.display='';empty.style.display='none';
-              var h='';
-              snap.forEach(function(doc,i){
-                var d=doc.data();
-                h+='<div class="order-card" style="animation-delay:'+(i*0.05)+'s">'+
-                  '<div class="oc-id">'+d.orderId+'</div>'+
-                  '<div class="oc-name">'+d.serviceName+'</div>'+
-                  '<div class="oc-qty">'+d.qty.toLocaleString('id-ID')+'</div>'+
-                  '<div class="oc-total">'+fRp(d.total)+'</div>'+
-                  '<div class="oc-status '+d.status+'">'+STATUS_MAP[d.status]||d.status+'</div>'+
-                  '<div class="oc-time">'+(d.timestamp?new Date(d.timestamp.seconds*1000).toLocaleString():'')+'</div></div>';
-              });
-              grid.innerHTML=h;
-            });
-          };
-          Firestore.onSnapshot(oq,function(){window.renderOrders()});
+    function loadMessages() {
+      const q = query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(20));
+      onSnapshot(q, (snap) => {
+        gbMsgs.innerHTML = "";
+        snap.forEach((d) => renderGbMsg(d.data()));
+      });
+    }
+
+    function renderGbMsg(data) {
+      const div = document.createElement("div");
+      div.className = "gb-msg";
+      div.innerHTML =
+        "<strong>" + data.name + "</strong>" +
+        "<p>" + data.message + "</p>" +
+        "<small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
+      gbMsgs.appendChild(div);
+    }
+
+    loadMessages();
+
+    /* ===== PESANAN TERBARU (GRID) ===== */
+    const ordersGrid = document.getElementById('ordersGrid');
+    const ordersEmpty = document.getElementById('ordersEmpty');
+
+    function loadOrders() {
+      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"), limit(10));
+      onSnapshot(q, (snap) => {
+        ordersGrid.innerHTML = "";
+        if (snap.empty) { ordersEmpty.style.display = ''; return; }
+        ordersEmpty.style.display = 'none';
+        snap.forEach((d) => renderOrderCard(d.data()));
+      });
+    }
+
+    function renderOrderCard(data) {
+      const div = document.createElement('div');
+      div.className = 'order-card';
+      div.innerHTML =
+        '<div class="oc-id">' + data.orderId + '</div>' +
+        '<div class="oc-name">' + data.serviceName + '</div>' +
+        '<div class="oc-qty">Qty: ' + parseInt(data.quantity).toLocaleString('id-ID') + '</div>' +
+        '<div class="oc-total">' + fRp(data.total) + '</div>' +
+        '<div class="oc-status ' + data.status + '">' + STATUS_MAP[data.status] + '</div>' +
+        '<div class="oc-time">' + (data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleString() : '') + '</div>';
+      ordersGrid.appendChild(div);
+    }
+
+    loadOrders();
+
+    /* ===== CEK STATUS PESANAN ===== */
+    window.checkStatus = async function() {
+      const input = document.getElementById('statusInput').value.trim().toUpperCase();
+      const result = document.getElementById('statusResult');
+      const btn = document.getElementById('statusBtn');
+
+      if (!input) { showToast('Masukkan Order ID', 'error'); return; }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cek...';
+
+      try {
+        const q = query(collection(db, "orders"), where("orderId", "==", input));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          result.innerHTML = '<div class="sr-row"><span class="sr-label">Status</span><span class="sr-val error">Order ID tidak ditemukan</span></div>';
+          result.classList.add('show');
+        } else {
+          const data = snap.docs[0].data();
+          const statusColors = { pending:'#FFDD57', paid:'#60a5fa', processing:'#fb923c', completed:'#4ade80', cancelled:'#f87171' };
+          result.innerHTML =
+            '<div class="sr-row"><span class="sr-label">Order ID</span><span class="sr-val">' + data.orderId + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Layanan</span><span class="sr-val">' + data.serviceName + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Jumlah</span><span class="sr-val">' + parseInt(data.quantity).toLocaleString('id-ID') + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Total</span><span class="sr-val" style="color:var(--accent)">' + fRp(data.total) + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Pembayaran</span><span class="sr-val">' + data.paymentMethod + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Status</span><span class="sr-val" style="color:' + (statusColors[data.status]||'#fff') + '">' + STATUS_MAP[data.status] + '</span></div>' +
+            '<div class="sr-row"><span class="sr-label">Waktu</span><span class="sr-val">' + new Date(data.createdAt.seconds * 1000).toLocaleString() + '</span></div>';
+          result.classList.add('show');
+        }
+      } catch(e) {
+        result.innerHTML = '<div class="sr-row"><span class="sr-label">Status</span><span class="sr-val error">Terjadi kesalahan: ' + e.message + '</span></div>';
+        result.classList.add('show');
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-search"></i> Cek';
+    };
+
+    /* ===== SUBMIT ORDER ===== */
+    window.submitOrder = async function() {
+      var btn = document.querySelector('.btn-paid');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+      try {
+        var orderId = generateOrderId();
+        await addDoc(collection(db, "orders"), {
+          orderId: orderId,
+          serviceName: orderFormData.serviceName,
+          category: orderFormData.category,
+          customerName: orderFormData.name,
+          customerWA: orderFormData.wa,
+          targetLink: orderFormData.link,
+          quantity: orderFormData.qty,
+          total: orderFormData.total,
+          paymentMethod: selectedPayMethod.name,
+          status: 'pending',
+          createdAt: serverTimestamp()
+        });
+        renderStep4(orderId);
+        showToast('Pesanan berhasil dibuat!', 'success');
+      } catch(e) {
+        showToast('Gagal: ' + e.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check"></i> Saya Sudah Bayar';
+      }
+    };
+
+    /* ===== ADMIN ===== */
+    /* >>> GANTI ADMIN KEY DI BAWAH INI <<< */
+    var ADMIN_KEY = 'bajingan011';
+    var adminUnsub = null;
+
+    window.adminLogin = function() {
+      var key = document.getElementById('adminKeyInput').value.trim();
+      var errEl = document.getElementById('adminError');
+
+      if (!key) { errEl.textContent = 'Masukkan admin key'; return; }
+      if (key !== ADMIN_KEY) { errEl.textContent = 'Admin key salah!'; return; }
+
+      adminAuthenticated = true;
+      errEl.textContent = '';
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminDash').style.display = '';
+      renderAdminFilter();
+      loadAdminOrders();
+    };
+
+    window.openAdminModal = function() {
+      document.getElementById('adminModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (adminAuthenticated) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminDash').style.display = '';
+        renderAdminFilter();
+        loadAdminOrders();
+      } else {
+        document.getElementById('adminLogin').style.display = '';
+        document.getElementById('adminDash').style.display = 'none';
+      }
+    };
+
+    window.renderAdminFilter = function() {
+      var statuses = ['all','pending','paid','processing','completed','cancelled'];
+      var labels = { all:'Semua', pending:'Pending', paid:'Paid', processing:'Processing', completed:'Completed', cancelled:'Cancelled' };
+      var h = '';
+      statuses.forEach(function(s) {
+        h += '<button class="' + (adminFilterStatus === s ? 'active' : '') + '" onclick="setAdminFilter(\'' + s + '\');renderAdminFilter();loadAdminOrders()">' + labels[s] + '</button>';
+      });
+      document.getElementById('adminFilter').innerHTML = h;
+    };
+
+    window.setAdminFilter = function(s) { adminFilterStatus = s; };
+
+    function loadAdminOrders() {
+      if (adminUnsub) adminUnsub();
+
+      var q;
+      if (adminFilterStatus === 'all') {
+        q = query(collection(db, "orders"), orderBy("createdAt", "desc"), limit(50));
+      } else {
+        q = query(collection(db, "orders"), where("status", "==", adminFilterStatus), orderBy("createdAt", "desc"), limit(50));
+      }
+
+      adminUnsub = onSnapshot(q, (snap) => {
+        var list = document.getElementById('adminList');
+        if (snap.empty) {
+          list.innerHTML = '<div class="admin-empty"><i class="fas fa-inbox" style="display:block;margin-bottom:.5rem;opacity:.4;font-size:1.5rem"></i>Tidak ada pesanan.</div>';
+          return;
+        }
+        list.innerHTML = '';
+        snap.forEach((d) => {
+          var data = d.data();
+          var item = document.createElement('div');
+          item.className = 'admin-item';
+          item.innerHTML =
+            '<div class="ai-top">' +
+              '<div class="ai-info">' +
+                '<div class="ai-id">' + data.orderId + '</div>' +
+                '<div class="ai-name">' + data.serviceName + '</div>' +
+                '<div class="ai-meta">' +
+                  '<span><i class="fas fa-user"></i> ' + data.customerName + '</span>' +
+                  '<span><i class="fab fa-whatsapp"></i> ' + data.customerWA + '</span>' +
+                  '<span><i class="fas fa-coins"></i> ' + fRp(data.total) + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="ai-actions">' +
+                '<select id="sel-' + d.id + '">' +
+                  '<option value="pending"' + (data.status==='pending'?' selected':'') + '>Pending</option>' +
+                  '<option value="paid"' + (data.status==='paid'?' selected':'') + '>Paid</option>' +
+                  '<option value="processing"' + (data.status==='processing'?' selected':'') + '>Processing</option>' +
+                  '<option value="completed"' + (data.status==='completed'?' selected':'') + '>Completed</option>' +
+                  '<option value="cancelled"' + (data.status==='cancelled'?' selected':'') + '>Cancelled</option>' +
+                '</select>' +
+                '<button onclick="updateOrderStatus(\'' + d.id + '\')">Update</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="ai-customer">' +
+              '<span><i class="fas fa-link"></i> ' + (data.targetLink || '-') + '</span>' +
+              '<span><i class="fas fa-hashtag"></i> Qty: ' + parseInt(data.quantity).toLocaleString('id-ID') + '</span>' +
+              '<span><i class="fas fa-wallet"></i> ' + data.paymentMethod + '</span>' +
+            '</div>';
+          list.appendChild(item);
         });
       });
-    })();
+    }
+
+    window.updateOrderStatus = async function(docId) {
+      var sel = document.getElementById('sel-' + docId);
+      if (!sel) return;
+      var newStatus = sel.value;
+      try {
+        await updateDoc(doc(db, "orders", docId), { status: newStatus });
+        showToast('Status diupdate ke ' + STATUS_MAP[newStatus], 'success');
+      } catch(e) {
+        showToast('Gagal update: ' + e.message, 'error');
+      }
+    };
   </script>
+
 </body>
 </html>

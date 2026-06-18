@@ -23,14 +23,12 @@
       --accent: #FFDD57;
       --accent-dim: rgba(255,221,87,0.15);
       --border: rgba(255,255,255,0.07);
-      --glass: rgba(255,255,255,0.03);
       --radius: 16px;
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'DM Sans', sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -41,7 +39,6 @@
       min-height: 100vh;
     }
 
-    /* ── Navbar ── */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
@@ -52,7 +49,6 @@
       transition: background 0.3s;
     }
     .navbar.scrolled { background: rgba(7,7,13,0.92); }
-
     .nav-brand {
       font-family: var(--font-display);
       font-size: 1.4rem; font-weight: 700;
@@ -60,7 +56,6 @@
       text-decoration: none;
       letter-spacing: -0.5px;
     }
-
     .nav-links {
       list-style: none; display: flex; gap: 0.25rem; align-items: center;
     }
@@ -73,7 +68,6 @@
     .nav-links a:hover, .nav-links a.active {
       color: var(--fg); background: var(--bg-card);
     }
-
     .dropdown { position: relative; }
     .dropdown-menu {
       display: none; position: absolute; top: calc(100% + 8px); left: 50%;
@@ -89,14 +83,12 @@
       font-size: 0.85rem; white-space: nowrap;
     }
     .dropdown-menu a:hover { background: var(--accent-dim); color: var(--accent); }
-
     .menu-toggle {
       display: none; background: none; border: 1px solid var(--border);
       color: var(--fg); font-size: 1.3rem; cursor: pointer;
       width: 40px; height: 40px; border-radius: 10px;
       align-items: center; justify-content: center;
     }
-
     @keyframes fadeDown {
       from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -110,13 +102,8 @@
       min-height: 100vh; text-align: center;
       padding: 6rem 2rem 4rem;
     }
-
-    .hero-canvas {
-      position: absolute; inset: 0; z-index: 0;
-    }
-
+    .hero-canvas { position: absolute; inset: 0; z-index: 0; }
     .hero-content { position: relative; z-index: 2; max-width: 720px; }
-
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.4rem 1rem; border-radius: 50px;
@@ -126,7 +113,6 @@
       animation: fadeIn 1s ease;
     }
     .hero-badge i { font-size: 0.7rem; }
-
     .hero h1 {
       font-family: var(--font-display);
       font-size: clamp(2.8rem, 7vw, 4.5rem);
@@ -140,18 +126,15 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .hero p {
       font-size: 1.15rem; color: var(--muted);
       line-height: 1.7; margin-bottom: 2.5rem;
       animation: fadeInUp 0.8s ease 0.15s both;
     }
-
     .hero-buttons {
       display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
       animation: fadeInUp 0.8s ease 0.3s both;
     }
-
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.85rem 1.8rem; border-radius: 12px;
@@ -176,76 +159,11 @@
       background: var(--accent-dim);
     }
 
-    /* ── Features ── */
-    .features {
-      position: relative; z-index: 2;
-      padding: 4rem 2rem 6rem;
-      max-width: 1000px; margin: 0 auto;
-    }
-    .features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
-    }
-    .feature-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 2rem 1.5rem;
-      text-align: center; transition: all 0.3s;
-    }
-    .feature-card:hover {
-      border-color: rgba(255,221,87,0.25);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-    .feature-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--accent-dim);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1rem; font-size: 1.2rem; color: var(--accent);
-    }
-    .feature-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem;
-    }
-    .feature-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-    /* ── Social Links ── */
-    .social-row {
-      position: relative; z-index: 2;
-      display: flex; justify-content: center; gap: 1rem;
-      padding-bottom: 2rem;
-    }
-    .social-row a {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: var(--bg-card); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 1rem;
-      transition: all 0.3s; text-decoration: none;
-    }
-    .social-row a:hover {
-      color: var(--accent); border-color: var(--accent);
-      background: var(--accent-dim); transform: translateY(-3px);
-    }
-
-    /* ── Footer ── */
-    .footer {
-      position: relative; z-index: 2;
-      text-align: center; padding: 2rem;
-      font-size: 0.8rem; color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── Promo Banner Stock Mobil ── */
+    /* ── Promo Banner ── */
     .promo-banner {
       position: relative; z-index: 2;
-      max-width: 720px; margin: -2rem auto 0;
+      max-width: 720px; margin: 0 auto 3rem;
       padding: 0 2rem;
-      animation: fadeInUp 0.8s ease 0.5s both;
     }
     .promo-banner a {
       display: flex; align-items: center; justify-content: center;
@@ -272,18 +190,163 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 0.95rem; flex-shrink: 0;
     }
-    .promo-banner a .promo-text span {
-      color: var(--accent);
-    }
+    .promo-banner a .promo-text span { color: var(--accent); }
     .promo-banner a .promo-arrow {
       color: var(--accent); font-size: 0.8rem;
       transition: transform 0.3s ease;
     }
-    .promo-banner a:hover .promo-arrow {
-      transform: translateX(4px);
+    .promo-banner a:hover .promo-arrow { transform: translateX(4px); }
+
+    /* ── Social Showcase ── */
+    .social-showcase {
+      position: relative; z-index: 2;
+      max-width: 700px; margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+    .showcase-label {
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .showcase-label span {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 2px;
+    }
+    .showcase-label span::before {
+      content: ''; width: 18px; height: 1px; background: var(--accent);
+    }
+    .showcase-label h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700; letter-spacing: -0.5px;
+      margin-top: 0.4rem;
+    }
+    .showcase-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
+    }
+    .showcase-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem 1.25rem;
+      text-align: center; transition: all 0.35s;
+      text-decoration: none; color: var(--fg);
+      display: flex; flex-direction: column; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .showcase-card::before {
+      content: ''; position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.35s;
+      border-radius: var(--radius);
+    }
+    .showcase-card.tiktok::before {
+      background: radial-gradient(circle at 50% 0%, rgba(255,0,80,0.08) 0%, transparent 70%);
+    }
+    .showcase-card.instagram::before {
+      background: radial-gradient(circle at 50% 0%, rgba(225,48,108,0.08) 0%, transparent 70%);
+    }
+    .showcase-card:hover::before { opacity: 1; }
+    .showcase-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .showcase-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 0.85rem;
+      position: relative; z-index: 1;
+      transition: transform 0.35s;
+    }
+    .showcase-card:hover .showcase-avatar { transform: scale(1.08); }
+    .showcase-avatar.tiktok-av {
+      background: linear-gradient(135deg, rgba(255,0,80,0.15), rgba(0,242,234,0.15));
+      border: 2px solid rgba(255,0,80,0.3);
+      color: #ff0050;
+    }
+    .showcase-avatar.ig-av {
+      background: linear-gradient(135deg, rgba(225,48,108,0.15), rgba(131,58,180,0.15));
+      border: 2px solid rgba(225,48,108,0.3);
+      color: #E1306C;
+    }
+    .showcase-card h3 {
+      font-family: var(--font-display);
+      font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 0.15rem; position: relative; z-index: 1;
+    }
+    .showcase-card .sc-username {
+      font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 0.85rem; position: relative; z-index: 1;
+    }
+    .showcase-card .sc-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 1.2rem; border-radius: 10px;
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      border: none; cursor: pointer; transition: all 0.25s;
+      position: relative; z-index: 1;
+    }
+    .showcase-card.tiktok .sc-btn {
+      background: rgba(255,0,80,0.12); color: #ff0050;
+      border: 1px solid rgba(255,0,80,0.25);
+    }
+    .showcase-card.tiktok:hover .sc-btn {
+      background: #ff0050; color: #fff;
+      box-shadow: 0 4px 20px rgba(255,0,80,0.35);
+    }
+    .showcase-card.instagram .sc-btn {
+      background: rgba(225,48,108,0.12); color: #E1306C;
+      border: 1px solid rgba(225,48,108,0.25);
+    }
+    .showcase-card.instagram:hover .sc-btn {
+      background: #E1306C; color: #fff;
+      box-shadow: 0 4px 20px rgba(225,48,108,0.35);
     }
 
-    /* ── Floating Chat Admin ── */
+    /* ── Features Kecil Bawah ── */
+    .features-mini {
+      position: relative; z-index: 2;
+      max-width: 600px; margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .features-mini-grid {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .fm-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .fm-item i {
+      font-size: 0.7rem; color: rgba(255,221,87,0.5);
+    }
+
+    /* ── Social Row ── */
+    .social-row {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; gap: 1rem;
+      padding-bottom: 2rem;
+    }
+    .social-row a {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .social-row a:hover {
+      color: var(--accent); border-color: var(--accent);
+      background: var(--accent-dim); transform: translateY(-3px);
+    }
+
+    .footer {
+      position: relative; z-index: 2;
+      text-align: center; padding: 2rem;
+      font-size: 0.8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .chat-float {
       position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
       display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
@@ -313,11 +376,8 @@
       transform: scale(1.08);
       box-shadow: 0 8px 32px rgba(37,211,102,0.45);
     }
-    .chat-float-btn:active {
-      transform: scale(0.95);
-    }
+    .chat-float-btn:active { transform: scale(0.95); }
 
-    /* ── Mobile ── */
     @media (max-width: 768px) {
       .navbar { padding: 0.75rem 1rem; }
       .menu-toggle { display: flex; }
@@ -328,17 +388,17 @@
         padding: 1rem;
       }
       .nav-links.active { display: flex; }
-      .nav-links a { padding: 0.85rem 1rem; }
       .dropdown-menu {
         position: static; transform: none;
         box-shadow: none; background: rgba(255,255,255,0.03);
         border: none; min-width: auto; margin-top: 0.25rem;
       }
       .dropdown:hover .dropdown-menu { animation: none; }
-      .features-grid { grid-template-columns: 1fr; }
       .hero { padding: 5rem 1.25rem 3rem; }
       .promo-banner { padding: 0 1.25rem; }
       .promo-banner a { font-size: 0.88rem; padding: 0.85rem 1.25rem; }
+      .showcase-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .features-mini-grid { gap: 1.25rem; }
       .chat-float { bottom: 1rem; right: 1rem; }
       .chat-float-btn { width: 50px; height: 50px; border-radius: 14px; font-size: 1.4rem; }
     }
@@ -346,7 +406,6 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-brand">Akino Store</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -357,7 +416,6 @@
         <a href="#">Service <i class="fas fa-chevron-down" style="font-size:0.6rem;margin-left:4px;"></i></a>
         <ul class="dropdown-menu">
           <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-          
           <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
           <li><a href="designedit.html">Design / Edit Foto</a></li>
         </ul>
@@ -366,7 +424,7 @@
     </ul>
   </nav>
 
-  <!-- Hero -->
+  <!-- 1. Hero + Tombol CTA -->
   <section class="hero">
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <div class="hero-content">
@@ -381,37 +439,46 @@
     </div>
   </section>
 
-  <!-- Promo Banner Stock Mobil Murah -->
+  <!-- 2. Stock Mobil Murah -->
   <div class="promo-banner">
-    <a href="https://www.instagram.com/akinostore_/" target="_blank" rel="noopener">
+    <a href="stockmobil.html">
       <div class="promo-icon"><i class="fas fa-car"></i></div>
       <div class="promo-text">Stock Mobil Murah harga mulai <span>2rb</span> klik disini</div>
       <i class="fas fa-arrow-right promo-arrow"></i>
     </a>
   </div>
 
-  <!-- Features -->
-  <section class="features">
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon"><i class="fas fa-rocket"></i></div>
-        <h3>Proses Cepat</h3>
-        <p>Pengerjaan layanan dilakukan dengan cepat tanpa mengorbankan kualitas.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
-        <h3>Aman & Terpercaya</h3>
-        <p>Data akun kamu dijamin aman. Ribuan customer sudah membuktikan.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon"><i class="fas fa-tags"></i></div>
-        <h3>Harga Bersahabat</h3>
-        <p>Dapatkan layanan berkualitas tinggi dengan harga yang terjangkau.</p>
-      </div>
+  <!-- 3. TikTok & Instagram -->
+  <section class="social-showcase">
+    <div class="showcase-label">
+      <span>Sosial Media</span>
+      <h2>Ikuti Akun Kami</h2>
+    </div>
+    <div class="showcase-grid">
+      <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" rel="noopener" class="showcase-card tiktok">
+        <div class="showcase-avatar tiktok-av"><i class="fab fa-tiktok"></i></div>
+        <h3>TikTok</h3>
+        <div class="sc-username">@akinolaset_</div>
+        <span class="sc-btn"><i class="fab fa-tiktok"></i> Ikuti</span>
+      </a>
+      <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank" rel="noopener" class="showcase-card instagram">
+        <div class="showcase-avatar ig-av"><i class="fab fa-instagram"></i></div>
+        <h3>Instagram</h3>
+        <div class="sc-username">@akinostore_</div>
+        <span class="sc-btn"><i class="fab fa-instagram"></i> Ikuti</span>
+      </a>
     </div>
   </section>
 
-  <!-- Social -->
+  <!-- 4. Trust badges kecil -->
+  <div class="features-mini">
+    <div class="features-mini-grid">
+      <div class="fm-item"><i class="fas fa-rocket"></i> Proses Cepat</div>
+      <div class="fm-item"><i class="fas fa-shield-halved"></i> Aman & Terpercaya</div>
+      <div class="fm-item"><i class="fas fa-tags"></i> Harga Bersahabat</div>
+    </div>
+  </div>
+
   <div class="social-row">
     <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -419,7 +486,6 @@
     <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- Floating Chat Admin -->
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
     <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -430,17 +496,13 @@
   <footer class="footer">&copy; 2024 Akino Store. All Rights Reserved.</footer>
 
   <script>
-    // Navbar scroll
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
-
-    // Mobile menu
     document.getElementById('menuToggle').addEventListener('click', () => {
       document.getElementById('navLinks').classList.toggle('active');
     });
 
-    // Canvas particles
     const canvas = document.getElementById('heroCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -469,10 +531,7 @@
         this.y += this.speedY;
         const dx = mouse.x - this.x, dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          this.x -= dx * 0.01;
-          this.y -= dy * 0.01;
-        }
+        if (dist < 150) { this.x -= dx * 0.01; this.y -= dy * 0.01; }
         if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
       }
       draw() {
@@ -488,7 +547,6 @@
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => { p.update(); p.draw(); });
-      // Draw connections
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
