@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--bg-el:#0e0e18;--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--r:14px;--rs:10px;--fd:'Space Grotesk',sans-serif;--fb:'DM Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+    ::selection{background:var(--accent);color:#000}
+
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+    .login-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem;width:100%;max-width:380px;text-align:center}
+    .login-card .lc-icon{width:64px;height:64px;border-radius:18px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.6rem;color:var(--accent)}
+    .login-card h1{font-family:var(--fd);font-size:1.4rem;font-weight:700;margin-bottom:.3rem}
+    .login-card p{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5}
+    .login-card input{width:100%;padding:.7rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--rs);color:var(--fg);font-family:var(--fb);font-size:.9rem;outline:none;text-align:center;transition:border-color .25s;margin-bottom:.5rem}
+    .login-card input:focus{border-color:var(--accent)}
+    .login-error{color:#f87171;font-size:.78rem;min-height:1.3em;margin-bottom:.5rem}
+    .btn-login{width:100%;padding:.7rem;border-radius:var(--rs);background:var(--accent);color:#0a0a0f;border:none;font-family:var(--fb);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .btn-login:hover{box-shadow:0 4px 20px rgba(255,221,87,.3);transform:translateY(-1px)}
+
+    .dash{display:none}.dash.active{display:block}
+
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(7,7,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.75rem 1.5rem}
+    .topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+    .topbar-brand{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:.5rem}
+    .topbar-brand i{font-size:.9rem}
+    .topbar-actions{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+    .tb-btn{padding:.4rem .8rem;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--fb);font-size:.72rem;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
+    .tb-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
+    .tb-btn.logout{color:#f87171;border-color:rgba(248,113,113,.15)}
+    .tb-btn.logout:hover{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3)}
+
+    .tabs{display:flex;gap:0;max-width:1100px;margin:1.5rem auto 0;padding:0 1.5rem}
+    .tab-btn{flex:1;padding:.85rem 1rem;background:var(--bg-card);border:1px solid var(--border);border-bottom:none;color:var(--muted);font-family:var(--fb);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem;border-radius:var(--r) var(--r) 0 0}
+    .tab-btn:first-child{border-right:none}
+    .tab-btn.active{background:var(--bg-el);color:var(--accent);border-color:rgba(255,221,87,.2);border-bottom:1px solid var(--bg-el);margin-bottom:-1px;position:relative;z-index:2}
+    .tab-btn i{font-size:.8rem}
+    .tab-panel{display:none;max-width:1100px;margin:0 auto;padding:1.5rem;background:var(--bg-el);border:1px solid var(--border);border-radius:0 0 var(--r) var(--r);min-height:60vh}
+    .tab-panel.active{display:block}
+
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1.5rem}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);padding:.85rem;text-align:center}
+    .stat-card .sv{font-family:var(--fd);font-size:1.5rem;font-weight:700;line-height:1}
+    .stat-card .sv.yellow{color:var(--accent)}.stat-card .sv.green{color:#4ade80}.stat-card .sv.red{color:#f87171}.stat-card .sv.blue{color:#60a5fa}.stat-card .sv.orange{color:#fb923c}
+    .stat-card .sl{font-size:.7rem;color:var(--muted);margin-top:.25rem}
+
+    .sec-title{font-family:var(--fd);font-size:.95rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .sec-title i{color:var(--accent);font-size:.85rem}
+    .sec-title .count{font-size:.68rem;padding:.15rem .5rem;border-radius:50px;background:var(--accent-dim);color:var(--accent);font-weight:600}
+
+    .form-card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:var(--rs);padding:1.15rem;margin-bottom:1.5rem}
+    .form-card h4{font-family:var(--fd);font-size:.88rem;font-weight:600;margin-bottom:.85rem;display:flex;align-items:center;gap:.4rem}
+    .form-card h4 i{color:var(--accent);font-size:.8rem}
+    .fr{margin-bottom:.7rem}
+    .fr label{display:block;font-size:.72rem;font-weight:500;color:var(--muted);margin-bottom:.2rem}
+    .fr input,.fr textarea{width:100%;padding:.55rem .85rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--fg);font-family:var(--fb);font-size:.84rem;outline:none;transition:border-color .2s}
+    .fr input:focus,.fr textarea:focus{border-color:var(--accent)}
+    .fr textarea{resize:vertical;min-height:60px}
+    .fr .hint{font-size:.65rem;color:var(--muted);margin-top:.15rem}
+    .btn-primary{padding:.6rem 1.2rem;border-radius:8px;background:var(--accent);color:#0a0a0f;border:none;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
+    .btn-primary:hover{box-shadow:0 4px 16px rgba(255,221,87,.3);transform:translateY(-1px)}
+    .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+    .form-msg{font-size:.78rem;padding:.5rem .75rem;border-radius:8px;margin-top:.6rem;display:none;align-items:center;gap:.35rem;animation:fadeUp .3s ease}
+    .form-msg.show{display:flex}
+    .form-msg.ok{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);color:#4ade80}
+    .form-msg.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171}
+
+    .edit-card{background:rgba(255,221,87,.04);border:1px solid rgba(255,221,87,.18);border-radius:var(--rs);padding:1.15rem;margin-bottom:1.5rem;animation:fadeUp .3s ease}
+    .edit-card h4{font-family:var(--fd);font-size:.88rem;font-weight:600;margin-bottom:.85rem;color:var(--accent);display:flex;align-items:center;gap:.4rem}
+    .edit-card input[readonly]{opacity:.45;cursor:default}
+    .edit-card .ea{display:flex;gap:.5rem}
+    .edit-card .ea button{flex:1;padding:.6rem;border-radius:8px;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+    .edit-card .ea .btn-save{background:var(--accent);color:#0a0a0f;border:none}
+    .edit-card .ea .btn-save:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
+    .edit-card .ea .btn-cancel{background:var(--bg-card);color:var(--muted);border:1px solid var(--border)}
+    .edit-card .ea .btn-cancel:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
+
+    .item{background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--rs);padding:.9rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.85rem;transition:border-color .2s;flex-wrap:wrap}
+    .item:hover{border-color:rgba(255,255,255,.1)}
+    .item-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);font-size:.95rem}
+    .item-icon.sold{background:rgba(248,113,113,.1);color:#f87171}
+    .item-icon.deleted{background:rgba(255,255,255,.03);color:var(--muted)}
+    .item-info{flex:1;min-width:150px}
+    .item-info .ii-price{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--accent)}
+    .item-info.sold .ii-price{color:#f87171}
+    .item-info.deleted .ii-price{color:var(--muted);text-decoration:line-through}
+    .item-info .ii-desc{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem;max-width:300px}
+    .item-info .ii-status{font-size:.65rem;font-weight:600;margin-top:.15rem;display:flex;flex-direction:column;gap:.1rem}
+    .ii-status span{display:inline-flex;align-items:center;gap:.25rem;width:fit-content}
+    .ii-status .edited{color:var(--accent)}
+    .ii-status .timer{color:#f87171;font-family:var(--fd)}
+    .item-actions{display:flex;gap:.35rem;flex-shrink:0;flex-wrap:wrap}
+
+    .btn-sm{padding:.35rem .75rem;border-radius:7px;font-family:var(--fb);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.25rem;border:1px solid transparent}
+    .btn-sm i{font-size:.6rem}
+    .btn-edit{background:rgba(255,221,87,.1);color:var(--accent);border-color:rgba(255,221,87,.2)}.btn-edit:hover{background:var(--accent);color:#0a0a0f}
+    .btn-sold{background:rgba(248,113,113,.1);color:#f87171;border-color:rgba(248,113,113,.2)}.btn-sold:hover{background:#f87171;color:#fff}
+    .btn-unsold{background:rgba(74,222,128,.1);color:#4ade80;border-color:rgba(74,222,128,.2)}.btn-unsold:hover{background:#4ade80;color:#0a0a0f}
+    .btn-del{background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.15)}.btn-del:hover{background:#ef4444;color:#fff}
+    .btn-restore{background:rgba(96,165,250,.1);color:#60a5fa;border-color:rgba(96,165,250,.2)}.btn-restore:hover{background:#60a5fa;color:#fff}
+    .btn-update{background:var(--accent);color:#0a0a0f;border:none}.btn-update:hover{box-shadow:0 2px 10px rgba(255,221,87,.25)}
+
+    .empty{text-align:center;padding:2rem;color:var(--muted);font-size:.82rem}
+    .empty i{font-size:1.8rem;display:block;margin-bottom:.6rem;opacity:.35}
+    .divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1.5rem 0}
+
+    .filter-row{display:flex;gap:.35rem;margin-bottom:1rem;flex-wrap:wrap}
+    .filter-btn{padding:.3rem .7rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--fb);font-size:.7rem;font-weight:500;cursor:pointer;transition:all .2s}
+    .filter-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
+    .filter-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+
+    .order-item{background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--rs);padding:1rem;margin-bottom:.6rem;transition:border-color .2s}
+    .order-item:hover{border-color:rgba(255,255,255,.1)}
+    .oi-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:.5rem;flex-wrap:wrap}
+    .oi-info{flex:1;min-width:200px}
+    .oi-id{font-size:.68rem;color:var(--muted);font-family:var(--fd);letter-spacing:.5px}
+    .oi-name{font-size:.82rem;font-weight:600;margin:.15rem 0;line-height:1.3}
+    .oi-meta{font-size:.7rem;color:var(--fg-dim);display:flex;gap:.85rem;flex-wrap:wrap}
+    .oi-meta span{display:flex;align-items:center;gap:.25rem}
+    .oi-meta i{color:var(--muted);font-size:.6rem}
+    .oi-actions{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
+    .oi-actions select{padding:.35rem .45rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;color:var(--fg);font-family:var(--fb);font-size:.72rem;outline:none;cursor:pointer;min-width:140px}
+    .oi-actions select:focus{border-color:var(--accent)}
+    .oi-customer{font-size:.68rem;color:var(--muted);padding-top:.4rem;border-top:1px solid var(--border);margin-top:.4rem;display:flex;gap:1rem;flex-wrap:wrap}
+    .oi-customer span{display:flex;align-items:center;gap:.25rem}
+
+    .badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.63rem;font-weight:600;padding:.12rem .45rem;border-radius:50px;width:fit-content;vertical-align:middle}
+    .badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+    .badge.pending{background:rgba(255,221,87,.12);color:#FFDD57}.badge.pending::before{animation:pulse 2s infinite}
+    .badge.paid{background:rgba(96,165,250,.12);color:#60a5fa}
+    .badge.processing{background:rgba(251,146,60,.12);color:#fb923c}.badge.processing::before{animation:pulse 1.5s infinite}
+    .badge.completed{background:rgba(74,222,128,.12);color:#4ade80}
+    .badge.cancelled{background:rgba(248,113,113,.12);color:#f87171}
+
+    .toast-wrap{position:fixed;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+    .toast{padding:.6rem .9rem;border-radius:8px;font-size:.8rem;font-weight:500;display:flex;align-items:center;gap:.4rem;animation:toastIn .3s ease;backdrop-filter:blur(12px);border:1px solid var(--border);max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.4);pointer-events:auto}
+    .toast.ok{background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.2)}
+    .toast.err{background:rgba(239,68,68,.15);color:#f87171;border-color:rgba(239,68,68,.2)}
+    .toast.info{background:rgba(96,165,250,.15);color:#60a5fa;border-color:rgba(96,165,250,.2)}
+    .toast.out{animation:toastOut .3s ease forwards}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+    @media(max-width:768px){
+      .tabs{padding:0 1rem}.tab-panel{padding:1rem}
+      .topbar{padding:.6rem 1rem}.topbar-inner{justify-content:center}
+      .topbar-actions{justify-content:center}
+      .item{flex-direction:column;text-align:center;gap:.5rem}
+      .item-info .ii-desc{max-width:100%}
+      .item-actions{justify-content:center}
+      .oi-top{flex-direction:column}.oi-actions{width:100%;flex-wrap:wrap}
+      .oi-actions select{flex:1;min-width:0}
+      .stats{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ LOGIN ═══ -->
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-card">
+      <div class="lc-icon"><i class="fas fa-shield-halved"></i></div>
+      <h1>Admin Panel</h1>
+      <p>Kelola stock mobil & pesanan sosial media Akino Store.</p>
+      <input type="password" id="passInput" placeholder="Masukkan password..." onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="login-error" id="loginErr"></div>
+      <button class="btn-login" onclick="doLogin()"><i class="fas fa-arrow-right-to-bracket"></i> Masuk</button>
+    </div>
+  </div>
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div class="dash" id="dash">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand"><i class="fas fa-shield-halved"></i> Akino Admin</div>
+        <div class="topbar-actions">
+          <a href="stockmobil.html" target="_blank" class="tb-btn"><i class="fas fa-car"></i> Stock Mobil</a>
+          <a href="SosialMedia.html" target="_blank" class="tb-btn"><i class="fas fa-share-nodes"></i> Sosial Media</a>
+          <button class="tb-btn logout" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Keluar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('stock')"><i class="fas fa-car"></i> Stock Mobil</button>
+      <button class="tab-btn" onclick="switchTab('sosmed')"><i class="fas fa-share-nodes"></i> Sosial Media</button>
+    </div>
+
+    <!-- ═══ TAB: STOCK MOBIL ═══ -->
+    <div class="tab-panel active" id="tabStock">
+      <div class="stats" id="stockStats"></div>
+
+      <!-- Tambah Stock -->
+      <div class="form-card">
+        <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru</h4>
+        <div class="fr"><label>Link Post Instagram</label><input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/"><div class="hint">Buka post → 3 titik → Copy Link</div></div>
+        <div class="fr"><label>Harga</label><input type="text" id="addPrice" placeholder="Rp 3.000"></div>
+        <div class="fr"><label>Keterangan / Caption</label><textarea id="addDesc" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea></div>
+        <div class="form-msg" id="addMsg"></div>
+        <button class="btn-primary" id="addBtn" onclick="addStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
+      </div>
+
+      <!-- Edit Harga -->
+      <div class="edit-card" id="editCard" style="display:none">
+        <h4><i class="fas fa-pen-to-square"></i> Edit Harga</h4>
+        <div class="fr"><label>Item</label><input type="text" id="editName" readonly></div>
+        <div class="fr"><label>Harga Saat Ini</label><input type="text" id="editOld" readonly style="color:var(--muted);text-decoration:line-through;opacity:.45"></div>
+        <div class="fr"><label>Harga Baru</label><input type="text" id="editNew" placeholder="Masukkan harga baru..." onkeydown="if(event.key==='Enter')savePrice()"></div>
+        <div class="ea">
+          <button class="btn-save" onclick="savePrice()"><i class="fas fa-check"></i> Simpan</button>
+          <button class="btn-cancel" onclick="cancelPrice()"><i class="fas fa-xmark"></i> Batal</button>
+        </div>
+      </div>
+
+      <!-- Tersedia -->
+      <div class="sec-title"><i class="fas fa-check-circle"></i> Tersedia <span class="count" id="cntAvail">0</span></div>
+      <div id="listAvail"></div>
+      <hr class="divider">
+
+      <!-- Terjual -->
+      <div class="sec-title" style="color:#f87171"><i class="fas fa-tag"></i> Terjual <span class="count" id="cntSold" style="background:rgba(248,113,113,.12);color:#f87171">0</span></div>
+      <div id="listSold"></div>
+      <hr class="divider">
+
+      <!-- Dihapus -->
+      <div class="sec-title" style="color:var(--muted)"><i class="fas fa-trash"></i> Dihapus <span class="count" id="cntDel" style="background:rgba(255,255,255,.05);color:var(--muted)">0</span></div>
+      <div id="listDel"></div>
+    </div>
+
+    <!-- ═══ TAB: SOSIAL MEDIA ═══ -->
+    <div class="tab-panel" id="tabSosmed">
+      <div class="stats" id="sosmedStats"></div>
+      <div class="filter-row" id="sosmedFilter"></div>
+      <div id="sosmedList"></div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toasts"></div>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SCRIPT: Login, UI, Stock Mobil (localStorage)           -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <script>
+    var PASS = 'bajingan011';
+    var SOLD_HOURS = 24;
+    var POSTS = [];
+    var editIdx = -1;
+    var soldTimer = null;
+    var sosmedFilter = 'all';
+    var sosmedOrders = [];
+
+    function ls(k,fb){try{return JSON.parse(localStorage.getItem(k))||fb}catch(e){return fb}}
+    function ss(k,v){localStorage.setItem(k,JSON.stringify(v))}
+    function getCode(u){var m=u.match(/\/p\/([A-Za-z0-9_-]+)/);return m?m[1]:null}
+    function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function firstLine(d){return d.split('\n')[0].trim()}
+    function getPrice(p){var e=ls('akino_price_edits',{});return e[getCode(p.url)]||p.price}
+    function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
+
+    function toast(msg,type){
+      var ic={ok:'fa-check-circle',err:'fa-exclamation-circle',info:'fa-info-circle'};
+      var t=document.createElement('div');t.className='toast '+(type||'info');
+      t.innerHTML='<i class="fas '+ic[type||'info']+'"></i><span>'+msg+'</span>';
+      document.getElementById('toasts').appendChild(t);
+      setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},300)},3000);
+    }
+
+    /* ── Login / Logout ── */
+    function doLogin(){
+      if(document.getElementById('passInput').value.trim()===PASS){
+        document.getElementById('loginWrap').style.display='none';
+        document.getElementById('dash').classList.add('active');
+        initStock();
+      }else{
+        document.getElementById('loginErr').textContent='Password salah!';
+      }
+    }
+    function doLogout(){
+      document.getElementById('dash').classList.remove('active');
+      document.getElementById('loginWrap').style.display='';
+      document.getElementById('passInput').value='';
+      document.getElementById('loginErr').textContent='';
+      if(soldTimer)clearInterval(soldTimer);
+    }
+
+    /* ── Tabs ── */
+    function switchTab(tab){
+      document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===(tab==='stock'?0:1))});
+      document.getElementById('tabStock').classList.toggle('active',tab==='stock');
+      document.getElementById('tabSosmed').classList.toggle('active',tab==='sosmed');
+    }
+
+    /* ══════════════════════════════════════
+       STOCK MOBIL
+    ══════════════════════════════════════ */
+    function buildPosts(){
+      var added=ls('akino_added',[]);
+      var deleted=ls('akino_deleted',{});
+      added.forEach(function(p){if(!p.addedAt)p.addedAt=0});
+      return added.filter(function(p){return !deleted[getCode(p.url)]});
+    }
+
+    function isAvail(code){return !ls('akino_sold',{})[code]&&!ls('akino_removed',{})[code]}
+
+    function cleanExpired(){
+      var sold=ls('akino_sold',{}),removed=ls('akino_removed',{}),now=Date.now(),ch=false;
+      Object.keys(sold).forEach(function(c){if(now-sold[c]>SOLD_HOURS*3600000){removed[c]=true;delete sold[c];ch=true}});
+      if(ch){ss('akino_sold',sold);ss('akino_removed',removed)}
+    }
+
+    function initStock(){
+      POSTS=buildPosts();
+      renderStock();
+      startSoldTimer();
+      window.addEventListener('storage',function(e){
+        if(e.key&&e.key.indexOf('akino_')===0){POSTS=buildPosts();renderStock()}
+      });
+    }
+
+    function renderStock(){
+      cleanExpired();
+      var sold=ls('akino_sold',{}),removed=ls('akino_removed',{}),edits=ls('akino_price_edits',{});
+      var avail=[],soldList=[],delList=[];
+      POSTS.forEach(function(p,i){
+        var c=getCode(p.url);
+        if(removed[c])delList.push({post:p,idx:i});
+        else if(sold[c])soldList.push({post:p,idx:i});
+        else avail.push({post:p,idx:i});
+      });
+
+      document.getElementById('stockStats').innerHTML=
+        '<div class="stat-card"><div class="sv yellow">'+POSTS.length+'</div><div class="sl">Total Stock</div></div>'+
+        '<div class="stat-card"><div class="sv green">'+avail.length+'</div><div class="sl">Tersedia</div></div>'+
+        '<div class="stat-card"><div class="sv red">'+soldList.length+'</div><div class="sl">Terjual</div></div>'+
+        '<div class="stat-card"><div class="sv blue">'+delList.length+'</div><div class="sl">Dihapus</div></div>';
+
+      document.getElementById('cntAvail').textContent=avail.length;
+      document.getElementById('cntSold').textContent=soldList.length;
+      document.getElementById('cntDel').textContent=delList.length;
+
+      /* Tersedia */
+      var ha='';
+      if(!avail.length)ha='<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
+      avail.forEach(function(o){
+        var p=o.post,price=getPrice(p),c=getCode(p.url),hasEdit=!!edits[c];
+        var statusHtml=hasEdit?'<span class="edited"><i class="fas fa-pen" style="font-size:.55rem"></i> Harga di-edit</span>':'';
+        ha+='<div class="item"><div class="item-icon"><i class="fas fa-car"></i></div>'+
+          '<div class="item-info"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div>'+
+          '<div class="ii-status">'+statusHtml+'</div></div>'+
+          '<div class="item-actions">'+
+            '<button class="btn-sm btn-edit" onclick="startEdit('+o.idx+')"><i class="fas fa-pen"></i> Edit Harga</button>'+
+            '<button class="btn-sm btn-sold" onclick="toggleSold('+o.idx+',true)"><i class="fas fa-tag"></i> Terjual</button>'+
+            '<button class="btn-sm btn-del" onclick="deletePost('+o.idx+')"><i class="fas fa-trash"></i> Hapus</button>'+
+          '</div></div>';
+      });
+      document.getElementById('listAvail').innerHTML=ha;
+
+      /* Terjual */
+      var hs='';
+      if(!soldList.length)hs='<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
+      soldList.forEach(function(o){
+        var p=o.post,price=getPrice(p),c=getCode(p.url);
+        var rem=SOLD_HOURS*3600000-(Date.now()-sold[c]);
+        var timerTxt=rem>0?fmtTimer(rem):'Segera dihapus';
+        hs+='<div class="item"><div class="item-icon sold"><i class="fas fa-car"></i></div>'+
+          '<div class="item-info sold"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div>'+
+          '<div class="ii-status"><span class="timer" data-code="'+c+'"><i class="fas fa-clock" style="font-size:.6rem"></i> '+timerTxt+'</span></div></div>'+
+          '<div class="item-actions"><button class="btn-sm btn-unsold" onclick="toggleSold('+o.idx+',false)"><i class="fas fa-rotate-left"></i> Batalkan</button></div></div>';
+      });
+      document.getElementById('listSold').innerHTML=hs;
+
+      /* Dihapus */
+      var hd='';
+      if(!delList.length)hd='<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
+      delList.forEach(function(o){
+        var p=o.post,price=getPrice(p);
+        hd+='<div class="item" style="opacity:.45"><div class="item-icon deleted"><i class="fas fa-car"></i></div>'+
+          '<div class="item-info deleted"><div class="ii-price">'+esc(price)+'</div><div class="ii-desc">'+esc(firstLine(p.desc))+'</div></div>'+
+          '<div class="item-actions"><button class="btn-sm btn-restore" onclick="restorePost('+o.idx+')"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
+      });
+      document.getElementById('listDel').innerHTML=hd;
+    }
+
+    function fmtTimer(ms){
+      var h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);
+      return h+'j '+String(m).padStart(2,'0')+'m '+String(s).padStart(2,'0')+'s';
+    }
+
+    function startSoldTimer(){
+      if(soldTimer)clearInterval(soldTimer);
+      soldTimer=setInterval(function(){
+        var sold=ls('akino_sold',{}),now=Date.now(),refresh=false;
+        document.querySelectorAll('.timer[data-code]').forEach(function(el){
+          var c=el.dataset.code,rem=SOLD_HOURS*3600000-(now-sold[c]);
+          if(rem<=0){refresh=true;return}
+          el.innerHTML='<i class="fas fa-clock" style="font-size:.6rem"></i> '+fmtTimer(rem);
+        });
+        if(refresh){POSTS=buildPosts();renderStock()}
+      },1000);
+    }
+
+    /* ── Tambah Stock ── */
+    function addStock(){
+      var url=document.getElementById('addUrl').value.trim();
+      var price=document.getElementById('addPrice').value.trim();
+      var desc=document.getElementById('addDesc').value.trim();
+      var msg=document.getElementById('addMsg');
+      msg.className='form-msg';msg.style.display='none';
+
+      if(!url||!price||!desc){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';return}
+      if(!getCode(url)){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
+      if(POSTS.some(function(p){return getCode(p.url)===getCode(url)})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
+
+      var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+      var added=ls('akino_added',[]);
+      added.push({url:url,price:price,desc:desc,addedAt:Date.now()});
+      ss('akino_added',added);
+      var c=getCode(url),sold=ls('akino_sold',{}),removed=ls('akino_removed',{});
+      delete sold[c];delete removed[c];ss('akino_sold',sold);ss('akino_removed',removed);
+
+      setTimeout(function(){
+        POSTS=buildPosts();renderStock();
+        msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
+        document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';
+        btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock';
+        setTimeout(function(){msg.style.display='none'},3000);
+      },400);
+    }
+
+    /* ── Edit Harga ── */
+    function startEdit(idx){
+      editIdx=idx;var p=POSTS[idx],price=getPrice(p);
+      document.getElementById('editCard').style.display='';
+      document.getElementById('editName').value=firstLine(p.desc);
+      document.getElementById('editOld').value=price;
+      document.getElementById('editNew').value='';document.getElementById('editNew').placeholder=price;
+      setTimeout(function(){document.getElementById('editNew').focus()},100);
+      document.getElementById('editCard').scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    function savePrice(){
+      var v=document.getElementById('editNew').value.trim();
+      if(!v){document.getElementById('editNew').style.borderColor='#f87171';setTimeout(function(){document.getElementById('editNew').style.borderColor=''},1500);return}
+      var c=getCode(POSTS[editIdx].url),edits=ls('akino_price_edits',{});edits[c]=v;ss('akino_price_edits',edits);
+      cancelPrice();POSTS=buildPosts();renderStock();toast('Harga berhasil diubah','ok');
+    }
+    function cancelPrice(){editIdx=-1;document.getElementById('editCard').style.display='none';document.getElementById('editNew').style.borderColor=''}
+
+    /* ── Aksi Stock ── */
+    function toggleSold(idx,sold){
+      var c=getCode(POSTS[idx].url),sd=ls('akino_sold',{}),rd=ls('akino_removed',{});
+      if(sold){sd[c]=Date.now();delete rd[c]}else{delete sd[c]}
+      ss('akino_sold',sd);ss('akino_removed',rd);POSTS=buildPosts();renderStock();
+      toast(sold?'Ditandai terjual':'Dibatalkan dari terjual',sold?'info':'ok');
+    }
+    function deletePost(idx){
+      var c=getCode(POSTS[idx].url),rd=ls('akino_removed',{}),sd=ls('akino_sold',{});
+      rd[c]=true;delete sd[c];ss('akino_removed',rd);ss('akino_sold',sd);
+      POSTS=buildPosts();renderStock();toast('Stock dihapus','err');
+    }
+    function restorePost(idx){
+      var c=getCode(POSTS[idx].url),rd=ls('akino_removed',{}),sd=ls('akino_sold',{});
+      delete rd[c];delete sd[c];ss('akino_removed',rd);ss('akino_sold',sd);
+      POSTS=buildPosts();renderStock();toast('Stock dipulihkan','ok');
+    }
+
+    /* ══════════════════════════════════════
+       SOSIAL MEDIA (diisi oleh Firebase module)
+    ══════════════════════════════════════ */
+    var STATUS_LABEL={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
+
+    window.renderSosmedOrders=function(orders){
+      sosmedOrders=orders||[];
+      renderSosmedStats();
+      renderSosmedFilter();
+      renderSosmedList();
+    };
+
+    function renderSosmedStats(){
+      var o=sosmedOrders;
+      var cnt={pending:0,paid:0,processing:0,completed:0,cancelled:0};
+      o.forEach(function(x){if(cnt[x.status]!==undefined)cnt[x.status]++});
+      document.getElementById('sosmedStats').innerHTML=
+        '<div class="stat-card"><div class="sv yellow">'+o.length+'</div><div class="sl">Total Pesanan</div></div>'+
+        '<div class="stat-card"><div class="sv yellow">'+cnt.pending+'</div><div class="sl">Pending</div></div>'+
+        '<div class="stat-card"><div class="sv blue">'+cnt.paid+'</div><div class="sl">Dibayar</div></div>'+
+        '<div class="stat-card"><div class="sv orange">'+cnt.processing+'</div><div class="sl">Diproses</div></div>'+
+        '<div class="stat-card"><div class="sv green">'+cnt.completed+'</div><div class="sl">Selesai</div></div>'+
+        '<div class="stat-card"><div class="sv red">'+cnt.cancelled+'</div><div class="sl">Dibatalkan</div></div>';
+    }
+
+    function renderSosmedFilter(){
+      var statuses=['all','pending','paid','processing','completed','cancelled'];
+      var labels={all:'Semua',pending:'Pending',paid:'Dibayar',processing:'Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
+      var cnt={all:sosmedOrders.length};sosmedOrders.forEach(function(x){cnt[x.status]=(cnt[x.status]||0)+1});
+      var h='';
+      statuses.forEach(function(s){
+        h+='<button class="filter-btn'+(sosmedFilter===s?' active':'')+'" onclick="setSosmedFilter(\''+s+'\')">'+labels[s]+' ('+cnt[s]+')</button>';
+      });
+      document.getElementById('sosmedFilter').innerHTML=h;
+    }
+
+    window.setSosmedFilter=function(s){sosmedFilter=s;renderSosmedFilter();renderSosmedList()};
+
+    function renderSosmedList(){
+      var filtered=sosmedFilter==='all'?sosmedOrders:sosmedOrders.filter(function(x){return x.status===sosmedFilter});
+      var el=document.getElementById('sosmedList');
+      if(!filtered.length){el.innerHTML='<div class="empty"><i class="fas fa-inbox"></i>Tidak ada pesanan'+(sosmedFilter!=='all'?' dengan status ini':'')+'.</div>';return}
+
+      /* Build select options HTML (reusable) */
+      var optHtml=function(currentStatus){
+        var opts=['pending','paid','processing','completed','cancelled'];
+        return opts.map(function(s){
+          return '<option value="'+s+'"'+(s===currentStatus?' selected':'')+'>'+STATUS_LABEL[s]+'</option>';
+        }).join('');
+      };
+
+      var h='';
+      filtered.forEach(function(o){
+        /* Gunakan o.id (Firestore doc ID) sebagai identifier, bukan o.orderId */
+        var docId = o.id;
+        var orderId = o.orderId || '-';
+        var timeStr = o.createdAt ? new Date(o.createdAt.seconds * 1000).toLocaleString('id-ID') : '-';
+
+        h+='<div class="order-item">'+
+          '<div class="oi-top"><div class="oi-info">'+
+            '<div class="oi-id">'+esc(orderId)+' <span class="badge '+o.status+'" style="margin-left:.4rem">'+(STATUS_LABEL[o.status]||o.status)+'</span></div>'+
+            '<div class="oi-name">'+esc(o.serviceName||o.service||'-')+'</div>'+
+            '<div class="oi-meta">'+
+              '<span><i class="fas fa-hashtag"></i> '+(o.quantity||0).toLocaleString('id-ID')+'</span>'+
+              '<span><i class="fas fa-money-bill"></i> '+fRp(o.total||0)+'</span>'+
+              '<span><i class="fas fa-clock"></i> '+timeStr+'</span>'+
+            '</div>'+
+          '</div>'+
+          '<div class="oi-actions">'+
+            '<select data-docid="'+esc(docId)+'">'+optHtml(o.status)+'</select>'+
+            '<button class="btn-sm btn-update" data-docid="'+esc(docId)+'" onclick="updateOrderStatus(this)"><i class="fas fa-check"></i> Update</button>'+
+          '</div></div>'+
+          '<div class="oi-customer">'+
+            '<span><i class="fas fa-user"></i> '+(o.customerName||'-')+'</span>'+
+            '<span><i class="fab fa-whatsapp"></i> '+(o.customerWA||'-')+'</span>'+
+            (o.paymentMethod?'<span><i class="fas fa-wallet"></i> '+(o.paymentMethod||'').toUpperCase()+'</span>':'')+
+            (o.targetLink?'<span><i class="fas fa-link"></i> <a href="'+esc(o.targetLink)+'" target="_blank" style="color:var(--accent);text-decoration:none">Lihat Target</a></span>':'')+
+          '</div>'+
+        '</div>';
+      });
+      el.innerHTML=h;
+    }
+
+    /* Dipanggil oleh module script saat status berhasil diupdate */
+    window.onOrderUpdated=function(){toast('Status pesanan berhasil diupdate','ok')};
+    window.onOrderUpdateError=function(err){toast('Gagal update: '+err,'err')};
+  </script>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- MODULE: Firebase — Sosial Media Orders                    -->
+  <!-- Menggunakan doc.id (bukan orderId) untuk update           -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    /* ── Koleksi pesanan di Firebase ── */
+    const ORDERS_COL = "orders";
+
+    /* ── Real-time listener: otomatis refresh saat ada pesanan baru/update ── */
+    const q = query(collection(db, ORDERS_COL), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snap) => {
+      const orders = [];
+      snap.forEach((d) => {
+        orders.push({ id: d.id, ...d.data() });
+      });
+      if (window.renderSosmedOrders) window.renderSosmedOrders(orders);
+    }, (err) => {
+      console.error("Firebase listener error:", err);
+      if (window.renderSosmedOrders) window.renderSosmedOrders([]);
+    });
+
+    /* ── Update status: pakai docId (Firestore document ID) BUKAN orderId ── */
+    window.updateOrderStatus = async function(btnEl) {
+      /* Cari select yang berada di parent yang sama dengan tombol ini */
+      var parent = btnEl.parentElement;
+      var selectEl = parent.querySelector('select[data-docid]');
+      if (!selectEl) return;
+
+      var docId = selectEl.getAttribute('data-docid');
+      var newStatus = selectEl.value;
+
+      if (!docId) {
+        if (window.onOrderUpdateError) window.onOrderUpdateError('Document ID tidak ditemukan');
+        return;
+      }
+
+      /* Disable tombol sementara proses */
+      var origText = btnEl.innerHTML;
+      btnEl.disabled = true;
+      btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
+
+      try {
+        await updateDoc(doc(db, ORDERS_COL, docId), { status: newStatus });
+        if (window.onOrderUpdated) window.onOrderUpdated();
+      } catch (err) {
+        console.error("Update error:", err);
+        if (window.onOrderUpdateError) window.onOrderUpdateError(err.message || err);
+        /* Kembalikan tombol */
+        btnEl.disabled = false;
+        btnEl.innerHTML = origText;
+      }
+    };
+  </script>
+
+</body>
+</html>
