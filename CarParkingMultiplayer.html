@@ -107,6 +107,93 @@
 
     .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
 
+    /* ── Ambient Background Glows ── */
+    .ambient-glows {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .ambient-glows .glow {
+      position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.08;
+    }
+    .ambient-glows .glow-1 {
+      width: 600px; height: 600px; top: -150px; left: -100px;
+      background: #FFDD57;
+      animation: glowFloat1 12s ease-in-out infinite;
+    }
+    .ambient-glows .glow-2 {
+      width: 500px; height: 500px; bottom: -100px; right: -80px;
+      background: #FFA726;
+      animation: glowFloat2 15s ease-in-out infinite;
+    }
+    .ambient-glows .glow-3 {
+      width: 400px; height: 400px; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFDD57;
+      animation: glowFloat3 18s ease-in-out infinite;
+    }
+    @keyframes glowFloat1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(80px, 60px); }
+    }
+    @keyframes glowFloat2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-60px, -80px); }
+    }
+    @keyframes glowFloat3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.3); }
+    }
+
+    /* ── Floating Chat Admin ── */
+    .chat-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+    }
+    .chat-float-label {
+      background: rgba(15,15,25,0.92); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.55rem 1rem;
+      font-size: 0.78rem; color: var(--muted); white-space: nowrap;
+      opacity: 0; transform: translateY(6px) scale(0.95);
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    .chat-float-label span { color: var(--accent); font-weight: 600; }
+    .chat-float:hover .chat-float-label {
+      opacity: 1; transform: translateY(0) scale(1);
+    }
+    .chat-float-btn {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: #25D366; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .chat-float-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 32px rgba(37,211,102,0.45);
+    }
+    .chat-float-btn:active { transform: scale(0.95); }
+
+    /* ── Back to Top ── */
+    .back-to-top {
+      position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 99;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.9rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(10px); pointer-events: none;
+      transition: all 0.3s ease; text-decoration: none;
+      backdrop-filter: blur(12px);
+    }
+    .back-to-top.show {
+      opacity: 1; transform: translateY(0); pointer-events: auto;
+    }
+    .back-to-top:hover {
+      color: var(--accent); border-color: var(--accent);
+      background: var(--accent-dim); transform: translateY(-2px);
+    }
+
     @media(max-width:768px){
       .navbar{padding:.75rem 1rem}
       .menu-toggle{display:flex}
@@ -114,10 +201,20 @@
       .nav-links.active{display:flex}
       .dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}
       .services-grid{grid-template-columns:1fr}
+      .chat-float{bottom:1rem;right:1rem}
+      .chat-float-btn{width:50px;height:50px;border-radius:14px;font-size:1.4rem}
+      .back-to-top{bottom:1rem;left:1rem;width:40px;height:40px}
     }
   </style>
 </head>
 <body>
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glows">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+  </div>
 
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-brand">Akino Store</a>
@@ -312,9 +409,7 @@
         <div class="card-body">
           <h3>Stock Mobil Murah</h3>
           <div class="desc">Bisa pilih sendiri mobilnya</div>
-          <div class="note">NOTE: Screenshot mobil yang dipilih, lalu klik Pesan</div>
-          <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank" style="display:block;margin-bottom:.6rem">Lihat stock mobil</a>
-          <a href="order.html?service=Stock%20Mobil%20Murah%20Bisa%20Pilih%20Disini" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
+          <a href="https://www.instagram.com/akinostore_/" target="_blank" class="btn-order" style="margin-top:.5rem"><i class="fab fa-instagram"></i> Klik Disini</a>
         </div>
       </div>
 
@@ -342,6 +437,19 @@
       <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
       <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
+
+  <!-- Floating Chat Admin -->
+  <div class="chat-float">
+    <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
   
     <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
   
@@ -355,6 +463,15 @@
       // Mobile menu
       document.getElementById('menuToggle').addEventListener('click', () => {
         document.getElementById('navLinks').classList.toggle('active');
+      });
+
+      // Back to Top
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('show', window.scrollY > 400);
+      });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
   
       // Slider
