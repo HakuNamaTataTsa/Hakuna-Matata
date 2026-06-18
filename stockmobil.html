@@ -51,6 +51,11 @@
     .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7}
     .sec-header{margin-bottom:2rem;text-align:center}
 
+    .sort-tabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+    .sort-btn{padding:.38rem .95rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.76rem;font-weight:500;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
+    .sort-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
+    .sort-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+
     .sold-section{margin-bottom:3rem}
     .sold-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
     .sold-header-left{display:flex;align-items:center;gap:.6rem}
@@ -66,7 +71,6 @@
     .sold-list.collapsed{max-height:0!important;opacity:0}
 
     .sold-card{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.12);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;animation:fadeInUp .4s ease both}
-    .sold-card-img{width:60px;height:60px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
     .sold-card-info{flex:1;min-width:150px}
     .sold-card-info .sc-name{font-family:var(--font-display);font-size:.88rem;font-weight:600;margin-bottom:.15rem;text-decoration:none;color:var(--fg);transition:color .2s}
     .sold-card-info .sc-name:hover{color:var(--accent)}
@@ -87,15 +91,13 @@
     .ig-card-footer a.ig-link:hover{color:var(--accent)}
     .btn-order-sm{padding:.55rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
     .btn-order-sm:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
-    .btn-order-sm.loading{pointer-events:none;opacity:.6}
 
     .ig-load-more{display:flex;justify-content:center;margin-top:2.5rem}
     .btn-load{padding:.7rem 2rem;border-radius:12px;background:var(--bg-card);color:var(--fg);border:1px solid var(--border);font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
     .btn-load:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
-    .ig-counter{text-align:center;margin-bottom:2rem;font-size:.82rem;color:var(--muted)}
+    .ig-counter{text-align:center;margin-bottom:1.5rem;font-size:.82rem;color:var(--muted)}
     .ig-counter strong{color:var(--accent);font-family:var(--font-display)}
 
-    /* ── Guestbook / Komentar ── */
     .gb-wrap{max-width:640px;margin:0 auto;padding:0 2rem}
     .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
     .gb-hdr{text-align:center;margin-bottom:1.5rem}
@@ -132,10 +134,6 @@
     .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}
     .chat-float-btn:active{transform:scale(.95)}
 
-    .dl-toast{position:fixed;bottom:6rem;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(15,15,25,.95);border:1px solid var(--border);border-radius:12px;padding:.7rem 1.2rem;font-size:.82rem;color:var(--fg-dim);display:flex;align-items:center;gap:.5rem;opacity:0;transition:all .35s ease;z-index:200;pointer-events:none;backdrop-filter:blur(12px);white-space:nowrap}
-    .dl-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    .dl-toast i{color:var(--accent);font-size:.9rem}
-
     .modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
     .modal-overlay.active{display:flex;animation:fadeIn .2s ease}
     .modal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:540px;position:relative;max-height:88vh;overflow-y:auto}
@@ -154,18 +152,19 @@
     .admin-dash .admin-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
     .admin-item{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:.75rem;display:flex;align-items:center;gap:1rem;transition:border-color .2s}
     .admin-item:hover{border-color:rgba(255,255,255,.1)}
-    .admin-item img{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+    .admin-item-icon{width:48px;height:48px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);font-size:1.1rem}
     .admin-item-info{flex:1;min-width:0}
     .admin-item-info .ai-price{font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--accent)}
     .admin-item-info .ai-desc{font-size:.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem}
     .admin-item-info .ai-status{font-size:.68rem;font-weight:600;margin-top:.2rem}
-    .btn-sold{padding:.4rem .9rem;border-radius:8px;background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0}
+    .ai-actions{display:flex;gap:.4rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+    .btn-sold{padding:.4rem .9rem;border-radius:8px;background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem}
     .btn-sold:hover{background:#f87171;color:#fff;box-shadow:0 4px 12px rgba(248,113,113,.3)}
-    .btn-unsold{padding:.4rem .9rem;border-radius:8px;background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0}
+    .btn-unsold{padding:.4rem .9rem;border-radius:8px;background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.2);font-family:var(--font-body);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem}
     .btn-unsold:hover{background:#4ade80;color:#0a0a0f}
-    .btn-restore{padding:.4rem .9rem;border-radius:8px;background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0;margin-top:.3rem}
+    .btn-restore{padding:.4rem .9rem;border-radius:8px;background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem}
     .btn-restore:hover{background:#60a5fa;color:#fff}
-    .btn-delete{padding:.4rem .9rem;border-radius:8px;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0;margin-top:.3rem}
+    .btn-delete{padding:.4rem .9rem;border-radius:8px;background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);font-family:var(--font-body);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.3rem}
     .btn-delete:hover{background:#ef4444;color:#fff}
     .admin-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem}
 
@@ -204,6 +203,7 @@
       .sold-card{flex-direction:column;text-align:center;gap:.6rem}
       .sold-card-right{text-align:center}
       .admin-item{flex-direction:column;text-align:center;gap:.6rem}
+      .ai-actions{justify-content:center}
       .modal-card{max-width:95vw}
     }
   </style>
@@ -224,13 +224,13 @@
           <li><a href="designedit.html">Design / Edit Foto</a></li>
         </ul>
       </li>
-      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+      <li><a href="https://wa.me/62896871633314" target="_blank">Contact</a></li>
     </ul>
   </nav>
 
   <section class="page-hero">
     <h1>Stock Mobil <span style="color:var(--accent)">Murah</span></h1>
-    <p>Pilih mobil, klik Pesan — foto auto download, langsung redirect ke WhatsApp.</p>
+    <p>Klik Pesan → langsung chat WhatsApp admin. Sertakan link post yang mau dipesan.</p>
   </section>
 
   <div class="info-bar">
@@ -238,7 +238,7 @@
       <div class="info-icon"><i class="fas fa-car"></i></div>
       <div class="info-text">
         <h3>Cara Pesan</h3>
-        <p>Klik <span>Pesan</span> → foto auto download → langsung chat WhatsApp admin. Kirim screenshot yang sudah di-download.</p>
+        <p>Klik <span>Pesan</span> → langsung redirect ke WhatsApp. Admin akan proses pesananmu.</p>
       </div>
     </div>
   </div>
@@ -260,8 +260,15 @@
     <div class="sec-header reveal">
       <div class="sec-label" style="justify-content:center">Listing</div>
       <h2 class="sec-title">Mobil yang Tersedia</h2>
-      <p class="sec-desc" style="margin:0 auto">Foto dari Instagram, keterangan lengkap per item.</p>
+      <p class="sec-desc" style="margin:0 auto">Embed langsung dari Instagram, keterangan lengkap per item.</p>
     </div>
+
+    <div class="sort-tabs reveal" id="sortTabs">
+      <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')"><i class="fas fa-clock" style="font-size:.65rem"></i> Terbaru</button>
+      <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')"><i class="fas fa-arrow-up-1-9" style="font-size:.65rem"></i> Harga Terendah</button>
+      <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')"><i class="fas fa-arrow-down-9-1" style="font-size:.65rem"></i> Harga Tertinggi</button>
+    </div>
+
     <div class="ig-counter reveal" id="igCounter"></div>
     <div class="ig-list" id="igGrid"></div>
     <div class="ig-load-more" id="loadMoreWrap" style="display:none">
@@ -271,7 +278,6 @@
 
   <div class="sec-divider"><hr></div>
 
-  <!-- Komentar / Guestbook -->
   <div class="gb-wrap reveal">
     <div class="gb">
       <div class="gb-hdr">
@@ -294,15 +300,13 @@
     <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/akinostore_/" target="_blank"><i class="fab fa-instagram"></i></a>
     <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
-    <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/62896871633314" target="_blank"><i class="fab fa-whatsapp"></i></a>
   </div>
 
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
-    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/62896871633314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
-
-  <div class="dl-toast" id="dlToast"><i class="fas fa-download"></i> <span id="dlToastText"></span></div>
 
   <!-- Admin Modal -->
   <div class="modal-overlay" id="adminModal">
@@ -330,11 +334,6 @@
             <div class="hint">Buka post → 3 titik → Copy Link</div>
           </div>
           <div class="form-row">
-            <label>URL Gambar (untuk download)</label>
-            <input type="text" id="addImg" placeholder="https://scontent.cdninstagram.com/...">
-            <div class="hint">Klik foto post IG → buka di tab baru → copy URL</div>
-          </div>
-          <div class="form-row">
             <label>Harga</label>
             <input type="text" id="addPrice" placeholder="Rp 3.000">
           </div>
@@ -355,21 +354,22 @@
   <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
 
   <script>
-    // Stock default KOSONG — tambah via admin panel
     var DEFAULT_POSTS = [];
 
     var WA_NUMBER = "6289687163314";
-    var ADMIN_PASS = "bajingan011";
+    var ADMIN_PASS = "akino2024";
     var SOLD_HOURS = 24;
     var PER_PAGE = 10;
     var currentPage = 0;
     var soldListOpen = true;
     var timerInterval = null;
+    var currentSort = 'newest';
     var POSTS = [];
 
     function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
     function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
     function getFirstLine(d) { return d.split('\n')[0].trim(); }
+    function parsePrice(str) { var n = parseInt(str.replace(/[^0-9]/g, '')); return isNaN(n) ? 0 : n; }
 
     function ls(key, fallback) {
       try { return JSON.parse(localStorage.getItem(key)) || fallback; }
@@ -381,6 +381,7 @@
       var added = ls('akino_added', []);
       var deleted = ls('akino_deleted', {});
       var all = DEFAULT_POSTS.concat(added);
+      all.forEach(function(p) { if (!p.addedAt) p.addedAt = 0; });
       return all.filter(function(p) { return !deleted[getCode(p.url)]; });
     }
 
@@ -410,6 +411,27 @@
       if (changed) { ss('akino_sold', sold); ss('akino_removed', removed); }
     }
 
+    function setSort(sort) {
+      currentSort = sort;
+      document.querySelectorAll('.sort-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.sort === sort);
+      });
+      currentPage = 0;
+      renderAvailable();
+    }
+
+    function getSortedAvail() {
+      var avail = POSTS.filter(function(p) { return isAvail(getCode(p.url)); });
+      if (currentSort === 'newest') {
+        avail.sort(function(a, b) { return (b.addedAt || 0) - (a.addedAt || 0); });
+      } else if (currentSort === 'price-asc') {
+        avail.sort(function(a, b) { return parsePrice(a.price) - parsePrice(b.price); });
+      } else if (currentSort === 'price-desc') {
+        avail.sort(function(a, b) { return parsePrice(b.price) - parsePrice(a.price); });
+      }
+      return avail;
+    }
+
     function renderSold() {
       cleanExpired();
       var sold = ls('akino_sold', {});
@@ -433,7 +455,6 @@
         var secs = Math.floor((rem % 60000) / 1000);
 
         h += '<div class="sold-card" id="sold-' + code + '">' +
-          '<img class="sold-card-img" src="' + post.img + '" alt="" onerror="this.style.display=\'none\'">' +
           '<div class="sold-card-info">' +
             '<a href="' + post.url + '" target="_blank" class="sc-name">' + esc(getFirstLine(post.desc)) + '</a>' +
             '<div class="sc-price">' + esc(post.price) + '</div>' +
@@ -480,7 +501,7 @@
     }
 
     function renderAvailable() {
-      var avail = POSTS.filter(function(p) { return isAvail(getCode(p.url)); });
+      var avail = getSortedAvail();
       var grid = document.getElementById('igGrid');
       grid.innerHTML = '';
 
@@ -511,7 +532,7 @@
             '<div class="ig-card-desc">' + esc(post.desc) + '</div>' +
             '<div class="ig-card-footer">' +
               '<a href="' + post.url + '" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat Post</a>' +
-              '<button class="btn-order-sm" id="orderBtn-' + idx + '" onclick="orderPost(' + idx + ')"><i class="fab fa-whatsapp"></i> Pesan</button>' +
+              '<button class="btn-order-sm" onclick="orderPost(' + idx + ')"><i class="fab fa-whatsapp"></i> Pesan</button>' +
             '</div>' +
           '</div>';
         grid.appendChild(card);
@@ -529,41 +550,9 @@
 
     function orderPost(idx) {
       var post = POSTS[idx];
-      var btn = document.getElementById('orderBtn-' + idx);
-      if (!btn || btn.classList.contains('loading')) return;
-      btn.classList.add('loading');
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Download...';
-
       var waMsg = "Halo admin, saya mau pesan mobil:\n\n" + post.price + "\n" + post.desc + "\n\nLink: " + post.url;
       var waUrl = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waMsg);
-
-      if (post.img) {
-        showDlToast("Mengunduh foto...");
-        fetch(post.img).then(function(r){return r.blob()}).then(function(blob){
-          var u = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = u; a.download = "stock-" + getCode(post.url) + ".jpg";
-          document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          URL.revokeObjectURL(u);
-          showDlToast("Foto tersimpan! Membuka WhatsApp...");
-          setTimeout(function(){window.open(waUrl,'_blank')},600);
-          btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
-        }).catch(function(){
-          showDlToast("Download gagal, langsung buka WhatsApp...");
-          setTimeout(function(){window.open(waUrl,'_blank')},400);
-          btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
-        });
-      } else {
-        setTimeout(function(){window.open(waUrl,'_blank')},200);
-        btn.classList.remove('loading'); btn.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
-      }
-    }
-
-    function showDlToast(t) {
-      var el = document.getElementById('dlToast');
-      document.getElementById('dlToastText').textContent = t;
-      el.classList.add('show');
-      setTimeout(function(){el.classList.remove('show')},2500);
+      window.open(waUrl, '_blank');
     }
 
     var brandClicks = 0, brandTimer = null;
@@ -601,14 +590,13 @@
 
     function addNewStock() {
       var url = document.getElementById('addUrl').value.trim();
-      var img = document.getElementById('addImg').value.trim();
       var price = document.getElementById('addPrice').value.trim();
       var desc = document.getElementById('addDesc').value.trim();
       var result = document.getElementById('addResult');
       result.className = 'form-result';
       result.style.display = 'none';
 
-      if (!url || !img || !price || !desc) {
+      if (!url || !price || !desc) {
         result.className = 'form-result error show';
         result.innerHTML = '<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';
         return;
@@ -631,7 +619,7 @@
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
 
       var added = ls('akino_added', []);
-      added.push({ url: url, img: img, price: price, desc: desc });
+      added.push({ url: url, price: price, desc: desc, addedAt: Date.now() });
       ss('akino_added', added);
 
       var code = getCode(url);
@@ -647,7 +635,6 @@
         result.className = 'form-result success show';
         result.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
         document.getElementById('addUrl').value = '';
-        document.getElementById('addImg').value = '';
         document.getElementById('addPrice').value = '';
         document.getElementById('addDesc').value = '';
         btn.disabled = false;
@@ -689,13 +676,13 @@
         }
 
         h += '<div class="admin-item" style="' + (isRemoved ? 'opacity:.4' : '') + '">' +
-          '<img src="' + post.img + '" alt="" onerror="this.src=\'https://placehold.co/56x56/1a1a2e/FFDD57?text=Car\'">' +
+          '<div class="admin-item-icon"><i class="fas fa-car"></i></div>' +
           '<div class="admin-item-info">' +
             '<div class="ai-price">' + esc(post.price) + '</div>' +
             '<div class="ai-desc">' + esc(getFirstLine(post.desc)) + '</div>' +
             statusHtml +
           '</div>' +
-          actionHtml +
+          '<div class="ai-actions">' + actionHtml + '</div>' +
         '</div>';
       });
       list.innerHTML = h;
@@ -757,7 +744,7 @@
     startTimer();
   </script>
 
-  <!-- Firebase: Komentar / Guestbook -->
+  <!-- Firebase: Komentar -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import {
