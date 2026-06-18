@@ -240,6 +240,83 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── Promo Banner Stock Mobil ── */
+    .promo-banner {
+      position: relative; z-index: 2;
+      max-width: 720px; margin: -2rem auto 0;
+      padding: 0 2rem;
+      animation: fadeInUp 0.8s ease 0.5s both;
+    }
+    .promo-banner a {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.75rem; flex-wrap: wrap;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, rgba(255,221,87,0.12) 0%, rgba(255,167,38,0.08) 100%);
+      border: 1px solid rgba(255,221,87,0.25);
+      border-radius: 14px;
+      text-decoration: none; color: var(--fg);
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(255,221,87,0.08);
+    }
+    .promo-banner a:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 40px rgba(255,221,87,0.18);
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, rgba(255,221,87,0.18) 0%, rgba(255,167,38,0.12) 100%);
+    }
+    .promo-banner a .promo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--accent); color: #0a0a0f;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; flex-shrink: 0;
+    }
+    .promo-banner a .promo-text span {
+      color: var(--accent);
+    }
+    .promo-banner a .promo-arrow {
+      color: var(--accent); font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+    .promo-banner a:hover .promo-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Floating Chat Admin ── */
+    .chat-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+    }
+    .chat-float-label {
+      background: rgba(15,15,25,0.92); backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.55rem 1rem;
+      font-size: 0.78rem; color: var(--muted); white-space: nowrap;
+      opacity: 0; transform: translateY(6px) scale(0.95);
+      transition: all 0.3s ease; pointer-events: none;
+    }
+    .chat-float-label span { color: var(--accent); font-weight: 600; }
+    .chat-float:hover .chat-float-label {
+      opacity: 1; transform: translateY(0) scale(1);
+    }
+    .chat-float-btn {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: #25D366; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .chat-float-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 32px rgba(37,211,102,0.45);
+    }
+    .chat-float-btn:active {
+      transform: scale(0.95);
+    }
+
     /* ── Mobile ── */
     @media (max-width: 768px) {
       .navbar { padding: 0.75rem 1rem; }
@@ -260,6 +337,10 @@
       .dropdown:hover .dropdown-menu { animation: none; }
       .features-grid { grid-template-columns: 1fr; }
       .hero { padding: 5rem 1.25rem 3rem; }
+      .promo-banner { padding: 0 1.25rem; }
+      .promo-banner a { font-size: 0.88rem; padding: 0.85rem 1.25rem; }
+      .chat-float { bottom: 1rem; right: 1rem; }
+      .chat-float-btn { width: 50px; height: 50px; border-radius: 14px; font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -300,6 +381,15 @@
     </div>
   </section>
 
+  <!-- Promo Banner Stock Mobil Murah -->
+  <div class="promo-banner">
+    <a href="https://www.instagram.com/akinostore_/" target="_blank" rel="noopener">
+      <div class="promo-icon"><i class="fas fa-car"></i></div>
+      <div class="promo-text">Stock Mobil Murah harga mulai <span>2rb</span> klik disini</div>
+      <i class="fas fa-arrow-right promo-arrow"></i>
+    </a>
+  </div>
+
   <!-- Features -->
   <section class="features">
     <div class="features-grid">
@@ -327,6 +417,14 @@
     <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank"><i class="fab fa-instagram"></i></a>
     <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
     <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <!-- Floating Chat Admin -->
+  <div class="chat-float">
+    <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
   </div>
 
   <footer class="footer">&copy; 2024 Akino Store. All Rights Reserved.</footer>
