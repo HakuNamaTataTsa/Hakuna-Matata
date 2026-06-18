@@ -515,7 +515,7 @@
         window.saveOrder({
           orderId:orderId,serviceId:currentSrv.id,serviceName:currentSrv.name,category:currentSrv.category,
           quantity:orderFormData.qty,total:orderFormData.total,customerName:orderFormData.name,
-          customerWA:orderFormData.wa,targetLink:orderFormData.link,paymentMethod:selectedPayMethod.id,
+          customerWA:orderFormData.wa,link:orderFormData.link,paymentMethod:selectedPayMethod.id,
           status:'pending',createdAt:null
         }).then(function(){renderStep3(orderId)}).catch(function(err){
           document.getElementById('payResult').className='order-result error';

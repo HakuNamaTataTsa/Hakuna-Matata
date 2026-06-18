@@ -242,9 +242,9 @@
 
   <div class="toast-wrap" id="toasts"></div>
 
-  <!-- ════════════════════════════════════════ -->
-  <!-- SCRIPT: Login, UI, Toast, Sosmed Render -->
-  <!-- ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- SCRIPT: Login, UI, Toast, Sosmed Render              -->
+  <!-- ════════════════════════════════════════════════════ -->
   <script>
     var PASS = 'bajingan011';
     var sosmedFilter = 'all';
@@ -286,7 +286,9 @@
       document.getElementById('tabSosmed').classList.toggle('active',tab==='sosmed');
     }
 
-    /* ═══ SOSIAL MEDIA RENDER ═══ */
+    /* ═══════════════════════════════════════════════════════
+       SOSIAL MEDIA — LINK TARGET SELALU TAMPIL (field: link)
+    ═══════════════════════════════════════════════════════ */
     window.renderSosmedOrders = function(orders){
       sosmedOrders = orders || [];
       renderSosmedStats();
@@ -332,6 +334,17 @@
       filtered.forEach(function(o){
         var docId=o.id, orderId=o.orderId||'-';
         var timeStr=o.createdAt?new Date(o.createdAt.seconds*1000).toLocaleString('id-ID'):'-';
+
+        /* ✅ FIX: field di Firestore namanya "link", bukan "targetLink" */
+        var linkHtml;
+        if(o.link){
+          var display = o.link;
+          if(display.length > 55) display = display.substring(0, 55) + '...';
+          linkHtml = '<span style="width:100%"><i class="fas fa-link" style="color:var(--accent)"></i> <a href="'+esc(o.link)+'" target="_blank" style="color:var(--accent);text-decoration:none;word-break:break-all" title="'+esc(o.link)+'">'+esc(display)+'</a></span>';
+        } else {
+          linkHtml = '<span style="width:100%;opacity:.35"><i class="fas fa-link-slash"></i> Tidak ada link target</span>';
+        }
+
         h+='<div class="order-item">'+
           '<div class="oi-top"><div class="oi-info">'+
             '<div class="oi-id">'+esc(orderId)+' <span class="badge '+o.status+'" style="margin-left:.4rem">'+(STATUS_LABEL[o.status]||o.status)+'</span></div>'+
@@ -350,7 +363,7 @@
             '<span><i class="fas fa-user"></i> '+(o.customerName||'-')+'</span>'+
             '<span><i class="fab fa-whatsapp"></i> '+(o.customerWA||'-')+'</span>'+
             (o.paymentMethod?'<span><i class="fas fa-wallet"></i> '+(o.paymentMethod||'').toUpperCase()+'</span>':'')+
-            (o.targetLink?'<span><i class="fas fa-link"></i> <a href="'+esc(o.targetLink)+'" target="_blank" style="color:var(--accent);text-decoration:none">Lihat Target</a></span>':'')+
+            linkHtml+
           '</div>'+
         '</div>';
       });
@@ -361,9 +374,9 @@
     window.onOrderUpdateError = function(err){toast('Gagal update: '+err,'err')};
   </script>
 
-  <!-- ════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Stock Mobil (REALTIME) -->
-  <!-- ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- MODULE: Firebase — Stock Mobil (REALTIME)              -->
+  <!-- ════════════════════════════════════════════════════ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
@@ -407,7 +420,6 @@
       document.getElementById('cntSold').textContent = soldList.length;
       document.getElementById('cntDel').textContent = delList.length;
 
-      /* Tersedia */
       var ha = '';
       if (!avail.length) ha = '<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
       avail.forEach(function(p) {
@@ -431,7 +443,6 @@
         else if (btn.classList.contains('btn-del')) btn.addEventListener('click', function() { deletePost(id); });
       });
 
-      /* Terjual */
       var hs = '';
       if (!soldList.length) hs = '<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
       soldList.forEach(function(p) {
@@ -449,7 +460,6 @@
         btn.addEventListener('click', function() { toggleSold(btn.getAttribute('data-id'), false); });
       });
 
-      /* Dihapus */
       var hd = '';
       if (!delList.length) hd = '<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
       delList.forEach(function(p) {
@@ -477,7 +487,6 @@
       }, 1000);
     }
 
-    /* ── Tambah Stock ── */
     window.addStock = async function() {
       var url = document.getElementById('addUrl').value.trim();
       var price = document.getElementById('addPrice').value.trim();
@@ -507,7 +516,6 @@
       }
     };
 
-    /* ── Edit Harga ── */
     function startEdit(docId) {
       editIdx = docId;
       var post = POSTS.find(function(p) { return p.id === docId; });
@@ -536,7 +544,6 @@
       editIdx = null; document.getElementById('editCard').style.display = 'none'; document.getElementById('editNew').style.borderColor = '';
     };
 
-    /* ── Aksi Stock ── */
     async function toggleSold(docId, sold) {
       try {
         if (sold) {
@@ -563,12 +570,9 @@
       } catch (err) { toast('Gagal: ' + err.message, 'err'); }
     }
 
-    /* === Real-time Listener === */
     onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
       POSTS = [];
       snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
-
-      /* Auto-cleanup: sold > 24 jam → otomatis jadi deleted */
       var now = Date.now();
       POSTS.forEach(function(p) {
         if (p.status === 'sold' && p.soldAt) {
@@ -577,15 +581,14 @@
           }
         }
       });
-
       renderStock();
       startSoldTimer();
     }, (err) => { console.error("Stock listener error:", err); });
   </script>
 
-  <!-- ════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Sosial Media Orders   -->
-  <!-- ════════════════════════════════════════ -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- MODULE: Firebase — Sosial Media Orders                 -->
+  <!-- ════════════════════════════════════════════════════ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
