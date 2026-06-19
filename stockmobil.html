@@ -78,18 +78,17 @@
     .sold-card-right .sold-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;padding:.2rem .6rem;border-radius:50px;background:rgba(248,113,113,.1);margin-bottom:.3rem}
     .sold-card-right .sold-timer{font-size:.72rem;color:var(--muted);font-family:var(--font-display);font-weight:500}
 
-    .ig-list{display:flex;flex-direction:column;gap:1.25rem}
-    .ig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .35s}
-    .ig-card:hover{border-color:rgba(255,221,87,.2);box-shadow:0 12px 40px rgba(0,0,0,.3)}
-    .ig-card-embed{width:100%;min-height:400px;border:none;display:block;background:#fafafa}
-    .ig-card-body{padding:1.25rem 1.5rem}
-    .ig-card-price{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--accent);margin-bottom:.4rem}
-    .ig-card-desc{font-size:.85rem;color:var(--fg-dim);line-height:1.65;margin-bottom:1.1rem;white-space:pre-line}
-    .ig-card-footer{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding-top:.85rem;border-top:1px solid var(--border)}
-    .ig-card-footer a.ig-link{color:var(--muted);font-size:.82rem;text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.35rem}
-    .ig-card-footer a.ig-link:hover{color:var(--accent)}
-    .btn-order-sm{padding:.55rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
-    .btn-order-sm:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
+    /* ========== GRID: semua ukuran layar ========== */
+    .grid-section{max-width:960px}
+    .ig-list{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+    .ig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .35s;cursor:pointer}
+    .ig-card:hover{border-color:rgba(255,221,87,.25);box-shadow:0 8px 30px rgba(0,0,0,.35);transform:translateY(-2px)}
+    .ig-card-embed-wrap{height:280px;overflow:hidden;position:relative;background:#111}
+    .ig-card-embed{position:absolute!important;top:0;left:0;width:100%!important;min-height:unset!important;height:700px!important;pointer-events:none;border:none;display:block}
+    .ig-card-thumb-overlay{display:block;position:absolute;inset:0;z-index:2;cursor:pointer}
+    .ig-card-thumb-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(7,7,13,.9) 5%,transparent);pointer-events:none}
+    .ig-card-thumb-price{display:block;position:absolute;bottom:10px;left:10px;right:10px;z-index:3;font-family:var(--font-display);font-size:.82rem;font-weight:700;color:var(--accent);pointer-events:none;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ig-card-body{display:none}
 
     .ig-counter{text-align:center;margin-bottom:1.5rem;font-size:.82rem;color:var(--muted)}
     .ig-counter strong{color:var(--accent);font-family:var(--font-display)}
@@ -103,6 +102,47 @@
     .page-num:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
     .page-num.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent);box-shadow:0 2px 12px rgba(255,221,87,.2)}
     .page-ellipsis{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;letter-spacing:2px;user-select:none}
+
+    /* ========== LIMITED BANNER ========== */
+    .limited-banner{position:relative;background:linear-gradient(145deg,rgba(255,221,87,.1) 0%,rgba(255,221,87,.02) 50%,rgba(255,160,0,.06) 100%);border:1px solid rgba(255,221,87,.3);border-radius:20px;padding:2.5rem 2rem;text-align:center;margin-bottom:2.5rem;overflow:hidden;box-shadow:0 0 80px rgba(255,221,87,.06),inset 0 1px 0 rgba(255,221,87,.15)}
+    .limited-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg at 50% 50%,transparent,rgba(255,221,87,.12),transparent 25%);animation:bannerSpin 8s linear infinite;z-index:0}
+    .limited-banner>*{position:relative;z-index:1}
+    @keyframes bannerSpin{to{transform:rotate(360deg)}}
+    .limited-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:.3rem 1rem;border-radius:50px;margin-bottom:.85rem;border:1px solid rgba(255,221,87,.2)}
+    .limited-badge i{font-size:.55rem}
+    .limited-title{font-family:var(--font-display);font-size:clamp(1.6rem,5vw,2.6rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.6rem;line-height:1.1}
+    .limited-title .accent{color:var(--accent)}
+    .limited-sub{color:var(--fg);font-size:.88rem;line-height:1.7;margin-bottom:1.25rem;opacity:.85}
+    .limited-sub strong{color:var(--accent);font-weight:600}
+    .limited-price{font-family:var(--font-display);font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:var(--fg);margin-bottom:.5rem;letter-spacing:-.3px}
+.limited-price span{color:var(--accent);font-size:clamp(1.5rem,5vw,2.4rem);margin:0 .15rem}
+    .limited-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem}
+    .limited-tags span{font-size:.72rem;font-weight:600;padding:.35rem .85rem;border-radius:50px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--fg-dim);transition:all .25s}
+    .limited-tags span:hover{border-color:rgba(255,221,87,.3);color:var(--accent);background:var(--accent-dim)}
+    .limited-empty{text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1}
+    .limited-empty i{font-size:2rem;display:block;margin-bottom:.6rem;opacity:.3}
+
+    /* ========== LIGHTBOX ========== */
+    .lightbox{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+    .lightbox.active{display:flex}
+    .lightbox-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);animation:lbFadeIn .2s ease}
+    .lightbox-content{position:relative;width:100%;max-width:520px;max-height:92vh;background:var(--bg);border-radius:20px;overflow-y:auto;overflow-x:hidden;animation:lbScaleIn .28s cubic-bezier(.32,.72,0,1);scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+    .lightbox-close{position:fixed;top:1rem;right:1rem;z-index:210;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:var(--fg);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .lightbox-close:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25);transform:scale(1.08)}
+    .lightbox-iframe-wrap{width:100%;background:#fafafa}
+    .lightbox-iframe-wrap iframe{width:100%;height:580px;border:none;display:block}
+    .lightbox-info{padding:1.25rem 1.5rem 1.75rem}
+    .lightbox-info .ig-card-price{font-size:1.3rem;margin-bottom:.5rem}
+    .lightbox-info .ig-card-desc{color:var(--fg);opacity:.85;margin-bottom:1.25rem;font-size:.88rem;white-space:pre-line;line-height:1.6}
+    .lightbox-actions{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .lightbox-actions .btn-order-sm{flex:1;justify-content:center;padding:.7rem 1.4rem;font-size:.88rem}
+    .lightbox-actions a.ig-link{padding:.7rem 1.2rem;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-size:.82rem;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+    .lightbox-actions a.ig-link:hover{color:var(--accent);border-color:rgba(255,221,87,.2);background:var(--accent-dim)}
+    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes lbScaleIn{from{opacity:0;transform:scale(.94) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+    .btn-order-sm{padding:.55rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
+    .btn-order-sm:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
 
     .gb-wrap{max-width:640px;margin:0 auto;padding:0 2rem}
     .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
@@ -130,7 +170,7 @@
     .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes gridFadeIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
 
     .chat-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
     .chat-float-label{background:rgba(15,15,25,0.92);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:.55rem 1rem;font-size:.78rem;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px) scale(.95);transition:all .3s ease;pointer-events:none}
@@ -140,15 +180,35 @@
     .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}
     .chat-float-btn:active{transform:scale(.95)}
 
-    .sec-divider{max-width:640px;margin:0 auto;padding:0 2rem}
+    .sec-divider{max-width:960px;margin:0 auto;padding:0 2rem}
     .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 
+    /* ========== MOBILE ========== */
     @media(max-width:768px){
       .navbar{padding:.75rem 1rem}.menu-toggle{display:flex}
       .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
       .nav-links.active{display:flex}
       .dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}
-      .ig-card-embed{min-height:320px}
+
+      .grid-section{max-width:100%!important;padding-left:.6rem;padding-right:.6rem}
+      .ig-list{grid-template-columns:repeat(2,1fr);gap:.45rem}
+      .ig-card{border-radius:10px;animation-name:gridFadeIn!important}
+      .ig-card-embed-wrap{height:200px}
+      .ig-card-thumb-price{font-size:.7rem;bottom:7px;left:7px;right:7px}
+
+      .limited-banner{padding:1.75rem 1.25rem;border-radius:16px;margin-bottom:1.5rem}
+      .limited-tags span{font-size:.65rem;padding:.25rem .65rem}
+      .limited-sub{font-size:.8rem}
+
+      .lightbox{padding:0;align-items:flex-end}
+      .lightbox-content{max-width:100%;max-height:96vh;border-radius:18px 18px 0 0;animation:lbSlideUp .32s cubic-bezier(.32,.72,0,1)}
+      @keyframes lbSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+      .lightbox-close{top:.6rem;right:.6rem;width:36px;height:36px;font-size:.8rem}
+      .lightbox-iframe-wrap iframe{height:560px!important;min-height:560px!important}
+      .lightbox-info{padding:1rem 1.1rem 1.5rem}
+      .lightbox-info .ig-card-price{font-size:1.15rem}
+      .lightbox-info .ig-card-desc{font-size:.84rem;margin-bottom:1rem}
+
       .info-card{flex-direction:column;text-align:center}
       .chat-float{bottom:1rem;right:1rem}
       .chat-float-btn{width:50px;height:50px;border-radius:14px;font-size:1.4rem}
@@ -157,6 +217,11 @@
       .pagination{gap:.5rem}
       .page-btn{padding:.5rem .8rem;font-size:.75rem}
       .page-num{width:32px;height:32px;font-size:.75rem}
+    }
+    @media(min-width:500px) and (max-width:768px){
+      .ig-list{grid-template-columns:repeat(3,1fr);gap:.5rem}
+      .ig-card-embed-wrap{height:220px}
+      .ig-card-thumb-price{font-size:.72rem}
     }
   </style>
 </head>
@@ -182,7 +247,7 @@
 
   <section class="page-hero">
     <h1>Stock Mobil <span style="color:var(--accent)">Murah</span></h1>
-    <p>Klik Pesan → langsung chat WhatsApp admin. Sertakan link post yang mau dipesan.</p>
+    <p>Klik foto untuk memperbesar, lalu klik Pesan untuk langsung chat WhatsApp admin.</p>
   </section>
 
   <div class="info-bar">
@@ -190,12 +255,34 @@
       <div class="info-icon"><i class="fas fa-car"></i></div>
       <div class="info-text">
         <h3>Cara Pesan</h3>
-        <p>Klik <span>Pesan</span> → langsung redirect ke WhatsApp. Admin akan proses pesananmu.</p>
+        <p>Klik foto <span>→ perbesar</span> → klik <span>Pesan</span> → langsung redirect ke WhatsApp.</p>
       </div>
     </div>
   </div>
 
-  <section class="sec">
+  <!-- ========== LIMITED SECRET CAR ========== -->
+  <section class="sec grid-section" style="padding-bottom:1rem">
+    <div class="limited-banner reveal">
+      <div class="limited-badge"><i class="fas fa-star"></i> LIMITED EDITION</div>
+      <h2 class="limited-title">Secret Car <span class="accent">!!</span></h2>
+<div class="limited-price">Hanya <span>5rb</span> Rupiah !!</div>
+<p class="limited-sub"><strong>Free Request Spek</strong> (Tune Up, Glitch, FFA) &middot; <strong>Free Sirine / Police Sirine</strong></p>
+      <div class="limited-tags">
+        <span>Mercedes Benz W124</span>
+        <span>Toyota Celica GT Four ST205</span>
+        <span>Toyota Fortuner</span>
+        <span>Ford F650</span>
+        <span>Dil Secimi</span>
+        <span>Cikis</span>
+      </div>
+    </div>
+    <div class="ig-list" id="secretGrid"></div>
+  </section>
+
+  <div class="sec-divider"><hr></div>
+
+  <!-- ========== STOCK MOBIL BIASA ========== -->
+  <section class="sec grid-section" style="padding-top:2rem">
     <div class="sold-section" id="soldSection" style="display:none">
       <div class="sold-header">
         <div class="sold-header-left">
@@ -212,7 +299,7 @@
     <div class="sec-header reveal">
       <div class="sec-label" style="justify-content:center">Listing</div>
       <h2 class="sec-title">Mobil yang Tersedia</h2>
-      <p class="sec-desc" style="margin:0 auto">Embed langsung dari Instagram, keterangan lengkap per item.</p>
+      <p class="sec-desc" style="margin:0 auto">Klik foto untuk melihat detail & memesan.</p>
     </div>
 
     <div class="sort-tabs reveal" id="sortTabs">
@@ -265,217 +352,147 @@
     <a href="https://wa.me/62896871633314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <footer class="footer">&copy; 2024 Akino Store. All rights reserved.</footer>
+  <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
+
+  <!-- ========== LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-backdrop" id="lbBackdrop"></div>
+    <div class="lightbox-content" id="lbContent">
+      <div class="lightbox-iframe-wrap">
+        <iframe id="lbIframe" src="" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>
+      </div>
+      <div class="lightbox-info">
+        <div class="ig-card-price" id="lbPrice"></div>
+        <div class="ig-card-desc" id="lbDesc"></div>
+        <div class="lightbox-actions">
+          <a href="#" id="lbIgLink" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat di Instagram</a>
+          <button class="btn-order-sm" id="lbOrder"><i class="fab fa-whatsapp"></i> Pesan</button>
+        </div>
+      </div>
+    </div>
+    <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
+  </div>
 
   <!-- UI Helpers -->
   <script>
     function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function getCode(url){var m=url.match(/\/p\/([A-Za-z0-9_-]+)/);return m?m[1]:null}
     function getFirstLine(d){return d.split('\n')[0].trim()}
     window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
     document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
     var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}})},{threshold:.08});
     document.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el)});
+
+    /* ========== Lightbox ========== */
+    var lbEl=document.getElementById('lightbox'),lbIframe=document.getElementById('lbIframe'),
+        lbPrice=document.getElementById('lbPrice'),lbDesc=document.getElementById('lbDesc'),
+        lbIgLink=document.getElementById('lbIgLink'),lbOrder=document.getElementById('lbOrder'),
+        lbContent=document.getElementById('lbContent'),lbCurrentPost=null,lbOpts={},lbTouchStartY=0;
+
+    window.openLightbox=function(post,opts){
+      opts=opts||{};
+      var code=getCode(post.url);if(!code)return;
+      lbCurrentPost=post;lbOpts=opts;
+      lbIframe.src='https://www.instagram.com/p/'+code+'/embed/';
+      if(opts.hidePrice){lbPrice.style.display='none'}else{lbPrice.style.display='';lbPrice.textContent=post.editedPrice||post.price||''}
+      lbDesc.textContent=opts.nameAsDesc?(post.name||''):(post.desc||'');
+      lbDesc.style.display=lbDesc.textContent?'':'none';
+      lbIgLink.href=post.url||'#';
+      if(opts.isSecret){lbOrder.innerHTML='<i class="fab fa-whatsapp"></i> Tanya Admin';lbOrder.style.display=''}
+      else{lbOrder.innerHTML='<i class="fab fa-whatsapp"></i> Pesan';lbOrder.style.display=''}
+      lbEl.classList.add('active');document.body.style.overflow='hidden';lbContent.scrollTop=0;
+    };
+    window.closeLightbox=function(){
+      lbEl.classList.remove('active');setTimeout(function(){lbIframe.src=''},350);
+      document.body.style.overflow='';lbCurrentPost=null;lbOpts={};
+    };
+    document.getElementById('lbBackdrop').addEventListener('click',closeLightbox);
+    document.getElementById('lbClose').addEventListener('click',closeLightbox);
+    lbOrder.addEventListener('click',function(){
+      if(!lbCurrentPost)return;
+      var waMsg;
+      if(lbOpts.isSecret){waMsg="Halo admin, saya tertarik dengan Limited Secret Car:\n\n"+(lbCurrentPost.name||'')+"\n\nLink: "+lbCurrentPost.url}
+      else{var price=lbCurrentPost.editedPrice||lbCurrentPost.price;waMsg="Halo admin, saya mau pesan mobil:\n\n"+price+"\n"+lbCurrentPost.desc+"\n\nLink: "+lbCurrentPost.url}
+      window.open("https://wa.me/6289687163314?text="+encodeURIComponent(waMsg),'_blank');closeLightbox();
+    });
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lbEl.classList.contains('active'))closeLightbox()});
+    lbContent.addEventListener('touchstart',function(e){lbTouchStartY=e.touches[0].clientY},{passive:true});
+    lbContent.addEventListener('touchmove',function(e){if(e.touches[0].clientY-lbTouchStartY>100&&lbContent.scrollTop<=0)closeLightbox()},{passive:true});
   </script>
 
-  <!-- Firebase: Stock Mobil (REALTIME) -->
+  <!-- Firebase: Secret Cars -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,query,orderBy,onSnapshot}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
+    function escLocal(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
 
-    const app = initializeApp({ apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain:"akinowedding-73271.firebaseapp.com", projectId:"akinowedding-73271", storageBucket:"akinowedding-73271.appspot.com", messagingSenderId:"307666594440", appId:"1:307666594440:web:e7d3496744464f4c6d0d3d" });
-    const db = getFirestore(app);
-
-    var WA_NUMBER = "6289687163314";
-    var SOLD_HOURS = 24;
-    var PER_PAGE = 10;
-    var currentPage = 0;
-    var soldListOpen = true;
-    var timerInterval = null;
-    var currentSort = 'newest';
-    var POSTS = [];
-
-    function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
-    function escLocal(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-    function parsePrice(str) { var n = parseInt(str.replace(/[^0-9]/g, '')); return isNaN(n) ? 0 : n; }
-    function getEffectivePrice(post) { return post.editedPrice || post.price; }
-    function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000; return new Date(t).getTime(); }
-
-    window.setSort = function(sort) {
-      currentSort = sort;
-      document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.sort === sort); });
-      currentPage = 0;
-      renderAvailable();
-    };
-
-    window.toggleSoldList = function() {
-      soldListOpen = !soldListOpen;
-      var list = document.getElementById('soldList'), btn = document.getElementById('soldToggle'), txt = document.getElementById('soldToggleText');
-      if (soldListOpen) { list.classList.remove('collapsed'); btn.classList.add('open'); txt.textContent = 'Sembunyikan'; }
-      else { list.classList.add('collapsed'); btn.classList.remove('open'); txt.textContent = 'Tampilkan'; }
-    };
-
-    function getSortedAvail() {
-      var avail = POSTS.filter(function(p) { return p.status === 'available'; });
-      if (currentSort === 'newest') { avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt); }); }
-      else if (currentSort === 'price-asc') { avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) - parsePrice(getEffectivePrice(b)); }); }
-      else if (currentSort === 'price-desc') { avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) - parsePrice(getEffectivePrice(a)); }); }
-      return avail;
-    }
-
-    /* === Render daftar terjual === */
-    function renderSold() {
-      var now = Date.now();
-      var sold = POSTS.filter(function(p) { return p.status === 'sold'; });
-      var section = document.getElementById('soldSection'), list = document.getElementById('soldList'), countEl = document.getElementById('soldCount');
-      if (sold.length === 0) { section.style.display = 'none'; return; }
-      section.style.display = 'block';
-      countEl.textContent = sold.length + ' item';
-      var h = '';
-      sold.forEach(function(post) {
-        var rem = SOLD_HOURS * 3600000 - (now - toMs(post.soldAt));
-        if (rem <= 0) return;
-        var hrs = Math.floor(rem / 3600000), mins = Math.floor((rem % 3600000) / 60000), secs = Math.floor((rem % 60000) / 1000);
-        var price = getEffectivePrice(post);
-        h += '<div class="sold-card" id="sold-' + getCode(post.url) + '"><div class="sold-card-info">' +
-          '<a href="' + post.url + '" target="_blank" class="sc-name">' + escLocal(getFirstLine(post.desc)) + '</a>' +
-          '<div class="sc-price">' + escLocal(price) + '</div></div><div class="sold-card-right">' +
-          '<div class="sold-badge"><i class="fas fa-check"></i> Terjual</div>' +
-          '<div class="sold-timer" data-soldat="' + toMs(post.soldAt) + '">Auto-hapus ' + hrs + 'j ' + String(mins).padStart(2,'0') + 'm ' + String(secs).padStart(2,'0') + 's</div>' +
-          '</div></div>';
-      });
-      list.innerHTML = h;
-    }
-
-    function startTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(function() {
-        document.querySelectorAll('.sold-timer[data-soldat]').forEach(function(el) {
-          var soldAt = parseInt(el.dataset.soldat);
-          var rem = SOLD_HOURS * 3600000 - (Date.now() - soldAt);
-          if (rem <= 0) return;
-          el.textContent = 'Auto-hapus ' + Math.floor(rem / 3600000) + 'j ' + String(Math.floor((rem % 3600000) / 60000)).padStart(2,'0') + 'm ' + String(Math.floor((rem % 60000) / 1000)).padStart(2,'0') + 's';
-        });
-      }, 1000);
-    }
-
-    /* === Pagination === */
-    function buildPageNums(current, total) {
-      if (total <= 7) { var a = []; for (var i = 0; i < total; i++) a.push(i); return a; }
-      var pages = [0];
-      if (current > 2) pages.push('...');
-      var s = Math.max(1, current - 1), e = Math.min(total - 2, current + 1);
-      for (var i = s; i <= e; i++) pages.push(i);
-      if (current < total - 3) pages.push('...');
-      pages.push(total - 1);
-      return pages;
-    }
-
-    function renderAvailable() {
-      var avail = getSortedAvail(), grid = document.getElementById('igGrid');
-      grid.innerHTML = '';
-      var total = avail.length, totalPages = Math.ceil(total / PER_PAGE);
-      if (currentPage >= totalPages && totalPages > 0) currentPage = totalPages - 1;
-      if (currentPage < 0) currentPage = 0;
-      var start = currentPage * PER_PAGE, end = Math.min(start + PER_PAGE, total), showing = total > 0 ? end - start : 0;
-      document.getElementById('igCounter').innerHTML = total > 0
-        ? 'Menampilkan <strong>' + showing + '</strong> dari <strong>' + total + '</strong> mobil tersedia'
-        : '<strong>0</strong> mobil tersedia saat ini';
-      if (total === 0) {
-        grid.innerHTML = '<div style="text-align:center;padding:3rem 1rem;color:var(--muted)"><i class="fas fa-car-side" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:.3"></i>Semua stock mobil saat ini kosong.</div>';
-        document.getElementById('pagination').style.display = 'none'; return;
-      }
-      avail.slice(start, end).forEach(function(post, i) {
-        var code = getCode(post.url); if (!code) return;
-        var price = getEffectivePrice(post);
-        var card = document.createElement('div'); card.className = 'ig-card';
-        card.style.animation = 'fadeInUp .5s ease ' + (i * 0.06) + 's both';
-        card.innerHTML = '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code + '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-          '<div class="ig-card-body"><div class="ig-card-price">' + escLocal(price) + '</div><div class="ig-card-desc">' + escLocal(post.desc) + '</div>' +
-          '<div class="ig-card-footer"><a href="' + post.url + '" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat Post</a>' +
-          '<button class="btn-order-sm" data-docid="' + post.id + '"><i class="fab fa-whatsapp"></i> Pesan</button></div></div>';
-        card.querySelector('.btn-order-sm').addEventListener('click', function() { orderPost(post.id); });
+    onSnapshot(query(collection(db,"secretCars"),orderBy("addedAt","desc")),(snap)=>{
+      var cars=[];snap.forEach((d)=>cars.push({id:d.id,...d.data()}));
+      var grid=document.getElementById('secretGrid');grid.innerHTML='';
+      var avail=cars.filter(c=>c.status==='available');
+      if(!avail.length){grid.innerHTML='<div class="limited-empty"><i class="fas fa-lock"></i>Belum ada secret car tersedia.</div>';return}
+      avail.forEach((car,i)=>{
+        var code=getCode(car.url);if(!code)return;
+        var card=document.createElement('div');card.className='ig-card';
+        card.style.animation='gridFadeIn .4s ease '+(i*0.05)+'s both';
+        card.innerHTML='<div class="ig-card-embed-wrap">'+
+          '<iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>'+
+          '<div class="ig-card-thumb-overlay"></div>'+
+          '<div class="ig-card-thumb-price">'+escLocal(car.name)+'</div></div>';
+        var openFn=function(e){e.stopPropagation();window.openLightbox({url:car.url,name:car.name}, {hidePrice:true,isSecret:true,nameAsDesc:true})};
+        card.querySelector('.ig-card-thumb-overlay').addEventListener('click',openFn);
+        card.querySelector('.ig-card-thumb-price').addEventListener('click',openFn);
         grid.appendChild(card);
       });
-      var pag = document.getElementById('pagination');
-      if (totalPages > 1) {
-        pag.style.display = 'flex';
-        document.getElementById('prevBtn').disabled = currentPage === 0;
-        document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
-        var pageNums = buildPageNums(currentPage, totalPages), pnEl = document.getElementById('pageNumbers');
-        pnEl.innerHTML = '';
-        pageNums.forEach(function(p) {
-          if (p === '...') { var sp = document.createElement('span'); sp.className = 'page-ellipsis'; sp.textContent = '...'; pnEl.appendChild(sp); }
-          else { var btn = document.createElement('button'); btn.className = 'page-num' + (p === currentPage ? ' active' : ''); btn.textContent = p + 1; btn.onclick = (function(pg){return function(){goToPage(pg)}})(p); pnEl.appendChild(btn); }
-        });
-      } else { pag.style.display = 'none'; }
-    }
+    },(err)=>{console.error("Secret cars error:",err)});
+  </script>
 
-    window.prevPage = function() { if (currentPage > 0) { currentPage--; renderAvailable(); scrollToGrid(); } };
-    window.nextPage = function() { var tp = Math.ceil(getSortedAvail().length / PER_PAGE); if (currentPage < tp - 1) { currentPage++; renderAvailable(); scrollToGrid(); } };
-    function goToPage(pg) { currentPage = pg; renderAvailable(); scrollToGrid(); }
-    function scrollToGrid() { var g = document.getElementById('igGrid'); window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
+  <!-- Firebase: Stock Mobil -->
+  <script type="module">
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,query,orderBy,onSnapshot}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
+    var WA_NUMBER="6289687163314",SOLD_HOURS=24,PER_PAGE=10,currentPage=0,soldListOpen=true,timerInterval=null,currentSort='newest',POSTS=[];
+    function escLocal(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function parsePrice(str){var n=parseInt(str.replace(/[^0-9]/g,''));return isNaN(n)?0:n}
+    function getEffectivePrice(post){return post.editedPrice||post.price}
+    function toMs(t){if(!t)return 0;if(typeof t==='number')return t;if(t.seconds)return t.seconds*1000;return new Date(t).getTime()}
 
-    function orderPost(docId) {
-      var post = POSTS.find(function(p) { return p.id === docId; });
-      if (!post) return;
-      var price = getEffectivePrice(post);
-      var waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + post.desc + "\n\nLink: " + post.url;
-      window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waMsg), '_blank');
-    }
+    window.setSort=function(sort){currentSort=sort;document.querySelectorAll('.sort-btn').forEach(function(b){b.classList.toggle('active',b.dataset.sort===sort)});currentPage=0;renderAvailable()};
+    window.toggleSoldList=function(){soldListOpen=!soldListOpen;var list=document.getElementById('soldList'),btn=document.getElementById('soldToggle'),txt=document.getElementById('soldToggleText');if(soldListOpen){list.classList.remove('collapsed');btn.classList.add('open');txt.textContent='Sembunyikan'}else{list.classList.add('collapsed');btn.classList.remove('open');txt.textContent='Tampilkan'}};
+    function getSortedAvail(){var avail=POSTS.filter(function(p){return p.status==='available'});if(currentSort==='newest')avail.sort(function(a,b){return toMs(b.addedAt)-toMs(a.addedAt)});else if(currentSort==='price-asc')avail.sort(function(a,b){return parsePrice(getEffectivePrice(a))-parsePrice(getEffectivePrice(b))});else if(currentSort==='price-desc')avail.sort(function(a,b){return parsePrice(getEffectivePrice(b))-parsePrice(getEffectivePrice(a))});return avail}
 
-    /* === Firebase Real-time Listener === */
-    onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
-      POSTS = [];
-      snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
-      renderSold();
-      renderAvailable();
-      startTimer();
-    }, (err) => {
-      console.error("Stock listener error:", err);
-    });
+    function renderSold(){var now=Date.now(),sold=POSTS.filter(function(p){return p.status==='sold'});var section=document.getElementById('soldSection'),list=document.getElementById('soldList'),countEl=document.getElementById('soldCount');if(!sold.length){section.style.display='none';return}section.style.display='block';countEl.textContent=sold.length+' item';var h='';sold.forEach(function(post){var rem=SOLD_HOURS*3600000-(now-toMs(post.soldAt));if(rem<=0)return;var hrs=Math.floor(rem/3600000),mins=Math.floor((rem%3600000)/60000),secs=Math.floor((rem%60000)/1000);var price=getEffectivePrice(post);h+='<div class="sold-card" id="sold-'+getCode(post.url)+'"><div class="sold-card-info"><a href="'+post.url+'" target="_blank" class="sc-name">'+escLocal(getFirstLine(post.desc))+'</a><div class="sc-price">'+escLocal(price)+'</div></div><div class="sold-card-right"><div class="sold-badge"><i class="fas fa-check"></i> Terjual</div><div class="sold-timer" data-soldat="'+toMs(post.soldAt)+'">Auto-hapus '+hrs+'j '+String(mins).padStart(2,'0')+'m '+String(secs).padStart(2,'0')+'s</div></div></div>'});list.innerHTML=h}
+    function startTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(function(){document.querySelectorAll('.sold-timer[data-soldat]').forEach(function(el){var soldAt=parseInt(el.dataset.soldat),rem=SOLD_HOURS*3600000-(Date.now()-soldAt);if(rem<=0)return;el.textContent='Auto-hapus '+Math.floor(rem/3600000)+'j '+String(Math.floor((rem%3600000)/60000)).padStart(2,'0')+'m '+String(Math.floor((rem%60000)/1000)).padStart(2,'0')+'s'})},1000)}
+
+    function buildPageNums(current,total){if(total<=7){var a=[];for(var i=0;i<total;i++)a.push(i);return a}var pages=[0];if(current>2)pages.push('...');var s=Math.max(1,current-1),e=Math.min(total-2,current+1);for(var i=s;i<=e;i++)pages.push(i);if(current<total-3)pages.push('...');pages.push(total-1);return pages}
+
+    function renderAvailable(){var avail=getSortedAvail(),grid=document.getElementById('igGrid');grid.innerHTML='';var total=avail.length,totalPages=Math.ceil(total/PER_PAGE);if(currentPage>=totalPages&&totalPages>0)currentPage=totalPages-1;if(currentPage<0)currentPage=0;var start=currentPage*PER_PAGE,end=Math.min(start+PER_PAGE,total),showing=total>0?end-start:0;document.getElementById('igCounter').innerHTML=total>0?'Menampilkan <strong>'+showing+'</strong> dari <strong>'+total+'</strong> mobil tersedia':'<strong>0</strong> mobil tersedia saat ini';if(!total){grid.innerHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:.3"></i>Semua stock mobil saat ini kosong.</div>';document.getElementById('pagination').style.display='none';return}
+    avail.slice(start,end).forEach(function(post,i){var code=getCode(post.url);if(!code)return;var price=getEffectivePrice(post);var card=document.createElement('div');card.className='ig-card';card.style.animation='gridFadeIn .4s ease '+(i*0.04)+'s both';card.innerHTML='<div class="ig-card-embed-wrap"><iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="ig-card-thumb-overlay"></div><div class="ig-card-thumb-price">'+escLocal(price)+'</div></div>';card.querySelector('.ig-card-thumb-overlay').addEventListener('click',function(e){e.stopPropagation();window.openLightbox(post)});card.querySelector('.ig-card-thumb-price').addEventListener('click',function(e){e.stopPropagation();window.openLightbox(post)});grid.appendChild(card)});
+    var pag=document.getElementById('pagination');if(totalPages>1){pag.style.display='flex';document.getElementById('prevBtn').disabled=currentPage===0;document.getElementById('nextBtn').disabled=currentPage===totalPages-1;var pageNums=buildPageNums(currentPage,totalPages),pnEl=document.getElementById('pageNumbers');pnEl.innerHTML='';pageNums.forEach(function(p){if(p==='...'){var sp=document.createElement('span');sp.className='page-ellipsis';sp.textContent='...';pnEl.appendChild(sp)}else{var btn=document.createElement('button');btn.className='page-num'+(p===currentPage?' active':'');btn.textContent=p+1;btn.onclick=(function(pg){return function(){goToPage(pg)}})(p);pnEl.appendChild(btn)}})}else{pag.style.display='none'}}
+
+    window.prevPage=function(){if(currentPage>0){currentPage--;renderAvailable();scrollToGrid()}};
+    window.nextPage=function(){var tp=Math.ceil(getSortedAvail().length/PER_PAGE);if(currentPage<tp-1){currentPage++;renderAvailable();scrollToGrid()}};
+    function goToPage(pg){currentPage=pg;renderAvailable();scrollToGrid()}
+    function scrollToGrid(){var g=document.getElementById('igGrid');window.scrollTo({top:g.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'})}
+
+    onSnapshot(query(collection(db,"carStock"),orderBy("addedAt","desc")),(snap)=>{POSTS=[];snap.forEach((d)=>POSTS.push({id:d.id,...d.data()}));renderSold();renderAvailable();startTimer()},(err)=>{console.error("Stock listener error:",err)});
   </script>
 
   <!-- Firebase: Komentar -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-    const app = initializeApp({ apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain:"akinowedding-73271.firebaseapp.com", projectId:"akinowedding-73271", storageBucket:"akinowedding-73271.appspot.com", messagingSenderId:"307666594440", appId:"1:307666594440:web:e7d3496744464f4c6d0d3d" });
-    const db = getFirestore(app);
-    const gbForm = document.getElementById('messageForm'), gbMsgs = document.getElementById('gbMsgs');
-    let lastVisible = null, loading = false;
-
-    gbForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('gb-name').value.trim(), message = document.getElementById('gb-msg').value.trim();
-      if (name && message) { await addDoc(collection(db, "messages"), { name, message, timestamp: serverTimestamp() }); gbForm.reset(); }
-    });
-
-    function loadMessages() {
-      onSnapshot(query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(10)), (snap) => {
-        gbMsgs.innerHTML = ""; snap.forEach((d) => renderMsg(d.data())); gbMsgs.scrollTop = 0;
-        if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
-      });
-    }
-
-    gbMsgs.addEventListener("scroll", async () => {
-      if (loading) return;
-      if (gbMsgs.scrollTop + gbMsgs.clientHeight >= gbMsgs.scrollHeight - 10) {
-        loading = true;
-        if (lastVisible) {
-          const snap = await getDocs(query(collection(db, "messages"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(10)));
-          snap.forEach((d) => renderMsg(d.data()));
-          if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
-        }
-        loading = false;
-      }
-    });
-
-    function renderMsg(data) {
-      const div = document.createElement("div"); div.className = "gb-msg";
-      div.innerHTML = "<strong>" + data.name + "</strong><p>" + data.message + "</p><small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
-      gbMsgs.appendChild(div);
-    }
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,addDoc,query,orderBy,limit,serverTimestamp,onSnapshot,startAfter,getDocs}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
+    const gbForm=document.getElementById('messageForm'),gbMsgs=document.getElementById('gbMsgs');let lastVisible=null,loading=false;
+    gbForm.addEventListener('submit',async(e)=>{e.preventDefault();const name=document.getElementById('gb-name').value.trim(),message=document.getElementById('gb-msg').value.trim();if(name&&message){await addDoc(collection(db,"messages"),{name,message,timestamp:serverTimestamp()});gbForm.reset()}});
+    function loadMessages(){onSnapshot(query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10)),(snap)=>{gbMsgs.innerHTML="";snap.forEach((d)=>renderMsg(d.data()));gbMsgs.scrollTop=0;if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1]})}
+    gbMsgs.addEventListener("scroll",async()=>{if(loading)return;if(gbMsgs.scrollTop+gbMsgs.clientHeight>=gbMsgs.scrollHeight-10){loading=true;if(lastVisible){const snap=await getDocs(query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10)));snap.forEach((d)=>renderMsg(d.data()));if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1]}loading=false}});
+    function renderMsg(data){const div=document.createElement("div");div.className="gb-msg";div.innerHTML="<strong>"+data.name+"</strong><p>"+data.message+"</p><small>"+(data.timestamp?new Date(data.timestamp.seconds*1000).toLocaleString():"")+"</small>";gbMsgs.appendChild(div)}
     loadMessages();
   </script>
 
