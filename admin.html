@@ -82,31 +82,50 @@
     .edit-card .ea .btn-cancel{background:var(--bg-card);color:var(--muted);border:1px solid var(--border)}
     .edit-card .ea .btn-cancel:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
 
-    .item{background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--rs);padding:.9rem 1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.85rem;transition:border-color .2s;flex-wrap:wrap}
+    .item{background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--rs);padding:.75rem .85rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.75rem;transition:border-color .2s;animation:fadeUp .3s ease}
     .item:hover{border-color:rgba(255,255,255,.1)}
-    .item-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);font-size:.95rem}
-    .item-icon.sold{background:rgba(248,113,113,.1);color:#f87171}
-    .item-icon.deleted{background:rgba(255,255,255,.03);color:var(--muted)}
-    .item-icon.secret{background:rgba(168,85,247,.12);color:#a855f7}
-    .item-info{flex:1;min-width:150px}
-    .item-info .ii-price{font-family:var(--fd);font-size:.88rem;font-weight:700;color:var(--accent)}
+
+    .item-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--bg-card);border:1px solid var(--border);position:relative;text-decoration:none;transition:border-color .25s,box-shadow .25s;display:block}
+    .item-thumb.link{cursor:pointer}
+    .item-thumb.link:hover{border-color:rgba(255,221,87,.4);box-shadow:0 0 16px rgba(255,221,87,.08)}
+    .item-thumb iframe{position:absolute;top:0;left:0;width:540px;height:640px;border:none;transform:scale(0.1333);transform-origin:top left;pointer-events:none}
+    .item-thumb .thumb-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;opacity:.15}
+    .item.sold .item-thumb{border-color:rgba(248,113,113,.4)}
+    .item.sold .item-thumb::after{content:'SOLD';position:absolute;inset:0;background:rgba(220,38,38,.75);color:#fff;font-size:.42rem;font-weight:700;font-family:var(--fd);display:flex;align-items:center;justify-content:center;letter-spacing:2px;border-radius:9px;z-index:2;backdrop-filter:blur(2px)}
+    .item[style*="opacity"] .item-thumb{filter:grayscale(.7);pointer-events:none}
+    .item-thumb.sc-b{border-color:rgba(168,85,247,.25)}
+
+    .ii-link{font-size:.6rem;margin-top:.1rem;display:flex;align-items:center;gap:.2rem;opacity:.4;transition:opacity .2s;overflow:hidden}
+    .ii-link:hover{opacity:1}
+    .ii-link a{color:var(--accent);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+    .ii-link a:hover{text-decoration:underline}
+    .ii-link i{font-size:.5rem;flex-shrink:0}
+
+    .item-info{flex:1;min-width:0}
+    .item-info .ii-price{font-family:var(--fd);font-size:.85rem;font-weight:700;color:var(--accent)}
     .item-info.sold .ii-price{color:#f87171}
     .item-info.deleted .ii-price{color:var(--muted);text-decoration:line-through}
-    .item-info .ii-desc{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.1rem;max-width:300px}
-    .item-info .ii-status{font-size:.65rem;font-weight:600;margin-top:.15rem;display:flex;flex-direction:column;gap:.1rem}
-    .ii-status span{display:inline-flex;align-items:center;gap:.25rem;width:fit-content}
+    .item-info .ii-desc{font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.05rem;max-width:260px}
+    .item-info .ii-status{font-size:.63rem;font-weight:600;margin-top:.1rem;display:flex;flex-direction:column;gap:.05rem}
+    .ii-status span{display:inline-flex;align-items:center;gap:.2rem;width:fit-content}
     .ii-status .edited{color:var(--accent)}
     .ii-status .timer{color:#f87171;font-family:var(--fd)}
-    .item-actions{display:flex;gap:.35rem;flex-shrink:0;flex-wrap:wrap}
+    .item-actions{display:flex;gap:.3rem;flex-shrink:0;flex-wrap:wrap}
 
-    .btn-sm{padding:.35rem .75rem;border-radius:7px;font-family:var(--fb);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.25rem;border:1px solid transparent}
-    .btn-sm i{font-size:.6rem}
+    .btn-sm{padding:.3rem .65rem;border-radius:7px;font-family:var(--fb);font-size:.65rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:.2rem;border:1px solid transparent}
+    .btn-sm i{font-size:.55rem}
     .btn-edit{background:rgba(255,221,87,.1);color:var(--accent);border-color:rgba(255,221,87,.2)}.btn-edit:hover{background:var(--accent);color:#0a0a0f}
     .btn-sold{background:rgba(248,113,113,.1);color:#f87171;border-color:rgba(248,113,113,.2)}.btn-sold:hover{background:#f87171;color:#fff}
     .btn-unsold{background:rgba(74,222,128,.1);color:#4ade80;border-color:rgba(74,222,128,.2)}.btn-unsold:hover{background:#4ade80;color:#0a0a0f}
     .btn-del{background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.15)}.btn-del:hover{background:#ef4444;color:#fff}
     .btn-restore{background:rgba(96,165,250,.1);color:#60a5fa;border-color:rgba(96,165,250,.2)}.btn-restore:hover{background:#60a5fa;color:#fff}
     .btn-update{background:var(--accent);color:#0a0a0f;border:none}.btn-update:hover{box-shadow:0 2px 10px rgba(255,221,87,.25)}
+
+    .pagination{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:1rem 0 .25rem}
+    .pg-btn{padding:.5rem 1rem;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--fb);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.35rem;min-height:36px}
+    .pg-btn:hover:not(:disabled){color:var(--fg);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+    .pg-btn:disabled{opacity:.2;cursor:not-allowed}
+    .pg-info{font-size:.75rem;color:var(--muted);font-family:var(--fd);min-width:70px;text-align:center}
 
     .empty{text-align:center;padding:2rem;color:var(--muted);font-size:.82rem}
     .empty i{font-size:1.8rem;display:block;margin-bottom:.6rem;opacity:.35}
@@ -157,18 +176,37 @@
       .tab-panel{padding:1rem}
       .topbar{padding:.6rem 1rem}.topbar-inner{justify-content:center}
       .topbar-actions{justify-content:center}
-      .item{flex-direction:column;text-align:center;gap:.5rem}
-      .item-info .ii-desc{max-width:100%}
-      .item-actions{justify-content:center}
+      .item{flex-direction:row !important;text-align:left !important;gap:.6rem;padding:.6rem .7rem}
+      .item-thumb{width:56px;height:56px;border-radius:8px}
+      .item-thumb iframe{transform:scale(0.1037)}
+      .item-info .ii-desc{max-width:120px;font-size:.65rem}
+      .item-info .ii-link a{max-width:120px;font-size:.55rem}
+      .item-actions{gap:.25rem}
+      .btn-sm{padding:.25rem .5rem;font-size:.6rem}.btn-sm i{font-size:.5rem}
+      .item-info .ii-price{font-size:.78rem}
+      .item-info .ii-status{font-size:.58rem}
+      .pagination{padding:.85rem 0 .15rem;gap:.6rem}
+      .pg-btn{padding:.55rem 1rem;font-size:.8rem;min-height:40px;border-radius:10px}
+      .pg-info{font-size:.8rem}
       .oi-top{flex-direction:column}.oi-actions{width:100%;flex-wrap:wrap}
       .oi-actions select{flex:1;min-width:0}
       .stats{grid-template-columns:repeat(2,1fr)}
+      .order-item{padding:.8rem}
+      .oi-name{font-size:.78rem}
+      .oi-meta{font-size:.65rem;gap:.5rem}
+      .oi-customer{font-size:.63rem;gap:.5rem}
+    }
+    @media(max-width:400px){
+      .item-thumb{width:48px;height:48px}
+      .item-thumb iframe{transform:scale(0.0889)}
+      .item-info .ii-desc{max-width:90px}
+      .item-info .ii-link a{max-width:90px}
+      .btn-sm{padding:.22rem .4rem;font-size:.58rem}
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
   <div class="login-wrap" id="loginWrap">
     <div class="login-card">
       <div class="lc-icon"><i class="fas fa-shield-halved"></i></div>
@@ -180,7 +218,6 @@
     </div>
   </div>
 
-  <!-- DASHBOARD -->
   <div class="dash" id="dash">
     <div class="topbar">
       <div class="topbar-inner">
@@ -199,7 +236,6 @@
       <button class="tab-btn" onclick="switchTab('sosmed')"><i class="fas fa-share-nodes"></i> Sosmed</button>
     </div>
 
-    <!-- ═══════════ TAB: STOCK MOBIL ═══════════ -->
     <div class="tab-panel active" id="tabStock">
       <div class="stats" id="stockStats"></div>
       <div class="form-card">
@@ -219,6 +255,7 @@
       </div>
       <div class="sec-title"><i class="fas fa-check-circle"></i> Tersedia <span class="count" id="cntAvail">0</span></div>
       <div id="listAvail"></div>
+      <div id="pagAvail"></div>
       <hr class="divider">
       <div class="sec-title" style="color:#f87171"><i class="fas fa-tag"></i> Terjual <span class="count" id="cntSold" style="background:rgba(248,113,113,.12);color:#f87171">0</span></div>
       <div id="listSold"></div>
@@ -227,7 +264,6 @@
       <div id="listDel"></div>
     </div>
 
-    <!-- ═══════════ TAB: LIMITED SECRET CAR ═══════════ -->
     <div class="tab-panel" id="tabLimited">
       <div class="stats" id="secretStats"></div>
       <div class="form-card">
@@ -246,12 +282,12 @@
       </div>
       <div class="sec-title"><i class="fas fa-star" style="color:#a855f7"></i> Tersedia <span class="count" id="scCntAvail" style="background:rgba(168,85,247,.12);color:#a855f7">0</span></div>
       <div id="scListAvail"></div>
+      <div id="pagScAvail"></div>
       <hr class="divider">
       <div class="sec-title" style="color:var(--muted)"><i class="fas fa-trash"></i> Dihapus <span class="count" id="scCntDel" style="background:rgba(255,255,255,.05);color:var(--muted)">0</span></div>
       <div id="scListDel"></div>
     </div>
 
-    <!-- ═══════════ TAB: SOSIAL MEDIA ═══════════ -->
     <div class="tab-panel" id="tabSosmed">
       <div class="stats" id="sosmedStats"></div>
       <div class="filter-row" id="sosmedFilter"></div>
@@ -261,522 +297,262 @@
 
   <div class="toast-wrap" id="toasts"></div>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- SCRIPT: Login, UI, Toast, Sosmed Render                -->
-  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SCRIPT: Login, UI, Toast, Thumbnail, Sosmed Render Functions -->
+  <!-- ═══════════════════════════════════════════════════ -->
   <script>
-    var PASS = 'bajingan011';
-    var sosmedFilter = 'all';
-    var sosmedOrders = [];
+    var PASS='bajingan011';
+    var sosmedFilter='all';
+    var sosmedOrders=[];
 
-    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-    function fRp(n) { return 'Rp ' + Math.ceil(n).toLocaleString('id-ID'); }
+    function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
+    var STATUS_LABEL={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
 
-    var STATUS_LABEL = {
-      pending: 'Menunggu Verifikasi',
-      paid: 'Pembayaran Dikonfirmasi',
-      processing: 'Sedang Diproses',
-      completed: 'Selesai',
-      cancelled: 'Dibatalkan'
-    };
-
-    function toast(msg, type) {
-      var ic = { ok: 'fa-check-circle', err: 'fa-exclamation-circle', info: 'fa-info-circle' };
-      var t = document.createElement('div');
-      t.className = 'toast ' + (type || 'info');
-      t.innerHTML = '<i class="fas ' + ic[type || 'info'] + '"></i><span>' + msg + '</span>';
+    function toast(msg,type){
+      var ic={ok:'fa-check-circle',err:'fa-exclamation-circle',info:'fa-info-circle'};
+      var t=document.createElement('div');t.className='toast '+(type||'info');
+      t.innerHTML='<i class="fas '+ic[type||'info']+'"></i><span>'+msg+'</span>';
       document.getElementById('toasts').appendChild(t);
-      setTimeout(function() { t.classList.add('out'); setTimeout(function() { t.remove(); }, 300); }, 3000);
+      setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove()},300)},3000);
     }
 
-    function doLogin() {
-      if (document.getElementById('passInput').value.trim() === PASS) {
-        document.getElementById('loginWrap').style.display = 'none';
+    function doLogin(){
+      if(document.getElementById('passInput').value.trim()===PASS){
+        document.getElementById('loginWrap').style.display='none';
         document.getElementById('dash').classList.add('active');
-        if (window.initStock) window.initStock();
-      } else {
-        document.getElementById('loginErr').textContent = 'Password salah!';
-      }
+        if(window.initStock)window.initStock();
+      }else{document.getElementById('loginErr').textContent='Password salah!';}
     }
-
-    function doLogout() {
+    function doLogout(){
       document.getElementById('dash').classList.remove('active');
-      document.getElementById('loginWrap').style.display = '';
-      document.getElementById('passInput').value = '';
-      document.getElementById('loginErr').textContent = '';
-      if (window.destroyStockTimer) window.destroyStockTimer();
+      document.getElementById('loginWrap').style.display='';
+      document.getElementById('passInput').value='';
+      document.getElementById('loginErr').textContent='';
+      if(window.destroyStockTimer)window.destroyStockTimer();
+    }
+    function switchTab(tab){
+      var idx=tab==='stock'?0:tab==='limited'?1:2;
+      document.querySelectorAll('.tab-btn').forEach(function(b,i){b.classList.toggle('active',i===idx)});
+      document.getElementById('tabStock').classList.toggle('active',tab==='stock');
+      document.getElementById('tabLimited').classList.toggle('active',tab==='limited');
+      document.getElementById('tabSosmed').classList.toggle('active',tab==='sosmed');
     }
 
-    function switchTab(tab) {
-      var idx = tab === 'stock' ? 0 : tab === 'limited' ? 1 : 2;
-      document.querySelectorAll('.tab-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
-      document.getElementById('tabStock').classList.toggle('active', tab === 'stock');
-      document.getElementById('tabLimited').classList.toggle('active', tab === 'limited');
-      document.getElementById('tabSosmed').classList.toggle('active', tab === 'sosmed');
-    }
-
-    /* ═══════════════════════════════════════════
-       SOSIAL MEDIA — RENDER
-    ═══════════════════════════════════════════ */
-    window.renderSosmedOrders = function(orders) {
-      sosmedOrders = orders || [];
-      renderSosmedStats();
-      renderSosmedFilter();
-      renderSosmedList();
+    function isMobile(){return window.innerWidth<=768}
+    window.getIgCode=function(u){if(!u)return null;var m=u.match(/\/p\/([A-Za-z0-9_-]+)/);return m?m[1]:null};
+    window.shortIgUrl=function(u){if(!u)return '';return u.replace(/^https?:\/\/(www\.)?/i,'').replace(/\/$/,'')};
+    window.getThumbHtml=function(code){
+      if(!code)return '<i class="fas fa-image thumb-fb"></i>';
+      return '<iframe src="https://www.instagram.com/p/'+code+'/embed/" allowtransparency="true" scrolling="no" frameborder="0"></iframe>';
     };
 
-    function renderSosmedStats() {
-      var o = sosmedOrders, cnt = { pending: 0, paid: 0, processing: 0, completed: 0, cancelled: 0 };
-      o.forEach(function(x) { if (cnt[x.status] !== undefined) cnt[x.status]++; });
-      document.getElementById('sosmedStats').innerHTML =
-        '<div class="stat-card"><div class="sv yellow">' + o.length + '</div><div class="sl">Total</div></div>' +
-        '<div class="stat-card"><div class="sv yellow">' + cnt.pending + '</div><div class="sl">Pending</div></div>' +
-        '<div class="stat-card"><div class="sv blue">' + cnt.paid + '</div><div class="sl">Dibayar</div></div>' +
-        '<div class="stat-card"><div class="sv orange">' + cnt.processing + '</div><div class="sl">Diproses</div></div>' +
-        '<div class="stat-card"><div class="sv green">' + cnt.completed + '</div><div class="sl">Selesai</div></div>' +
-        '<div class="stat-card"><div class="sv red">' + cnt.cancelled + '</div><div class="sl">Dibatalkan</div></div>';
+    window.renderSosmedOrders=function(orders){sosmedOrders=orders||[];renderSosmedStats();renderSosmedFilter();renderSosmedList()};
+    function renderSosmedStats(){
+      var o=sosmedOrders,cnt={pending:0,paid:0,processing:0,completed:0,cancelled:0};
+      o.forEach(function(x){if(cnt[x.status]!==undefined)cnt[x.status]++});
+      document.getElementById('sosmedStats').innerHTML=
+        '<div class="stat-card"><div class="sv yellow">'+o.length+'</div><div class="sl">Total Pesanan</div></div>'+
+        '<div class="stat-card"><div class="sv yellow">'+cnt.pending+'</div><div class="sl">Pending</div></div>'+
+        '<div class="stat-card"><div class="sv blue">'+cnt.paid+'</div><div class="sl">Dibayar</div></div>'+
+        '<div class="stat-card"><div class="sv orange">'+cnt.processing+'</div><div class="sl">Diproses</div></div>'+
+        '<div class="stat-card"><div class="sv green">'+cnt.completed+'</div><div class="sl">Selesai</div></div>'+
+        '<div class="stat-card"><div class="sv red">'+cnt.cancelled+'</div><div class="sl">Dibatalkan</div></div>';
     }
-
-    function renderSosmedFilter() {
-      var statuses = ['all', 'pending', 'paid', 'processing', 'completed', 'cancelled'];
-      var labels = { all: 'Semua', pending: 'Pending', paid: 'Dibayar', processing: 'Diproses', completed: 'Selesai', cancelled: 'Dibatalkan' };
-      var cnt = { all: sosmedOrders.length };
-      sosmedOrders.forEach(function(x) { cnt[x.status] = (cnt[x.status] || 0) + 1; });
-      var h = '';
-      statuses.forEach(function(s) {
-        h += '<button class="filter-btn' + (sosmedFilter === s ? ' active' : '') + '" onclick="setSosmedFilter(\'' + s + '\')">' + labels[s] + ' (' + cnt[s] + ')</button>';
-      });
-      document.getElementById('sosmedFilter').innerHTML = h;
+    function renderSosmedFilter(){
+      var statuses=['all','pending','paid','processing','completed','cancelled'];
+      var labels={all:'Semua',pending:'Pending',paid:'Dibayar',processing:'Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
+      var cnt={all:sosmedOrders.length};sosmedOrders.forEach(function(x){cnt[x.status]=(cnt[x.status]||0)+1});
+      var h='';statuses.forEach(function(s){h+='<button class="filter-btn'+(sosmedFilter===s?' active':'')+'" onclick="setSosmedFilter(\''+s+'\')">'+labels[s]+' ('+cnt[s]+')</button>'});
+      document.getElementById('sosmedFilter').innerHTML=h;
     }
-
-    window.setSosmedFilter = function(s) { sosmedFilter = s; renderSosmedFilter(); renderSosmedList(); };
-
-    function renderSosmedList() {
-      var filtered = sosmedFilter === 'all' ? sosmedOrders : sosmedOrders.filter(function(x) { return x.status === sosmedFilter; });
-      var el = document.getElementById('sosmedList');
-      if (!filtered.length) { el.innerHTML = '<div class="empty"><i class="fas fa-inbox"></i>Tidak ada pesanan' + (sosmedFilter !== 'all' ? ' dengan status ini' : '') + '.</div>'; return; }
-      var optHtml = function(cur) {
-        return ['pending', 'paid', 'processing', 'completed', 'cancelled'].map(function(s) {
-          return '<option value="' + s + '"' + (s === cur ? ' selected' : '') + '>' + STATUS_LABEL[s] + '</option>';
-        }).join('');
-      };
-      var h = '';
-      filtered.forEach(function(o) {
-        var docId = o.id, orderId = o.orderId || '-';
-        var timeStr = o.createdAt ? new Date(o.createdAt.seconds * 1000).toLocaleString('id-ID') : '-';
+    window.setSosmedFilter=function(s){sosmedFilter=s;renderSosmedFilter();renderSosmedList()};
+    function renderSosmedList(){
+      var filtered=sosmedFilter==='all'?sosmedOrders:sosmedOrders.filter(function(x){return x.status===sosmedFilter});
+      var el=document.getElementById('sosmedList');
+      if(!filtered.length){el.innerHTML='<div class="empty"><i class="fas fa-inbox"></i>Tidak ada pesanan'+(sosmedFilter!=='all'?' dengan status ini':'')+'.</div>';return}
+      var optH=function(cur){return['pending','paid','processing','completed','cancelled'].map(function(s){return'<option value="'+s+'"'+(s===cur?' selected':'')+'>'+STATUS_LABEL[s]+'</option>'}).join('')};
+      var h='';
+      filtered.forEach(function(o){
+        var docId=o.id,orderId=o.orderId||'-';
+        var timeStr=o.createdAt?new Date(o.createdAt.seconds*1000).toLocaleString('id-ID'):'-';
         var linkHtml;
-        if (o.link) {
-          var display = o.link;
-          if (display.length > 55) display = display.substring(0, 55) + '...';
-          linkHtml = '<span style="width:100%"><i class="fas fa-link" style="color:var(--accent)"></i> <a href="' + esc(o.link) + '" target="_blank" style="color:var(--accent);text-decoration:none;word-break:break-all" title="' + esc(o.link) + '">' + esc(display) + '</a></span>';
-        } else {
-          linkHtml = '<span style="width:100%;opacity:.35"><i class="fas fa-link-slash"></i> Tidak ada link target</span>';
-        }
-        h += '<div class="order-item">' +
-          '<div class="oi-top"><div class="oi-info">' +
-          '<div class="oi-id">' + esc(orderId) + ' <span class="badge ' + o.status + '" style="margin-left:.4rem">' + (STATUS_LABEL[o.status] || o.status) + '</span></div>' +
-          '<div class="oi-name">' + esc(o.serviceName || o.service || '-') + '</div>' +
-          '<div class="oi-meta">' +
-          '<span><i class="fas fa-hashtag"></i> ' + (o.quantity || 0).toLocaleString('id-ID') + '</span>' +
-          '<span><i class="fas fa-money-bill"></i> ' + fRp(o.total || 0) + '</span>' +
-          '<span><i class="fas fa-clock"></i> ' + timeStr + '</span>' +
-          '</div></div>' +
-          '<div class="oi-actions">' +
-          '<select data-docid="' + esc(docId) + '">' + optHtml(o.status) + '</select>' +
-          '<button class="btn-sm btn-update" data-docid="' + esc(docId) + '" onclick="updateOrderStatus(this)"><i class="fas fa-check"></i> Update</button>' +
-          '</div></div>' +
-          '<div class="oi-customer">' +
-          '<span><i class="fas fa-user"></i> ' + (o.customerName || '-') + '</span>' +
-          '<span><i class="fab fa-whatsapp"></i> ' + (o.customerWA || '-') + '</span>' +
-          (o.paymentMethod ? '<span><i class="fas fa-wallet"></i> ' + (o.paymentMethod || '').toUpperCase() + '</span>' : '') +
-          linkHtml +
-          '</div></div>';
-      });
-      el.innerHTML = h;
+        if(o.link){var display=o.link.length>55?o.link.substring(0,55)+'...':o.link;linkHtml='<span style="width:100%"><i class="fas fa-link" style="color:var(--accent)"></i> <a href="'+esc(o.link)+'" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;word-break:break-all" title="'+esc(o.link)+'">'+esc(display)+'</a></span>'}
+        else{linkHtml='<span style="width:100%;opacity:.35"><i class="fas fa-link-slash"></i> Tidak ada link target</span>'}
+        h+='<div class="order-item"><div class="oi-top"><div class="oi-info"><div class="oi-id">'+esc(orderId)+' <span class="badge '+o.status+'" style="margin-left:.4rem">'+(STATUS_LABEL[o.status]||o.status)+'</span></div><div class="oi-name">'+esc(o.serviceName||o.service||'-')+'</div><div class="oi-meta"><span><i class="fas fa-hashtag"></i> '+(o.quantity||0).toLocaleString('id-ID')+'</span><span><i class="fas fa-money-bill"></i> '+fRp(o.total||0)+'</span><span><i class="fas fa-clock"></i> '+timeStr+'</span></div></div><div class="oi-actions"><select data-docid="'+esc(docId)+'">'+optH(o.status)+'</select><button class="btn-sm btn-update" data-docid="'+esc(docId)+'" onclick="updateOrderStatus(this)"><i class="fas fa-check"></i> Update</button></div></div><div class="oi-customer"><span><i class="fas fa-user"></i> '+(o.customerName||'-')+'</span><span><i class="fab fa-whatsapp"></i> '+(o.customerWA||'-')+'</span>'+(o.paymentMethod?'<span><i class="fas fa-wallet"></i> '+(o.paymentMethod||'').toUpperCase()+'</span>':'')+linkHtml+'</div></div>';
+      });el.innerHTML=h;
     }
-
-    window.onOrderUpdated = function() { toast('Status pesanan berhasil diupdate', 'ok'); };
-    window.onOrderUpdateError = function(err) { toast('Gagal update: ' + err, 'err'); };
+    window.onOrderUpdated=function(){toast('Status pesanan berhasil diupdate','ok')};
+    window.onOrderUpdateError=function(err){toast('Gagal update: '+err,'err')};
   </script>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Stock Mobil (REALTIME)                -->
-  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- MODULE 1: Firebase — Stock Mobil (REALTIME)              -->
+  <!-- ═══════════════════════════════════════════════════ -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-    const app = initializeApp({ apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain: "akinowedding-73271.firebaseapp.com", projectId: "akinowedding-73271", storageBucket: "akinowedding-73271.appspot.com", messagingSenderId: "307666594440", appId: "1:307666594440:web:e7d3496744464f4c6d0d3d" });
-    const db = getFirestore(app);
-
-    var SOLD_HOURS = 24;
-    var POSTS = [];
-    var editIdx = null;
-    var soldTimer = null;
-
-    function getCode(u) { var m = u.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
-    function escLocal(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-    function firstLine(d) { return d.split('\n')[0].trim(); }
-    function getEffectivePrice(p) { return p.editedPrice || p.price; }
-    function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000; return new Date(t).getTime(); }
-    function fmtTimer(ms) {
-      var h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000), s = Math.floor((ms % 60000) / 1000);
-      return h + 'j ' + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,query,orderBy,onSnapshot,addDoc,doc,updateDoc}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
+    var SOLD_HOURS=24,POSTS=[],editIdx=null,soldTimer=null,currentPage=1;
+    function getPerPage(){return window.isMobile()?5:10}
+    function escL(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function firstLine(d){return d.split('\n')[0].trim()}
+    function getEP(p){return p.editedPrice||p.price}
+    function toMs(t){if(!t)return 0;if(typeof t==='number')return t;if(t.seconds)return t.seconds*1000;return new Date(t).getTime()}
+    function fmtTimer(ms){var h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000);return h+'j '+String(m).padStart(2,'0')+'m '+String(s).padStart(2,'0')+'s'}
+    function renderPag(cId,total,page,pp,fn){var el=document.getElementById(cId),tp=Math.ceil(total/pp);if(tp<=1){el.innerHTML='';return}el.innerHTML='<div class="pagination"><button class="pg-btn" '+(page<=1?'disabled':'')+' onclick="window.'+fn+'('+(page-1)+')"><i class="fas fa-chevron-left"></i> Prev</button><span class="pg-info">'+page+' / '+tp+'</span><button class="pg-btn" '+(page>=tp?'disabled':'')+' onclick="window.'+fn+'('+(page+1)+')">Next <i class="fas fa-chevron-right"></i></button></div>'}
+    window.initStock=function(){startSoldTimer()};
+    window.destroyStockTimer=function(){if(soldTimer){clearInterval(soldTimer);soldTimer=null}};
+    window.stockGoPage=function(p){currentPage=p;renderStock()};
+    function renderStock(){
+      var PER_PAGE=getPerPage();
+      var avail=[],soldList=[],delList=[];
+      POSTS.forEach(function(p){if(p.status==='deleted')delList.push(p);else if(p.status==='sold')soldList.push(p);else avail.push(p)});
+      document.getElementById('stockStats').innerHTML='<div class="stat-card"><div class="sv yellow">'+POSTS.length+'</div><div class="sl">Total</div></div><div class="stat-card"><div class="sv green">'+avail.length+'</div><div class="sl">Tersedia</div></div><div class="stat-card"><div class="sv red">'+soldList.length+'</div><div class="sl">Terjual</div></div><div class="stat-card"><div class="sv blue">'+delList.length+'</div><div class="sl">Dihapus</div></div>';
+      document.getElementById('cntAvail').textContent=avail.length;
+      document.getElementById('cntSold').textContent=soldList.length;
+      document.getElementById('cntDel').textContent=delList.length;
+      var tp=Math.ceil(avail.length/PER_PAGE);if(currentPage>tp)currentPage=Math.max(1,tp);
+      var start=(currentPage-1)*PER_PAGE,pageItems=avail.slice(start,start+PER_PAGE);
+      var ha='';if(!avail.length)ha='<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
+      pageItems.forEach(function(p){var price=getEP(p),hasEdit=!!p.editedPrice,code=window.getIgCode(p.url);
+        ha+='<div class="item"><a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer" class="item-thumb link" title="Buka di Instagram">'+window.getThumbHtml(code)+'</a><div class="item-info"><div class="ii-price">'+escL(price)+'</div><div class="ii-desc">'+escL(firstLine(p.desc))+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(p.url))+'</a></div>'+(hasEdit?'<div class="ii-status"><span class="edited"><i class="fas fa-pen" style="font-size:.55rem"></i> Harga di-edit</span></div>':'')+'</div><div class="item-actions"><button class="btn-sm btn-edit" data-id="'+p.id+'"><i class="fas fa-pen"></i> Edit</button><button class="btn-sm btn-sold" data-id="'+p.id+'"><i class="fas fa-tag"></i> Terjual</button><button class="btn-sm btn-del" data-id="'+p.id+'"><i class="fas fa-trash"></i> Hapus</button></div></div>';
+      });
+      var la=document.getElementById('listAvail');la.innerHTML=ha;
+      la.querySelectorAll('[data-id]').forEach(function(btn){var id=btn.getAttribute('data-id');if(btn.classList.contains('btn-edit'))btn.addEventListener('click',function(){startEdit(id)});else if(btn.classList.contains('btn-sold'))btn.addEventListener('click',function(){toggleSold(id,true)});else if(btn.classList.contains('btn-del'))btn.addEventListener('click',function(){deletePost(id)})});
+      renderPag('pagAvail',avail.length,currentPage,PER_PAGE,'stockGoPage');
+      var hs='';if(!soldList.length)hs='<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
+      soldList.forEach(function(p){var price=getEP(p),rem=SOLD_HOURS*3600000-(Date.now()-toMs(p.soldAt)),timerTxt=rem>0?fmtTimer(rem):'Segera dihapus',code=window.getIgCode(p.url);
+        hs+='<div class="item sold"><a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer" class="item-thumb link" title="Buka di Instagram">'+window.getThumbHtml(code)+'</a><div class="item-info sold"><div class="ii-price">'+escL(price)+'</div><div class="ii-desc">'+escL(firstLine(p.desc))+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(p.url))+'</a></div><div class="ii-status"><span class="timer" data-soldat="'+toMs(p.soldAt)+'"><i class="fas fa-clock" style="font-size:.6rem"></i> '+timerTxt+'</span></div></div><div class="item-actions"><button class="btn-sm btn-unsold" data-id="'+p.id+'"><i class="fas fa-rotate-left"></i> Batalkan</button></div></div>';
+      });
+      var ls=document.getElementById('listSold');ls.innerHTML=hs;ls.querySelectorAll('.btn-unsold').forEach(function(btn){btn.addEventListener('click',function(){toggleSold(btn.getAttribute('data-id'),false)})});
+      var hd='';if(!delList.length)hd='<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
+      delList.forEach(function(p){var price=getEP(p),code=window.getIgCode(p.url);
+        hd+='<div class="item" style="opacity:.45"><div class="item-thumb">'+window.getThumbHtml(code)+'</div><div class="item-info deleted"><div class="ii-price">'+escL(price)+'</div><div class="ii-desc">'+escL(firstLine(p.desc))+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(p.url))+'</a></div></div><div class="item-actions"><button class="btn-sm btn-restore" data-id="'+p.id+'"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
+      });
+      var ld=document.getElementById('listDel');ld.innerHTML=hd;ld.querySelectorAll('.btn-restore').forEach(function(btn){btn.addEventListener('click',function(){restorePost(btn.getAttribute('data-id'))})});
     }
-
-    window.initStock = function() { startSoldTimer(); };
-    window.destroyStockTimer = function() { if (soldTimer) { clearInterval(soldTimer); soldTimer = null; } };
-
-    function renderStock() {
-      var avail = [], soldList = [], delList = [];
-      POSTS.forEach(function(p) {
-        if (p.status === 'deleted') delList.push(p);
-        else if (p.status === 'sold') soldList.push(p);
-        else avail.push(p);
-      });
-
-      document.getElementById('stockStats').innerHTML =
-        '<div class="stat-card"><div class="sv yellow">' + POSTS.length + '</div><div class="sl">Total</div></div>' +
-        '<div class="stat-card"><div class="sv green">' + avail.length + '</div><div class="sl">Tersedia</div></div>' +
-        '<div class="stat-card"><div class="sv red">' + soldList.length + '</div><div class="sl">Terjual</div></div>' +
-        '<div class="stat-card"><div class="sv blue">' + delList.length + '</div><div class="sl">Dihapus</div></div>';
-
-      document.getElementById('cntAvail').textContent = avail.length;
-      document.getElementById('cntSold').textContent = soldList.length;
-      document.getElementById('cntDel').textContent = delList.length;
-
-      /* Tersedia */
-      var ha = '';
-      if (!avail.length) ha = '<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
-      avail.forEach(function(p) {
-        var price = getEffectivePrice(p), hasEdit = !!p.editedPrice;
-        ha += '<div class="item"><div class="item-icon"><i class="fas fa-car"></i></div>' +
-          '<div class="item-info"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div>' +
-          (hasEdit ? '<div class="ii-status"><span class="edited"><i class="fas fa-pen" style="font-size:.55rem"></i> Harga di-edit</span></div>' : '') +
-          '</div>' +
-          '<div class="item-actions">' +
-          '<button class="btn-sm btn-edit" data-id="' + p.id + '"><i class="fas fa-pen"></i> Edit</button>' +
-          '<button class="btn-sm btn-sold" data-id="' + p.id + '"><i class="fas fa-tag"></i> Terjual</button>' +
-          '<button class="btn-sm btn-del" data-id="' + p.id + '"><i class="fas fa-trash"></i> Hapus</button>' +
-          '</div></div>';
-      });
-      var la = document.getElementById('listAvail');
-      la.innerHTML = ha;
-      la.querySelectorAll('[data-id]').forEach(function(btn) {
-        var id = btn.getAttribute('data-id');
-        if (btn.classList.contains('btn-edit')) btn.addEventListener('click', function() { startEdit(id); });
-        else if (btn.classList.contains('btn-sold')) btn.addEventListener('click', function() { toggleSold(id, true); });
-        else if (btn.classList.contains('btn-del')) btn.addEventListener('click', function() { deletePost(id); });
-      });
-
-      /* Terjual */
-      var hs = '';
-      if (!soldList.length) hs = '<div class="empty"><i class="fas fa-tag"></i>Tidak ada stock terjual.</div>';
-      soldList.forEach(function(p) {
-        var price = getEffectivePrice(p);
-        var rem = SOLD_HOURS * 3600000 - (Date.now() - toMs(p.soldAt));
-        var timerTxt = rem > 0 ? fmtTimer(rem) : 'Segera dihapus';
-        hs += '<div class="item"><div class="item-icon sold"><i class="fas fa-car"></i></div>' +
-          '<div class="item-info sold"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div>' +
-          '<div class="ii-status"><span class="timer" data-soldat="' + toMs(p.soldAt) + '"><i class="fas fa-clock" style="font-size:.6rem"></i> ' + timerTxt + '</span></div></div>' +
-          '<div class="item-actions"><button class="btn-sm btn-unsold" data-id="' + p.id + '"><i class="fas fa-rotate-left"></i> Batalkan</button></div></div>';
-      });
-      var ls = document.getElementById('listSold');
-      ls.innerHTML = hs;
-      ls.querySelectorAll('.btn-unsold').forEach(function(btn) {
-        btn.addEventListener('click', function() { toggleSold(btn.getAttribute('data-id'), false); });
-      });
-
-      /* Dihapus */
-      var hd = '';
-      if (!delList.length) hd = '<div class="empty"><i class="fas fa-trash"></i>Tidak ada stock dihapus.</div>';
-      delList.forEach(function(p) {
-        var price = getEffectivePrice(p);
-        hd += '<div class="item" style="opacity:.45"><div class="item-icon deleted"><i class="fas fa-car"></i></div>' +
-          '<div class="item-info deleted"><div class="ii-price">' + escLocal(price) + '</div><div class="ii-desc">' + escLocal(firstLine(p.desc)) + '</div></div>' +
-          '<div class="item-actions"><button class="btn-sm btn-restore" data-id="' + p.id + '"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
-      });
-      var ld = document.getElementById('listDel');
-      ld.innerHTML = hd;
-      ld.querySelectorAll('.btn-restore').forEach(function(btn) {
-        btn.addEventListener('click', function() { restorePost(btn.getAttribute('data-id')); });
-      });
-    }
-
-    function startSoldTimer() {
-      if (soldTimer) clearInterval(soldTimer);
-      soldTimer = setInterval(function() {
-        document.querySelectorAll('.timer[data-soldat]').forEach(function(el) {
-          var soldAt = parseInt(el.dataset.soldat);
-          var rem = SOLD_HOURS * 3600000 - (Date.now() - soldAt);
-          if (rem <= 0) return;
-          el.innerHTML = '<i class="fas fa-clock" style="font-size:.6rem"></i> ' + fmtTimer(rem);
-        });
-      }, 1000);
-    }
-
-    window.addStock = async function() {
-      var url = document.getElementById('addUrl').value.trim();
-      var price = document.getElementById('addPrice').value.trim();
-      var desc = document.getElementById('addDesc').value.trim();
-      var msg = document.getElementById('addMsg');
-      msg.className = 'form-msg'; msg.style.display = 'none';
-
-      if (!url || !price || !desc) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.'; return; }
-      if (!getCode(url)) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.'; return; }
-      if (POSTS.some(function(p) { return getCode(p.url) === getCode(url); })) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.'; return; }
-
-      var btn = document.getElementById('addBtn'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      try {
-        await addDoc(collection(db, "carStock"), { url: url, price: price, desc: desc, addedAt: Date.now(), status: "available", soldAt: null, editedPrice: "" });
-        msg.className = 'form-msg ok show'; msg.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
-        document.getElementById('addUrl').value = ''; document.getElementById('addPrice').value = ''; document.getElementById('addDesc').value = '';
-        setTimeout(function() { msg.style.display = 'none'; }, 3000);
-      } catch (err) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Gagal: ' + err.message; }
-      finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Stock'; }
+    function startSoldTimer(){if(soldTimer)clearInterval(soldTimer);soldTimer=setInterval(function(){document.querySelectorAll('.timer[data-soldat]').forEach(function(el){var soldAt=parseInt(el.dataset.soldat),rem=SOLD_HOURS*3600000-(Date.now()-soldAt);if(rem<=0)return;el.innerHTML='<i class="fas fa-clock" style="font-size:.6rem"></i> '+fmtTimer(rem)})},1000)}
+    window.addStock=async function(){
+      var url=document.getElementById('addUrl').value.trim(),price=document.getElementById('addPrice').value.trim(),desc=document.getElementById('addDesc').value.trim(),msg=document.getElementById('addMsg');
+      msg.className='form-msg';msg.style.display='none';
+      if(!url||!price||!desc){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';return}
+      var code=window.getIgCode(url);if(!code){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
+      if(POSTS.some(function(p){return window.getIgCode(p.url)===code})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
+      var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setTimeout(function(){msg.style.display='none'},3000)}
+      catch(err){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message}
+      finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock'}
     };
-
-    function startEdit(docId) {
-      editIdx = docId;
-      var post = POSTS.find(function(p) { return p.id === docId; });
-      if (!post) return;
-      var price = getEffectivePrice(post);
-      document.getElementById('editCard').style.display = '';
-      document.getElementById('editName').value = firstLine(post.desc);
-      document.getElementById('editOld').value = price;
-      document.getElementById('editNew').value = '';
-      document.getElementById('editNew').placeholder = price;
-      setTimeout(function() { document.getElementById('editNew').focus(); }, 100);
-      document.getElementById('editCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    window.savePrice = async function() {
-      var v = document.getElementById('editNew').value.trim();
-      if (!v) { document.getElementById('editNew').style.borderColor = '#f87171'; setTimeout(function() { document.getElementById('editNew').style.borderColor = ''; }, 1500); return; }
-      if (!editIdx) return;
-      try { await updateDoc(doc(db, "carStock", editIdx), { editedPrice: v }); editIdx = null; document.getElementById('editCard').style.display = 'none'; toast('Harga berhasil diubah', 'ok'); }
-      catch (err) { toast('Gagal mengubah harga', 'err'); }
-    };
-
-    window.cancelPrice = function() { editIdx = null; document.getElementById('editCard').style.display = 'none'; document.getElementById('editNew').style.borderColor = ''; };
-
-    async function toggleSold(docId, sold) {
-      try {
-        if (sold) { await updateDoc(doc(db, "carStock", docId), { status: 'sold', soldAt: Date.now() }); toast('Ditandai terjual', 'info'); }
-        else { await updateDoc(doc(db, "carStock", docId), { status: 'available', soldAt: null }); toast('Dibatalkan dari terjual', 'ok'); }
-      } catch (err) { toast('Gagal: ' + err.message, 'err'); }
-    }
-
-    async function deletePost(docId) {
-      try { await updateDoc(doc(db, "carStock", docId), { status: 'deleted', soldAt: null }); toast('Stock dihapus', 'err'); }
-      catch (err) { toast('Gagal: ' + err.message, 'err'); }
-    }
-
-    async function restorePost(docId) {
-      try { await updateDoc(doc(db, "carStock", docId), { status: 'available' }); toast('Stock dipulihkan', 'ok'); }
-      catch (err) { toast('Gagal: ' + err.message, 'err'); }
-    }
-
-    onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
-      POSTS = [];
-      snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
-      var now = Date.now();
-      POSTS.forEach(function(p) {
-        if (p.status === 'sold' && p.soldAt) {
-          if (now - toMs(p.soldAt) > SOLD_HOURS * 3600000) {
-            updateDoc(doc(db, "carStock", p.id), { status: 'deleted', soldAt: null }).catch(function() {});
-          }
-        }
-      });
-      renderStock();
-      startSoldTimer();
-    }, (err) => { console.error("Stock listener error:", err); });
+    function startEdit(docId){editIdx=docId;var post=POSTS.find(function(p){return p.id===docId});if(!post)return;var price=getEP(post);document.getElementById('editCard').style.display='';document.getElementById('editName').value=firstLine(post.desc);document.getElementById('editOld').value=price;document.getElementById('editNew').value='';document.getElementById('editNew').placeholder=price;setTimeout(function(){document.getElementById('editNew').focus()},100);document.getElementById('editCard').scrollIntoView({behavior:'smooth',block:'center'})}
+    window.savePrice=async function(){var v=document.getElementById('editNew').value.trim();if(!v){document.getElementById('editNew').style.borderColor='#f87171';setTimeout(function(){document.getElementById('editNew').style.borderColor=''},1500);return}if(!editIdx)return;try{await updateDoc(doc(db,"carStock",editIdx),{editedPrice:v});editIdx=null;document.getElementById('editCard').style.display='none';toast('Harga berhasil diubah','ok')}catch(err){toast('Gagal mengubah harga','err')}};
+    window.cancelPrice=function(){editIdx=null;document.getElementById('editCard').style.display='none';document.getElementById('editNew').style.borderColor=''};
+    async function toggleSold(docId,sold){try{if(sold){await updateDoc(doc(db,"carStock",docId),{status:'sold',soldAt:Date.now()});toast('Ditandai terjual','info')}else{await updateDoc(doc(db,"carStock",docId),{status:'available',soldAt:null});toast('Dibatalkan dari terjual','ok')}}catch(err){toast('Gagal: '+err.message,'err')}}
+    async function deletePost(docId){try{await updateDoc(doc(db,"carStock",docId),{status:'deleted',soldAt:null});toast('Stock dihapus','err')}catch(err){toast('Gagal: '+err.message,'err')}}
+    async function restorePost(docId){try{await updateDoc(doc(db,"carStock",docId),{status:'available'});toast('Stock dipulihkan','ok')}catch(err){toast('Gagal: '+err.message,'err')}}
+    var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){currentPage=1;renderStock()},300)});
+    onSnapshot(query(collection(db,"carStock"),orderBy("addedAt","desc")),(snap)=>{
+      POSTS=[];snap.forEach((d)=>POSTS.push({id:d.id,...d.data()}));
+      var now=Date.now();POSTS.forEach(function(p){if(p.status==='sold'&&p.soldAt){if(now-toMs(p.soldAt)>SOLD_HOURS*3600000){updateDoc(doc(db,"carStock",p.id),{status:'deleted',soldAt:null}).catch(function(){})}}});
+      renderStock();startSoldTimer();
+    },(err)=>{console.error("Stock listener error:",err)});
   </script>
 
-  <!-- ═══════════════════════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Secret Cars (CRUD) — REALTIME           -->
-  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ═════════════════════════════════════════════════════════ -->
+  <!-- MODULE 2: Firebase — Secret Cars (REALTIME)                     -->
+  <!-- ═════════════════════════════════════════════════════════ -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-    const app = initializeApp({ apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain: "akinowedding-73271.firebaseapp.com", projectId: "akinowedding-73271", storageBucket: "akinowedding-73271.appspot.com", messagingSenderId: "307666594440", appId: "1:307666594440:web:e7d3496744464f4c6d0d3d" });
-    const db = getFirestore(app);
-
-    var CARS = [];
-    var scEditIdx = null;
-
-    function getCode(u) { var m = u.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
-    function escLocal(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-
-    /* ═══════ Render ═══════ */
-    function renderSecretCars() {
-      var avail = [], delList = [];
-      CARS.forEach(function(c) {
-        if (c.status === 'deleted') delList.push(c);
-        else avail.push(c);
-      });
-
-      /* Stats */
-      document.getElementById('secretStats').innerHTML =
-        '<div class="stat-card"><div class="sv purple">' + CARS.length + '</div><div class="sl">Total</div></div>' +
-        '<div class="stat-card"><div class="sv green">' + avail.length + '</div><div class="sl">Tersedia</div></div>' +
-        '<div class="stat-card"><div class="sv blue">' + delList.length + '</div><div class="sl">Dihapus</div></div>';
-
-      document.getElementById('scCntAvail').textContent = avail.length;
-      document.getElementById('scCntDel').textContent = delList.length;
-
-      /* Tersedia */
-      var ha = '';
-      if (!avail.length) ha = '<div class="empty"><i class="fas fa-star"></i>Belum ada secret car tersedia.</div>';
-      avail.forEach(function(c) {
-        var code = getCode(c.url);
-        ha += '<div class="item"><div class="item-icon secret"><i class="fas fa-star"></i></div>' +
-          '<div class="item-info"><div class="ii-price">' + escLocal(c.name) + '</div>' +
-          '<div class="ii-desc">' + escLocal(c.url) + '</div>' +
-          (code ? '<div class="ii-status"><span style="color:var(--muted)"><i class="fab fa-instagram" style="font-size:.55rem"></i> Post ID: ' + code + '</span></div>' : '<div class="ii-status"><span style="color:#f87171"><i class="fas fa-exclamation-triangle" style="font-size:.55rem"></i> Link tidak valid</span></div>') +
-          '</div>' +
-          '<div class="item-actions">' +
-          '<button class="btn-sm btn-edit" data-id="' + c.id + '"><i class="fas fa-pen"></i> Edit Nama</button>' +
-          '<button class="btn-sm btn-del" data-id="' + c.id + '"><i class="fas fa-trash"></i> Hapus</button>' +
-          '</div></div>';
-      });
-      var la = document.getElementById('scListAvail');
-      la.innerHTML = ha;
-      la.querySelectorAll('[data-id]').forEach(function(btn) {
-        var id = btn.getAttribute('data-id');
-        if (btn.classList.contains('btn-edit')) btn.addEventListener('click', function() { startSecretEdit(id); });
-        else if (btn.classList.contains('btn-del')) btn.addEventListener('click', function() { deleteSecretCar(id); });
-      });
-
-      /* Dihapus */
-      var hd = '';
-      if (!delList.length) hd = '<div class="empty"><i class="fas fa-trash"></i>Tidak ada secret car dihapus.</div>';
-      delList.forEach(function(c) {
-        hd += '<div class="item" style="opacity:.45"><div class="item-icon deleted"><i class="fas fa-star"></i></div>' +
-          '<div class="item-info deleted"><div class="ii-price">' + escLocal(c.name) + '</div><div class="ii-desc">' + escLocal(c.url) + '</div></div>' +
-          '<div class="item-actions"><button class="btn-sm btn-restore" data-id="' + c.id + '"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>';
-      });
-      var ld = document.getElementById('scListDel');
-      ld.innerHTML = hd;
-      ld.querySelectorAll('.btn-restore').forEach(function(btn) {
-        btn.addEventListener('click', function() { restoreSecretCar(btn.getAttribute('data-id')); });
-      });
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,query,orderBy,onSnapshot,addDoc,doc,updateDoc}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
+    var CARS=[],scEditIdx=null,scPage=1;
+    function escL(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    function getScPerPage(){return window.isMobile()?5:10}
+    window.scGoPage=function(p){scPage=p;renderSecretCars()};
+    function renderSecretCars(){
+      var PER_PAGE=getScPerPage();
+      var avail=[],delList=[];CARS.forEach(function(c){if(c.status==='deleted')delList.push(c);else avail.push(c)});
+      document.getElementById('secretStats').innerHTML='<div class="stat-card"><div class="sv purple">'+CARS.length+'</div><div class="sl">Total</div></div><div class="stat-card"><div class="sv green">'+avail.length+'</div><div class="sl">Tersedia</div></div><div class="stat-card"><div class="sv blue">'+delList.length+'</div><div class="sl">Dihapus</div></div>';
+      document.getElementById('scCntAvail').textContent=avail.length;document.getElementById('scCntDel').textContent=delList.length;
+      var tp=Math.ceil(avail.length/PER_PAGE);if(scPage>tp)scPage=Math.max(1,tp);
+      var start=(scPage-1)*PER_PAGE,pageItems=avail.slice(start,start+PER_PAGE);
+      var ha='';if(!avail.length)ha='<div class="empty"><i class="fas fa-star"></i>Belum ada secret car tersedia.</div>';
+      pageItems.forEach(function(c){var code=window.getIgCode(c.url);ha+='<div class="item"><a href="'+escL(c.url)+'" target="_blank" rel="noopener noreferrer" class="item-thumb link sc-b" title="Buka di Instagram">'+window.getThumbHtml(code)+'</a><div class="item-info"><div class="ii-price" style="color:#c084fc">'+escL(c.name)+'</div><div class="ii-desc">'+escL(c.url)+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(c.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(c.url))+'</a></div>'+(code?'<div class="ii-status"><span style="color:var(--muted)"><i class="fab fa-instagram" style="font-size:.55rem"></i> Post ID: '+code+'</span></div>':'<div class="ii-status"><span style="color:#f87171"><i class="fas fa-exclamation-triangle" style="font-size:.55rem"></i> Link tidak valid</span></div>')+'</div><div class="item-actions"><button class="btn-sm btn-edit" data-id="'+c.id+'"><i class="fas fa-pen"></i> Edit Nama</button><button class="btn-sm btn-del" data-id="'+c.id+'"><i class="fas fa-trash"></i> Hapus</button></div></div>'});
+      var la=document.getElementById('scListAvail');la.innerHTML=ha;la.querySelectorAll('[data-id]').forEach(function(btn){var id=btn.getAttribute('data-id');if(btn.classList.contains('btn-edit'))btn.addEventListener('click',function(){startSecretEdit(id)});else if(btn.classList.contains('btn-del'))btn.addEventListener('click',function(){deleteSecretCar(id)})});
+      var tpA=Math.ceil(avail.length/PER_PAGE);if(tpA<=1)document.getElementById('pagScAvail').innerHTML='';else document.getElementById('pagScAvail').innerHTML='<div class="pagination"><button class="pg-btn" '+(scPage<=1?'disabled':'')+' onclick="window.scGoPage('+(scPage-1)+')"><i class="fas fa-chevron-left"></i> Prev</button><span class="pg-info">'+scPage+' / '+tpA+'</span><button class="pg-btn" '+(scPage>=tpA?'disabled':'')+' onclick="window.scGoPage('+(scPage+1)+')">Next <i class="fas fa-chevron-right"></i></button></div>';
+      var hd='';if(!delList.length)hd='<div class="empty"><i class="fas fa-trash"></i>Tidak ada secret car dihapus.</div>';
+      delList.forEach(function(c){var code=window.getIgCode(c.url);hd+='<div class="item" style="opacity:.45"><div class="item-thumb sc-b">'+window.getThumbHtml(code)+'</div><div class="item-info deleted"><div class="ii-price">'+escL(c.name)+'</div><div class="ii-desc">'+escL(c.url)+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(c.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(c.url))+'</a></div></div><div class="item-actions"><button class="btn-sm btn-restore" data-id="'+c.id+'"><i class="fas fa-rotate-left"></i> Pulihkan</button></div></div>'});
+      var ld=document.getElementById('scListDel');ld.innerHTML=hd;ld.querySelectorAll('.btn-restore').forEach(function(btn){btn.addEventListener('click',function(){restoreSecretCar(btn.getAttribute('data-id'))})});
     }
-
-    /* ═══════ Tambah ═══════ */
-    window.addSecretCar = async function() {
-      var name = document.getElementById('scAddName').value.trim();
-      var url = document.getElementById('scAddUrl').value.trim();
-      var msg = document.getElementById('scAddMsg');
-      msg.className = 'form-msg'; msg.style.display = 'none';
-
-      if (!name) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Nama mobil wajib diisi.'; return; }
-      if (!url) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Link Instagram wajib diisi.'; return; }
-      if (!getCode(url)) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid. Pastikan format: https://www.instagram.com/p/XXXXXX/'; return; }
-      if (CARS.some(function(c) { return getCode(c.url) === getCode(url) && c.status !== 'deleted'; })) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Post ini sudah ada di daftar Secret Car.'; return; }
-
-      var btn = document.getElementById('scAddBtn'); btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      try {
-        await addDoc(collection(db, "secretCars"), {
-          name: name,
-          url: url,
-          addedAt: Date.now(),
-          status: "available"
-        });
-        msg.className = 'form-msg ok show'; msg.innerHTML = '<i class="fas fa-check-circle"></i> Secret car berhasil ditambahkan!';
-        document.getElementById('scAddName').value = '';
-        document.getElementById('scAddUrl').value = '';
-        setTimeout(function() { msg.style.display = 'none'; }, 3000);
-      } catch (err) { msg.className = 'form-msg err show'; msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Gagal: ' + err.message; }
-      finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Secret Car'; }
+    window.addSecretCar=async function(){
+      var name=document.getElementById('scAddName').value.trim(),url=document.getElementById('scAddUrl').value.trim(),msg=document.getElementById('scAddMsg');
+      msg.className='form-msg';msg.style.display='none';
+      if(!name){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Nama mobil wajib diisi.';return}
+      if(!url){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram wajib diisi.';return}
+      var code=window.getIgCode(url);if(!code){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
+      if(CARS.some(function(c){return window.getIgCode(c.url)===code&&c.status!=='deleted'})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada di daftar Secret Car.';return}
+      var btn=document.getElementById('scAddBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+      try{await addDoc(collection(db,"secretCars"),{name:name,url:url,addedAt:Date.now(),status:"available"});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Secret car berhasil ditambahkan!';document.getElementById('scAddName').value='';document.getElementById('scAddUrl').value='';scPage=1;setTimeout(function(){msg.style.display='none'},3000)}
+      catch(err){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message}
+      finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Secret Car'}
     };
-
-    /* ═══════ Edit Nama ═══════ */
-    function startSecretEdit(docId) {
-      scEditIdx = docId;
-      var car = CARS.find(function(c) { return c.id === docId; });
-      if (!car) return;
-      document.getElementById('scEditCard').style.display = '';
-      document.getElementById('scEditUrl').value = car.url;
-      document.getElementById('scEditOld').value = car.name;
-      document.getElementById('scEditNew').value = '';
-      document.getElementById('scEditNew').placeholder = car.name;
-      setTimeout(function() { document.getElementById('scEditNew').focus(); }, 100);
-      document.getElementById('scEditCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    window.saveSecretName = async function() {
-      var v = document.getElementById('scEditNew').value.trim();
-      if (!v) { document.getElementById('scEditNew').style.borderColor = '#f87171'; setTimeout(function() { document.getElementById('scEditNew').style.borderColor = ''; }, 1500); return; }
-      if (!scEditIdx) return;
-      try {
-        await updateDoc(doc(db, "secretCars", scEditIdx), { name: v });
-        scEditIdx = null;
-        document.getElementById('scEditCard').style.display = 'none';
-        toast('Nama secret car berhasil diubah', 'ok');
-      } catch (err) { toast('Gagal mengubah nama', 'err'); }
-    };
-
-    window.cancelSecretEdit = function() {
-      scEditIdx = null;
-      document.getElementById('scEditCard').style.display = 'none';
-      document.getElementById('scEditNew').style.borderColor = '';
-    };
-
-    /* ═══════ Hapus & Pulihkan ═══════ */
-    async function deleteSecretCar(docId) {
-      try { await updateDoc(doc(db, "secretCars", docId), { status: 'deleted' }); toast('Secret car dihapus', 'err'); }
-      catch (err) { toast('Gagal: ' + err.message, 'err'); }
-    }
-
-    async function restoreSecretCar(docId) {
-      try { await updateDoc(doc(db, "secretCars", docId), { status: 'available' }); toast('Secret car dipulihkan', 'ok'); }
-      catch (err) { toast('Gagal: ' + err.message, 'err'); }
-    }
-
-    /* ═══════ Listener ═══════ */
-    onSnapshot(query(collection(db, "secretCars"), orderBy("addedAt", "desc")), (snap) => {
-      CARS = [];
-      snap.forEach((d) => CARS.push({ id: d.id, ...d.data() }));
-      renderSecretCars();
-    }, (err) => { console.error("Secret cars listener error:", err); });
+    function startSecretEdit(docId){scEditIdx=docId;var car=CARS.find(function(c){return c.id===docId});if(!car)return;document.getElementById('scEditCard').style.display='';document.getElementById('scEditUrl').value=car.url;document.getElementById('scEditOld').value=car.name;document.getElementById('scEditNew').value='';document.getElementById('scEditNew').placeholder=car.name;setTimeout(function(){document.getElementById('scEditNew').focus()},100);document.getElementById('scEditCard').scrollIntoView({behavior:'smooth',block:'center'})}
+    window.saveSecretName=async function(){var v=document.getElementById('scEditNew').value.trim();if(!v){document.getElementById('scEditNew').style.borderColor='#f87171';setTimeout(function(){document.getElementById('scEditNew').style.borderColor=''},1500);return}if(!scEditIdx)return;try{await updateDoc(doc(db,"secretCars",scEditIdx),{name:v});scEditIdx=null;document.getElementById('scEditCard').style.display='none';toast('Nama secret car berhasil diubah','ok')}catch(err){toast('Gagal mengubah nama','err')}};
+    window.cancelSecretEdit=function(){scEditIdx=null;document.getElementById('scEditCard').style.display='none';document.getElementById('scEditNew').style.borderColor=''};
+    async function deleteSecretCar(docId){try{await updateDoc(doc(db,"secretCars",docId),{status:'deleted'});toast('Secret car dihapus','err')}catch(err){toast('Gagal: '+err.message,'err')}}
+    async function restoreSecretCar(docId){try{await updateDoc(doc(db,"secretCars",docId),{status:'available'});toast('Secret car dipulihkan','ok')}catch(err){toast('Gagal: '+err.message,'err')}}
+    var scResizeTimer;window.addEventListener('resize',function(){clearTimeout(scResizeTimer);scResizeTimer=setTimeout(function(){scPage=1;renderSecretCars()},300)});
+    onSnapshot(query(collection(db,"secretCars"),orderBy("addedAt","desc")),(snap)=>{CARS=[];snap.forEach((d)=>CARS.push({id:d.id,...d.data()}));renderSecretCars()},(err)=>{console.error("Secret cars listener error:",err)});
   </script>
 
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- MODULE: Firebase — Sosial Media Orders                  -->
-  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ═════════════════════════════════════════════════════════════════ -->
+  <!-- MODULE 3: Firebase — Sosmed Orders (REALTIME) — "orders" collection -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import{getFirestore,collection,query,orderBy,onSnapshot,doc,updateDoc}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    const app = initializeApp({ apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg", authDomain: "akinowedding-73271.firebaseapp.com", projectId: "akinowedding-73271", storageBucket: "akinowedding-73271.appspot.com", messagingSenderId: "307666594440", appId: "1:307666594440:web:e7d3496744464f4c6d0d3d" });
-    const db = getFirestore(app);
-    const ORDERS_COL = "orders";
+    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
+    const db=getFirestore(app);
 
-    const q = query(collection(db, ORDERS_COL), orderBy("createdAt", "desc"));
-    onSnapshot(q, (snap) => {
-      const orders = [];
-      snap.forEach((d) => { orders.push({ id: d.id, ...d.data() }); });
-      if (window.renderSosmedOrders) window.renderSosmedOrders(orders);
-    }, (err) => {
-      console.error("Firebase listener error:", err);
-      if (window.renderSosmedOrders) window.renderSosmedOrders([]);
-    });
+    /* ✅ NAMA COLLECTION YANG BENAR: "orders" — sama persis kode asli yang berhasil */
+    var ORDERS_COL = "orders";
+
+    onSnapshot(
+      query(collection(db, ORDERS_COL), orderBy("createdAt", "desc")),
+      (snap) => {
+        var orders = [];
+        snap.forEach((d) => { orders.push({ id: d.id, ...d.data() }); });
+        /* Kirim ke render function yang sudah ada di script utama */
+        if (window.renderSosmedOrders) window.renderSosmedOrders(orders);
+      },
+      (err) => {
+        console.error("Sosmed listener error:", err);
+        /* Kalau gagal, tetap panggil render kosong biar tab tidak kosong totalnya */
+        if (window.renderSosmedOrders) window.renderSosmedOrders([]);
+        document.getElementById('sosmedList').innerHTML =
+          '<div class="empty" style="color:#f87171"><i class="fas fa-exclamation-triangle"></i>Gagal memuat pesanan.<br><small style="opacity:.6">Collection: <b>'+ORDERS_COL+'</b><br>Error: '+err.message+'</small></div>';
+      }
+    );
 
     window.updateOrderStatus = async function(btnEl) {
       var parent = btnEl.parentElement;
       var selectEl = parent.querySelector('select[data-docid]');
       if (!selectEl) return;
+
       var docId = selectEl.getAttribute('data-docid');
       var newStatus = selectEl.value;
-      if (!docId) { if (window.onOrderUpdateError) window.onOrderUpdateError('Document ID tidak ditemukan'); return; }
+      if (!docId) { toast('Document ID tidak ditemukan', 'err'); return; }
 
       var origText = btnEl.innerHTML;
       btnEl.disabled = true;
       btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ...';
+
       try {
         await updateDoc(doc(db, ORDERS_COL, docId), { status: newStatus });
+        /* Sukses — onSnapshot akan auto re-render */
         if (window.onOrderUpdated) window.onOrderUpdated();
       } catch (err) {
         console.error("Update error:", err);
@@ -786,6 +562,5 @@
       }
     };
   </script>
-
 </body>
 </html>
