@@ -117,6 +117,8 @@
     .btn-del{background:rgba(239,68,68,.08);color:#f87171;border-color:rgba(239,68,68,.15)}.btn-del:hover{background:#ef4444;color:#fff}
     .btn-restore{background:rgba(96,165,250,.1);color:#60a5fa;border-color:rgba(96,165,250,.2)}.btn-restore:hover{background:#60a5fa;color:#fff}
     .btn-update{background:var(--accent);color:#0a0a0f;border:none}.btn-update:hover{box-shadow:0 2px 10px rgba(255,221,87,.25)}
+    .btn-flash{background:rgba(251,146,60,.1);color:#fb923c;border-color:rgba(251,146,60,.2)}.btn-flash:hover{background:#fb923c;color:#0a0a0f}
+    .btn-flash.active{background:#fb923c;color:#0a0a0f;border-color:#fb923c}
 
     .pagination{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.4rem 0 .1rem;flex-wrap:wrap}
     .pg-btn{padding:.35rem .7rem;border-radius:6px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--fb);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.25rem;min-height:28px}
@@ -446,7 +448,9 @@
       if(!avail.length)ha='<div class="empty"><i class="fas fa-car-side"></i>Tidak ada stock tersedia.</div>';
       pageItems.forEach(function(p){
         var price=getEP(p),hasEdit=!!p.editedPrice,code=window.getIgCode(p.url);
-        ha+='<div class="item"><a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer" class="item-thumb link" title="Buka di Instagram">'+window.getThumbHtml(code)+'</a><div class="item-info"><div class="ii-price">'+escL(price)+'</div><div class="ii-desc">'+escL(firstLine(p.desc))+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(p.url))+'</a></div>'+(hasEdit?'<div class="ii-status"><span class="edited"><i class="fas fa-pen" style="font-size:.5rem"></i> Harga di-edit</span></div>':'')+'</div><div class="item-actions"><button class="btn-sm btn-edit" data-id="'+p.id+'" title="Edit Harga"><i class="fas fa-pen"></i></button><button class="btn-sm btn-edit-desc" data-id="'+p.id+'" title="Edit Deskripsi"><i class="fas fa-align-left"></i></button><button class="btn-sm btn-sold" data-id="'+p.id+'" title="Tandai Terjual"><i class="fas fa-tag"></i></button><button class="btn-sm btn-del" data-id="'+p.id+'" title="Hapus"><i class="fas fa-trash"></i></button></div></div>';
+        var isFlash = p.discount === true;
+        var flashClass = isFlash ? ' style="border-color:#fb923c;background:rgba(251,146,60,.05)"' : '';
+        ha+='<div class="item"'+flashClass+'><a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer" class="item-thumb link" title="Buka di Instagram">'+window.getThumbHtml(code)+'</a><div class="item-info"><div class="ii-price">'+escL(price)+(isFlash?' <span style="font-size:.6rem;color:#fb923c;background:rgba(251,146,60,.15);padding:.05rem .3rem;border-radius:4px;font-weight:500">🔥 FLASH SALE</span>':'')+'</div><div class="ii-desc">'+escL(firstLine(p.desc))+'</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="'+escL(p.url)+'" target="_blank" rel="noopener noreferrer">'+escL(window.shortIgUrl(p.url))+'</a></div>'+(hasEdit?'<div class="ii-status"><span class="edited"><i class="fas fa-pen" style="font-size:.5rem"></i> Harga di-edit</span></div>':'')+'</div><div class="item-actions"><button class="btn-sm btn-edit" data-id="'+p.id+'" title="Edit Harga"><i class="fas fa-pen"></i></button><button class="btn-sm btn-edit-desc" data-id="'+p.id+'" title="Edit Deskripsi"><i class="fas fa-align-left"></i></button><button class="btn-sm btn-sold" data-id="'+p.id+'" title="Tandai Terjual"><i class="fas fa-tag"></i></button><button class="btn-sm btn-flash'+(isFlash?' active':'')+'" data-id="'+p.id+'" title="Flash Sale (7 hari)"><i class="fas fa-bolt"></i></button><button class="btn-sm btn-del" data-id="'+p.id+'" title="Hapus"><i class="fas fa-trash"></i></button></div></div>';
       });
       var la=document.getElementById('listAvail');la.innerHTML=ha;
       la.querySelectorAll('[data-id]').forEach(function(btn){
@@ -454,6 +458,7 @@
         if(btn.classList.contains('btn-edit'))btn.addEventListener('click',function(){startEdit(id)});
         else if(btn.classList.contains('btn-edit-desc'))btn.addEventListener('click',function(){startEditDesc(id)});
         else if(btn.classList.contains('btn-sold'))btn.addEventListener('click',function(){toggleSold(id,true)});
+        else if(btn.classList.contains('btn-flash'))btn.addEventListener('click',function(){toggleFlash(id)});
         else if(btn.classList.contains('btn-del'))btn.addEventListener('click',function(){deletePost(id)});
       });
       renderPag('pagAvail',avail.length,currentPage,PER_PAGE,'stockGoPage');
@@ -498,7 +503,7 @@
       var code=window.getIgCode(url);if(!code){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
       if(POSTS.some(function(p){return window.getIgCode(p.url)===code})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
       var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setTimeout(function(){msg.style.display='none'},3000)}
+      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:"",discount:false,discountedPrice:"",flashSaleEnd:null,originalPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setTimeout(function(){msg.style.display='none'},3000)}
       catch(err){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message}
       finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock'}
     };
@@ -511,15 +516,52 @@
     window.saveDesc=async function(){var v=document.getElementById('editDescNew').value.trim();if(!v){document.getElementById('editDescNew').style.borderColor='#f87171';setTimeout(function(){document.getElementById('editDescNew').style.borderColor=''},1500);return}if(!editDescIdx)return;try{await updateDoc(doc(db,"carStock",editDescIdx),{desc:v});editDescIdx=null;document.getElementById('editDescCard').style.display='none';toast('Deskripsi berhasil diubah','ok')}catch(err){toast('Gagal mengubah deskripsi','err')}};
     window.cancelDescEdit=function(){editDescIdx=null;document.getElementById('editDescCard').style.display='none';document.getElementById('editDescNew').style.borderColor=''};
 
-    async function toggleSold(docId,sold){try{if(sold){await updateDoc(doc(db,"carStock",docId),{status:'sold',soldAt:Date.now()});toast('Ditandai terjual','info')}else{await updateDoc(doc(db,"carStock",docId),{status:'available',soldAt:null});toast('Dibatalkan dari terjual','ok')}}catch(err){toast('Gagal: '+err.message,'err')}}
-    async function deletePost(docId){try{await updateDoc(doc(db,"carStock",docId),{status:'deleted',soldAt:null});toast('Stock dihapus','err')}catch(err){toast('Gagal: '+err.message,'err')}}
+    async function toggleSold(docId,sold){try{if(sold){await updateDoc(doc(db,"carStock",docId),{status:'sold',soldAt:Date.now(),discount:false,discountedPrice:"",flashSaleEnd:null});toast('Ditandai terjual','info')}else{await updateDoc(doc(db,"carStock",docId),{status:'available',soldAt:null});toast('Dibatalkan dari terjual','ok')}}catch(err){toast('Gagal: '+err.message,'err')}}
+    async function deletePost(docId){try{await updateDoc(doc(db,"carStock",docId),{status:'deleted',soldAt:null,discount:false,discountedPrice:"",flashSaleEnd:null});toast('Stock dihapus','err')}catch(err){toast('Gagal: '+err.message,'err')}}
     async function restorePost(docId){try{await updateDoc(doc(db,"carStock",docId),{status:'available'});toast('Stock dipulihkan','ok')}catch(err){toast('Gagal: '+err.message,'err')}}
+
+    // ─── FLASH SALE TOGGLE (7 hari) ─────────────────────────────────
+    window.toggleFlash = async function(docId){
+      var post = POSTS.find(p => p.id === docId);
+      if(!post) return;
+      var current = post.discount === true;
+      var newStatus = !current;
+      try{
+        var price = getEP(post) || post.price || '0';
+        var numPrice = parseInt(price.replace(/[^0-9]/g,'')) || 0;
+        var discounted = Math.round(numPrice * 0.8);
+        var updateData = { discount: newStatus };
+        if(newStatus){
+          updateData.discountedPrice = 'Rp '+discounted.toLocaleString('id-ID');
+          updateData.originalPrice = price;
+          updateData.flashSaleEnd = Date.now() + (7 * 24 * 60 * 60 * 1000); // 7 hari
+        } else {
+          updateData.discountedPrice = '';
+          updateData.flashSaleEnd = null;
+        }
+        await updateDoc(doc(db,"carStock",docId), updateData);
+        toast(newStatus ? '🔥 Flash Sale aktif 7 hari! Harga diskon 20%' : 'Flash Sale dimatikan','ok');
+      } catch(err){
+        toast('Gagal toggle flash sale: '+err.message,'err');
+      }
+    };
 
     var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){currentPage=1;soldPage=1;deletedPage=1;renderStock()},300)});
 
     onSnapshot(query(collection(db,"carStock"),orderBy("addedAt","desc")),(snap)=>{
       POSTS=[];snap.forEach((d)=>POSTS.push({id:d.id,...d.data()}));
-      var now=Date.now();POSTS.forEach(function(p){if(p.status==='sold'&&p.soldAt){if(now-toMs(p.soldAt)>SOLD_HOURS*3600000){updateDoc(doc(db,"carStock",p.id),{status:'deleted',soldAt:null}).catch(function(){})}}});
+      var now=Date.now();
+      // Auto expire flash sale after 7 days
+      POSTS.forEach(function(p){
+        if(p.discount===true && p.flashSaleEnd && now > toMs(p.flashSaleEnd)){
+          updateDoc(doc(db,"carStock",p.id),{discount:false,discountedPrice:"",flashSaleEnd:null}).catch(function(){});
+        }
+        if(p.status==='sold' && p.soldAt){
+          if(now-toMs(p.soldAt)>SOLD_HOURS*3600000){
+            updateDoc(doc(db,"carStock",p.id),{status:'deleted',soldAt:null}).catch(function(){});
+          }
+        }
+      });
       renderStock();startSoldTimer();
     },(err)=>{console.error("Stock listener error:",err)});
   </script>
