@@ -658,7 +658,7 @@
             opacity: 0.3;
         }
 
-        /* ===== FLASH SALE SECTION ===== */
+        /* ===== FLASH SALE HORIZONTAL ===== */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
@@ -698,19 +698,44 @@
             color: #fb923c;
             font-weight: 600;
         }
+        .flash-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 0.5rem;
+            margin: 0 -0.5rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        .flash-scroll-wrapper::-webkit-scrollbar {
+            height: 4px;
+        }
+        .flash-scroll-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .flash-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 10px;
+        }
         .flash-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            display: flex;
             gap: 0.7rem;
+            flex-wrap: nowrap;
+            width: max-content;
+            padding: 0.2rem 0;
         }
         .flash-card {
+            flex: 0 0 140px;
+            width: 140px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: var(--radius);
+            border-radius: var(--radius-sm);
             overflow: hidden;
             transition: all var(--transition);
             cursor: pointer;
             position: relative;
+            scroll-snap-align: start;
         }
         .flash-card:hover {
             border-color: #fb923c;
@@ -744,16 +769,16 @@
         }
         .flash-card .flash-badge {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 6px;
+            right: 6px;
             z-index: 4;
             background: #fb923c;
             color: #0a0a0f;
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             font-weight: 700;
-            padding: 0.15rem 0.5rem;
+            padding: 0.1rem 0.4rem;
             border-radius: 50px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
             gap: 0.2rem;
@@ -761,38 +786,38 @@
         }
         .flash-card .price-info {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
             z-index: 3;
             pointer-events: none;
-            line-height: 1.3;
+            line-height: 1.2;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
         }
         .flash-card .price-info .original {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: #a0a0b0;
             text-decoration: line-through;
             display: block;
         }
         .flash-card .price-info .discount {
             font-family: var(--font-display);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #fb923c;
             display: block;
         }
         .flash-card .countdown {
             position: absolute;
-            bottom: 50px;
-            left: 10px;
-            right: 10px;
+            bottom: 42px;
+            left: 8px;
+            right: 8px;
             z-index: 3;
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: #fff;
             background: rgba(0,0,0,0.7);
             backdrop-filter: blur(4px);
-            padding: 0.2rem 0.4rem;
+            padding: 0.15rem 0.3rem;
             border-radius: 4px;
             text-align: center;
             font-weight: 600;
@@ -805,6 +830,48 @@
             color: var(--muted);
             font-size: 0.82rem;
             grid-column: 1/-1;
+        }
+
+        /* Responsive flash card */
+        @media (max-width: 768px) {
+            .flash-card {
+                flex: 0 0 110px;
+                width: 110px;
+            }
+            .flash-card .price-info .discount {
+                font-size: 0.7rem;
+            }
+            .flash-card .price-info .original {
+                font-size: 0.5rem;
+            }
+            .flash-card .countdown {
+                font-size: 0.45rem;
+                bottom: 36px;
+                padding: 0.1rem 0.2rem;
+            }
+            .flash-card .flash-badge {
+                font-size: 0.4rem;
+                padding: 0.05rem 0.3rem;
+                top: 4px;
+                right: 4px;
+            }
+        }
+        @media (max-width: 420px) {
+            .flash-card {
+                flex: 0 0 90px;
+                width: 90px;
+            }
+            .flash-card .price-info .discount {
+                font-size: 0.6rem;
+            }
+            .flash-card .price-info .original {
+                font-size: 0.45rem;
+            }
+            .flash-card .countdown {
+                font-size: 0.4rem;
+                bottom: 30px;
+                padding: 0.05rem 0.15rem;
+            }
         }
 
         /* ===== SOLD SECTION ===== */
@@ -1914,20 +1981,26 @@
             .flash-header h2 {
                 font-size: 0.9rem;
             }
-            .flash-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
+            .flash-card {
+                flex: 0 0 110px;
+                width: 110px;
             }
             .flash-card .price-info .discount {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
             .flash-card .price-info .original {
-                font-size: 0.55rem;
+                font-size: 0.5rem;
             }
             .flash-card .countdown {
-                font-size: 0.5rem;
-                bottom: 42px;
-                padding: 0.15rem 0.3rem;
+                font-size: 0.45rem;
+                bottom: 36px;
+                padding: 0.1rem 0.2rem;
+            }
+            .flash-card .flash-badge {
+                font-size: 0.4rem;
+                padding: 0.05rem 0.3rem;
+                top: 4px;
+                right: 4px;
             }
 
             .sold-section {
@@ -2115,9 +2188,20 @@
             .secret-grid .ig-card-thumb-price {
                 font-size: 0.6rem;
             }
-            .flash-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.4rem;
+            .flash-card {
+                flex: 0 0 90px;
+                width: 90px;
+            }
+            .flash-card .price-info .discount {
+                font-size: 0.6rem;
+            }
+            .flash-card .price-info .original {
+                font-size: 0.45rem;
+            }
+            .flash-card .countdown {
+                font-size: 0.4rem;
+                bottom: 30px;
+                padding: 0.05rem 0.15rem;
             }
             .sold-card {
                 width: 80px;
@@ -2164,10 +2248,6 @@
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1rem;
             }
-            .flash-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1rem;
-            }
             .sold-card {
                 width: 130px;
             }
@@ -2187,10 +2267,6 @@
                 gap: 1.2rem;
             }
             .secret-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1.2rem;
-            }
-            .flash-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1.2rem;
             }
@@ -2274,14 +2350,16 @@
     <div class="sec-divider"><hr /></div>
 
     <!-- ===== FLASH SALE SECTION ===== -->
-    <section class="sec" style="padding-top:1rem;padding-bottom:0.5rem">
+    <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
                 <div class="flash-header">
                     <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2>
                     <span class="count" id="flashCount">0</span>
                 </div>
-                <div class="flash-grid" id="flashGrid"></div>
+                <div class="flash-scroll-wrapper">
+                    <div class="flash-grid" id="flashGrid"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -2759,7 +2837,6 @@
 
         function getSortedFiltered() {
             var avail = getFilteredAvailable();
-            // Exclude flash sale items from main grid (they appear in flash section)
             var nonFlash = avail.filter(p => p.discount !== true);
             if (currentSort === 'newest') nonFlash.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
             else if (currentSort === 'price-asc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
@@ -2780,6 +2857,7 @@
 
             if (!flashItems.length) {
                 section.style.display = 'none';
+                if (flashTimer) clearInterval(flashTimer);
                 return;
             }
             section.style.display = 'block';
@@ -2834,7 +2912,6 @@
                     var rem = Math.max(0, end - Date.now());
                     if (rem <= 0) {
                         el.textContent = '⏳ Berakhir';
-                        // Mark for removal, will be auto-cleaned by Firebase listener
                     } else {
                         el.textContent = '⏳ ' + formatCountdown(rem);
                     }
