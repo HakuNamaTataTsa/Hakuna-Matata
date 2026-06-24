@@ -658,7 +658,7 @@
             opacity: 0.3;
         }
 
-        /* ===== FLASH SALE HORIZONTAL ===== */
+        /* ===== FLASH SALE HORIZONTAL (1 baris) - FIX ===== */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
@@ -687,8 +687,15 @@
             animation: pulse 1.5s infinite;
         }
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
         }
         .flash-header .count {
             font-size: 0.7rem;
@@ -698,15 +705,18 @@
             color: #fb923c;
             font-weight: 600;
         }
+
+        /* === WRAPPER: hanya scroll horizontal, bukan flex container === */
         .flash-scroll-wrapper {
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
-            padding-bottom: 0.5rem;
+            padding: 0.2rem 0 0.6rem;
             margin: 0 -0.5rem;
             padding-left: 0.5rem;
             padding-right: 0.5rem;
+            /* HAPUS display:flex agar tidak memengaruhi child */
         }
         .flash-scroll-wrapper::-webkit-scrollbar {
             height: 4px;
@@ -718,23 +728,28 @@
             background: var(--border-hover);
             border-radius: 10px;
         }
+
+        /* === GRID: inline-flex agar melebar sesuai isi, never wrap === */
         .flash-grid {
-            display: flex;
+            display: inline-flex;
+            flex-direction: row;
             gap: 0.7rem;
             flex-wrap: nowrap;
-            width: max-content;
-            padding: 0.2rem 0;
+            padding: 0.1rem 0;
+            /* width: auto; biar mengikuti konten */
         }
+
+        /* === CARD: fixed width, shrink dilarang === */
         .flash-card {
-            flex: 0 0 140px;
-            width: 140px;
+            flex: 0 0 160px;
+            width: 160px;
+            flex-shrink: 0;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             overflow: hidden;
             transition: all var(--transition);
             cursor: pointer;
-            position: relative;
             scroll-snap-align: start;
         }
         .flash-card:hover {
@@ -774,7 +789,7 @@
             z-index: 4;
             background: #fb923c;
             color: #0a0a0f;
-            font-size: 0.45rem;
+            font-size: 0.5rem;
             font-weight: 700;
             padding: 0.1rem 0.4rem;
             border-radius: 50px;
@@ -795,27 +810,27 @@
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
         }
         .flash-card .price-info .original {
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             color: #a0a0b0;
             text-decoration: line-through;
             display: block;
         }
         .flash-card .price-info .discount {
             font-family: var(--font-display);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: #fb923c;
             display: block;
         }
         .flash-card .countdown {
             position: absolute;
-            bottom: 42px;
+            bottom: 44px;
             left: 8px;
             right: 8px;
             z-index: 3;
-            font-size: 0.5rem;
+            font-size: 0.55rem;
             color: #fff;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
             padding: 0.15rem 0.3rem;
             border-radius: 4px;
@@ -832,11 +847,11 @@
             grid-column: 1/-1;
         }
 
-        /* Responsive flash card */
+        /* --- Responsive Flash Card --- */
         @media (max-width: 768px) {
             .flash-card {
-                flex: 0 0 110px;
-                width: 110px;
+                flex: 0 0 120px;
+                width: 120px;
             }
             .flash-card .price-info .discount {
                 font-size: 0.7rem;
@@ -858,8 +873,8 @@
         }
         @media (max-width: 420px) {
             .flash-card {
-                flex: 0 0 90px;
-                width: 90px;
+                flex: 0 0 100px;
+                width: 100px;
             }
             .flash-card .price-info .discount {
                 font-size: 0.6rem;
@@ -1780,7 +1795,7 @@
             color: var(--fg);
             font-size: 0.82rem;
             font-weight: 500;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             opacity: 0;
             transform: translateY(20px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1981,27 +1996,7 @@
             .flash-header h2 {
                 font-size: 0.9rem;
             }
-            .flash-card {
-                flex: 0 0 110px;
-                width: 110px;
-            }
-            .flash-card .price-info .discount {
-                font-size: 0.7rem;
-            }
-            .flash-card .price-info .original {
-                font-size: 0.5rem;
-            }
-            .flash-card .countdown {
-                font-size: 0.45rem;
-                bottom: 36px;
-                padding: 0.1rem 0.2rem;
-            }
-            .flash-card .flash-badge {
-                font-size: 0.4rem;
-                padding: 0.05rem 0.3rem;
-                top: 4px;
-                right: 4px;
-            }
+            /* Ukuran card tablet/HP: 120px (sudah diatur di @media di atas) */
 
             .sold-section {
                 padding: 0.7rem 0.7rem 0.3rem;
@@ -2188,21 +2183,7 @@
             .secret-grid .ig-card-thumb-price {
                 font-size: 0.6rem;
             }
-            .flash-card {
-                flex: 0 0 90px;
-                width: 90px;
-            }
-            .flash-card .price-info .discount {
-                font-size: 0.6rem;
-            }
-            .flash-card .price-info .original {
-                font-size: 0.45rem;
-            }
-            .flash-card .countdown {
-                font-size: 0.4rem;
-                bottom: 30px;
-                padding: 0.05rem 0.15rem;
-            }
+            /* Ukuran card HP kecil: 100px (sudah diatur di @media di atas) */
             .sold-card {
                 width: 80px;
             }
@@ -2349,7 +2330,7 @@
 
     <div class="sec-divider"><hr /></div>
 
-    <!-- ===== FLASH SALE SECTION ===== -->
+    <!-- ===== FLASH SALE SECTION (1 baris horizontal) ===== -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
@@ -2513,8 +2494,9 @@
             var hours = Math.floor((ms % 86400000) / 3600000);
             var minutes = Math.floor((ms % 3600000) / 60000);
             var seconds = Math.floor((ms % 60000) / 1000);
-            if (days > 0) return days + 'h ' + String(hours).padStart(2,'0') + 'j ' + String(minutes).padStart(2,'0') + 'm';
-            return String(hours).padStart(2,'0') + 'j ' + String(minutes).padStart(2,'0') + 'm ' + String(seconds).padStart(2,'0') + 's';
+            if (days > 0) return days + 'h ' + String(hours).padStart(2, '0') + 'j ' + String(minutes).padStart(2, '0') + 'm';
+            return String(hours).padStart(2, '0') + 'j ' + String(minutes).padStart(2, '0') + 'm ' + String(seconds).padStart(2,
+                '0') + 's';
         }
 
         // ===== TOAST =====
@@ -2675,7 +2657,8 @@
             if (!lbCurrentPost) return;
             var shareData = {
                 title: 'Stock Mobil - Akino Store',
-                text: 'Lihat mobil ini: ' + (lbCurrentPost.desc || '') + ' - Harga: ' + (lbCurrentPost.editedPrice || lbCurrentPost.price || ''),
+                text: 'Lihat mobil ini: ' + (lbCurrentPost.desc || '') + ' - Harga: ' + (lbCurrentPost.editedPrice ||
+                    lbCurrentPost.price || ''),
                 url: lbCurrentPost.url
             };
             if (navigator.share) {
@@ -2814,7 +2797,7 @@
         function getDiscountedPrice(post) {
             if (!post.discount) return null;
             var original = post.originalPrice || post.price || '';
-            var num = parseInt(original.replace(/[^0-9]/g,'')) || 0;
+            var num = parseInt(original.replace(/[^0-9]/g, '')) || 0;
             var discounted = Math.round(num * 0.8);
             return 'Rp ' + discounted.toLocaleString('id-ID');
         }
