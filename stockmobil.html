@@ -716,7 +716,6 @@
             margin: 0 -0.5rem;
             padding-left: 0.5rem;
             padding-right: 0.5rem;
-            /* HAPUS display:flex agar tidak memengaruhi child */
         }
         .flash-scroll-wrapper::-webkit-scrollbar {
             height: 4px;
@@ -736,7 +735,6 @@
             gap: 0.7rem;
             flex-wrap: nowrap;
             padding: 0.1rem 0;
-            /* width: auto; biar mengikuti konten */
         }
 
         /* === CARD: fixed width, shrink dilarang === */
@@ -2594,8 +2592,12 @@
             lbOrder.style.cssText = '';
             lbShare.style.display = 'inline-flex';
 
+            // Tentukan harga yang akan ditampilkan dan dikirim ke WA
+            var priceToShow = post.discountedPrice || post.editedPrice || post.price || '';
+            var priceForWa = post.discountedPrice || post.editedPrice || post.price || '';
+
             if (opts.isSold) {
-                lbPrice.textContent = post.editedPrice || post.price || '';
+                lbPrice.textContent = priceToShow;
                 lbDesc.textContent = post.desc || '';
                 lbDesc.style.display = lbDesc.textContent ? '' : 'none';
                 lbIgLink.href = post.url || '#';
@@ -2608,11 +2610,13 @@
                 lbIgLink.href = post.url || '#';
                 lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Tanya Admin';
             } else {
-                lbPrice.textContent = post.editedPrice || post.price || '';
+                lbPrice.textContent = priceToShow;
                 lbDesc.textContent = post.desc || '';
                 lbDesc.style.display = lbDesc.textContent ? '' : 'none';
                 lbIgLink.href = post.url || '#';
                 lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+                // Simpan harga untuk WA di dataset atau variabel
+                lbOrder.dataset.price = priceForWa;
             }
             lbEl.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2632,6 +2636,7 @@
             lbPrice.style.display = '';
             lbDesc.style.display = '';
             lbShare.style.display = 'inline-flex';
+            delete lbOrder.dataset.price;
         };
 
         document.getElementById('lbBackdrop').addEventListener('click', closeLightbox);
@@ -2640,12 +2645,14 @@
         lbOrder.addEventListener('click', function() {
             if (!lbCurrentPost) return;
             if (lbOpts.isSold) return;
+            // Gunakan harga yang sudah disimpan di dataset atau fallback
+            var price = this.dataset.price || lbCurrentPost.discountedPrice || lbCurrentPost.editedPrice || lbCurrentPost
+                .price || '';
             var waMsg;
             if (lbOpts.isSecret) {
                 waMsg = "Halo admin, saya tertarik dengan Limited Secret Car:\n\n" + (lbCurrentPost.name || '') +
                     "\n\nLink: " + lbCurrentPost.url;
             } else {
-                var price = lbCurrentPost.editedPrice || lbCurrentPost.price;
                 waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + lbCurrentPost.desc + "\n\nLink: " +
                     lbCurrentPost.url;
             }
@@ -2655,10 +2662,10 @@
 
         lbShare.addEventListener('click', function() {
             if (!lbCurrentPost) return;
+            var price = lbCurrentPost.discountedPrice || lbCurrentPost.editedPrice || lbCurrentPost.price || '';
             var shareData = {
                 title: 'Stock Mobil - Akino Store',
-                text: 'Lihat mobil ini: ' + (lbCurrentPost.desc || '') + ' - Harga: ' + (lbCurrentPost.editedPrice ||
-                    lbCurrentPost.price || ''),
+                text: 'Lihat mobil ini: ' + (lbCurrentPost.desc || '') + ' - Harga: ' + price,
                 url: lbCurrentPost.url
             };
             if (navigator.share) {
@@ -2851,7 +2858,7 @@
                 var code = getCode(post.url);
                 if (!code) return;
                 var price = getEffectivePrice(post);
-                var discounted = getDiscountedPrice(post) || price;
+                var discounted = post.discountedPrice || getDiscountedPrice(post) || price;
                 var remaining = getFlashRemaining(post);
                 var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Berakhir';
 
@@ -3086,7 +3093,13 @@
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
-            POSTS = newPosts;
+            // Tambahkan properti discountedPrice untuk setiap item yang memiliki discount
+            POSTS = newPosts.map(p => {
+                if (p.discount === true) {
+                    p.discountedPrice = getDiscountedPrice(p);
+                }
+                return p;
+            });
             renderSold();
             renderFlashSale();
             renderAvailable();
