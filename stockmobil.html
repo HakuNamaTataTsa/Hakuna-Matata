@@ -1,610 +1,2594 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:title" content="Akino Store - Stock Mobil Murah">
-  <meta property="og:description" content="Stock mobil CPM murah mulai 2rb">
-  <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
-  <title>Stock Mobil Murah - Akino Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--fg-dim:rgba(240,240,245,0.6);--muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--radius-sm:10px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
-    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-    body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
-    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
-    ::selection{background:var(--accent);color:#000}
-    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(7,7,13,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .35s}
-    .navbar.scrolled{background:rgba(7,7,13,.92)}
-    .nav-brand{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);text-decoration:none}
-    .nav-links{list-style:none;display:flex;gap:.25rem;align-items:center}
-    .nav-links a{color:var(--muted);text-decoration:none;padding:.5rem 1rem;border-radius:10px;font-size:.9rem;font-weight:500;transition:all .25s}
-    .nav-links a:hover,.nav-links a.active{color:var(--fg);background:var(--bg-card)}
-    .dropdown{position:relative}
-    .dropdown-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,15,25,.95);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:12px;min-width:240px;padding:.5rem;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-    .dropdown:hover .dropdown-menu{display:block;animation:fadeDown .25s ease}
-    .dropdown-menu a{display:block;padding:.65rem 1rem;border-radius:8px;font-size:.85rem;white-space:nowrap}
-    .dropdown-menu a:hover{background:var(--accent-dim);color:var(--accent)}
-    .menu-toggle{display:none;background:none;border:1px solid var(--border);color:var(--fg);font-size:1.3rem;cursor:pointer;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center}
-    @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-    .page-hero{padding:7rem 2rem 2rem;text-align:center;position:relative}
-    .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-dim),transparent)}
-    .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.5rem}
-    .page-hero p{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
-    .info-bar{max-width:600px;margin:0 auto 2rem;padding:0 2rem}
-    .info-card{background:var(--accent-dim);border:1px solid rgba(255,221,87,0.2);border-radius:var(--radius);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-    .info-card .info-icon{width:44px;height:44px;border-radius:12px;background:var(--accent);color:#0a0a0f;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-    .info-card .info-text{flex:1;min-width:200px}
-    .info-card .info-text h3{font-family:var(--font-display);font-size:.95rem;font-weight:600;margin-bottom:.15rem}
-    .info-card .info-text p{font-size:.8rem;color:var(--muted);line-height:1.5}
-    .info-card .info-text span{color:var(--accent);font-weight:600}
-    .sec{padding:4rem 2rem;max-width:640px;margin:0 auto}
-    .sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:.6rem}
-    .sec-label::before{content:'';width:18px;height:1px;background:var(--accent)}
-    .sec-title{font-family:var(--font-display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.5rem;line-height:1.15}
-    .sec-desc{color:var(--muted);font-size:.92rem;line-height:1.7}
-    .sec-header{margin-bottom:2rem;text-align:center}
-    .sort-tabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
-    .sort-btn{padding:.38rem .95rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.76rem;font-weight:500;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
-    .sort-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
-    .sort-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
-    .sold-section{margin-bottom:2.5rem}
-    .sold-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
-    .sold-header-left{display:flex;align-items:center;gap:.6rem}
-    .sold-header-left h2{font-family:var(--font-display);font-size:1rem;font-weight:600;color:#f87171}
-    .sold-header-left .sold-count{font-size:.68rem;padding:.15rem .55rem;border-radius:50px;background:rgba(248,113,113,.12);color:#f87171;font-weight:600}
-    .sold-toggle{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:.72rem;font-weight:500;padding:.3rem .75rem;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.35rem}
-    .sold-toggle:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
-    .sold-toggle.open{color:var(--accent);border-color:rgba(255,221,87,.2);background:var(--accent-dim)}
-    .sold-toggle.open i{transform:rotate(180deg)}
-    .sold-toggle i{transition:transform .25s;font-size:.55rem}
-    .sold-list{display:flex;flex-direction:row;gap:.55rem;overflow-x:auto;overflow-y:hidden;padding-bottom:.35rem;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;max-height:160px;opacity:1;transition:max-height .4s ease,opacity .3s ease}
-    .sold-list::-webkit-scrollbar{height:3px}
-    .sold-list::-webkit-scrollbar-track{background:transparent}
-    .sold-list::-webkit-scrollbar-thumb{background:rgba(248,113,113,.25);border-radius:10px}
-    .sold-list.collapsed{max-height:0!important;opacity:0;overflow:hidden;padding-bottom:0}
-    .sold-card{flex-shrink:0;width:115px;background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.12);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;scroll-snap-align:start;animation:fadeInUp .4s ease both}
-    .sold-card:hover{border-color:rgba(248,113,113,.3);transform:translateY(-2px);box-shadow:0 6px 20px rgba(248,113,113,.1)}
-    .sold-card-thumb{width:100%;height:100px;overflow:hidden;position:relative;background:#111}
-    .sold-card-thumb iframe{position:absolute!important;top:0;left:0;width:100%!important;min-height:unset!important;height:220px!important;pointer-events:none;border:none;display:block}
-    .sold-card-thumb-overlay{display:block;position:absolute;inset:0;z-index:2;cursor:pointer}
-    .sold-card-thumb-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(7,7,13,.7),transparent);pointer-events:none}
-    .sold-card-sold-badge{position:absolute;top:5px;right:5px;z-index:3;font-size:.5rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#fff;padding:.12rem .4rem;border-radius:4px;background:rgba(248,113,113,.88);pointer-events:none;display:flex;align-items:center;gap:.15rem}
-    .sold-card-sold-badge i{font-size:.35rem}
-    .sold-card-body{padding:.4rem .5rem .5rem}
-    .sold-card-body .sc-name{font-family:var(--font-display);font-size:.68rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;margin-bottom:.1rem;color:var(--fg);text-decoration:none;transition:color .2s}
-    .sold-card-body .sc-name:hover{color:var(--accent)}
-    .sold-card-body .sc-price{font-size:.65rem;color:var(--accent);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
-    .grid-section{max-width:960px}
-    .ig-list{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
-    .ig-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .35s;cursor:pointer}
-    .ig-card:hover{border-color:rgba(255,221,87,.25);box-shadow:0 8px 30px rgba(0,0,0,.35);transform:translateY(-2px)}
-    .ig-card-embed-wrap{height:280px;overflow:hidden;position:relative;background:#111}
-    .ig-card-embed{position:absolute!important;top:0;left:0;width:100%!important;min-height:unset!important;height:700px!important;pointer-events:none;border:none;display:block}
-    .ig-card-thumb-overlay{display:block;position:absolute;inset:0;z-index:2;cursor:pointer}
-    .ig-card-thumb-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(7,7,13,.9) 5%,transparent);pointer-events:none}
-    .ig-card-thumb-price{display:block;position:absolute;bottom:10px;left:10px;right:10px;z-index:3;font-family:var(--font-display);font-size:.82rem;font-weight:700;color:var(--accent);pointer-events:none;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .ig-card-body{display:none}
-    .ig-counter{text-align:center;margin-bottom:1.5rem;font-size:.82rem;color:var(--muted)}
-    .ig-counter strong{color:var(--accent);font-family:var(--font-display)}
-    .pagination{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:2.5rem;flex-wrap:wrap}
-    .page-btn{padding:.6rem 1.2rem;border-radius:10px;background:var(--bg-card);color:var(--fg);border:1px solid var(--border);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
-    .page-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
-    .page-btn:disabled{opacity:.3;cursor:not-allowed}
-    .page-numbers{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:center}
-    .page-num{width:36px;height:36px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-display);font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
-    .page-num:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
-    .page-num.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent);box-shadow:0 2px 12px rgba(255,221,87,.2)}
-    .page-ellipsis{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;letter-spacing:2px;user-select:none}
-    .limited-banner{position:relative;background:linear-gradient(145deg,rgba(255,221,87,.1) 0%,rgba(255,221,87,.02) 50%,rgba(255,160,0,.06) 100%);border:1px solid rgba(255,221,87,.3);border-radius:20px;padding:2.5rem 2rem;text-align:center;margin-bottom:2.5rem;overflow:hidden;box-shadow:0 0 80px rgba(255,221,87,.06),inset 0 1px 0 rgba(255,221,87,.15)}
-    .limited-banner::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg at 50% 50%,transparent,rgba(255,221,87,.12),transparent 25%);animation:bannerSpin 8s linear infinite;z-index:0}
-    .limited-banner>*{position:relative;z-index:1}
-    @keyframes bannerSpin{to{transform:rotate(360deg)}}
-    .limited-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);padding:.3rem 1rem;border-radius:50px;margin-bottom:.85rem;border:1px solid rgba(255,221,87,.2)}
-    .limited-badge i{font-size:.55rem}
-    .limited-title{font-family:var(--font-display);font-size:clamp(1.6rem,5vw,2.6rem);font-weight:700;letter-spacing:-.5px;margin-bottom:.6rem;line-height:1.1}
-    .limited-title .accent{color:var(--accent)}
-    .limited-sub{color:var(--fg);font-size:.88rem;line-height:1.7;margin-bottom:1.25rem;opacity:.85}
-    .limited-sub strong{color:var(--accent);font-weight:600}
-    .limited-price{font-family:var(--font-display);font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:var(--fg);margin-bottom:.5rem;letter-spacing:-.3px}
-    .limited-price span{color:var(--accent);font-size:clamp(1.5rem,5vw,2.4rem);margin:0 .15rem}
-    .limited-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem}
-    .limited-tags span{font-size:.72rem;font-weight:600;padding:.35rem .85rem;border-radius:50px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--fg-dim);transition:all .25s}
-    .limited-tags span:hover{border-color:rgba(255,221,87,.3);color:var(--accent);background:var(--accent-dim)}
-    .limited-empty{text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1}
-    .limited-empty i{font-size:2rem;display:block;margin-bottom:.6rem;opacity:.3}
-    .lightbox{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
-    .lightbox.active{display:flex}
-    .lightbox-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);animation:lbFadeIn .2s ease}
-    .lightbox-content{position:relative;width:100%;max-width:520px;max-height:92vh;background:var(--bg);border-radius:20px;overflow-y:auto;overflow-x:hidden;animation:lbScaleIn .28s cubic-bezier(.32,.72,0,1);scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-    .lightbox-close{position:fixed;top:1rem;right:1rem;z-index:210;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);color:var(--fg);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-    .lightbox-close:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25);transform:scale(1.08)}
-    .lightbox-iframe-wrap{width:100%;background:#fafafa}
-    .lightbox-iframe-wrap iframe{width:100%;height:580px;border:none;display:block}
-    .lightbox-info{padding:1.25rem 1.5rem 1.75rem}
-    .lightbox-info .ig-card-price{font-size:1.3rem;margin-bottom:.5rem}
-    .lightbox-info .ig-card-desc{color:var(--fg);opacity:.85;margin-bottom:1.25rem;font-size:.88rem;white-space:pre-line;line-height:1.6}
-    .lightbox-actions{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
-    .lightbox-actions .btn-order-sm{flex:1;justify-content:center;padding:.7rem 1.4rem;font-size:.88rem}
-    .lightbox-actions a.ig-link{padding:.7rem 1.2rem;border-radius:10px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-size:.82rem;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
-    .lightbox-actions a.ig-link:hover{color:var(--accent);border-color:rgba(255,221,87,.2);background:var(--accent-dim)}
-    @keyframes lbFadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes lbScaleIn{from{opacity:0;transform:scale(.94) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
-    .btn-order-sm{padding:.55rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,.2);font-family:var(--font-body);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
-    .btn-order-sm:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 16px rgba(255,221,87,.25)}
-    .sold-order-badge{background:rgba(248,113,113,.1)!important;color:#f87171!important;border-color:rgba(248,113,113,.25)!important;cursor:default!important;pointer-events:none!important}
-    .sold-order-badge:hover{background:rgba(248,113,113,.1)!important;color:#f87171!important;box-shadow:none!important;transform:none!important}
-    .gb-wrap{max-width:640px;margin:0 auto;padding:0 2rem}
-    .gb{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
-    .gb-hdr{text-align:center;margin-bottom:1.5rem}
-    .gb-hdr h2{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:.3rem}
-    .gb-hdr p{font-size:.8rem;color:var(--muted)}
-    .gb label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.3rem}
-    .gb input,.gb textarea{width:100%;padding:.65rem 1rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.88rem;outline:none;transition:border-color .25s;margin-bottom:1rem}
-    .gb input:focus,.gb textarea:focus{border-color:var(--accent)}
-    .gb textarea{resize:vertical;min-height:76px}
-    .gb-submit{padding:.65rem 1.4rem;background:var(--accent);color:#0a0a0f;border:none;border-radius:var(--radius-sm);font-weight:600;font-family:var(--font-body);font-size:.84rem;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
-    .gb-submit:hover{box-shadow:0 4px 18px rgba(255,221,87,.3);transform:translateY(-1px)}
-    .gb-msgs{margin-top:1.5rem;max-height:380px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-    .gb-msg{padding:.9rem;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.7rem;transition:border-color .25s}
-    .gb-msg:hover{border-color:rgba(255,255,255,.1)}
-    .gb-msg strong{display:block;font-size:.85rem;margin-bottom:.2rem}
-    .gb-msg p{font-size:.82rem;color:var(--fg-dim);line-height:1.5}
-    .gb-msg small{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:.25rem;display:block}
-    .social-row{display:flex;justify-content:center;gap:1rem;padding:2rem}
-    .social-row a{width:42px;height:42px;border-radius:11px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;transition:all .3s;text-decoration:none}
-    .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
-    .footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--muted);border-top:1px solid var(--border)}
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes gridFadeIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
-    .chat-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
-    .chat-float-label{background:rgba(15,15,25,0.92);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:.55rem 1rem;font-size:.78rem;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px) scale(.95);transition:all .3s ease;pointer-events:none}
-    .chat-float-label span{color:var(--accent);font-weight:600}
-    .chat-float:hover .chat-float-label{opacity:1;transform:translateY(0) scale(1)}
-    .chat-float-btn{width:56px;height:56px;border-radius:16px;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;box-shadow:0 4px 24px rgba(37,211,102,.35);transition:all .3s ease;text-decoration:none}
-    .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}
-    .chat-float-btn:active{transform:scale(.95)}
-    .sec-divider{max-width:960px;margin:0 auto;padding:0 2rem}
-    .sec-divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-    @media(max-width:768px){
-      .navbar{padding:.75rem 1rem}.menu-toggle{display:flex}
-      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(7,7,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem}
-      .nav-links.active{display:flex}
-      .dropdown-menu{position:static;transform:none;box-shadow:none;background:rgba(255,255,255,.03);border:none;min-width:auto}
-      .grid-section{max-width:100%!important;padding-left:.6rem;padding-right:.6rem}
-      .ig-list{grid-template-columns:repeat(2,1fr);gap:.45rem}
-      .ig-card{border-radius:10px;animation-name:gridFadeIn!important}
-      .ig-card-embed-wrap{height:200px}
-      .ig-card-thumb-price{font-size:.7rem;bottom:7px;left:7px;right:7px}
-      .limited-banner{padding:1.75rem 1.25rem;border-radius:16px;margin-bottom:1.5rem}
-      .limited-tags span{font-size:.65rem;padding:.25rem .65rem}
-      .limited-sub{font-size:.8rem}
-      .lightbox{padding:0;align-items:flex-end}
-      .lightbox-content{max-width:100%;max-height:96vh;border-radius:18px 18px 0 0;animation:lbSlideUp .32s cubic-bezier(.32,.72,0,1)}
-      @keyframes lbSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-      .lightbox-close{top:.6rem;right:.6rem;width:36px;height:36px;font-size:.8rem}
-      .lightbox-iframe-wrap iframe{height:560px!important;min-height:560px!important}
-      .lightbox-info{padding:1rem 1.1rem 1.5rem}
-      .lightbox-info .ig-card-price{font-size:1.15rem}
-      .lightbox-info .ig-card-desc{font-size:.84rem;margin-bottom:1rem}
-      .info-card{flex-direction:column;text-align:center}
-      .chat-float{bottom:1rem;right:1rem}
-      .chat-float-btn{width:50px;height:50px;border-radius:14px;font-size:1.4rem}
-      .pagination{gap:.5rem}
-      .page-btn{padding:.5rem .8rem;font-size:.75rem}
-      .page-num{width:32px;height:32px;font-size:.75rem}
-      .sold-card{width:105px}
-      .sold-card-thumb{height:88px}
-      .sold-card-body .sc-name{font-size:.64rem}
-      .sold-card-body .sc-price{font-size:.6rem}
-    }
-    @media(min-width:500px) and (max-width:768px){
-      .ig-list{grid-template-columns:repeat(3,1fr);gap:.5rem}
-      .ig-card-embed-wrap{height:220px}
-      .ig-card-thumb-price{font-size:.72rem}
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta property="og:title" content="Akino Store - Stock Mobil Murah" />
+    <meta property="og:description" content="Stock mobil CPM murah mulai 2rb" />
+    <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg" />
+    <title>Stock Mobil Murah - Akino Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-primary: #08080f;
+            --bg-secondary: #0e0e1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --fg: #f0f0f8;
+            --fg-dim: rgba(240, 240, 248, 0.6);
+            --muted: #7a7a95;
+            --accent: #ffd866;
+            --accent-glow: rgba(255, 216, 102, 0.15);
+            --accent-dim: rgba(255, 216, 102, 0.08);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 6px;
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 60px rgba(255, 216, 102, 0.06);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--fg);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 10px;
+        }
+        ::selection {
+            background: var(--accent);
+            color: #0a0a0f;
+        }
+        img,
+        iframe {
+            display: block;
+            max-width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        /* ===== UTILITY ===== */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .container-narrow {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.94) translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 216, 102, 0.06);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 216, 102, 0.15);
+            }
+        }
+
+        /* ===== LOADER ===== */
+        .ig-card-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 8, 15, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 5;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            border-radius: inherit;
+        }
+        .ig-card-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(8, 8, 15, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.35s ease;
+            min-height: 60px;
+        }
+        .navbar.scrolled {
+            background: rgba(8, 8, 15, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-brand i {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            color: var(--fg);
+            font-size: 1.15rem;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+            background: transparent;
+            flex-shrink: 0;
+        }
+        .menu-toggle:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card);
+        }
+        .menu-toggle.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 0.2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--muted);
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--fg);
+            background: var(--bg-card);
+        }
+        .nav-links a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown>a {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 12, 24, 0.96);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            min-width: 220px;
+            padding: 0.4rem;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+            animation: fadeDown 0.25s ease forwards;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            white-space: nowrap;
+            color: var(--muted);
+            transition: all var(--transition);
+        }
+        .dropdown-menu a:hover {
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            padding: 6rem 1rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-dim), var(--accent), var(--accent-dim), transparent);
+            border-radius: 2px;
+        }
+        .page-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 5vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.4rem;
+            line-height: 1.1;
+        }
+        .page-hero h1 .highlight {
+            color: var(--accent);
+            position: relative;
+        }
+        .page-hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent);
+            opacity: 0.25;
+            border-radius: 2px;
+        }
+        .page-hero p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            max-width: 480px;
+            margin: 0.4rem auto 0;
+            line-height: 1.6;
+        }
+        .page-hero .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.25rem 0.9rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 216, 102, 0.15);
+            margin-bottom: 0.8rem;
+        }
+
+        /* ===== INFO BAR ===== */
+        .info-bar {
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            padding: 0 1rem;
+        }
+        .info-card {
+            background: var(--accent-dim);
+            border: 1px solid rgba(255, 216, 102, 0.12);
+            border-radius: var(--radius);
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            backdrop-filter: blur(8px);
+        }
+        .info-card .info-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--accent);
+            color: #0a0a0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .info-card .info-text {
+            flex: 1;
+            min-width: 160px;
+        }
+        .info-card .info-text h3 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.05rem;
+        }
+        .info-card .info-text p {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .info-card .info-text span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== SECTION HEADER ===== */
+        .sec {
+            padding: 2.5rem 0;
+        }
+        .sec-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sec-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 0.4rem;
+        }
+        .sec-label::before {
+            content: '';
+            width: 20px;
+            height: 1.5px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .sec-label::after {
+            content: '';
+            width: 20px;
+            height: 1.5px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .sec-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.15;
+        }
+        .sec-desc {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0.2rem auto 0;
+        }
+
+        /* ===== LIMITED BANNER ===== */
+        .limited-banner {
+            position: relative;
+            background: linear-gradient(145deg, rgba(255, 216, 102, 0.08), rgba(255, 216, 102, 0.02), rgba(255, 180, 0, 0.05));
+            border: 1px solid rgba(255, 216, 102, 0.25);
+            border-radius: var(--radius);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255, 216, 102, 0.1);
+            animation: pulseGlow 4s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+        .limited-banner::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: conic-gradient(from 0deg at 50% 50%, transparent, rgba(255, 216, 102, 0.06), transparent 30%);
+            animation: bannerSpin 10s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes bannerSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .limited-banner>* {
+            position: relative;
+            z-index: 1;
+        }
+        .limited-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 216, 102, 0.15);
+            margin-bottom: 0.5rem;
+        }
+        .limited-badge i {
+            font-size: 0.5rem;
+        }
+        .limited-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+        .limited-title .accent {
+            color: var(--accent);
+        }
+        .limited-price {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            color: var(--fg);
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.2px;
+        }
+        .limited-price span {
+            color: var(--accent);
+            font-size: clamp(1.3rem, 4.5vw, 2rem);
+            margin: 0 0.1rem;
+        }
+        .limited-sub {
+            color: var(--fg-dim);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+        .limited-sub strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .limited-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+        .limited-tags span {
+            font-size: 0.68rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--fg-dim);
+            transition: all var(--transition);
+        }
+        .limited-tags span:hover {
+            border-color: rgba(255, 216, 102, 0.3);
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ===== SECRET GRID ===== */
+        .secret-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.7rem;
+        }
+        .secret-grid .ig-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            position: relative;
+        }
+        .secret-grid .ig-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        .secret-grid .ig-card-embed-wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #0a0a12;
+        }
+        .secret-grid .ig-card-embed {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            min-height: unset !important;
+            height: 800px !important;
+            pointer-events: none;
+            border: none;
+            display: block;
+        }
+        .secret-grid .ig-card-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            cursor: pointer;
+            background: linear-gradient(to top, rgba(8, 8, 15, 0.7) 10%, transparent 50%);
+        }
+        .secret-grid .ig-card-thumb-price {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 3;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--fg);
+            pointer-events: none;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        }
+        .secret-grid .ig-card .secret-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 4;
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #0a0a0f;
+            background: var(--accent);
+            padding: 0.15rem 0.6rem;
+            border-radius: 50px;
+            pointer-events: none;
+        }
+        .limited-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--muted);
+            grid-column: 1/-1;
+        }
+        .limited-empty i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.3;
+        }
+
+        /* ===== SOLD SECTION ===== */
+        .sold-section {
+            margin-bottom: 2rem;
+            background: rgba(248, 113, 113, 0.03);
+            border-radius: var(--radius);
+            padding: 1rem 1rem 0.5rem;
+            border: 1px solid rgba(248, 113, 113, 0.06);
+        }
+        .sold-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .sold-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sold-header-left h2 {
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f87171;
+        }
+        .sold-header-left .sold-count {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 50px;
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+            font-weight: 600;
+        }
+        .sold-toggle {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.2rem 0.7rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .sold-toggle:hover {
+            border-color: var(--border-hover);
+            color: var(--fg);
+        }
+        .sold-toggle.open {
+            color: var(--accent);
+            border-color: rgba(255, 216, 102, 0.2);
+            background: var(--accent-dim);
+        }
+        .sold-toggle.open i {
+            transform: rotate(180deg);
+        }
+        .sold-toggle i {
+            transition: transform 0.3s ease;
+            font-size: 0.5rem;
+        }
+        .sold-list {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.2rem 0 0.6rem;
+            scroll-snap-type: x proximity;
+            -webkit-overflow-scrolling: touch;
+            max-height: 160px;
+            opacity: 1;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+        .sold-list::-webkit-scrollbar {
+            height: 2px;
+        }
+        .sold-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .sold-list::-webkit-scrollbar-thumb {
+            background: rgba(248, 113, 113, 0.2);
+            border-radius: 10px;
+        }
+        .sold-list.collapsed {
+            max-height: 0 !important;
+            opacity: 0;
+            overflow: hidden;
+            padding: 0;
+        }
+        .sold-card {
+            flex-shrink: 0;
+            width: 108px;
+            background: rgba(248, 113, 113, 0.04);
+            border: 1px solid rgba(248, 113, 113, 0.1);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition);
+            scroll-snap-align: start;
+            animation: fadeUp 0.4s ease both;
+        }
+        .sold-card:hover {
+            border-color: rgba(248, 113, 113, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(248, 113, 113, 0.08);
+        }
+        .sold-card-thumb {
+            width: 100%;
+            height: 92px;
+            overflow: hidden;
+            position: relative;
+            background: #0e0e18;
+        }
+        .sold-card-thumb iframe {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            min-height: unset !important;
+            height: 220px !important;
+            pointer-events: none;
+            border: none;
+            display: block;
+        }
+        .sold-card-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .sold-card-thumb-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(8, 8, 15, 0.7), transparent);
+            pointer-events: none;
+        }
+        .sold-card-sold-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            z-index: 3;
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            background: rgba(248, 113, 113, 0.9);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        .sold-card-sold-badge i {
+            font-size: 0.3rem;
+        }
+        .sold-card-body {
+            padding: 0.3rem 0.4rem 0.4rem;
+        }
+        .sold-card-body .sc-name {
+            font-family: var(--font-display);
+            font-size: 0.62rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            margin-bottom: 0.05rem;
+            color: var(--fg);
+            transition: color var(--transition);
+        }
+        .sold-card-body .sc-name:hover {
+            color: var(--accent);
+        }
+        .sold-card-body .sc-price {
+            font-size: 0.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+
+        /* ===== MAIN GRID ===== */
+        .ig-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.7rem;
+        }
+        .ig-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition);
+            cursor: pointer;
+            animation: scaleIn 0.4s ease both;
+            position: relative;
+        }
+        .ig-card:hover {
+            border-color: rgba(255, 216, 102, 0.2);
+            box-shadow: var(--shadow-card);
+            transform: translateY(-3px);
+        }
+        .ig-card-embed-wrap {
+            width: 100%;
+            aspect-ratio: 3/3.5;
+            overflow: hidden;
+            position: relative;
+            background: #0a0a12;
+        }
+        .ig-card-embed {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            min-height: unset !important;
+            height: 700px !important;
+            pointer-events: none;
+            border: none;
+            display: block;
+        }
+        .ig-card-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            cursor: pointer;
+            background: linear-gradient(to top, rgba(8, 8, 15, 0.75) 10%, transparent 45%);
+        }
+        .ig-card-thumb-price {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 3;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            pointer-events: none;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .ig-card .status-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 4;
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            pointer-events: none;
+            background: rgba(255, 216, 102, 0.9);
+            color: #0a0a0f;
+        }
+
+        /* ===== COUNTER ===== */
+        .ig-counter {
+            text-align: center;
+            margin: 0 0 1rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .ig-counter strong {
+            color: var(--accent);
+            font-family: var(--font-display);
+        }
+
+        /* ===== SORT TABS ===== */
+        .sort-tabs {
+            display: flex;
+            gap: 0.4rem;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .sort-btn {
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+        .sort-btn:hover {
+            color: var(--fg);
+            border-color: var(--border-hover);
+        }
+        .sort-btn.active {
+            background: var(--accent);
+            color: #0a0a0f;
+            border-color: var(--accent);
+            box-shadow: 0 2px 16px rgba(255, 216, 102, 0.2);
+        }
+        .sort-btn i {
+            font-size: 0.6rem;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            color: var(--fg);
+            border: 1px solid var(--border);
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+        .page-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+        .page-numbers {
+            display: flex;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .page-num {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-num:hover {
+            border-color: var(--border-hover);
+            color: var(--fg);
+        }
+        .page-num.active {
+            background: var(--accent);
+            color: #0a0a0f;
+            border-color: var(--accent);
+            box-shadow: 0 2px 12px rgba(255, 216, 102, 0.2);
+        }
+        .page-ellipsis {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        /* ===== DIVIDER ===== */
+        .sec-divider {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .sec-divider hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* ===== GUESTBOOK ===== */
+        .gb-wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .gb {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+        .gb-hdr {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+        .gb-hdr h2 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .gb-hdr p {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+        .gb label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 0.2rem;
+        }
+        .gb input,
+        .gb textarea {
+            width: 100%;
+            padding: 0.6rem 0.9rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--fg);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color var(--transition);
+            margin-bottom: 0.8rem;
+        }
+        .gb input:focus,
+        .gb textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+        .gb textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+        .gb-submit {
+            padding: 0.6rem 1.4rem;
+            background: var(--accent);
+            color: #0a0a0f;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .gb-submit:hover {
+            box-shadow: 0 4px 20px rgba(255, 216, 102, 0.3);
+            transform: translateY(-1px);
+        }
+        .gb-submit:active {
+            transform: scale(0.97);
+        }
+        .gb-msgs {
+            margin-top: 1.25rem;
+            max-height: 380px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .gb-msgs::-webkit-scrollbar {
+            width: 3px;
+        }
+        .gb-msgs::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        .gb-msg {
+            padding: 0.75rem 0.9rem;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.6rem;
+            transition: border-color var(--transition);
+        }
+        .gb-msg:hover {
+            border-color: var(--border-hover);
+        }
+        .gb-msg strong {
+            display: block;
+            font-size: 0.82rem;
+            margin-bottom: 0.1rem;
+            color: var(--fg);
+        }
+        .gb-msg p {
+            font-size: 0.8rem;
+            color: var(--fg-dim);
+            line-height: 1.5;
+        }
+        .gb-msg small {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.2);
+            margin-top: 0.2rem;
+            display: block;
+        }
+
+        /* ===== SOCIAL ROW ===== */
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.5rem 1rem;
+        }
+        .social-row a {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+            transition: all var(--transition);
+        }
+        .social-row a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            transform: translateY(-3px);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .chat-float {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+        .chat-float-label {
+            background: rgba(12, 12, 24, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.4rem 0.9rem;
+            font-size: 0.72rem;
+            color: var(--muted);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(6px) scale(0.95);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .chat-float-label span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .chat-float:hover .chat-float-label {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .chat-float-btn {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: #25D366;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 24px rgba(37, 211, 102, 0.35);
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .chat-float-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 36px rgba(37, 211, 102, 0.45);
+        }
+        .chat-float-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            animation: lbFadeIn 0.25s ease;
+        }
+        .lightbox-content {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            max-height: 92vh;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: lbScaleIn 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        .lightbox-content::-webkit-scrollbar {
+            width: 3px;
+        }
+        .lightbox-content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        .lightbox-close {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 210;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--fg);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.06);
+        }
+        .lightbox-iframe-wrap {
+            width: 100%;
+            background: #0a0a12;
+        }
+        .lightbox-iframe-wrap iframe {
+            width: 100%;
+            height: 580px;
+            border: none;
+            display: block;
+        }
+        .lightbox-info {
+            padding: 1rem 1.25rem 1.5rem;
+        }
+        .lightbox-info .ig-card-price {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+        .lightbox-info .ig-card-desc {
+            color: var(--fg-dim);
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+        .lightbox-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .lightbox-actions .btn-order-sm {
+            flex: 1;
+            justify-content: center;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+        }
+        .lightbox-actions a.ig-link {
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        .lightbox-actions a.ig-link:hover {
+            color: var(--accent);
+            border-color: rgba(255, 216, 102, 0.2);
+            background: var(--accent-dim);
+        }
+        .btn-order-sm {
+            padding: 0.5rem 1.1rem;
+            border-radius: var(--radius-sm);
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid rgba(255, 216, 102, 0.15);
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            text-decoration: none;
+        }
+        .btn-order-sm:hover {
+            background: var(--accent);
+            color: #0a0a0f;
+            box-shadow: 0 4px 20px rgba(255, 216, 102, 0.25);
+            transform: translateY(-1px);
+        }
+        .btn-order-sm:active {
+            transform: scale(0.97);
+        }
+        .sold-order-badge {
+            background: rgba(248, 113, 113, 0.08) !important;
+            color: #f87171 !important;
+            border-color: rgba(248, 113, 113, 0.2) !important;
+            cursor: default !important;
+            pointer-events: none !important;
+        }
+        .sold-order-badge:hover {
+            background: rgba(248, 113, 113, 0.08) !important;
+            color: #f87171 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        @keyframes lbFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes lbScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.94) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* ============================================================ */
+        /* ===== MOBILE RESPONSIVE ===== */
+        /* ============================================================ */
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.6rem 0.8rem;
+                min-height: 54px;
+            }
+            .nav-brand {
+                font-size: 1.05rem;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(8, 8, 15, 0.97);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border-bottom: 1px solid var(--border);
+                padding: 0.6rem 0.8rem 0.8rem;
+                gap: 0.1rem;
+                align-items: stretch;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+                border-radius: var(--radius-sm);
+                width: 100%;
+            }
+            .dropdown-menu {
+                position: static;
+                transform: none;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.03);
+                border: none;
+                border-radius: var(--radius-sm);
+                min-width: auto;
+                padding: 0.2rem 0 0.2rem 1rem;
+                animation: none;
+            }
+            .dropdown:hover .dropdown-menu {
+                display: none;
+            }
+            .dropdown.active .dropdown-menu {
+                display: block !important;
+            }
+            .dropdown-menu a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.82rem;
+                white-space: normal;
+            }
+
+            .page-hero {
+                padding: 5rem 0.8rem 1.5rem;
+            }
+            .page-hero h1 {
+                font-size: clamp(1.4rem, 5vw, 2rem);
+            }
+            .page-hero p {
+                font-size: 0.84rem;
+            }
+
+            .info-bar {
+                padding: 0 0.8rem;
+            }
+            .info-card {
+                padding: 0.8rem 1rem;
+                flex-direction: row;
+                gap: 0.7rem;
+            }
+            .info-card .info-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
+            }
+            .info-card .info-text h3 {
+                font-size: 0.82rem;
+            }
+            .info-card .info-text p {
+                font-size: 0.72rem;
+            }
+
+            .sec {
+                padding: 1.5rem 0;
+            }
+            .sec-header {
+                margin-bottom: 1.25rem;
+            }
+            .sec-title {
+                font-size: clamp(1.2rem, 4vw, 1.6rem);
+            }
+            .sec-desc {
+                font-size: 0.82rem;
+            }
+
+            .ig-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            .ig-card-embed-wrap {
+                aspect-ratio: 3/3.8;
+            }
+            .ig-card-thumb-price {
+                font-size: 0.7rem;
+                bottom: 7px;
+                left: 7px;
+                right: 7px;
+            }
+            .ig-card .status-badge {
+                font-size: 0.45rem;
+                padding: 0.1rem 0.4rem;
+                top: 5px;
+                right: 5px;
+            }
+
+            .secret-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+            .secret-grid .ig-card {
+                aspect-ratio: 3/4;
+            }
+            .secret-grid .ig-card-thumb-price {
+                font-size: 0.65rem;
+                bottom: 6px;
+                left: 6px;
+                right: 6px;
+            }
+            .secret-grid .ig-card .secret-badge {
+                font-size: 0.4rem;
+                padding: 0.1rem 0.4rem;
+                top: 4px;
+                right: 4px;
+            }
+
+            .limited-banner {
+                padding: 1.25rem 1rem;
+                border-radius: var(--radius-sm);
+                margin-bottom: 1rem;
+            }
+            .limited-title {
+                font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+            }
+            .limited-price {
+                font-size: clamp(0.9rem, 3.5vw, 1.3rem);
+            }
+            .limited-price span {
+                font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+            }
+            .limited-sub {
+                font-size: 0.75rem;
+            }
+            .limited-tags span {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.6rem;
+            }
+
+            .sold-section {
+                padding: 0.7rem 0.7rem 0.3rem;
+                margin-bottom: 1.25rem;
+            }
+            .sold-header-left h2 {
+                font-size: 0.82rem;
+            }
+            .sold-card {
+                width: 92px;
+            }
+            .sold-card-thumb {
+                height: 78px;
+            }
+            .sold-card-body .sc-name {
+                font-size: 0.56rem;
+            }
+            .sold-card-body .sc-price {
+                font-size: 0.54rem;
+            }
+
+            .sort-tabs {
+                gap: 0.3rem;
+                margin-bottom: 0.8rem;
+            }
+            .sort-btn {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.7rem;
+            }
+
+            .pagination {
+                gap: 0.35rem;
+                margin-top: 1.25rem;
+            }
+            .page-btn {
+                font-size: 0.7rem;
+                padding: 0.35rem 0.7rem;
+            }
+            .page-num {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+            .page-ellipsis {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+
+            .gb {
+                padding: 1.25rem 1rem;
+            }
+            .gb-hdr h2 {
+                font-size: 1rem;
+            }
+            .gb input,
+            .gb textarea {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.75rem;
+            }
+            .gb-submit {
+                font-size: 0.78rem;
+                padding: 0.5rem 1.1rem;
+            }
+
+            .lightbox {
+                padding: 0;
+                align-items: flex-end;
+            }
+            .lightbox-content {
+                max-width: 100%;
+                max-height: 94vh;
+                border-radius: 18px 18px 0 0;
+                animation: lbSlideUp 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+            }
+            @keyframes lbSlideUp {
+                from {
+                    transform: translateY(100%);
+                }
+                to {
+                    transform: translateY(0);
+                }
+            }
+            .lightbox-close {
+                top: 0.6rem;
+                right: 0.6rem;
+                width: 34px;
+                height: 34px;
+                font-size: 0.75rem;
+            }
+            .lightbox-iframe-wrap iframe {
+                height: 480px !important;
+                min-height: 480px !important;
+            }
+            .lightbox-info {
+                padding: 0.8rem 1rem 1.25rem;
+            }
+            .lightbox-info .ig-card-price {
+                font-size: 1.05rem;
+            }
+            .lightbox-info .ig-card-desc {
+                font-size: 0.8rem;
+                margin-bottom: 0.7rem;
+            }
+            .lightbox-actions .btn-order-sm {
+                font-size: 0.78rem;
+                padding: 0.5rem 0.9rem;
+            }
+            .lightbox-actions a.ig-link {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .chat-float {
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+            .chat-float-btn {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                font-size: 1.4rem;
+            }
+            .chat-float-label {
+                font-size: 0.65rem;
+                padding: 0.3rem 0.7rem;
+            }
+
+            .social-row {
+                gap: 0.6rem;
+                padding: 1rem 0.8rem;
+            }
+            .social-row a {
+                width: 38px;
+                height: 38px;
+                font-size: 0.85rem;
+            }
+
+            .footer {
+                font-size: 0.68rem;
+                padding: 1rem 0.8rem;
+            }
+
+            .ig-counter {
+                font-size: 0.74rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .ig-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.4rem;
+            }
+            .ig-card-embed-wrap {
+                aspect-ratio: 3/4;
+            }
+            .ig-card-thumb-price {
+                font-size: 0.6rem;
+                bottom: 5px;
+                left: 5px;
+                right: 5px;
+            }
+            .secret-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.4rem;
+            }
+            .secret-grid .ig-card-thumb-price {
+                font-size: 0.6rem;
+            }
+            .sold-card {
+                width: 80px;
+            }
+            .sold-card-thumb {
+                height: 68px;
+            }
+            .page-hero h1 {
+                font-size: 1.3rem;
+            }
+            .limited-title {
+                font-size: 1.1rem;
+            }
+            .limited-price {
+                font-size: 0.85rem;
+            }
+            .limited-price span {
+                font-size: 1rem;
+            }
+            .info-card {
+                padding: 0.6rem 0.8rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .info-card .info-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .ig-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            .ig-card-embed-wrap {
+                aspect-ratio: 3/3.2;
+            }
+            .secret-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
+            .sold-card {
+                width: 130px;
+            }
+            .sold-card-thumb {
+                height: 110px;
+            }
+            .lightbox-content {
+                max-width: 560px;
+            }
+            .lightbox-iframe-wrap iframe {
+                height: 620px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .ig-list {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+            .secret-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+            .container {
+                padding: 0 2rem;
+            }
+            .container-narrow {
+                padding: 0 2rem;
+            }
+            .page-hero {
+                padding: 8rem 2rem 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <nav class="navbar" id="navbar">
-    <a href="index.html" class="nav-brand">Akino Store</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="#" class="active">Service <i class="fas fa-chevron-down" style="font-size:.6rem;margin-left:4px"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
-          <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
-          <li><a href="designedit.html">Design / Edit Foto</a></li>
-        </ul>
-      </li>
-      <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
-    </ul>
-  </nav>
-
-  <section class="page-hero">
-    <h1>Stock Mobil <span style="color:var(--accent)">Murah</span></h1>
-    <p>Klik foto untuk memperbesar, lalu klik Pesan untuk langsung chat WhatsApp admin.</p>
-  </section>
-
-  <div class="info-bar">
-    <div class="info-card">
-      <div class="info-icon"><i class="fas fa-car"></i></div>
-      <div class="info-text">
-        <h3>Cara Pesan</h3>
-        <p>Klik foto <span>→ perbesar</span> → klik <span>Pesan</span> → langsung redirect ke WhatsApp.</p>
-      </div>
-    </div>
-  </div>
-
-  <section class="sec grid-section" style="padding-bottom:1rem">
-    <div class="limited-banner reveal">
-      <div class="limited-badge"><i class="fas fa-star"></i> LIMITED EDITION</div>
-      <h2 class="limited-title">Secret Car <span class="accent">!!</span></h2>
-      <div class="limited-price">Hanya <span>5rb</span> Rupiah !!</div>
-      <p class="limited-sub"><strong>Free Request Spek</strong> (Tune Up, Glitch, FFA) &middot; <strong>Free Sirine / Police Sirine</strong></p>
-      <div class="limited-tags">
-        <span>Mercedes Benz W124</span>
-        <span>Toyota Celica GT Four ST205</span>
-        <span>Toyota Fortuner</span>
-        <span>Ford F650</span>
-      </div>
-    </div>
-    <div class="ig-list" id="secretGrid"></div>
-  </section>
-
-  <div class="sec-divider"><hr></div>
-
-  <section class="sec grid-section" style="padding-top:2rem">
-    <div class="sold-section" id="soldSection" style="display:none">
-      <div class="sold-header">
-        <div class="sold-header-left">
-          <h2><i class="fas fa-tag" style="margin-right:.4rem"></i>Mobil Terjual</h2>
-          <span class="sold-count" id="soldCount">0</span>
-        </div>
-        <button class="sold-toggle open" id="soldToggle" onclick="toggleSoldList()">
-          <span id="soldToggleText">Sembunyikan</span> <i class="fas fa-chevron-down"></i>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-store"></i> Akino Store
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
         </button>
-      </div>
-      <div class="sold-list" id="soldList"></div>
-    </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="dropdown" id="dropdownService">
+                <a href="#" class="active" id="dropdownToggle">
+                    Service <i class="fas fa-chevron-down" style="font-size:0.5rem;margin-left:3px"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
+                    <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
+                    <li><a href="designedit.html">Design / Edit Foto</a></li>
+                </ul>
+            </li>
+            <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="sec-header reveal">
-      <div class="sec-label" style="justify-content:center">Listing</div>
-      <h2 class="sec-title">Mobil yang Tersedia</h2>
-      <p class="sec-desc" style="margin:0 auto">Klik foto untuk melihat detail & memesan.</p>
-    </div>
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="hero-badge"><i class="fas fa-fire"></i> Stock Terbatas</div>
+        <h1>Stock Mobil <span class="highlight">Murah</span></h1>
+        <p>Klik foto untuk memperbesar, lalu klik Pesan untuk langsung chat WhatsApp admin.</p>
+    </section>
 
-    <div class="sort-tabs reveal" id="sortTabs">
-      <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')"><i class="fas fa-clock" style="font-size:.65rem"></i> Terbaru</button>
-      <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')"><i class="fas fa-arrow-up-1-9" style="font-size:.65rem"></i> Harga Terendah</button>
-      <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')"><i class="fas fa-arrow-down-9-1" style="font-size:.65rem"></i> Harga Tertinggi</button>
-    </div>
-
-    <div class="ig-counter reveal" id="igCounter"></div>
-    <div class="ig-list" id="igGrid"></div>
-
-    <div class="pagination" id="pagination" style="display:none">
-      <button class="page-btn" id="prevBtn" onclick="prevPage()"><i class="fas fa-chevron-left"></i> Sebelumnya</button>
-      <div class="page-numbers" id="pageNumbers"></div>
-      <button class="page-btn" id="nextBtn" onclick="nextPage()">Selanjutnya <i class="fas fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <div class="sec-divider"><hr></div>
-
-  <section class="sec">
-    <div class="gb-wrap reveal">
-      <div class="gb">
-        <div class="gb-hdr">
-          <div class="sec-label" style="justify-content:center">Testimoni</div>
-          <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Komentar Klien</h2>
-          <p>Tulis pengalaman kamu membeli stock mobil di sini</p>
+    <!-- ===== INFO BAR ===== -->
+    <div class="info-bar">
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-car"></i></div>
+            <div class="info-text">
+                <h3>Cara Pesan</h3>
+                <p>Klik foto <span>→ perbesar</span> → klik <span>Pesan</span> → langsung redirect ke WhatsApp.</p>
+            </div>
         </div>
-        <form id="messageForm">
-          <label for="gb-name">Nama</label>
-          <input type="text" id="gb-name" required placeholder="Masukkan nama kamu">
-          <label for="gb-msg">Komentar</label>
-          <textarea id="gb-msg" rows="3" required placeholder="Tulis pengalaman kamu..."></textarea>
-          <button type="submit" class="gb-submit"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
-        </form>
-        <div id="gbMsgs" class="gb-msgs"></div>
-      </div>
     </div>
-  </section>
 
-  <div class="social-row">
-    <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
-    <a href="https://www.instagram.com/akinostore_/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank"><i class="fab fa-youtube"></i></a>
-    <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
-  </div>
+    <!-- ===== LIMITED EDITION ===== -->
+    <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
+        <div class="container">
+            <div class="limited-banner reveal">
+                <div class="limited-badge"><i class="fas fa-star"></i> LIMITED EDITION</div>
+                <h2 class="limited-title">Secret Car <span class="accent">!!</span></h2>
+                <div class="limited-price">Hanya <span>5rb</span> Rupiah !!</div>
+                <p class="limited-sub"><strong>Free Request Spek</strong> (Tune Up, Glitch, FFA) &middot; <strong>Free Sirine / Police Sirine</strong></p>
+                <div class="limited-tags">
+                    <span>Mercedes Benz W124</span>
+                    <span>Toyota Celica GT Four ST205</span>
+                    <span>Toyota Fortuner</span>
+                    <span>Ford F650</span>
+                </div>
+            </div>
 
-  <div class="chat-float">
-    <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
-    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
-  </div>
-
-  <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
-
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-backdrop" id="lbBackdrop"></div>
-    <div class="lightbox-content" id="lbContent">
-      <div class="lightbox-iframe-wrap">
-        <iframe id="lbIframe" src="" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>
-      </div>
-      <div class="lightbox-info">
-        <div class="ig-card-price" id="lbPrice"></div>
-        <div class="ig-card-desc" id="lbDesc"></div>
-        <div class="lightbox-actions">
-          <a href="#" id="lbIgLink" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat di Instagram</a>
-          <button class="btn-order-sm" id="lbOrder"><i class="fab fa-whatsapp"></i> Pesan</button>
+            <div class="secret-grid" id="secretGrid"></div>
         </div>
-      </div>
+    </section>
+
+    <div class="sec-divider"><hr /></div>
+
+    <!-- ===== MAIN STOCK ===== -->
+    <section class="sec" style="padding-top:1.5rem">
+        <div class="container">
+
+            <!-- Sold Section -->
+            <div class="sold-section" id="soldSection" style="display:none">
+                <div class="sold-header">
+                    <div class="sold-header-left">
+                        <h2><i class="fas fa-tag" style="margin-right:0.3rem"></i>Mobil Terjual</h2>
+                        <span class="sold-count" id="soldCount">0</span>
+                    </div>
+                    <button class="sold-toggle open" id="soldToggle" onclick="toggleSoldList()">
+                        <span id="soldToggleText">Sembunyikan</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="sold-list" id="soldList"></div>
+            </div>
+
+            <!-- Header -->
+            <div class="sec-header reveal">
+                <div class="sec-label">Listing</div>
+                <h2 class="sec-title">Mobil yang Tersedia</h2>
+                <p class="sec-desc">Klik foto untuk melihat detail &amp; memesan.</p>
+            </div>
+
+            <!-- Sort -->
+            <div class="sort-tabs reveal" id="sortTabs">
+                <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')">
+                    <i class="fas fa-clock"></i> Terbaru
+                </button>
+                <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')">
+                    <i class="fas fa-arrow-up-1-9"></i> Harga Terendah
+                </button>
+                <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')">
+                    <i class="fas fa-arrow-down-9-1"></i> Harga Tertinggi
+                </button>
+            </div>
+
+            <!-- Counter -->
+            <div class="ig-counter reveal" id="igCounter"></div>
+
+            <!-- Grid -->
+            <div class="ig-list" id="igGrid"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display:none">
+                <button class="page-btn" id="prevBtn" onclick="prevPage()">
+                    <i class="fas fa-chevron-left"></i> Sebelumnya
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextBtn" onclick="nextPage()">
+                    Selanjutnya <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="sec-divider"><hr /></div>
+
+    <!-- ===== GUESTBOOK ===== -->
+    <section class="sec">
+        <div class="gb-wrap reveal">
+            <div class="gb">
+                <div class="gb-hdr">
+                    <div class="sec-label" style="justify-content:center">Testimoni</div>
+                    <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:0.4rem"></i>Komentar Klien</h2>
+                    <p>Tulis pengalaman kamu membeli stock mobil di sini</p>
+                </div>
+                <form id="messageForm">
+                    <label for="gb-name">Nama</label>
+                    <input type="text" id="gb-name" required placeholder="Masukkan nama kamu" />
+                    <label for="gb-msg">Komentar</label>
+                    <textarea id="gb-msg" rows="3" required placeholder="Tulis pengalaman kamu..."></textarea>
+                    <button type="submit" class="gb-submit"><i class="fas fa-paper-plane"></i> Kirim Komentar</button>
+                </form>
+                <div id="gbMsgs" class="gb-msgs"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SOCIAL ROW ===== -->
+    <div class="social-row">
+        <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/akinostore_/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
-    <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
-  </div>
 
-  <script>
-    function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
-    function getCode(url){var m=url.match(/\/p\/([A-Za-z0-9_-]+)/);return m?m[1]:null}
-    function getFirstLine(d){return(d||'').split('\n')[0].trim()}
-    window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
-    document.getElementById('menuToggle').addEventListener('click',function(){document.getElementById('navLinks').classList.toggle('active')});
-    var revObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}})},{threshold:.08});
-    document.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el)});
+    <!-- ===== WHATSAPP FLOAT ===== -->
+    <div class="chat-float">
+        <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+        <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
-    var lbEl=document.getElementById('lightbox'),lbIframe=document.getElementById('lbIframe'),
-        lbPrice=document.getElementById('lbPrice'),lbDesc=document.getElementById('lbDesc'),
-        lbIgLink=document.getElementById('lbIgLink'),lbOrder=document.getElementById('lbOrder'),
-        lbContent=document.getElementById('lbContent'),lbCurrentPost=null,lbOpts={},lbTouchStartY=0;
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
 
-    window.openLightbox=function(post,opts){
-      opts=opts||{};
-      var code=getCode(post.url);if(!code)return;
-      lbCurrentPost=post;lbOpts=opts;
-      lbIframe.src='https://www.instagram.com/p/'+code+'/embed/';
-      lbPrice.style.display='';lbDesc.style.display='';lbOrder.style.display='';
-      lbOrder.className='btn-order-sm';lbOrder.style.cssText='';
-      if(opts.isSold){
-        lbPrice.textContent=post.editedPrice||post.price||'';
-        lbDesc.textContent=post.desc||'';
-        lbDesc.style.display=lbDesc.textContent?'':'none';
-        lbIgLink.href=post.url||'#';
-        lbOrder.innerHTML='<i class="fas fa-check-circle"></i> Sudah Terjual';
-        lbOrder.className='btn-order-sm sold-order-badge';
-      }else if(opts.hidePrice){
-        lbPrice.style.display='none';
-        lbDesc.textContent=opts.nameAsDesc?(post.name||''):(post.desc||'');
-        lbDesc.style.display=lbDesc.textContent?'':'none';
-        lbIgLink.href=post.url||'#';
-        lbOrder.innerHTML='<i class="fab fa-whatsapp"></i> Tanya Admin';
-      }else{
-        lbPrice.textContent=post.editedPrice||post.price||'';
-        lbDesc.textContent=post.desc||'';
-        lbDesc.style.display=lbDesc.textContent?'':'none';
-        lbIgLink.href=post.url||'#';
-        lbOrder.innerHTML='<i class="fab fa-whatsapp"></i> Pesan';
-      }
-      lbEl.classList.add('active');document.body.style.overflow='hidden';lbContent.scrollTop=0;
-    };
-    window.closeLightbox=function(){
-      lbEl.classList.remove('active');
-      setTimeout(function(){lbIframe.src=''},350);
-      document.body.style.overflow='';lbCurrentPost=null;lbOpts={};
-      lbOrder.innerHTML='<i class="fab fa-whatsapp"></i> Pesan';
-      lbOrder.className='btn-order-sm';lbOrder.style.cssText='';lbOrder.style.display='';
-      lbPrice.style.display='';lbDesc.style.display='';
-    };
-    document.getElementById('lbBackdrop').addEventListener('click',closeLightbox);
-    document.getElementById('lbClose').addEventListener('click',closeLightbox);
-    lbOrder.addEventListener('click',function(){
-      if(!lbCurrentPost)return;
-      if(lbOpts.isSold)return;
-      var waMsg;
-      if(lbOpts.isSecret){waMsg="Halo admin, saya tertarik dengan Limited Secret Car:\n\n"+(lbCurrentPost.name||'')+"\n\nLink: "+lbCurrentPost.url}
-      else{var price=lbCurrentPost.editedPrice||lbCurrentPost.price;waMsg="Halo admin, saya mau pesan mobil:\n\n"+price+"\n"+lbCurrentPost.desc+"\n\nLink: "+lbCurrentPost.url}
-      window.open("https://wa.me/6289687163314?text="+encodeURIComponent(waMsg),'_blank');closeLightbox();
-    });
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lbEl.classList.contains('active'))closeLightbox()});
-    lbContent.addEventListener('touchstart',function(e){lbTouchStartY=e.touches[0].clientY},{passive:true});
-    lbContent.addEventListener('touchmove',function(e){if(e.touches[0].clientY-lbTouchStartY>100&&lbContent.scrollTop<=0)closeLightbox()},{passive:true});
-  </script>
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-backdrop" id="lbBackdrop"></div>
+        <div class="lightbox-content" id="lbContent">
+            <div class="lightbox-iframe-wrap">
+                <iframe id="lbIframe" src="" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>
+            </div>
+            <div class="lightbox-info">
+                <div class="ig-card-price" id="lbPrice"></div>
+                <div class="ig-card-desc" id="lbDesc"></div>
+                <div class="lightbox-actions">
+                    <a href="#" id="lbIgLink" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat di Instagram</a>
+                    <button class="btn-order-sm" id="lbOrder"><i class="fab fa-whatsapp"></i> Pesan</button>
+                </div>
+            </div>
+        </div>
+        <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
+    </div>
 
-  <script type="module">
-    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import{getFirestore,collection,query,orderBy,onSnapshot}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
-    const db=getFirestore(app);
-    function escLocal(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+    <!-- ============================================================ -->
+    <!-- ===== SCRIPTS ===== -->
+    <!-- ============================================================ -->
 
-    onSnapshot(query(collection(db,"secretCars"),orderBy("addedAt","desc")),(snap)=>{
-      var cars=[];snap.forEach((d)=>cars.push({id:d.id,...d.data()}));
-      var grid=document.getElementById('secretGrid');grid.innerHTML='';
-      var avail=cars.filter(c=>c.status==='available');
-      if(!avail.length){grid.innerHTML='<div class="limited-empty"><i class="fas fa-lock"></i>Belum ada secret car tersedia.</div>';return}
-      avail.forEach((car,i)=>{
-        var code=getCode(car.url);if(!code)return;
-        var card=document.createElement('div');card.className='ig-card';
-        card.style.animation='gridFadeIn .4s ease '+(i*0.05)+'s both';
-        card.innerHTML='<div class="ig-card-embed-wrap"><iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="ig-card-thumb-overlay"></div><div class="ig-card-thumb-price">'+escLocal(car.name)+'</div></div>';
-        var openFn=function(e){e.stopPropagation();window.openLightbox({url:car.url,name:car.name},{hidePrice:true,isSecret:true,nameAsDesc:true})};
-        card.querySelector('.ig-card-thumb-overlay').addEventListener('click',openFn);
-        card.querySelector('.ig-card-thumb-price').addEventListener('click',openFn);
-        grid.appendChild(card);
-      });
-    },(err)=>{console.error("Secret cars error:",err)});
-  </script>
+    <!-- ===== UTILITY SCRIPTS ===== -->
+    <script>
+        function esc(t) { var d = document.createElement('div');
+            d.textContent = t; return d.innerHTML }
 
-  <script type="module">
-    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import{getFirestore,collection,query,orderBy,onSnapshot}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
-    const db=getFirestore(app);
+        function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null }
 
-    var SOLD_HOURS=24,PER_PAGE=10,currentPage=0,soldListOpen=true,currentSort='newest',POSTS=[];
+        function getFirstLine(d) { return (d || '').split('\n')[0].trim() }
 
-    function escLocal(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
-    function parsePrice(str){var n=parseInt((str||'').replace(/[^0-9]/g,''));return isNaN(n)?0:n}
-    function getEffectivePrice(post){return post.editedPrice||post.price||''}
-    function toMs(t){if(!t)return 0;if(typeof t==='number')return t;if(t.seconds)return t.seconds*1000;return new Date(t).getTime()}
-
-    window.setSort=function(sort){
-      currentSort=sort;
-      document.querySelectorAll('.sort-btn').forEach(function(b){b.classList.toggle('active',b.dataset.sort===sort)});
-      currentPage=0;renderAvailable();
-    };
-
-    window.toggleSoldList=function(){
-      soldListOpen=!soldListOpen;
-      var list=document.getElementById('soldList'),btn=document.getElementById('soldToggle'),txt=document.getElementById('soldToggleText');
-      if(soldListOpen){list.classList.remove('collapsed');btn.classList.add('open');txt.textContent='Sembunyikan'}
-      else{list.classList.add('collapsed');btn.classList.remove('open');txt.textContent='Tampilkan'}
-    };
-
-    function getSortedAvail(){
-      var avail=POSTS.filter(function(p){return p.status==='available'});
-      if(currentSort==='newest')avail.sort(function(a,b){return toMs(b.addedAt)-toMs(a.addedAt)});
-      else if(currentSort==='price-asc')avail.sort(function(a,b){return parsePrice(getEffectivePrice(a))-parsePrice(getEffectivePrice(b))});
-      else if(currentSort==='price-desc')avail.sort(function(a,b){return parsePrice(getEffectivePrice(b))-parsePrice(getEffectivePrice(a))});
-      return avail;
-    }
-
-    function renderSold(){
-      var now=Date.now();
-      var sold=POSTS.filter(function(p){
-        if(p.status!=='sold')return false;
-        return (SOLD_HOURS*3600000-(now-toMs(p.soldAt)))>0;
-      });
-      var section=document.getElementById('soldSection'),list=document.getElementById('soldList'),countEl=document.getElementById('soldCount');
-      if(!sold.length){section.style.display='none';return}
-      section.style.display='block';
-      countEl.textContent=sold.length+' item';
-      var h='';
-      sold.forEach(function(post,i){
-        var price=getEffectivePrice(post);
-        var code=getCode(post.url);
-        var name=getFirstLine(post.desc);
-        h+='<div class="sold-card" data-sold-idx="'+i+'" style="animation-delay:'+(i*0.06)+'s">';
-        if(code){
-          h+='<div class="sold-card-thumb"><iframe src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="sold-card-thumb-overlay"></div><div class="sold-card-sold-badge"><i class="fas fa-check"></i> TERJUAL</div></div>';
-        }
-        h+='<div class="sold-card-body"><a href="'+post.url+'" target="_blank" class="sc-name" title="'+escLocal(name)+'">'+escLocal(name)+'</a><span class="sc-price">'+escLocal(price)+'</span></div></div>';
-      });
-      list.innerHTML=h;
-
-      list.querySelectorAll('.sold-card').forEach(function(card){
-        var idx=parseInt(card.dataset.soldIdx);
-        var post=sold[idx];if(!post)return;
-        var thumb=card.querySelector('.sold-card-thumb');
-        if(thumb){
-          thumb.querySelector('.sold-card-thumb-overlay').addEventListener('click',function(e){
-            e.preventDefault();e.stopPropagation();
-            window.openLightbox(post,{isSold:true});
-          });
-        }
-      });
-    }
-
-    function buildPageNums(current,total){
-      if(total<=7){var a=[];for(var i=0;i<total;i++)a.push(i);return a}
-      var pages=[0];
-      if(current>2)pages.push('...');
-      var s=Math.max(1,current-1),e=Math.min(total-2,current+1);
-      for(var i=s;i<=e;i++)pages.push(i);
-      if(current<total-3)pages.push('...');
-      pages.push(total-1);
-      return pages;
-    }
-
-    function renderAvailable(){
-      var avail=getSortedAvail(),grid=document.getElementById('igGrid');
-      grid.innerHTML='';
-      var total=avail.length,totalPages=Math.ceil(total/PER_PAGE);
-      if(currentPage>=totalPages&&totalPages>0)currentPage=totalPages-1;
-      if(currentPage<0)currentPage=0;
-      var start=currentPage*PER_PAGE,end=Math.min(start+PER_PAGE,total),showing=total>0?end-start:0;
-      document.getElementById('igCounter').innerHTML=total>0?'Menampilkan <strong>'+showing+'</strong> dari <strong>'+total+'</strong> mobil tersedia':'<strong>0</strong> mobil tersedia saat ini';
-      if(!total){
-        grid.innerHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.5rem;display:block;margin-bottom:1rem;opacity:.3"></i>Semua stock mobil saat ini kosong.</div>';
-        document.getElementById('pagination').style.display='none';
-        return;
-      }
-      avail.slice(start,end).forEach(function(post,i){
-        var code=getCode(post.url);if(!code)return;
-        var price=getEffectivePrice(post);
-        var card=document.createElement('div');card.className='ig-card';
-        card.style.animation='gridFadeIn .4s ease '+(i*0.04)+'s both';
-        card.innerHTML='<div class="ig-card-embed-wrap"><iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="ig-card-thumb-overlay"></div><div class="ig-card-thumb-price">'+escLocal(price)+'</div></div>';
-        card.querySelector('.ig-card-thumb-overlay').addEventListener('click',function(e){e.stopPropagation();window.openLightbox(post)});
-        card.querySelector('.ig-card-thumb-price').addEventListener('click',function(e){e.stopPropagation();window.openLightbox(post)});
-        grid.appendChild(card);
-      });
-      var pag=document.getElementById('pagination');
-      if(totalPages>1){
-        pag.style.display='flex';
-        document.getElementById('prevBtn').disabled=currentPage===0;
-        document.getElementById('nextBtn').disabled=currentPage===totalPages-1;
-        var pageNums=buildPageNums(currentPage,totalPages),pnEl=document.getElementById('pageNumbers');
-        pnEl.innerHTML='';
-        pageNums.forEach(function(p){
-          if(p==='...'){var sp=document.createElement('span');sp.className='page-ellipsis';sp.textContent='...';pnEl.appendChild(sp)}
-          else{var btn=document.createElement('button');btn.className='page-num'+(p===currentPage?' active':'');btn.textContent=p+1;btn.onclick=(function(pg){return function(){goToPage(pg)}})(p);pnEl.appendChild(btn)}
+        // ===== NAVBAR =====
+        window.addEventListener('scroll', function() {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
-      }else{pag.style.display='none'}
-    }
 
-    window.prevPage=function(){if(currentPage>0){currentPage--;renderAvailable();scrollToGrid()}};
-    window.nextPage=function(){var tp=Math.ceil(getSortedAvail().length/PER_PAGE);if(currentPage<tp-1){currentPage++;renderAvailable();scrollToGrid()}};
-    function goToPage(pg){currentPage=pg;renderAvailable();scrollToGrid()}
-    function scrollToGrid(){var g=document.getElementById('igGrid');window.scrollTo({top:g.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'})}
+        var menuToggle = document.getElementById('menuToggle');
+        var navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+            var icon = menuToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'fas fa-xmark';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
 
-    onSnapshot(query(collection(db,"carStock"),orderBy("addedAt","desc")),(snap)=>{
-      POSTS=[];snap.forEach((d)=>POSTS.push({id:d.id,...d.data()}));
-      renderSold();renderAvailable();
-    },(err)=>{console.error("Stock listener error:",err)});
-  </script>
+        var dropdownToggle = document.getElementById('dropdownToggle');
+        var dropdownService = document.getElementById('dropdownService');
+        dropdownToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownService.classList.toggle('active');
+            }
+        });
 
-  <script type="module">
-    import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import{getFirestore,collection,addDoc,query,orderBy,limit,serverTimestamp,onSnapshot,startAfter,getDocs}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
-    const db=getFirestore(app);
-    const gbForm=document.getElementById('messageForm'),gbMsgs=document.getElementById('gbMsgs');
-    let lastVisible=null,loading=false;
-    gbForm.addEventListener('submit',async(e)=>{e.preventDefault();const name=document.getElementById('gb-name').value.trim(),message=document.getElementById('gb-msg').value.trim();if(name&&message){await addDoc(collection(db,"messages"),{name,message,timestamp:serverTimestamp()});gbForm.reset()}});
-    function loadMessages(){
-      onSnapshot(query(collection(db,"messages"),orderBy("timestamp","desc"),limit(10)),(snap)=>{
-        gbMsgs.innerHTML="";snap.forEach((d)=>renderMsg(d.data()));gbMsgs.scrollTop=0;
-        if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1];
-      });
-    }
-    gbMsgs.addEventListener("scroll",async()=>{
-      if(loading)return;
-      if(gbMsgs.scrollTop+gbMsgs.clientHeight>=gbMsgs.scrollHeight-10){
-        loading=true;
-        if(lastVisible){
-          const snap=await getDocs(query(collection(db,"messages"),orderBy("timestamp","desc"),startAfter(lastVisible),limit(10)));
-          snap.forEach((d)=>renderMsg(d.data()));
-          if(snap.docs.length>0)lastVisible=snap.docs[snap.docs.length-1];
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.querySelector('i').className = 'fas fa-bars';
+                }
+            });
+        });
+
+        // ===== REVEAL ON SCROLL =====
+        var revObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            revObs.observe(el);
+        });
+
+        // ===== LIGHTBOX =====
+        var lbEl = document.getElementById('lightbox'),
+            lbIframe = document.getElementById('lbIframe'),
+            lbPrice = document.getElementById('lbPrice'),
+            lbDesc = document.getElementById('lbDesc'),
+            lbIgLink = document.getElementById('lbIgLink'),
+            lbOrder = document.getElementById('lbOrder'),
+            lbContent = document.getElementById('lbContent'),
+            lbCurrentPost = null,
+            lbOpts = {},
+            lbTouchStartY = 0;
+
+        window.openLightbox = function(post, opts) {
+            opts = opts || {};
+            var code = getCode(post.url);
+            if (!code) return;
+            lbCurrentPost = post;
+            lbOpts = opts;
+            lbIframe.src = 'https://www.instagram.com/p/' + code + '/embed/';
+            lbPrice.style.display = '';
+            lbDesc.style.display = '';
+            lbOrder.style.display = '';
+            lbOrder.className = 'btn-order-sm';
+            lbOrder.style.cssText = '';
+
+            if (opts.isSold) {
+                lbPrice.textContent = post.editedPrice || post.price || '';
+                lbDesc.textContent = post.desc || '';
+                lbDesc.style.display = lbDesc.textContent ? '' : 'none';
+                lbIgLink.href = post.url || '#';
+                lbOrder.innerHTML = '<i class="fas fa-check-circle"></i> Sudah Terjual';
+                lbOrder.className = 'btn-order-sm sold-order-badge';
+            } else if (opts.hidePrice) {
+                lbPrice.style.display = 'none';
+                lbDesc.textContent = opts.nameAsDesc ? (post.name || '') : (post.desc || '');
+                lbDesc.style.display = lbDesc.textContent ? '' : 'none';
+                lbIgLink.href = post.url || '#';
+                lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Tanya Admin';
+            } else {
+                lbPrice.textContent = post.editedPrice || post.price || '';
+                lbDesc.textContent = post.desc || '';
+                lbDesc.style.display = lbDesc.textContent ? '' : 'none';
+                lbIgLink.href = post.url || '#';
+                lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+            }
+            lbEl.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lbContent.scrollTop = 0;
+        };
+
+        window.closeLightbox = function() {
+            lbEl.classList.remove('active');
+            setTimeout(function() { lbIframe.src = ''; }, 350);
+            document.body.style.overflow = '';
+            lbCurrentPost = null;
+            lbOpts = {};
+            lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+            lbOrder.className = 'btn-order-sm';
+            lbOrder.style.cssText = '';
+            lbOrder.style.display = '';
+            lbPrice.style.display = '';
+            lbDesc.style.display = '';
+        };
+
+        document.getElementById('lbBackdrop').addEventListener('click', closeLightbox);
+        document.getElementById('lbClose').addEventListener('click', closeLightbox);
+
+        lbOrder.addEventListener('click', function() {
+            if (!lbCurrentPost) return;
+            if (lbOpts.isSold) return;
+            var waMsg;
+            if (lbOpts.isSecret) {
+                waMsg = "Halo admin, saya tertarik dengan Limited Secret Car:\n\n" + (lbCurrentPost.name || '') +
+                    "\n\nLink: " + lbCurrentPost.url;
+            } else {
+                var price = lbCurrentPost.editedPrice || lbCurrentPost.price;
+                waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + lbCurrentPost.desc + "\n\nLink: " +
+                    lbCurrentPost.url;
+            }
+            window.open("https://wa.me/6289687163314?text=" + encodeURIComponent(waMsg), '_blank');
+            closeLightbox();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lbEl.classList.contains('active')) closeLightbox();
+        });
+
+        lbContent.addEventListener('touchstart', function(e) {
+            lbTouchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        lbContent.addEventListener('touchmove', function(e) {
+            if (e.touches[0].clientY - lbTouchStartY > 100 && lbContent.scrollTop <= 0) closeLightbox();
+        }, { passive: true });
+
+        // ===== HELPER: add loader to card =====
+        function addLoaderToCard(card, iframe) {
+            var wrap = card.querySelector('.ig-card-embed-wrap');
+            if (!wrap) return;
+            // Create loader div
+            var loader = document.createElement('div');
+            loader.className = 'ig-card-loader';
+            var spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            loader.appendChild(spinner);
+            wrap.appendChild(loader);
+
+            // Hide loader when iframe loads
+            iframe.addEventListener('load', function() {
+                loader.classList.add('hidden');
+            });
+            // Fallback timeout 5s
+            setTimeout(function() {
+                loader.classList.add('hidden');
+            }, 5000);
         }
-        loading=false;
-      }
-    });
-    function renderMsg(data){
-      const div=document.createElement("div");div.className="gb-msg";
-      div.innerHTML="<strong>"+data.name+"</strong><p>"+data.message+"</p><small>"+(data.timestamp?new Date(data.timestamp.seconds*1000).toLocaleString():"")+"</small>";
-      gbMsgs.appendChild(div);
-    }
-    loadMessages();
-  </script>
+    </script>
+
+    <!-- ===== FIREBASE: SECRET CARS ===== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from
+        "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+            authDomain: "akinowedding-73271.firebaseapp.com",
+            projectId: "akinowedding-73271",
+            storageBucket: "akinowedding-73271.appspot.com",
+            messagingSenderId: "307666594440",
+            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+        });
+        const db = getFirestore(app);
+
+        function escLocal(t) { var d = document.createElement('div');
+            d.textContent = t; return d.innerHTML }
+
+        onSnapshot(query(collection(db, "secretCars"), orderBy("addedAt", "desc")), (snap) => {
+            var cars = [];
+            snap.forEach((d) => cars.push({ id: d.id, ...d.data() }));
+            var grid = document.getElementById('secretGrid');
+            grid.innerHTML = '';
+            var avail = cars.filter(c => c.status === 'available');
+            if (!avail.length) {
+                grid.innerHTML =
+                    '<div class="limited-empty"><i class="fas fa-lock"></i>Belum ada secret car tersedia.</div>';
+                return;
+            }
+            avail.forEach((car, i) => {
+                var code = getCode(car.url);
+                if (!code) return;
+                var card = document.createElement('div');
+                card.className = 'ig-card';
+                card.style.animationDelay = (i * 0.06) + 's';
+                card.innerHTML =
+                    '<div class="ig-card-embed-wrap">' +
+                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
+                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                    '<div class="ig-card-thumb-overlay"></div>' +
+                    '<div class="ig-card-thumb-price">' + escLocal(car.name) + '</div>' +
+                    '<div class="secret-badge"><i class="fas fa-star"></i> SECRET</div>' +
+                    '</div>';
+                var iframe = card.querySelector('iframe');
+                // Add loader
+                addLoaderToCard(card, iframe);
+
+                var openFn = function(e) {
+                    e.stopPropagation();
+                    window.openLightbox({ url: car.url, name: car.name }, { hidePrice: true, isSecret: true,
+                        nameAsDesc: true });
+                };
+                card.querySelector('.ig-card-thumb-overlay').addEventListener('click', openFn);
+                card.querySelector('.ig-card-thumb-price').addEventListener('click', openFn);
+                grid.appendChild(card);
+            });
+        }, (err) => { console.error("Secret cars error:", err); });
+    </script>
+
+    <!-- ===== FIREBASE: MAIN STOCK ===== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from
+        "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+            authDomain: "akinowedding-73271.firebaseapp.com",
+            projectId: "akinowedding-73271",
+            storageBucket: "akinowedding-73271.appspot.com",
+            messagingSenderId: "307666594440",
+            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+        });
+        const db = getFirestore(app);
+
+        var SOLD_HOURS = 24,
+            PER_PAGE = 10,
+            currentPage = 0,
+            soldListOpen = true,
+            currentSort = 'newest',
+            POSTS = [];
+
+        function escLocal(t) { var d = document.createElement('div');
+            d.textContent = t; return d.innerHTML }
+
+        function parsePrice(str) { var n = parseInt((str || '').replace(/[^0-9]/g, ''));
+            return isNaN(n) ? 0 : n }
+
+        function getEffectivePrice(post) { return post.editedPrice || post.price || '' }
+
+        function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
+            return new Date(t).getTime() }
+
+        window.setSort = function(sort) {
+            currentSort = sort;
+            document.querySelectorAll('.sort-btn').forEach(function(b) {
+                b.classList.toggle('active', b.dataset.sort === sort);
+            });
+            currentPage = 0;
+            renderAvailable();
+        };
+
+        window.toggleSoldList = function() {
+            soldListOpen = !soldListOpen;
+            var list = document.getElementById('soldList'),
+                btn = document.getElementById('soldToggle'),
+                txt = document.getElementById('soldToggleText');
+            if (soldListOpen) { list.classList.remove('collapsed');
+                btn.classList.add('open');
+                txt.textContent = 'Sembunyikan'; } else { list.classList.add('collapsed');
+                btn.classList.remove('open');
+                txt.textContent = 'Tampilkan'; }
+        };
+
+        function getSortedAvail() {
+            var avail = POSTS.filter(function(p) { return p.status === 'available' });
+            if (currentSort === 'newest') avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
+            else if (currentSort === 'price-asc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
+                    parsePrice(getEffectivePrice(b)) });
+            else if (currentSort === 'price-desc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
+                    parsePrice(getEffectivePrice(a)) });
+            return avail;
+        }
+
+        function renderSold() {
+            var now = Date.now();
+            var sold = POSTS.filter(function(p) {
+                if (p.status !== 'sold') return false;
+                return (SOLD_HOURS * 3600000 - (now - toMs(p.soldAt))) > 0;
+            });
+            var section = document.getElementById('soldSection'),
+                list = document.getElementById('soldList'),
+                countEl = document.getElementById('soldCount');
+            if (!sold.length) { section.style.display = 'none'; return }
+            section.style.display = 'block';
+            countEl.textContent = sold.length + ' item';
+            var h = '';
+            sold.forEach(function(post, i) {
+                var price = getEffectivePrice(post);
+                var code = getCode(post.url);
+                var name = getFirstLine(post.desc);
+                h += '<div class="sold-card" data-sold-idx="' + i + '" style="animation-delay:' + (i * 0.06) +
+                    's">';
+                if (code) {
+                    h += '<div class="sold-card-thumb">' +
+                        '<iframe src="https://www.instagram.com/p/' + code +
+                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                        '<div class="sold-card-thumb-overlay"></div>' +
+                        '<div class="sold-card-sold-badge"><i class="fas fa-check"></i> TERJUAL</div>' +
+                        '</div>';
+                }
+                h += '<div class="sold-card-body">' +
+                    '<a href="' + post.url + '" target="_blank" class="sc-name" title="' + escLocal(name) + '">' +
+                    escLocal(name) + '</a>' +
+                    '<span class="sc-price">' + escLocal(price) + '</span>' +
+                    '</div></div>';
+            });
+            list.innerHTML = h;
+            list.querySelectorAll('.sold-card').forEach(function(card) {
+                var idx = parseInt(card.dataset.soldIdx);
+                var post = sold[idx];
+                if (!post) return;
+                var thumb = card.querySelector('.sold-card-thumb');
+                if (thumb) {
+                    thumb.querySelector('.sold-card-thumb-overlay').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.openLightbox(post, { isSold: true });
+                    });
+                }
+            });
+        }
+
+        function buildPageNums(current, total) {
+            if (total <= 7) { var a = []; for (var i = 0; i < total; i++) a.push(i); return a }
+            var pages = [0];
+            if (current > 2) pages.push('...');
+            var s = Math.max(1, current - 1),
+                e = Math.min(total - 2, current + 1);
+            for (var i = s; i <= e; i++) pages.push(i);
+            if (current < total - 3) pages.push('...');
+            pages.push(total - 1);
+            return pages;
+        }
+
+        function renderAvailable() {
+            var avail = getSortedAvail(),
+                grid = document.getElementById('igGrid');
+            grid.innerHTML = '';
+            var total = avail.length,
+                totalPages = Math.ceil(total / PER_PAGE);
+            if (currentPage >= totalPages && totalPages > 0) currentPage = totalPages - 1;
+            if (currentPage < 0) currentPage = 0;
+            var start = currentPage * PER_PAGE,
+                end = Math.min(start + PER_PAGE, total),
+                showing = total > 0 ? end - start : 0;
+            document.getElementById('igCounter').innerHTML = total > 0 ? 'Menampilkan <strong>' + showing +
+                '</strong> dari <strong>' + total + '</strong> mobil tersedia' :
+                '<strong>0</strong> mobil tersedia saat ini';
+            if (!total) {
+                grid.innerHTML =
+                    '<div style="text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.2rem;display:block;margin-bottom:0.8rem;opacity:0.3"></i>Semua stock mobil saat ini kosong.</div>';
+                document.getElementById('pagination').style.display = 'none';
+                return;
+            }
+            avail.slice(start, end).forEach(function(post, i) {
+                var code = getCode(post.url);
+                if (!code) return;
+                var price = getEffectivePrice(post);
+                var card = document.createElement('div');
+                card.className = 'ig-card';
+                card.style.animationDelay = (i * 0.04) + 's';
+                card.innerHTML =
+                    '<div class="ig-card-embed-wrap">' +
+                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
+                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                    '<div class="ig-card-thumb-overlay"></div>' +
+                    '<div class="ig-card-thumb-price">' + escLocal(price) + '</div>' +
+                    '</div>';
+                var iframe = card.querySelector('iframe');
+                addLoaderToCard(card, iframe);
+
+                card.querySelector('.ig-card-thumb-overlay').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    window.openLightbox(post);
+                });
+                card.querySelector('.ig-card-thumb-price').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    window.openLightbox(post);
+                });
+                grid.appendChild(card);
+            });
+            var pag = document.getElementById('pagination');
+            if (totalPages > 1) {
+                pag.style.display = 'flex';
+                document.getElementById('prevBtn').disabled = currentPage === 0;
+                document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
+                var pageNums = buildPageNums(currentPage, totalPages),
+                    pnEl = document.getElementById('pageNumbers');
+                pnEl.innerHTML = '';
+                pageNums.forEach(function(p) {
+                    if (p === '...') { var sp = document.createElement('span');
+                        sp.className = 'page-ellipsis';
+                        sp.textContent = '…';
+                        pnEl.appendChild(sp); } else { var btn = document.createElement('button');
+                        btn.className = 'page-num' + (p === currentPage ? ' active' : '');
+                        btn.textContent = p + 1;
+                        btn.onclick = (function(pg) { return function() { goToPage(pg) } })(p);
+                        pnEl.appendChild(btn); }
+                });
+            } else { pag.style.display = 'none' }
+        }
+
+        window.prevPage = function() { if (currentPage > 0) { currentPage--;
+                renderAvailable();
+                scrollToGrid() } };
+        window.nextPage = function() { var tp = Math.ceil(getSortedAvail().length / PER_PAGE); if (currentPage < tp - 1) {
+                currentPage++;
+                renderAvailable();
+                scrollToGrid() } };
+
+        function goToPage(pg) { currentPage = pg;
+            renderAvailable();
+            scrollToGrid() }
+
+        function scrollToGrid() { var g = document.getElementById('igGrid');
+            window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }) }
+
+        onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
+            POSTS = [];
+            snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+            renderSold();
+            renderAvailable();
+        }, (err) => { console.error("Stock listener error:", err); });
+    </script>
+
+    <!-- ===== FIREBASE: GUESTBOOK ===== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot,
+            startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+        const app = initializeApp({
+            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+            authDomain: "akinowedding-73271.firebaseapp.com",
+            projectId: "akinowedding-73271",
+            storageBucket: "akinowedding-73271.appspot.com",
+            messagingSenderId: "307666594440",
+            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+        });
+        const db = getFirestore(app);
+
+        var gbForm = document.getElementById('messageForm'),
+            gbMsgs = document.getElementById('gbMsgs');
+        var lastVisible = null,
+            loading = false;
+
+        gbForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var name = document.getElementById('gb-name').value.trim();
+            var message = document.getElementById('gb-msg').value.trim();
+            if (name && message) {
+                await addDoc(collection(db, "messages"), { name, message, timestamp: serverTimestamp() });
+                gbForm.reset();
+            }
+        });
+
+        function loadMessages() {
+            onSnapshot(query(collection(db, "messages"), orderBy("timestamp", "desc"), limit(10)), (snap) => {
+                gbMsgs.innerHTML = '';
+                snap.forEach((d) => renderMsg(d.data()));
+                gbMsgs.scrollTop = 0;
+                if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
+            });
+        }
+
+        gbMsgs.addEventListener("scroll", async function() {
+            if (loading) return;
+            if (gbMsgs.scrollTop + gbMsgs.clientHeight >= gbMsgs.scrollHeight - 10) {
+                loading = true;
+                if (lastVisible) {
+                    var snap = await getDocs(query(collection(db, "messages"), orderBy("timestamp", "desc"),
+                        startAfter(lastVisible), limit(10)));
+                    snap.forEach((d) => renderMsg(d.data()));
+                    if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
+                }
+                loading = false;
+            }
+        });
+
+        function renderMsg(data) {
+            var div = document.createElement("div");
+            div.className = "gb-msg";
+            div.innerHTML = "<strong>" + data.name + "</strong><p>" + data.message + "</p><small>" + (data.timestamp ?
+                new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
+            gbMsgs.appendChild(div);
+        }
+        loadMessages();
+    </script>
 
 </body>
 </html>
