@@ -658,6 +658,155 @@
             opacity: 0.3;
         }
 
+        /* ===== FLASH SALE SECTION ===== */
+        .flash-section {
+            margin-bottom: 2rem;
+            background: rgba(251, 146, 60, 0.06);
+            border: 1px solid rgba(251, 146, 60, 0.25);
+            border-radius: var(--radius);
+            padding: 1.25rem 1rem 0.8rem;
+        }
+        .flash-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .flash-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fb923c;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .flash-header h2 i {
+            font-size: 0.9rem;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        .flash-header .count {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 50px;
+            background: rgba(251, 146, 60, 0.15);
+            color: #fb923c;
+            font-weight: 600;
+        }
+        .flash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.7rem;
+        }
+        .flash-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .flash-card:hover {
+            border-color: #fb923c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(251, 146, 60, 0.15);
+        }
+        .flash-card .ig-card-embed-wrap {
+            width: 100%;
+            aspect-ratio: 3/3.5;
+            overflow: hidden;
+            position: relative;
+            background: #0a0a12;
+        }
+        .flash-card .ig-card-embed {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            min-height: unset !important;
+            height: 700px !important;
+            pointer-events: none;
+            border: none;
+            display: block;
+        }
+        .flash-card .thumb-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            cursor: pointer;
+            background: linear-gradient(to top, rgba(8, 8, 15, 0.75) 10%, transparent 45%);
+        }
+        .flash-card .flash-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 4;
+            background: #fb923c;
+            color: #0a0a0f;
+            font-size: 0.5rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            pointer-events: none;
+        }
+        .flash-card .price-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 3;
+            pointer-events: none;
+            line-height: 1.3;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        }
+        .flash-card .price-info .original {
+            font-size: 0.65rem;
+            color: #a0a0b0;
+            text-decoration: line-through;
+            display: block;
+        }
+        .flash-card .price-info .discount {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fb923c;
+            display: block;
+        }
+        .flash-card .countdown {
+            position: absolute;
+            bottom: 50px;
+            left: 10px;
+            right: 10px;
+            z-index: 3;
+            font-size: 0.6rem;
+            color: #fff;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+            pointer-events: none;
+            border: 1px solid rgba(251, 146, 60, 0.3);
+        }
+        .flash-empty {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+            grid-column: 1/-1;
+        }
+
         /* ===== SOLD SECTION ===== */
         .sold-section {
             margin-bottom: 2rem;
@@ -1759,6 +1908,28 @@
                 padding: 0.15rem 0.6rem;
             }
 
+            .flash-section {
+                padding: 0.8rem 0.8rem 0.5rem;
+            }
+            .flash-header h2 {
+                font-size: 0.9rem;
+            }
+            .flash-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            .flash-card .price-info .discount {
+                font-size: 0.75rem;
+            }
+            .flash-card .price-info .original {
+                font-size: 0.55rem;
+            }
+            .flash-card .countdown {
+                font-size: 0.5rem;
+                bottom: 42px;
+                padding: 0.15rem 0.3rem;
+            }
+
             .sold-section {
                 padding: 0.7rem 0.7rem 0.3rem;
                 margin-bottom: 1.25rem;
@@ -1835,7 +2006,6 @@
                 padding: 0.5rem 1.1rem;
             }
 
-            /* LIGHTBOX: selalu di tengah, tidak slide up */
             .lightbox {
                 padding: 0.5rem;
                 align-items: center;
@@ -1945,6 +2115,10 @@
             .secret-grid .ig-card-thumb-price {
                 font-size: 0.6rem;
             }
+            .flash-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.4rem;
+            }
             .sold-card {
                 width: 80px;
             }
@@ -1990,6 +2164,10 @@
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1rem;
             }
+            .flash-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+            }
             .sold-card {
                 width: 130px;
             }
@@ -2009,6 +2187,10 @@
                 gap: 1.2rem;
             }
             .secret-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.2rem;
+            }
+            .flash-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1.2rem;
             }
@@ -2091,8 +2273,21 @@
 
     <div class="sec-divider"><hr /></div>
 
+    <!-- ===== FLASH SALE SECTION ===== -->
+    <section class="sec" style="padding-top:1rem;padding-bottom:0.5rem">
+        <div class="container">
+            <div class="flash-section" id="flashSection" style="display:none">
+                <div class="flash-header">
+                    <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2>
+                    <span class="count" id="flashCount">0</span>
+                </div>
+                <div class="flash-grid" id="flashGrid"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== MAIN STOCK ===== -->
-    <section class="sec" style="padding-top:1.5rem">
+    <section class="sec" style="padding-top:0.5rem">
         <div class="container">
 
             <!-- Sold Section -->
@@ -2233,6 +2428,16 @@
         function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null }
 
         function getFirstLine(d) { return (d || '').split('\n')[0].trim() }
+
+        function formatCountdown(ms) {
+            if (ms <= 0) return '⏳ Habis';
+            var days = Math.floor(ms / 86400000);
+            var hours = Math.floor((ms % 86400000) / 3600000);
+            var minutes = Math.floor((ms % 3600000) / 60000);
+            var seconds = Math.floor((ms % 60000) / 1000);
+            if (days > 0) return days + 'h ' + String(hours).padStart(2,'0') + 'j ' + String(minutes).padStart(2,'0') + 'm';
+            return String(hours).padStart(2,'0') + 'j ' + String(minutes).padStart(2,'0') + 'm ' + String(seconds).padStart(2,'0') + 's';
+        }
 
         // ===== TOAST =====
         function showToast(message, type = 'info', duration = 4000) {
@@ -2407,8 +2612,13 @@
             if (e.key === 'Escape' && lbEl.classList.contains('active')) closeLightbox();
         });
 
-        // Tidak ada swipe down untuk close di mobile karena sekarang di tengah
-        // Tapi tetap kita biarkan jika user swipe di luar content
+        lbContent.addEventListener('touchstart', function(e) {
+            lbTouchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        lbContent.addEventListener('touchmove', function(e) {
+            if (e.touches[0].clientY - lbTouchStartY > 100 && lbContent.scrollTop <= 0) closeLightbox();
+        }, { passive: true });
 
         function addLoaderToCard(card, iframe) {
             var wrap = card.querySelector('.ig-card-embed-wrap');
@@ -2508,7 +2718,8 @@
             currentPage = 0,
             soldListOpen = true,
             currentSort = 'newest',
-            POSTS = [];
+            POSTS = [],
+            prevDataHash = '';
 
         function escLocal(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
@@ -2521,6 +2732,21 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
+        // Flash Sale helpers
+        function getDiscountedPrice(post) {
+            if (!post.discount) return null;
+            var original = post.originalPrice || post.price || '';
+            var num = parseInt(original.replace(/[^0-9]/g,'')) || 0;
+            var discounted = Math.round(num * 0.8);
+            return 'Rp ' + discounted.toLocaleString('id-ID');
+        }
+
+        function getFlashRemaining(post) {
+            if (!post.discount || !post.flashSaleEnd) return 0;
+            return Math.max(0, toMs(post.flashSaleEnd) - Date.now());
+        }
+
+        // Filter functions
         function getFilteredAvailable() {
             var min = parseInt(document.getElementById('priceMin').value) || 0;
             var max = parseInt(document.getElementById('priceMax').value) || Infinity;
@@ -2533,12 +2759,87 @@
 
         function getSortedFiltered() {
             var avail = getFilteredAvailable();
-            if (currentSort === 'newest') avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
-            else if (currentSort === 'price-asc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
+            // Exclude flash sale items from main grid (they appear in flash section)
+            var nonFlash = avail.filter(p => p.discount !== true);
+            if (currentSort === 'newest') nonFlash.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
+            else if (currentSort === 'price-asc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
                     parsePrice(getEffectivePrice(b)) });
-            else if (currentSort === 'price-desc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
+            else if (currentSort === 'price-desc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
                     parsePrice(getEffectivePrice(a)) });
-            return avail;
+            return nonFlash;
+        }
+
+        // Render Flash Sale section
+        function renderFlashSale() {
+            var flashItems = POSTS.filter(function(p) {
+                return p.status === 'available' && p.discount === true;
+            });
+            var section = document.getElementById('flashSection');
+            var grid = document.getElementById('flashGrid');
+            var count = document.getElementById('flashCount');
+
+            if (!flashItems.length) {
+                section.style.display = 'none';
+                return;
+            }
+            section.style.display = 'block';
+            count.textContent = flashItems.length + ' item';
+
+            grid.innerHTML = '';
+            flashItems.forEach(function(post, i) {
+                var code = getCode(post.url);
+                if (!code) return;
+                var price = getEffectivePrice(post);
+                var discounted = getDiscountedPrice(post) || price;
+                var remaining = getFlashRemaining(post);
+                var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Berakhir';
+
+                var card = document.createElement('div');
+                card.className = 'flash-card';
+                card.style.animationDelay = (i * 0.06) + 's';
+                card.setAttribute('data-flash-id', post.id);
+                card.innerHTML =
+                    '<div class="ig-card-embed-wrap">' +
+                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
+                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                    '<div class="thumb-overlay"></div>' +
+                    '<div class="flash-badge"><i class="fas fa-bolt"></i> FLASH</div>' +
+                    '<div class="price-info">' +
+                    '<span class="original">' + escLocal(price) + '</span>' +
+                    '<span class="discount">' + escLocal(discounted) + '</span>' +
+                    '</div>' +
+                    '<div class="countdown" data-flashend="' + toMs(post.flashSaleEnd) + '">⏳ ' + timerText + '</div>' +
+                    '</div>';
+                var iframe = card.querySelector('iframe');
+                addLoaderToCard(card, iframe);
+
+                card.querySelector('.thumb-overlay').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    window.openLightbox(post);
+                });
+                grid.appendChild(card);
+            });
+
+            // Start countdown timer
+            startFlashTimer();
+        }
+
+        var flashTimer = null;
+
+        function startFlashTimer() {
+            if (flashTimer) clearInterval(flashTimer);
+            flashTimer = setInterval(function() {
+                document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(function(el) {
+                    var end = parseInt(el.dataset.flashend);
+                    var rem = Math.max(0, end - Date.now());
+                    if (rem <= 0) {
+                        el.textContent = '⏳ Berakhir';
+                        // Mark for removal, will be auto-cleaned by Firebase listener
+                    } else {
+                        el.textContent = '⏳ ' + formatCountdown(rem);
+                    }
+                });
+            }, 1000);
         }
 
         window.setSort = function(sort) {
@@ -2725,32 +3026,10 @@
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
-            var oldIds = new Set(POSTS.map(p => p.id));
-            var newIds = new Set(newPosts.map(p => p.id));
-            var added = newPosts.filter(p => !oldIds.has(p.id));
-            var statusChanged = [];
-            POSTS.forEach(oldP => {
-                var newP = newPosts.find(p => p.id === oldP.id);
-                if (newP && oldP.status !== newP.status) {
-                    statusChanged.push({ old: oldP, new: newP });
-                }
-            });
             POSTS = newPosts;
             renderSold();
+            renderFlashSale();
             renderAvailable();
-
-            added.forEach(p => {
-                if (p.status === 'available') {
-                    showToast('🚗 Mobil baru ditambahkan: ' + getFirstLine(p.desc), 'success', 5000);
-                }
-            });
-            statusChanged.forEach(({ old, new: p }) => {
-                if (p.status === 'sold' && old.status === 'available') {
-                    showToast('❌ Mobil terjual: ' + getFirstLine(p.desc), 'error', 5000);
-                } else if (p.status === 'available' && old.status === 'sold') {
-                    showToast('🔄 Mobil tersedia kembali: ' + getFirstLine(p.desc), 'info', 5000);
-                }
-            });
         }, (err) => { console.error("Stock listener error:", err); });
     </script>
 
