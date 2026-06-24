@@ -853,6 +853,56 @@
             display: block;
         }
 
+        /* ===== FILTER & SORT ===== */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1rem;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            background: var(--bg-card);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+        .filter-group label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .filter-group input {
+            width: 80px;
+            padding: 0.3rem 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            color: var(--fg);
+            font-size: 0.75rem;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+        .filter-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-dim);
+        }
+        .filter-group input::placeholder {
+            color: var(--muted);
+            opacity: 0.5;
+        }
+        .filter-group .filter-sep {
+            color: var(--muted);
+            font-size: 0.7rem;
+            padding: 0 0.1rem;
+        }
+
         /* ===== MAIN GRID ===== */
         .ig-list {
             display: grid;
@@ -949,7 +999,7 @@
             display: flex;
             gap: 0.4rem;
             justify-content: center;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0;
             flex-wrap: wrap;
         }
         .sort-btn {
@@ -1320,6 +1370,7 @@
             animation: lbScaleIn 0.3s cubic-bezier(0.32, 0.72, 0, 1);
             scrollbar-width: thin;
             scrollbar-color: var(--border) transparent;
+            margin: auto;
         }
         .lightbox-content::-webkit-scrollbar {
             width: 3px;
@@ -1411,6 +1462,25 @@
             border-color: rgba(255, 216, 102, 0.2);
             background: var(--accent-dim);
         }
+        .lightbox-actions .share-btn {
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        .lightbox-actions .share-btn:hover {
+            color: var(--accent);
+            border-color: rgba(255, 216, 102, 0.2);
+            background: var(--accent-dim);
+        }
         .btn-order-sm {
             padding: 0.5rem 1.1rem;
             border-radius: var(--radius-sm);
@@ -1468,6 +1538,56 @@
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
+        }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            pointer-events: none;
+            max-width: 90%;
+        }
+        .toast {
+            background: rgba(12, 12, 24, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.7rem 1.2rem;
+            color: var(--fg);
+            font-size: 0.82rem;
+            font-weight: 500;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: auto;
+            text-align: center;
+            max-width: 400px;
+            border-left: 4px solid var(--accent);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .toast.info {
+            border-left-color: var(--accent);
+        }
+        .toast.success {
+            border-left-color: #34d399;
+        }
+        .toast.error {
+            border-left-color: #f87171;
+        }
+        .toast i {
+            margin-right: 0.4rem;
         }
 
         /* ============================================================ */
@@ -1659,9 +1779,21 @@
                 font-size: 0.54rem;
             }
 
+            .filter-bar {
+                padding: 0.5rem 0.8rem;
+                gap: 0.4rem;
+            }
+            .filter-group input {
+                width: 60px;
+                font-size: 0.7rem;
+                padding: 0.2rem 0.3rem;
+            }
+            .filter-group label {
+                font-size: 0.65rem;
+            }
+
             .sort-tabs {
                 gap: 0.3rem;
-                margin-bottom: 0.8rem;
             }
             .sort-btn {
                 font-size: 0.65rem;
@@ -1703,23 +1835,17 @@
                 padding: 0.5rem 1.1rem;
             }
 
+            /* LIGHTBOX: selalu di tengah, tidak slide up */
             .lightbox {
-                padding: 0;
-                align-items: flex-end;
+                padding: 0.5rem;
+                align-items: center;
             }
             .lightbox-content {
                 max-width: 100%;
-                max-height: 94vh;
-                border-radius: 18px 18px 0 0;
-                animation: lbSlideUp 0.32s cubic-bezier(0.32, 0.72, 0, 1);
-            }
-            @keyframes lbSlideUp {
-                from {
-                    transform: translateY(100%);
-                }
-                to {
-                    transform: translateY(0);
-                }
+                max-height: 95vh;
+                border-radius: var(--radius);
+                animation: lbScaleIn 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+                margin: auto;
             }
             .lightbox-close {
                 top: 0.6rem;
@@ -1747,6 +1873,10 @@
                 padding: 0.5rem 0.9rem;
             }
             .lightbox-actions a.ig-link {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.8rem;
+            }
+            .lightbox-actions .share-btn {
                 font-size: 0.75rem;
                 padding: 0.5rem 0.8rem;
             }
@@ -1783,6 +1913,14 @@
 
             .ig-counter {
                 font-size: 0.74rem;
+            }
+            .toast-container {
+                bottom: 70px;
+                max-width: 95%;
+            }
+            .toast {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
             }
         }
 
@@ -1834,6 +1972,9 @@
                 width: 34px;
                 height: 34px;
                 font-size: 0.85rem;
+            }
+            .filter-group input {
+                width: 50px;
             }
         }
 
@@ -1975,17 +2116,25 @@
                 <p class="sec-desc">Klik foto untuk melihat detail &amp; memesan.</p>
             </div>
 
-            <!-- Sort -->
-            <div class="sort-tabs reveal" id="sortTabs">
-                <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')">
-                    <i class="fas fa-clock"></i> Terbaru
-                </button>
-                <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')">
-                    <i class="fas fa-arrow-up-1-9"></i> Harga Terendah
-                </button>
-                <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')">
-                    <i class="fas fa-arrow-down-9-1"></i> Harga Tertinggi
-                </button>
+            <!-- Filter Harga (min-max) & Sort -->
+            <div class="filter-bar reveal">
+                <div class="filter-group">
+                    <label for="priceMin">Harga</label>
+                    <input type="number" id="priceMin" placeholder="Min" min="0" step="1000" />
+                    <span class="filter-sep">–</span>
+                    <input type="number" id="priceMax" placeholder="Max" min="0" step="1000" />
+                </div>
+                <div class="sort-tabs" style="margin-bottom:0;flex-wrap:wrap;gap:0.3rem;" id="sortTabs">
+                    <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')">
+                        <i class="fas fa-clock"></i> Terbaru
+                    </button>
+                    <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')">
+                        <i class="fas fa-arrow-up-1-9"></i> Termurah
+                    </button>
+                    <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')">
+                        <i class="fas fa-arrow-down-9-1"></i> Termahal
+                    </button>
+                </div>
             </div>
 
             <!-- Counter -->
@@ -2060,13 +2209,17 @@
                 <div class="ig-card-price" id="lbPrice"></div>
                 <div class="ig-card-desc" id="lbDesc"></div>
                 <div class="lightbox-actions">
-                    <a href="#" id="lbIgLink" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat di Instagram</a>
+                    <a href="#" id="lbIgLink" target="_blank" rel="noopener" class="ig-link"><i class="fab fa-instagram"></i> Lihat di IG</a>
                     <button class="btn-order-sm" id="lbOrder"><i class="fab fa-whatsapp"></i> Pesan</button>
+                    <button class="share-btn" id="lbShare"><i class="fas fa-share-alt"></i> Bagikan</button>
                 </div>
             </div>
         </div>
         <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
     </div>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================ -->
     <!-- ===== SCRIPTS ===== -->
@@ -2080,6 +2233,24 @@
         function getCode(url) { var m = url.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null }
 
         function getFirstLine(d) { return (d || '').split('\n')[0].trim() }
+
+        // ===== TOAST =====
+        function showToast(message, type = 'info', duration = 4000) {
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            var icon = type === 'info' ? 'fa-info-circle' : type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
+            container.appendChild(toast);
+            toast.offsetHeight;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() {
+                    if (toast.parentNode) toast.remove();
+                }, 400);
+            }, duration);
+        }
 
         // ===== NAVBAR =====
         window.addEventListener('scroll', function() {
@@ -2138,6 +2309,7 @@
             lbDesc = document.getElementById('lbDesc'),
             lbIgLink = document.getElementById('lbIgLink'),
             lbOrder = document.getElementById('lbOrder'),
+            lbShare = document.getElementById('lbShare'),
             lbContent = document.getElementById('lbContent'),
             lbCurrentPost = null,
             lbOpts = {},
@@ -2155,6 +2327,7 @@
             lbOrder.style.display = '';
             lbOrder.className = 'btn-order-sm';
             lbOrder.style.cssText = '';
+            lbShare.style.display = 'inline-flex';
 
             if (opts.isSold) {
                 lbPrice.textContent = post.editedPrice || post.price || '';
@@ -2193,6 +2366,7 @@
             lbOrder.style.display = '';
             lbPrice.style.display = '';
             lbDesc.style.display = '';
+            lbShare.style.display = 'inline-flex';
         };
 
         document.getElementById('lbBackdrop').addEventListener('click', closeLightbox);
@@ -2214,35 +2388,40 @@
             closeLightbox();
         });
 
+        lbShare.addEventListener('click', function() {
+            if (!lbCurrentPost) return;
+            var shareData = {
+                title: 'Stock Mobil - Akino Store',
+                text: 'Lihat mobil ini: ' + (lbCurrentPost.desc || '') + ' - Harga: ' + (lbCurrentPost.editedPrice || lbCurrentPost.price || ''),
+                url: lbCurrentPost.url
+            };
+            if (navigator.share) {
+                navigator.share(shareData).catch(function(e) {});
+            } else {
+                var waMsg = "Halo, lihat mobil ini:\n\n" + shareData.text + "\n\nLink: " + shareData.url;
+                window.open("https://wa.me/?text=" + encodeURIComponent(waMsg), '_blank');
+            }
+        });
+
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && lbEl.classList.contains('active')) closeLightbox();
         });
 
-        lbContent.addEventListener('touchstart', function(e) {
-            lbTouchStartY = e.touches[0].clientY;
-        }, { passive: true });
+        // Tidak ada swipe down untuk close di mobile karena sekarang di tengah
+        // Tapi tetap kita biarkan jika user swipe di luar content
 
-        lbContent.addEventListener('touchmove', function(e) {
-            if (e.touches[0].clientY - lbTouchStartY > 100 && lbContent.scrollTop <= 0) closeLightbox();
-        }, { passive: true });
-
-        // ===== HELPER: add loader to card =====
         function addLoaderToCard(card, iframe) {
             var wrap = card.querySelector('.ig-card-embed-wrap');
             if (!wrap) return;
-            // Create loader div
             var loader = document.createElement('div');
             loader.className = 'ig-card-loader';
             var spinner = document.createElement('div');
             spinner.className = 'spinner';
             loader.appendChild(spinner);
             wrap.appendChild(loader);
-
-            // Hide loader when iframe loads
             iframe.addEventListener('load', function() {
                 loader.classList.add('hidden');
             });
-            // Fallback timeout 5s
             setTimeout(function() {
                 loader.classList.add('hidden');
             }, 5000);
@@ -2294,7 +2473,6 @@
                     '<div class="secret-badge"><i class="fas fa-star"></i> SECRET</div>' +
                     '</div>';
                 var iframe = card.querySelector('iframe');
-                // Add loader
                 addLoaderToCard(card, iframe);
 
                 var openFn = function(e) {
@@ -2343,9 +2521,29 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
+        function getFilteredAvailable() {
+            var min = parseInt(document.getElementById('priceMin').value) || 0;
+            var max = parseInt(document.getElementById('priceMax').value) || Infinity;
+            return POSTS.filter(function(p) {
+                if (p.status !== 'available') return false;
+                var price = parsePrice(getEffectivePrice(p));
+                return price >= min && price <= max;
+            });
+        }
+
+        function getSortedFiltered() {
+            var avail = getFilteredAvailable();
+            if (currentSort === 'newest') avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
+            else if (currentSort === 'price-asc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
+                    parsePrice(getEffectivePrice(b)) });
+            else if (currentSort === 'price-desc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
+                    parsePrice(getEffectivePrice(a)) });
+            return avail;
+        }
+
         window.setSort = function(sort) {
             currentSort = sort;
-            document.querySelectorAll('.sort-btn').forEach(function(b) {
+            document.querySelectorAll('#sortTabs .sort-btn').forEach(function(b) {
                 b.classList.toggle('active', b.dataset.sort === sort);
             });
             currentPage = 0;
@@ -2363,16 +2561,6 @@
                 btn.classList.remove('open');
                 txt.textContent = 'Tampilkan'; }
         };
-
-        function getSortedAvail() {
-            var avail = POSTS.filter(function(p) { return p.status === 'available' });
-            if (currentSort === 'newest') avail.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
-            else if (currentSort === 'price-asc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
-                    parsePrice(getEffectivePrice(b)) });
-            else if (currentSort === 'price-desc') avail.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
-                    parsePrice(getEffectivePrice(a)) });
-            return avail;
-        }
 
         function renderSold() {
             var now = Date.now();
@@ -2436,7 +2624,7 @@
         }
 
         function renderAvailable() {
-            var avail = getSortedAvail(),
+            var avail = getSortedFiltered(),
                 grid = document.getElementById('igGrid');
             grid.innerHTML = '';
             var total = avail.length,
@@ -2506,7 +2694,7 @@
         window.prevPage = function() { if (currentPage > 0) { currentPage--;
                 renderAvailable();
                 scrollToGrid() } };
-        window.nextPage = function() { var tp = Math.ceil(getSortedAvail().length / PER_PAGE); if (currentPage < tp - 1) {
+        window.nextPage = function() { var tp = Math.ceil(getSortedFiltered().length / PER_PAGE); if (currentPage < tp - 1) {
                 currentPage++;
                 renderAvailable();
                 scrollToGrid() } };
@@ -2518,11 +2706,51 @@
         function scrollToGrid() { var g = document.getElementById('igGrid');
             window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }) }
 
+        var priceFilterTimeout;
+        document.getElementById('priceMin').addEventListener('input', function() {
+            clearTimeout(priceFilterTimeout);
+            priceFilterTimeout = setTimeout(function() {
+                currentPage = 0;
+                renderAvailable();
+            }, 300);
+        });
+        document.getElementById('priceMax').addEventListener('input', function() {
+            clearTimeout(priceFilterTimeout);
+            priceFilterTimeout = setTimeout(function() {
+                currentPage = 0;
+                renderAvailable();
+            }, 300);
+        });
+
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
-            POSTS = [];
-            snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+            var newPosts = [];
+            snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
+            var oldIds = new Set(POSTS.map(p => p.id));
+            var newIds = new Set(newPosts.map(p => p.id));
+            var added = newPosts.filter(p => !oldIds.has(p.id));
+            var statusChanged = [];
+            POSTS.forEach(oldP => {
+                var newP = newPosts.find(p => p.id === oldP.id);
+                if (newP && oldP.status !== newP.status) {
+                    statusChanged.push({ old: oldP, new: newP });
+                }
+            });
+            POSTS = newPosts;
             renderSold();
             renderAvailable();
+
+            added.forEach(p => {
+                if (p.status === 'available') {
+                    showToast('🚗 Mobil baru ditambahkan: ' + getFirstLine(p.desc), 'success', 5000);
+                }
+            });
+            statusChanged.forEach(({ old, new: p }) => {
+                if (p.status === 'sold' && old.status === 'available') {
+                    showToast('❌ Mobil terjual: ' + getFirstLine(p.desc), 'error', 5000);
+                } else if (p.status === 'available' && old.status === 'sold') {
+                    showToast('🔄 Mobil tersedia kembali: ' + getFirstLine(p.desc), 'info', 5000);
+                }
+            });
         }, (err) => { console.error("Stock listener error:", err); });
     </script>
 
@@ -2554,6 +2782,7 @@
             if (name && message) {
                 await addDoc(collection(db, "messages"), { name, message, timestamp: serverTimestamp() });
                 gbForm.reset();
+                showToast('✅ Komentar berhasil dikirim!', 'success');
             }
         });
 
