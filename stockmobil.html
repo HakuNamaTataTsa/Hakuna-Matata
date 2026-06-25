@@ -658,13 +658,14 @@
             opacity: 0.3;
         }
 
-        /* ===== FLASH SALE HORIZONTAL (1 baris) - FIX ===== */
+        /* ===== FLASH SALE SECTION ===== */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
             border: 1px solid rgba(251, 146, 60, 0.25);
             border-radius: var(--radius);
             padding: 1.25rem 1rem 0.8rem;
+            position: relative;
         }
         .flash-header {
             display: flex;
@@ -705,8 +706,16 @@
             color: #fb923c;
             font-weight: 600;
         }
+        .flash-header .global-countdown {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 50px;
+            background: rgba(251, 146, 60, 0.1);
+            color: #fb923c;
+            font-weight: 500;
+            margin-left: auto;
+        }
 
-        /* === WRAPPER: scroll horizontal === */
         .flash-scroll-wrapper {
             overflow-x: auto;
             overflow-y: hidden;
@@ -728,7 +737,6 @@
             border-radius: 10px;
         }
 
-        /* === GRID: inline-flex === */
         .flash-grid {
             display: inline-flex;
             flex-direction: row;
@@ -737,7 +745,6 @@
             padding: 0.1rem 0;
         }
 
-        /* === CARD: fixed width (lebih besar) === */
         .flash-card {
             flex: 0 0 180px;
             width: 180px;
@@ -845,7 +852,6 @@
             grid-column: 1/-1;
         }
 
-        /* --- Responsive Flash Card (lebih besar) --- */
         @media (max-width: 768px) {
             .flash-card {
                 flex: 0 0 160px;
@@ -986,7 +992,6 @@
             overflow: hidden;
             padding: 0;
         }
-
         .sold-card {
             flex-shrink: 0;
             width: 130px;
@@ -1087,7 +1092,6 @@
             display: block;
         }
 
-        /* --- Responsive Sold Card (lebih besar) --- */
         @media (max-width: 768px) {
             .sold-card {
                 width: 110px;
@@ -1123,7 +1127,7 @@
             }
         }
 
-        /* ===== FILTER & SORT ===== */
+        /* ===== FILTER BAR ===== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1171,6 +1175,57 @@
             color: var(--muted);
             font-size: 0.7rem;
             padding: 0 0.1rem;
+        }
+
+        /* TOMBOL FILTER FLASH & REFRESH */
+        .filter-actions {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-flash-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+        .filter-flash-btn.active {
+            background: #fb923c;
+            color: #0a0a0f;
+            border-color: #fb923c;
+        }
+        .filter-flash-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--fg);
+        }
+        .refresh-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .refresh-btn:hover {
+            color: var(--fg);
+            border-color: var(--border-hover);
+        }
+        .refresh-btn i {
+            font-size: 0.7rem;
         }
 
         /* ===== MAIN GRID ===== */
@@ -1258,6 +1313,11 @@
             margin: 0 0 1rem;
             font-size: 0.8rem;
             color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
         }
         .ig-counter strong {
             color: var(--accent);
@@ -1861,7 +1921,7 @@
         }
 
         /* ============================================================ */
-        /* ===== MOBILE RESPONSIVE ===== */
+        /* ===== RESPONSIVE ===== */
         /* ============================================================ */
 
         @media (max-width: 768px) {
@@ -2035,6 +2095,13 @@
             .flash-header h2 {
                 font-size: 0.9rem;
             }
+            .flash-header .global-countdown {
+                font-size: 0.6rem;
+                padding: 0.1rem 0.5rem;
+                margin-left: 0;
+                width: 100%;
+                text-align: center;
+            }
 
             .sold-section {
                 padding: 0.7rem 0.7rem 0.3rem;
@@ -2055,6 +2122,15 @@
             }
             .filter-group label {
                 font-size: 0.65rem;
+            }
+            .filter-actions {
+                gap: 0.3rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .filter-flash-btn, .refresh-btn {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.6rem;
             }
 
             .sort-tabs {
@@ -2350,6 +2426,7 @@
                 <div class="flash-header">
                     <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2>
                     <span class="count" id="flashCount">0</span>
+                    <span class="global-countdown" id="globalCountdown"></span>
                 </div>
                 <div class="flash-scroll-wrapper">
                     <div class="flash-grid" id="flashGrid"></div>
@@ -2362,7 +2439,7 @@
     <section class="sec" style="padding-top:0.5rem">
         <div class="container">
 
-            <!-- Sold Section -->
+            <!-- SOLD SECTION -->
             <div class="sold-section" id="soldSection" style="display:none">
                 <div class="sold-header">
                     <div class="sold-header-left">
@@ -2376,14 +2453,14 @@
                 <div class="sold-list" id="soldList"></div>
             </div>
 
-            <!-- Header -->
+            <!-- HEADER -->
             <div class="sec-header reveal">
                 <div class="sec-label">Listing</div>
                 <h2 class="sec-title">Mobil yang Tersedia</h2>
                 <p class="sec-desc">Klik foto untuk melihat detail &amp; memesan.</p>
             </div>
 
-            <!-- Filter Harga & Sort -->
+            <!-- FILTER BAR + TOMBOL FLASH FILTER & REFRESH -->
             <div class="filter-bar reveal">
                 <div class="filter-group">
                     <label for="priceMin">Harga</label>
@@ -2391,26 +2468,32 @@
                     <span class="filter-sep">–</span>
                     <input type="number" id="priceMax" placeholder="Max" min="0" step="1000" />
                 </div>
-                <div class="sort-tabs" style="margin-bottom:0;flex-wrap:wrap;gap:0.3rem;" id="sortTabs">
-                    <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')">
-                        <i class="fas fa-clock"></i> Terbaru
-                    </button>
-                    <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')">
-                        <i class="fas fa-arrow-up-1-9"></i> Termurah
-                    </button>
-                    <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')">
-                        <i class="fas fa-arrow-down-9-1"></i> Termahal
-                    </button>
+                <div class="filter-actions">
+                    <button class="filter-flash-btn" id="flashFilterBtn" onclick="toggleFlashFilter()">🔥 Flash Sale</button>
+                    <button class="refresh-btn" onclick="manualRefresh()"><i class="fas fa-sync"></i> Refresh</button>
                 </div>
             </div>
 
-            <!-- Counter -->
+            <!-- SORT TABS -->
+            <div class="sort-tabs" style="margin-bottom:1rem;flex-wrap:wrap;gap:0.3rem;" id="sortTabs">
+                <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')">
+                    <i class="fas fa-clock"></i> Terbaru
+                </button>
+                <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')">
+                    <i class="fas fa-arrow-up-1-9"></i> Termurah
+                </button>
+                <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')">
+                    <i class="fas fa-arrow-down-9-1"></i> Termahal
+                </button>
+            </div>
+
+            <!-- COUNTER -->
             <div class="ig-counter reveal" id="igCounter"></div>
 
-            <!-- Grid -->
+            <!-- GRID -->
             <div class="ig-list" id="igGrid"></div>
 
-            <!-- Pagination -->
+            <!-- PAGINATION -->
             <div class="pagination" id="pagination" style="display:none">
                 <button class="page-btn" id="prevBtn" onclick="prevPage()">
                     <i class="fas fa-chevron-left"></i> Sebelumnya
@@ -2492,8 +2575,8 @@
     <!-- ===== SCRIPTS ===== -->
     <!-- ============================================================ -->
 
-    <!-- ===== UTILITY SCRIPTS ===== -->
     <script>
+        // ===== UTILITY FUNCTIONS =====
         function esc(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
 
@@ -2776,7 +2859,7 @@
         }, (err) => { console.error("Secret cars error:", err); });
     </script>
 
-    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE OTOMATIS ===== -->
+    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE (LENGKAP) ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
@@ -2797,8 +2880,16 @@
             currentPage = 0,
             soldListOpen = true,
             currentSort = 'newest',
-            POSTS = [],
-            prevDataHash = '';
+            POSTS = [];
+
+        // --- STATE UNTUK NOTIFIKASI FLASH SALE BARU ---
+        var prevFlashIds = new Set();
+
+        // --- STATE UNTUK FILTER FLASH SALE ONLY ---
+        var flashFilterActive = false;
+
+        // --- STATE UNTUK REFRESH MANUAL ---
+        var manualRefresh = false;
 
         function escLocal(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
@@ -2811,6 +2902,7 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
+        // --- HELPERS FLASH SALE ---
         function getDiscountedPrice(post) {
             if (!post.discount) return null;
             var original = post.originalPrice || post.price || '';
@@ -2824,13 +2916,19 @@
             return Math.max(0, toMs(post.flashSaleEnd) - Date.now());
         }
 
+        // --- FILTER & SORT ---
         function getFilteredAvailable() {
             var min = parseInt(document.getElementById('priceMin').value) || 0;
             var max = parseInt(document.getElementById('priceMax').value) || Infinity;
             return POSTS.filter(function(p) {
                 if (p.status !== 'available') return false;
                 var price = parsePrice(getEffectivePrice(p));
-                return price >= min && price <= max;
+                var priceOk = price >= min && price <= max;
+                var flashOk = true;
+                if (flashFilterActive) {
+                    flashOk = p.discount === true;
+                }
+                return priceOk && flashOk;
             });
         }
 
@@ -2842,10 +2940,17 @@
                     parsePrice(getEffectivePrice(b)) });
             else if (currentSort === 'price-desc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
                     parsePrice(getEffectivePrice(a)) });
+            if (flashFilterActive) {
+                var flashItems = avail.filter(p => p.discount === true);
+                flashItems.sort(function(a, b) {
+                    return getFlashRemaining(a) - getFlashRemaining(b);
+                });
+                return flashItems.concat(nonFlash);
+            }
             return nonFlash;
         }
 
-        // RENDER FLASH SALE
+        // --- RENDER FLASH SALE ---
         function renderFlashSale() {
             var flashItems = POSTS.filter(function(p) {
                 return p.status === 'available' && p.discount === true;
@@ -2857,10 +2962,24 @@
             if (!flashItems.length) {
                 section.style.display = 'none';
                 if (flashTimer) clearInterval(flashTimer);
+                document.getElementById('globalCountdown').textContent = '';
                 return;
             }
             section.style.display = 'block';
             count.textContent = flashItems.length + ' item';
+
+            // Banner global
+            var minRemaining = Infinity;
+            flashItems.forEach(function(p) {
+                var rem = getFlashRemaining(p);
+                if (rem > 0 && rem < minRemaining) minRemaining = rem;
+            });
+            var globalEl = document.getElementById('globalCountdown');
+            if (minRemaining === Infinity || minRemaining <= 0) {
+                globalEl.textContent = '';
+            } else {
+                globalEl.textContent = '⏳ Berakhir dalam ' + formatCountdown(minRemaining);
+            }
 
             grid.innerHTML = '';
             flashItems.forEach(function(post, i) {
@@ -2869,7 +2988,7 @@
                 var price = getEffectivePrice(post);
                 var discounted = post.discountedPrice || getDiscountedPrice(post) || price;
                 var remaining = getFlashRemaining(post);
-                var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Berakhir';
+                var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Habis';
 
                 var card = document.createElement('div');
                 card.className = 'flash-card';
@@ -2905,6 +3024,7 @@
         function startFlashTimer() {
             if (flashTimer) clearInterval(flashTimer);
             flashTimer = setInterval(function() {
+                // Update per card
                 document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(function(el) {
                     var end = parseInt(el.dataset.flashend);
                     var rem = Math.max(0, end - Date.now());
@@ -2914,9 +3034,44 @@
                         el.textContent = '⏳ ' + formatCountdown(rem);
                     }
                 });
+                // Update global
+                var flashItems = POSTS.filter(function(p) {
+                    return p.status === 'available' && p.discount === true;
+                });
+                var minRemaining = Infinity;
+                flashItems.forEach(function(p) {
+                    var rem = getFlashRemaining(p);
+                    if (rem > 0 && rem < minRemaining) minRemaining = rem;
+                });
+                var globalEl = document.getElementById('globalCountdown');
+                if (minRemaining === Infinity || !flashItems.length) {
+                    globalEl.textContent = '';
+                } else {
+                    globalEl.textContent = '⏳ Berakhir dalam ' + formatCountdown(minRemaining);
+                }
             }, 1000);
         }
 
+        // --- FILTER FLASH SALE ONLY ---
+        window.toggleFlashFilter = function() {
+            flashFilterActive = !flashFilterActive;
+            var btn = document.getElementById('flashFilterBtn');
+            btn.classList.toggle('active');
+            btn.textContent = flashFilterActive ? '🔥 Flash Sale' : 'Semua';
+            currentPage = 0;
+            renderAvailable();
+        };
+
+        // --- REFRESH MANUAL ---
+        window.manualRefresh = function() {
+            manualRefresh = true;
+            renderAvailable();
+            renderFlashSale();
+            showToast('🔄 Data diperbarui', 'info');
+            setTimeout(function() { manualRefresh = false; }, 500);
+        };
+
+        // --- SET SORT ---
         window.setSort = function(sort) {
             currentSort = sort;
             document.querySelectorAll('#sortTabs .sort-btn').forEach(function(b) {
@@ -2926,6 +3081,7 @@
             renderAvailable();
         };
 
+        // --- SOLD TOGGLE ---
         window.toggleSoldList = function() {
             soldListOpen = !soldListOpen;
             var list = document.getElementById('soldList'),
@@ -2938,6 +3094,7 @@
                 txt.textContent = 'Tampilkan'; }
         };
 
+        // --- RENDER SOLD ---
         function renderSold() {
             var now = Date.now();
             var sold = POSTS.filter(function(p) {
@@ -2987,6 +3144,7 @@
             });
         }
 
+        // --- PAGINATION HELPERS ---
         function buildPageNums(current, total) {
             if (total <= 7) { var a = []; for (var i = 0; i < total; i++) a.push(i); return a }
             var pages = [0];
@@ -2999,6 +3157,7 @@
             return pages;
         }
 
+        // --- RENDER AVAILABLE ---
         function renderAvailable() {
             var avail = getSortedFiltered(),
                 grid = document.getElementById('igGrid');
@@ -3011,7 +3170,8 @@
                 end = Math.min(start + PER_PAGE, total),
                 showing = total > 0 ? end - start : 0;
             document.getElementById('igCounter').innerHTML = total > 0 ? 'Menampilkan <strong>' + showing +
-                '</strong> dari <strong>' + total + '</strong> mobil tersedia' :
+                '</strong> dari <strong>' + total + '</strong> mobil tersedia' +
+                (flashFilterActive ? ' (🔥 Flash Sale)' : '') :
                 '<strong>0</strong> mobil tersedia saat ini';
             if (!total) {
                 grid.innerHTML =
@@ -3026,12 +3186,15 @@
                 var card = document.createElement('div');
                 card.className = 'ig-card';
                 card.style.animationDelay = (i * 0.04) + 's';
+                var badge = post.discount ? '<div class="status-badge" style="background:#fb923c;color:#fff;">🔥 FLASH</div>' :
+                    '';
                 card.innerHTML =
                     '<div class="ig-card-embed-wrap">' +
                     '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
                     '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
                     '<div class="ig-card-thumb-overlay"></div>' +
                     '<div class="ig-card-thumb-price">' + escLocal(price) + '</div>' +
+                    badge +
                     '</div>';
                 var iframe = card.querySelector('iframe');
                 addLoaderToCard(card, iframe);
@@ -3098,7 +3261,7 @@
             }, 300);
         });
 
-        // ===== FLASH SALE OTOMATIS (CLIENT-SIDE FALLBACK) =====
+        // --- FLASH SALE OTOMATIS (CLIENT SIDE) ---
         async function cleanupFlashSale() {
             const now = Date.now();
             const toCleanup = POSTS.filter(p =>
@@ -3166,7 +3329,7 @@
             }
         }
 
-        // ===== LISTENER UTAMA =====
+        // --- LISTENER UTAMA ---
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
@@ -3176,6 +3339,22 @@
                 }
                 return p;
             });
+
+            // --- NOTIFIKASI FLASH SALE BARU ---
+            var currentFlashIds = new Set(POSTS.filter(p => p.discount === true && p.status === 'available').map(p => p.id));
+            var newFlashIds = [];
+            currentFlashIds.forEach(id => {
+                if (!prevFlashIds.has(id)) {
+                    newFlashIds.push(id);
+                }
+            });
+            if (newFlashIds.length > 0) {
+                showToast('🔥 Flash sale baru dimulai! Cek sekarang!', 'success');
+                prevFlashIds = currentFlashIds;
+            } else {
+                prevFlashIds = currentFlashIds;
+            }
+
             renderSold();
             renderFlashSale();
             renderAvailable();
@@ -3184,6 +3363,7 @@
 
         setInterval(checkFlashSale, 60000);
 
+        // ===== EXPOSE GLOBAL =====
         window.triggerFlashSale = async function() {
             await cleanupFlashSale();
             await startFlashSale();
