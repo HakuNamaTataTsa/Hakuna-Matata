@@ -147,9 +147,12 @@
     .pg-btn:disabled{opacity:.2;cursor:not-allowed}
     .pg-info{font-size:.68rem;color:var(--muted);font-family:var(--fd);min-width:50px;text-align:center}
 
+    /* ===== EMPTY / DIVIDER ===== */
     .empty{text-align:center;padding:1.5rem;color:var(--muted);font-size:.78rem}
     .empty i{font-size:1.5rem;display:block;margin-bottom:.4rem;opacity:.35}
     .divider{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1.2rem 0}
+
+    /* ===== SOSMED FILTER & ORDER ===== */
     .filter-row{display:flex;gap:.3rem;margin-bottom:.8rem;flex-wrap:wrap}
     .filter-btn{padding:.25rem .6rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--fb);font-size:.65rem;font-weight:500;cursor:pointer;transition:all .2s}
     .filter-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.12)}
@@ -177,6 +180,8 @@
     .badge.processing{background:rgba(251,146,60,.12);color:#fb923c}.badge.processing::before{animation:pulse 1.5s infinite}
     .badge.completed{background:rgba(74,222,128,.12);color:#4ade80}
     .badge.cancelled{background:rgba(248,113,113,.12);color:#f87171}
+
+    /* ===== TOAST ===== */
     .toast-wrap{position:fixed;top:1rem;right:1rem;z-index:500;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
     .toast{padding:.5rem .8rem;border-radius:8px;font-size:.75rem;font-weight:500;display:flex;align-items:center;gap:.3rem;animation:toastIn .3s ease;backdrop-filter:blur(12px);border:1px solid var(--border);max-width:300px;box-shadow:0 8px 30px rgba(0,0,0,.4);pointer-events:auto}
     .toast.ok{background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.2)}
@@ -221,6 +226,32 @@
       .btn-sm{padding:.15rem .25rem;font-size:.55rem;min-width:20px;min-height:20px}
       .btn-sm i{font-size:.55rem}
     }
+
+    /* ===== TOMBOL FLASH MANUAL ===== */
+    .btn-flash-manual {
+      background: #fb923c;
+      color: #0a0a0f;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all .25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-flash-manual:hover {
+      box-shadow: 0 4px 16px rgba(251,146,60,.4);
+      transform: translateY(-2px);
+    }
+    .btn-flash-manual:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
   </style>
 </head>
 <body>
@@ -259,6 +290,12 @@
     <div class="tab-panel active" id="tabStock">
       <!-- STATS -->
       <div class="stats" id="stockStats"></div>
+      <!-- TOMBOL MANUAL FLASH SALE -->
+      <div style="display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap;">
+        <button class="btn-flash-manual" id="manualFlashBtn" onclick="triggerManualFlashSale()">
+          <i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)
+        </button>
+      </div>
 
       <!-- FORM TAMBAH -->
       <div class="form-card">
@@ -347,6 +384,7 @@
   <!-- ============================================================ -->
 
   <script>
+    // ===== GLOBAL =====
     var PASS='bajingan011';
     var sosmedFilter='all';
     var sosmedOrders=[];
@@ -433,7 +471,7 @@
   </script>
 
   <!-- ============================================================ -->
-  <!-- MODULE 1: Firebase — Stock Mobil (REALTIME)                   -->
+  <!-- MODULE 1: Firebase — Stock Mobil (REALTIME) dengan PAGINASI PERMANEN & MANUAL FLASH -->
   <!-- ============================================================ -->
   <script type="module">
     import{initializeApp}from"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
@@ -441,8 +479,25 @@
     const app=initializeApp({apiKey:"AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",authDomain:"akinowedding-73271.firebaseapp.com",projectId:"akinowedding-73271",storageBucket:"akinowedding-73271.appspot.com",messagingSenderId:"307666594440",appId:"1:307666594440:web:e7d3496744464f4c6d0d3d"});
     const db=getFirestore(app);
     var SOLD_HOURS=24,POSTS=[],editIdx=null,soldTimer=null;
-    var currentPage=1, soldPage=1, deletedPage=1;
     var editDescIdx=null;
+
+    // === PAGINASI PERMANEN dengan sessionStorage ===
+    function getStoredPage(key, defaultPage) {
+      var stored = sessionStorage.getItem('admin_' + key);
+      if (stored !== null) {
+        var val = parseInt(stored, 10);
+        if (!isNaN(val) && val > 0) return val;
+      }
+      return defaultPage;
+    }
+    function setStoredPage(key, page) {
+      sessionStorage.setItem('admin_' + key, page);
+    }
+
+    // Inisialisasi halaman dari sessionStorage
+    var currentPage = getStoredPage('availPage', 1);
+    var soldPage = getStoredPage('soldPage', 1);
+    var deletedPage = getStoredPage('deletedPage', 1);
 
     function getPerPage(){return window.isMobile()?5:10}
     function escL(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
@@ -450,7 +505,7 @@
     function getEP(p){return p.editedPrice||p.price}
     function toMs(t){if(!t)return 0;if(typeof t==='number')return t;if(t.seconds)return t.seconds*1000;return new Date(t).getTime()}
 
-    // === Helper format sisa waktu flash sale ===
+    // === HELPER FORMAT ===
     function formatFlashRemaining(p){
       if(!p.discount || !p.flashSaleEnd) return '';
       var rem = Math.max(0, toMs(p.flashSaleEnd) - Date.now());
@@ -459,8 +514,6 @@
       var minutes = Math.floor((rem % 3600000) / 60000);
       return '⏳ ' + hours + 'j ' + String(minutes).padStart(2,'0') + 'm';
     }
-
-    // === Helper format sisa waktu sold (24 jam) ===
     function formatSoldRemaining(soldAt){
       var rem = SOLD_HOURS*3600000 - (Date.now() - toMs(soldAt));
       if(rem <= 0) return '⏳ Segera dihapus';
@@ -468,8 +521,6 @@
       var minutes = Math.floor((rem % 3600000) / 60000);
       return '⏳ ' + hours + 'j ' + String(minutes).padStart(2,'0') + 'm';
     }
-
-    // === Helper get discounted price display ===
     function getDiscountedPriceDisplay(post){
       if(!post.discount) return null;
       return post.discountedPrice || '';
@@ -486,9 +537,9 @@
     window.initStock=function(){startSoldTimer()};
     window.destroyStockTimer=function(){if(soldTimer){clearInterval(soldTimer);soldTimer=null}};
 
-    window.stockGoPage=function(p){currentPage=p;renderStock()};
-    window.soldGoPage=function(p){soldPage=p;renderStock()};
-    window.deletedGoPage=function(p){deletedPage=p;renderStock()};
+    window.stockGoPage=function(p){currentPage=p;setStoredPage('availPage',p);renderStock()};
+    window.soldGoPage=function(p){soldPage=p;setStoredPage('soldPage',p);renderStock()};
+    window.deletedGoPage=function(p){deletedPage=p;setStoredPage('deletedPage',p);renderStock()};
 
     // === RENDER UTAMA ===
     function renderStock(){
@@ -496,7 +547,6 @@
       var avail=[],soldList=[],delList=[];
       POSTS.forEach(function(p){if(p.status==='deleted')delList.push(p);else if(p.status==='sold')soldList.push(p);else avail.push(p)});
 
-      // Hitung flash sale count
       var flashCount = avail.filter(p => p.discount === true && p.status === 'available').length;
 
       document.getElementById('stockStats').innerHTML=
@@ -512,6 +562,7 @@
       // ─── TERSEDIA ──────────────────────────────────────────────────
       var tp=Math.ceil(avail.length/PER_PAGE);
       if(currentPage>tp)currentPage=Math.max(1,tp);
+      setStoredPage('availPage', currentPage);
       var start=(currentPage-1)*PER_PAGE;
       var pageItems=avail.slice(start,start+PER_PAGE);
       var ha='';
@@ -545,6 +596,7 @@
       // ─── TERJUAL ──────────────────────────────────────────────────
       var tpSold=Math.ceil(soldList.length/PER_PAGE);
       if(soldPage>tpSold)soldPage=Math.max(1,tpSold);
+      setStoredPage('soldPage', soldPage);
       var startSold=(soldPage-1)*PER_PAGE;
       var pageSold=soldList.slice(startSold,startSold+PER_PAGE);
       var hs='';
@@ -562,6 +614,7 @@
       // ─── DIHAPUS ──────────────────────────────────────────────────
       var tpDel=Math.ceil(delList.length/PER_PAGE);
       if(deletedPage>tpDel)deletedPage=Math.max(1,tpDel);
+      setStoredPage('deletedPage', deletedPage);
       var startDel=(deletedPage-1)*PER_PAGE;
       var pageDel=delList.slice(startDel,startDel+PER_PAGE);
       var hd='';
@@ -580,8 +633,6 @@
       if(soldTimer)clearInterval(soldTimer);
       soldTimer=setInterval(function(){
         document.querySelectorAll('.item.sold .timer').forEach(function(el){
-          var soldAt = parseInt(el.closest('.item').querySelector('.btn-unsold')?.getAttribute('data-id'))? null : null;
-          // Kita ambil soldAt dari data yang tersimpan di elemen terdekat
           var parent = el.closest('.item');
           if(!parent) return;
           var unsoldBtn = parent.querySelector('.btn-unsold');
@@ -602,7 +653,7 @@
       var code=window.getIgCode(url);if(!code){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
       if(POSTS.some(function(p){return window.getIgCode(p.url)===code})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
       var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:"",discount:false,discountedPrice:"",flashSaleEnd:null,originalPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setTimeout(function(){msg.style.display='none'},3000)}
+      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:"",discount:false,discountedPrice:"",flashSaleEnd:null,originalPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setStoredPage('availPage',1);setTimeout(function(){msg.style.display='none'},3000)}
       catch(err){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message}
       finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock'}
     };
@@ -644,18 +695,54 @@
       }
     };
 
-    var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){currentPage=1;soldPage=1;deletedPage=1;renderStock()},300)});
+    // === MANUAL FLASH SALE (10 acak, 3 jam) ===
+    window.triggerManualFlashSale = async function(){
+      var btn = document.getElementById('manualFlashBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memulai...';
+      try {
+        var available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
+        if (available.length < 10) {
+          toast('Stok tersedia kurang dari 10! ('+available.length+')', 'err');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
+          return;
+        }
+        var shuffled = available.sort(() => 0.5 - Math.random());
+        var selected = shuffled.slice(0, 10);
+        var endTime = Date.now() + 3 * 60 * 60 * 1000;
+        for (const item of selected) {
+          var price = item.editedPrice || item.price || '0';
+          var numPrice = parseInt(price.replace(/[^0-9]/g,'')) || 0;
+          var discounted = Math.round(numPrice * 0.8);
+          await updateDoc(doc(db, "carStock", item.id), {
+            discount: true,
+            discountedPrice: 'Rp ' + discounted.toLocaleString('id-ID'),
+            flashSaleEnd: endTime,
+            originalPrice: price
+          });
+        }
+        toast('🔥 Flash sale dimulai! ' + selected.length + ' item (3 jam)', 'ok');
+      } catch(err) {
+        toast('Gagal: ' + err.message, 'err');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
+      }
+    };
+
+    // === RESIZE HANDLER ===
+    var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){renderStock()},300)});
 
     // === LISTENER UTAMA ===
     onSnapshot(query(collection(db,"carStock"),orderBy("addedAt","desc")),(snap)=>{
       POSTS=[];snap.forEach((d)=>POSTS.push({id:d.id,...d.data()}));
       var now=Date.now();
-      // Auto-expire flash sale
+      // Auto-expire flash sale & sold
       POSTS.forEach(function(p){
         if(p.discount===true && p.flashSaleEnd && now > toMs(p.flashSaleEnd)){
           updateDoc(doc(db,"carStock",p.id),{discount:false,discountedPrice:"",flashSaleEnd:null}).catch(function(){});
         }
-        // Auto-delete sold after 24 hours
         if(p.status==='sold' && p.soldAt){
           if(now-toMs(p.soldAt)>SOLD_HOURS*3600000){
             updateDoc(doc(db,"carStock",p.id),{status:'deleted',soldAt:null}).catch(function(){});
@@ -727,5 +814,6 @@
     onSnapshot(query(collection(db, ORDERS_COL), orderBy("createdAt", "desc")),(snap)=>{var orders=[];snap.forEach((d)=>{orders.push({id:d.id,...d.data()})});if(window.renderSosmedOrders)window.renderSosmedOrders(orders);},(err)=>{console.error("Sosmed listener error:",err);if(window.renderSosmedOrders)window.renderSosmedOrders([]);document.getElementById('sosmedList').innerHTML='<div class="empty" style="color:#f87171"><i class="fas fa-exclamation-triangle"></i>Gagal memuat pesanan.<br><small style="opacity:.6">Collection: <b>'+ORDERS_COL+'</b><br>Error: '+err.message+'</small></div>';});
     window.updateOrderStatus=async function(btnEl){var parent=btnEl.parentElement;var selectEl=parent.querySelector('select[data-docid]');if(!selectEl)return;var docId=selectEl.getAttribute('data-docid');var newStatus=selectEl.value;if(!docId){toast('Document ID tidak ditemukan','err');return}var origText=btnEl.innerHTML;btnEl.disabled=true;btnEl.innerHTML='<i class="fas fa-spinner fa-spin"></i>';try{await updateDoc(doc(db,ORDERS_COL,docId),{status:newStatus});if(window.onOrderUpdated)window.onOrderUpdated()}catch(err){console.error("Update error:",err);if(window.onOrderUpdateError)window.onOrderUpdateError(err.message||err);btnEl.disabled=false;btnEl.innerHTML=origText}};
   </script>
+
 </body>
 </html>
