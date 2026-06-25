@@ -2859,7 +2859,7 @@
         }, (err) => { console.error("Secret cars error:", err); });
     </script>
 
-    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE (LENGKAP) ===== -->
+    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE (DENGAN PERBAIKAN BUG) ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
@@ -2890,6 +2890,9 @@
 
         // --- STATE UNTUK REFRESH MANUAL ---
         var manualRefresh = false;
+
+        // --- FLAG UNTUK MENCEGAH OVERLAP CHECK FLASH ---
+        var isCheckingFlash = false;
 
         function escLocal(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
@@ -3261,13 +3264,18 @@
             }, 300);
         });
 
-        // --- FLASH SALE OTOMATIS (CLIENT SIDE) ---
+        // ================================================================
+        // FLASH SALE OTOMATIS - DENGAN PERBAIKAN BUG
+        // ================================================================
+
         async function cleanupFlashSale() {
             const now = Date.now();
             const toCleanup = POSTS.filter(p =>
                 p.discount === true &&
                 (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
             );
+            if (toCleanup.length === 0) return 0;
+            console.log(`🧹 Membersihkan ${toCleanup.length} item flash sale kadaluarsa/terjual`);
             for (const p of toCleanup) {
                 try {
                     await updateDoc(doc(db, "carStock", p.id), {
@@ -3276,25 +3284,26 @@
                         flashSaleEnd: null,
                         originalPrice: ""
                     });
-                    console.log('Flash sale cleaned up for', p.id);
+                    console.log('✅ Cleaned', p.id);
                 } catch (e) {
-                    console.error('Cleanup flash sale error', e);
+                    console.error('❌ Cleanup error', e);
                 }
             }
+            return toCleanup.length;
         }
 
         async function startFlashSale() {
             const available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
             if (available.length < 10) {
-                console.log('Tidak cukup item untuk flash sale (butuh 10)');
+                console.log(`⚠️ Stok tersedia hanya ${available.length}, butuh 10 untuk flash sale`);
                 return;
             }
+            // Acak dan ambil 10
             const shuffled = available.sort(() => 0.5 - Math.random());
             const selected = shuffled.slice(0, 10);
-            const now = Date.now();
-            const end = now + 3 * 60 * 60 * 1000;
+            const endTime = Date.now() + 3 * 60 * 60 * 1000; // 3 jam
 
-            console.log('Memulai flash sale dengan', selected.length, 'item');
+            console.log(`🚀 Memulai flash sale dengan ${selected.length} item`);
             for (const item of selected) {
                 const price = item.editedPrice || item.price || '0';
                 const numPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
@@ -3303,33 +3312,63 @@
                     await updateDoc(doc(db, "carStock", item.id), {
                         discount: true,
                         discountedPrice: 'Rp ' + discounted.toLocaleString('id-ID'),
-                        flashSaleEnd: end,
+                        flashSaleEnd: endTime,
                         originalPrice: price
                     });
                 } catch (e) {
-                    console.error('Start flash sale error', e);
+                    console.error('❌ Start flash error', e);
                 }
             }
-            showToast('🔥 Flash Sale dimulai! 10 item mendapat diskon 20%', 'success');
+            showToast(`🔥 Flash sale dimulai! ${selected.length} item diskon 20%`, 'success');
         }
 
         async function checkFlashSale() {
-            await cleanupFlashSale();
-            const activeFlash = POSTS.some(p =>
-                p.discount === true &&
-                p.status === 'available' &&
-                p.flashSaleEnd &&
-                Date.now() < toMs(p.flashSaleEnd)
-            );
-            if (!activeFlash) {
-                console.log('Tidak ada flash sale aktif, mencoba memulai...');
-                await startFlashSale();
-            } else {
-                console.log('Flash sale masih aktif');
+            // Cegah eksekusi bersamaan
+            if (isCheckingFlash) {
+                console.log('⏳ Pengecekan flash sale sedang berjalan, dilewati');
+                return;
+            }
+            isCheckingFlash = true;
+            try {
+                console.log('⏰ Menjalankan checkFlashSale...');
+                // 1. Bersihkan flash sale yang kadaluarsa / tidak valid
+                const cleaned = await cleanupFlashSale();
+                if (cleaned > 0) {
+                    // Tunggu sebentar agar listener Firestore memperbarui POSTS
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+
+                // 2. Periksa ulang apakah masih ada flash sale aktif (dengan data terbaru)
+                const now = Date.now();
+                const activeFlash = POSTS.some(p =>
+                    p.discount === true &&
+                    p.status === 'available' &&
+                    p.flashSaleEnd &&
+                    now < toMs(p.flashSaleEnd)
+                );
+
+                if (!activeFlash) {
+                    console.log('🚀 Tidak ada flash sale aktif, memulai batch baru...');
+                    await startFlashSale();
+                } else {
+                    console.log('✅ Flash sale masih aktif, tidak perlu memulai baru.');
+                }
+            } catch (err) {
+                console.error('❌ Error checkFlashSale:', err);
+            } finally {
+                isCheckingFlash = false;
             }
         }
 
-        // --- LISTENER UTAMA ---
+        // Jalankan pengecekan setiap 60 detik (lebih aman)
+        setInterval(checkFlashSale, 60000);
+        // Panggil sekali saat awal (tunda agar POSTS terisi)
+        setTimeout(checkFlashSale, 3000);
+
+        // ================================================================
+        // LISTENER UTAMA
+        // ================================================================
+
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
@@ -3358,10 +3397,7 @@
             renderSold();
             renderFlashSale();
             renderAvailable();
-            checkFlashSale();
         }, (err) => { console.error("Stock listener error:", err); });
-
-        setInterval(checkFlashSale, 60000);
 
         // ===== EXPOSE GLOBAL =====
         window.triggerFlashSale = async function() {
