@@ -68,10 +68,14 @@
     .form-card h4 i{color:var(--accent);font-size:.8rem}
     .fr{margin-bottom:.7rem}
     .fr label{display:block;font-size:.72rem;font-weight:500;color:var(--muted);margin-bottom:.2rem}
+    .fr select{width:100%;padding:.55rem .85rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--fg);font-family:var(--fb);font-size:.84rem;outline:none;transition:border-color .2s;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6a82' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center}
+    .fr select:focus{border-color:var(--accent)}
+    .fr select option{background:#0e0e18;color:var(--fg)}
     .fr input,.fr textarea{width:100%;padding:.55rem .85rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--fg);font-family:var(--fb);font-size:.84rem;outline:none;transition:border-color .2s}
     .fr input:focus,.fr textarea:focus{border-color:var(--accent)}
     .fr textarea{resize:vertical;min-height:60px}
     .fr .hint{font-size:.65rem;color:var(--muted);margin-top:.15rem}
+    .fr .hint i{color:var(--accent);margin-right:.2rem}
     .btn-primary{padding:.6rem 1.2rem;border-radius:8px;background:var(--accent);color:#0a0a0f;border:none;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
     .btn-primary:hover{box-shadow:0 4px 16px rgba(255,221,87,.3);transform:translateY(-1px)}
     .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
@@ -217,6 +221,7 @@
       .oi-name{font-size:.72rem}
       .oi-meta{font-size:.6rem;gap:.4rem}
       .oi-customer{font-size:.58rem;gap:.4rem}
+      .fr select{font-size:.75rem;padding:.4rem .6rem}
     }
     @media(max-width:400px){
       .item-thumb{width:40px;height:40px}
@@ -297,12 +302,38 @@
         </button>
       </div>
 
-      <!-- FORM TAMBAH -->
+      <!-- FORM TAMBAH DENGAN DROPDOWN HARGA & DESKRIPSI -->
       <div class="form-card">
         <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru</h4>
-        <div class="fr"><label>Link Post Instagram</label><input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/"><div class="hint">Buka post → 3 titik → Copy Link</div></div>
-        <div class="fr"><label>Harga</label><input type="text" id="addPrice" placeholder="Rp 3.000"></div>
-        <div class="fr"><label>Keterangan / Caption</label><textarea id="addDesc" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea></div>
+        <div class="fr">
+          <label>Link Post Instagram</label>
+          <input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/">
+          <div class="hint"><i class="fas fa-info-circle"></i> Buka post → 3 titik → Copy Link</div>
+        </div>
+        <div class="fr">
+          <label>Harga</label>
+          <select id="addPriceSelect" onchange="updatePriceInput()">
+            <option value="Rp 2.000">Rp 2.000</option>
+            <option value="Rp 3.000" selected>Rp 3.000</option>
+            <option value="Rp 5.000">Rp 5.000</option>
+            <option value="Rp 10.000">Rp 10.000</option>
+            <option value="Rp 15.000">Rp 15.000</option>
+            <option value="Rp 20.000">Rp 20.000</option>
+            <option value="custom">✏️ Custom</option>
+          </select>
+          <input type="text" id="addPrice" placeholder="Rp 3.000" style="margin-top:0.3rem;display:none;">
+        </div>
+        <div class="fr">
+          <label>Keterangan / Caption</label>
+          <select id="addDescSelect" onchange="updateDescInput()">
+            <option value="1" selected>🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)</option>
+            <option value="2">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome</option>
+            <option value="3">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional)</option>
+            <option value="4">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional) + Sirine</option>
+            <option value="custom">✏️ Custom</option>
+          </select>
+          <textarea id="addDesc" rows="3" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea>
+        </div>
         <div class="form-msg" id="addMsg"></div>
         <button class="btn-primary" id="addBtn" onclick="addStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
       </div>
@@ -389,6 +420,14 @@
     var sosmedFilter='all';
     var sosmedOrders=[];
 
+    // ===== TEMPLATE DESKRIPSI =====
+    var DESC_TEMPLATES = {
+      '1': '🔥 Gratis Request Spek Mesinnya (Tune Up, FFA, atau Glitch) ‼️',
+      '2': '🔥 Gratis Request Spek Mesinnya (Tune Up, FFA, atau Glitch) ‼️\nGratis Request Alis+Kaliper On ‼️\nGratis Request Velg Bakar/Chrome ‼️',
+      '3': '🔥 Gratis Request Spek Mesinnya (Tune Up, FFA, atau Glitch) ‼️\nGratis Request Alis+Kaliper On ‼️\nGratis Request Velg Bakar/Chrome ‼️\nGratis Request Nama (Optional)',
+      '4': '🔥 Gratis Request Spek Mesinnya (Tune Up, FFA, atau Glitch) ‼️\nGratis Request Alis+Kaliper On ‼️\nGratis Request Velg Bakar/Chrome ‼️\nGratis Request Nama (Optional)\nGratis Request Sirine / Police Sirine'
+    };
+
     function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
     function fRp(n){return 'Rp '+Math.ceil(n).toLocaleString('id-ID')}
     var STATUS_LABEL={pending:'Menunggu Verifikasi',paid:'Pembayaran Dikonfirmasi',processing:'Sedang Diproses',completed:'Selesai',cancelled:'Dibatalkan'};
@@ -430,6 +469,48 @@
       if(!code)return '<i class="fas fa-image thumb-fb"></i>';
       return '<iframe src="https://www.instagram.com/p/'+code+'/embed/" allowtransparency="true" scrolling="no" frameborder="0"></iframe>';
     };
+
+    // ===== FUNGSI UNTUK DROPDOWN HARGA =====
+    window.updatePriceInput = function() {
+      var select = document.getElementById('addPriceSelect');
+      var input = document.getElementById('addPrice');
+      if (select.value === 'custom') {
+        input.style.display = 'block';
+        input.value = '';
+        input.placeholder = 'Masukkan harga custom...';
+        input.focus();
+      } else {
+        input.style.display = 'none';
+        input.value = select.value;
+      }
+    };
+
+    // ===== FUNGSI UNTUK DROPDOWN DESKRIPSI =====
+    window.updateDescInput = function() {
+      var select = document.getElementById('addDescSelect');
+      var textarea = document.getElementById('addDesc');
+      if (select.value === 'custom') {
+        textarea.value = '';
+        textarea.placeholder = 'Masukkan deskripsi custom...';
+        textarea.focus();
+      } else {
+        textarea.value = DESC_TEMPLATES[select.value] || '';
+      }
+    };
+
+    // Inisialisasi default saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default harga
+      var priceSelect = document.getElementById('addPriceSelect');
+      priceSelect.value = 'Rp 3.000';
+      document.getElementById('addPrice').value = 'Rp 3.000';
+      document.getElementById('addPrice').style.display = 'none';
+
+      // Set default deskripsi
+      var descSelect = document.getElementById('addDescSelect');
+      descSelect.value = '1';
+      document.getElementById('addDesc').value = DESC_TEMPLATES['1'];
+    });
 
     window.renderSosmedOrders=function(orders){sosmedOrders=orders||[];renderSosmedStats();renderSosmedFilter();renderSosmedList()};
     function renderSosmedStats(){
@@ -647,15 +728,50 @@
 
     // === CRUD OPERATIONS ===
     window.addStock=async function(){
-      var url=document.getElementById('addUrl').value.trim(),price=document.getElementById('addPrice').value.trim(),desc=document.getElementById('addDesc').value.trim(),msg=document.getElementById('addMsg');
+      var url=document.getElementById('addUrl').value.trim();
+      var priceInput = document.getElementById('addPrice');
+      var price = priceInput.value.trim() || document.getElementById('addPriceSelect').value;
+      var desc = document.getElementById('addDesc').value.trim();
+      var msg=document.getElementById('addMsg');
+
       msg.className='form-msg';msg.style.display='none';
       if(!url||!price||!desc){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Semua field wajib diisi.';return}
       var code=window.getIgCode(url);if(!code){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Link Instagram tidak valid.';return}
       if(POSTS.some(function(p){return window.getIgCode(p.url)===code})){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Post ini sudah ada.';return}
       var btn=document.getElementById('addBtn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-      try{await addDoc(collection(db,"carStock"),{url:url,price:price,desc:desc,addedAt:Date.now(),status:"available",soldAt:null,editedPrice:"",discount:false,discountedPrice:"",flashSaleEnd:null,originalPrice:""});msg.className='form-msg ok show';msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';document.getElementById('addUrl').value='';document.getElementById('addPrice').value='';document.getElementById('addDesc').value='';currentPage=1;setStoredPage('availPage',1);setTimeout(function(){msg.style.display='none'},3000)}
-      catch(err){msg.className='form-msg err show';msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message}
-      finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock'}
+      try{
+        await addDoc(collection(db,"carStock"),{
+          url:url,
+          price:price,
+          desc:desc,
+          addedAt:Date.now(),
+          status:"available",
+          soldAt:null,
+          editedPrice:"",
+          discount:false,
+          discountedPrice:"",
+          flashSaleEnd:null,
+          originalPrice:""
+        });
+        msg.className='form-msg ok show';
+        msg.innerHTML='<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
+        document.getElementById('addUrl').value='';
+        // Reset dropdown ke default
+        document.getElementById('addPriceSelect').value='Rp 3.000';
+        document.getElementById('addPrice').value='Rp 3.000';
+        document.getElementById('addPrice').style.display='none';
+        document.getElementById('addDescSelect').value='1';
+        document.getElementById('addDesc').value=DESC_TEMPLATES['1'];
+        currentPage=1;
+        setStoredPage('availPage',1);
+        setTimeout(function(){msg.style.display='none'},3000)
+      } catch(err){
+        msg.className='form-msg err show';
+        msg.innerHTML='<i class="fas fa-exclamation-circle"></i> Gagal: '+err.message
+      } finally {
+        btn.disabled=false;
+        btn.innerHTML='<i class="fas fa-plus"></i> Tambah Stock'
+      }
     };
 
     function startEdit(docId){editIdx=docId;var post=POSTS.find(function(p){return p.id===docId});if(!post)return;var price=getEP(post);document.getElementById('editCard').style.display='';document.getElementById('editName').value=firstLine(post.desc);document.getElementById('editOld').value=price;document.getElementById('editNew').value='';document.getElementById('editNew').placeholder=price;setTimeout(function(){document.getElementById('editNew').focus()},100);document.getElementById('editCard').scrollIntoView({behavior:'smooth',block:'center'})}
@@ -695,42 +811,22 @@
       }
     };
 
-    // === MANUAL FLASH SALE (10 acak, 3 jam) - DENGAN FLAG ===
-    var isManualRunning = false;
-
+    // === MANUAL FLASH SALE (10 acak, 3 jam) ===
     window.triggerManualFlashSale = async function(){
       var btn = document.getElementById('manualFlashBtn');
-      if (isManualRunning || btn.disabled) return;
-      isManualRunning = true;
+      if (btn.disabled) return;
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memulai...';
       try {
-        // Bersihkan flash sale kadaluarsa terlebih dahulu
-        var now = Date.now();
-        var toCleanup = POSTS.filter(p =>
-          p.discount === true &&
-          (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
-        );
-        for (const p of toCleanup) {
-          try {
-            await updateDoc(doc(db, "carStock", p.id), {
-              discount: false,
-              discountedPrice: "",
-              flashSaleEnd: null,
-              originalPrice: ""
-            });
-          } catch (e) {}
-        }
-        // Tunggu sebentar agar data terupdate
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // Ambil data terbaru dari POSTS
+        // Bersihkan flash sale kadaluarsa
+        await cleanupFlashSale();
+        // Refresh data POSTS
+        await new Promise(resolve => setTimeout(resolve, 300));
         var available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
         if (available.length < 10) {
           toast('Stok tersedia kurang dari 10! ('+available.length+')', 'err');
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
-          isManualRunning = false;
           return;
         }
         var shuffled = available.sort(() => 0.5 - Math.random());
@@ -753,9 +849,31 @@
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
-        isManualRunning = false;
       }
     };
+
+    // === FLASH SALE CLEANUP ===
+    async function cleanupFlashSale() {
+      const now = Date.now();
+      const toCleanup = POSTS.filter(p =>
+        p.discount === true &&
+        (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
+      );
+      if (toCleanup.length === 0) return;
+      console.log(`🧹 Membersihkan ${toCleanup.length} item flash sale kadaluarsa`);
+      for (const p of toCleanup) {
+        try {
+          await updateDoc(doc(db, "carStock", p.id), {
+            discount: false,
+            discountedPrice: "",
+            flashSaleEnd: null,
+            originalPrice: ""
+          });
+        } catch (e) {
+          console.error('Cleanup error', e);
+        }
+      }
+    }
 
     // === RESIZE HANDLER ===
     var resizeTimer;window.addEventListener('resize',function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){renderStock()},300)});
