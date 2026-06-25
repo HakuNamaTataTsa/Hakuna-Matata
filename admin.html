@@ -695,17 +695,42 @@
       }
     };
 
-    // === MANUAL FLASH SALE (10 acak, 3 jam) ===
+    // === MANUAL FLASH SALE (10 acak, 3 jam) - DENGAN FLAG ===
+    var isManualRunning = false;
+
     window.triggerManualFlashSale = async function(){
       var btn = document.getElementById('manualFlashBtn');
+      if (isManualRunning || btn.disabled) return;
+      isManualRunning = true;
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memulai...';
       try {
+        // Bersihkan flash sale kadaluarsa terlebih dahulu
+        var now = Date.now();
+        var toCleanup = POSTS.filter(p =>
+          p.discount === true &&
+          (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
+        );
+        for (const p of toCleanup) {
+          try {
+            await updateDoc(doc(db, "carStock", p.id), {
+              discount: false,
+              discountedPrice: "",
+              flashSaleEnd: null,
+              originalPrice: ""
+            });
+          } catch (e) {}
+        }
+        // Tunggu sebentar agar data terupdate
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Ambil data terbaru dari POSTS
         var available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
         if (available.length < 10) {
           toast('Stok tersedia kurang dari 10! ('+available.length+')', 'err');
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
+          isManualRunning = false;
           return;
         }
         var shuffled = available.sort(() => 0.5 - Math.random());
@@ -722,12 +747,13 @@
             originalPrice: price
           });
         }
-        toast('🔥 Flash sale dimulai! ' + selected.length + ' item (3 jam)', 'ok');
+        toast('🔥 Flash sale manual dimulai! ' + selected.length + ' item (3 jam)', 'ok');
       } catch(err) {
         toast('Gagal: ' + err.message, 'err');
       } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-bolt"></i> Mulai Flash Sale (10 Acak)';
+        isManualRunning = false;
       }
     };
 
