@@ -706,7 +706,7 @@
             font-weight: 600;
         }
 
-        /* === WRAPPER: hanya scroll horizontal, bukan flex container === */
+        /* === WRAPPER: scroll horizontal === */
         .flash-scroll-wrapper {
             overflow-x: auto;
             overflow-y: hidden;
@@ -728,7 +728,7 @@
             border-radius: 10px;
         }
 
-        /* === GRID: inline-flex agar melebar sesuai isi, never wrap === */
+        /* === GRID: inline-flex === */
         .flash-grid {
             display: inline-flex;
             flex-direction: row;
@@ -737,10 +737,10 @@
             padding: 0.1rem 0;
         }
 
-        /* === CARD: fixed width, shrink dilarang === */
+        /* === CARD: fixed width (lebih besar) === */
         .flash-card {
-            flex: 0 0 160px;
-            width: 160px;
+            flex: 0 0 180px;
+            width: 180px;
             flex-shrink: 0;
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -768,7 +768,7 @@
             left: 0;
             width: 100% !important;
             min-height: unset !important;
-            height: 700px !important;
+            height: 600px !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -778,7 +778,7 @@
             inset: 0;
             z-index: 2;
             cursor: pointer;
-            background: linear-gradient(to top, rgba(8, 8, 15, 0.75) 10%, transparent 45%);
+            background: linear-gradient(to top, rgba(8, 8, 15, 0.7) 10%, transparent 45%);
         }
         .flash-card .flash-badge {
             position: absolute;
@@ -787,7 +787,7 @@
             z-index: 4;
             background: #fb923c;
             color: #0a0a0f;
-            font-size: 0.5rem;
+            font-size: 0.55rem;
             font-weight: 700;
             padding: 0.1rem 0.4rem;
             border-radius: 50px;
@@ -799,7 +799,7 @@
         }
         .flash-card .price-info {
             position: absolute;
-            bottom: 8px;
+            bottom: 10px;
             left: 8px;
             right: 8px;
             z-index: 3;
@@ -808,29 +808,29 @@
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
         }
         .flash-card .price-info .original {
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: #a0a0b0;
             text-decoration: line-through;
             display: block;
         }
         .flash-card .price-info .discount {
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #fb923c;
             display: block;
         }
         .flash-card .countdown {
             position: absolute;
-            bottom: 44px;
+            bottom: 46px;
             left: 8px;
             right: 8px;
             z-index: 3;
-            font-size: 0.55rem;
+            font-size: 0.65rem;
             color: #fff;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
-            padding: 0.15rem 0.3rem;
+            padding: 0.2rem 0.4rem;
             border-radius: 4px;
             text-align: center;
             font-weight: 600;
@@ -845,45 +845,49 @@
             grid-column: 1/-1;
         }
 
-        /* --- Responsive Flash Card --- */
+        /* --- Responsive Flash Card (lebih besar) --- */
         @media (max-width: 768px) {
             .flash-card {
-                flex: 0 0 120px;
-                width: 120px;
+                flex: 0 0 160px;
+                width: 160px;
             }
             .flash-card .price-info .discount {
-                font-size: 0.7rem;
+                font-size: 0.85rem;
             }
             .flash-card .price-info .original {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
             }
             .flash-card .countdown {
-                font-size: 0.45rem;
-                bottom: 36px;
-                padding: 0.1rem 0.2rem;
+                font-size: 0.55rem;
+                bottom: 40px;
+                padding: 0.1rem 0.3rem;
             }
             .flash-card .flash-badge {
-                font-size: 0.4rem;
-                padding: 0.05rem 0.3rem;
+                font-size: 0.5rem;
+                padding: 0.05rem 0.35rem;
                 top: 4px;
                 right: 4px;
             }
         }
         @media (max-width: 420px) {
             .flash-card {
-                flex: 0 0 100px;
-                width: 100px;
+                flex: 0 0 140px;
+                width: 140px;
             }
             .flash-card .price-info .discount {
-                font-size: 0.6rem;
+                font-size: 0.75rem;
             }
             .flash-card .price-info .original {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
             }
             .flash-card .countdown {
-                font-size: 0.4rem;
-                bottom: 30px;
-                padding: 0.05rem 0.15rem;
+                font-size: 0.5rem;
+                bottom: 36px;
+                padding: 0.05rem 0.2rem;
+            }
+            .flash-card .flash-badge {
+                font-size: 0.45rem;
+                padding: 0.05rem 0.3rem;
             }
         }
 
@@ -962,7 +966,7 @@
             padding: 0.2rem 0 0.6rem;
             scroll-snap-type: x proximity;
             -webkit-overflow-scrolling: touch;
-            max-height: 160px;
+            max-height: 180px;
             opacity: 1;
             transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
         }
@@ -982,9 +986,10 @@
             overflow: hidden;
             padding: 0;
         }
+
         .sold-card {
             flex-shrink: 0;
-            width: 108px;
+            width: 130px;
             background: rgba(248, 113, 113, 0.04);
             border: 1px solid rgba(248, 113, 113, 0.1);
             border-radius: var(--radius-sm);
@@ -1001,7 +1006,7 @@
         }
         .sold-card-thumb {
             width: 100%;
-            height: 92px;
+            height: 110px;
             overflow: hidden;
             position: relative;
             background: #0e0e18;
@@ -1012,7 +1017,7 @@
             left: 0;
             width: 100% !important;
             min-height: unset !important;
-            height: 220px !important;
+            height: 240px !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -1038,7 +1043,7 @@
             top: 4px;
             right: 4px;
             z-index: 3;
-            font-size: 0.45rem;
+            font-size: 0.5rem;
             font-weight: 700;
             letter-spacing: 0.6px;
             text-transform: uppercase;
@@ -1059,7 +1064,7 @@
         }
         .sold-card-body .sc-name {
             font-family: var(--font-display);
-            font-size: 0.62rem;
+            font-size: 0.7rem;
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
@@ -1073,13 +1078,49 @@
             color: var(--accent);
         }
         .sold-card-body .sc-price {
-            font-size: 0.6rem;
+            font-size: 0.68rem;
             color: var(--accent);
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             display: block;
+        }
+
+        /* --- Responsive Sold Card (lebih besar) --- */
+        @media (max-width: 768px) {
+            .sold-card {
+                width: 110px;
+            }
+            .sold-card-thumb {
+                height: 92px;
+            }
+            .sold-card-body .sc-name {
+                font-size: 0.62rem;
+            }
+            .sold-card-body .sc-price {
+                font-size: 0.6rem;
+            }
+            .sold-list {
+                max-height: 150px;
+            }
+        }
+        @media (max-width: 420px) {
+            .sold-card {
+                width: 95px;
+            }
+            .sold-card-thumb {
+                height: 80px;
+            }
+            .sold-card-body .sc-name {
+                font-size: 0.55rem;
+            }
+            .sold-card-body .sc-price {
+                font-size: 0.52rem;
+            }
+            .sold-list {
+                max-height: 130px;
+            }
         }
 
         /* ===== FILTER & SORT ===== */
@@ -1994,7 +2035,6 @@
             .flash-header h2 {
                 font-size: 0.9rem;
             }
-            /* Ukuran card tablet/HP: 120px (sudah diatur di @media di atas) */
 
             .sold-section {
                 padding: 0.7rem 0.7rem 0.3rem;
@@ -2002,18 +2042,6 @@
             }
             .sold-header-left h2 {
                 font-size: 0.82rem;
-            }
-            .sold-card {
-                width: 92px;
-            }
-            .sold-card-thumb {
-                height: 78px;
-            }
-            .sold-card-body .sc-name {
-                font-size: 0.56rem;
-            }
-            .sold-card-body .sc-price {
-                font-size: 0.54rem;
             }
 
             .filter-bar {
@@ -2181,13 +2209,6 @@
             .secret-grid .ig-card-thumb-price {
                 font-size: 0.6rem;
             }
-            /* Ukuran card HP kecil: 100px (sudah diatur di @media di atas) */
-            .sold-card {
-                width: 80px;
-            }
-            .sold-card-thumb {
-                height: 68px;
-            }
             .page-hero h1 {
                 font-size: 1.3rem;
             }
@@ -2226,12 +2247,6 @@
             .secret-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1rem;
-            }
-            .sold-card {
-                width: 130px;
-            }
-            .sold-card-thumb {
-                height: 110px;
             }
             .lightbox-content {
                 max-width: 560px;
@@ -2328,7 +2343,7 @@
 
     <div class="sec-divider"><hr /></div>
 
-    <!-- ===== FLASH SALE SECTION (1 baris horizontal) ===== -->
+    <!-- ===== FLASH SALE SECTION ===== -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
@@ -2368,7 +2383,7 @@
                 <p class="sec-desc">Klik foto untuk melihat detail &amp; memesan.</p>
             </div>
 
-            <!-- Filter Harga (min-max) & Sort -->
+            <!-- Filter Harga & Sort -->
             <div class="filter-bar reveal">
                 <div class="filter-group">
                     <label for="priceMin">Harga</label>
@@ -2497,7 +2512,6 @@
                 '0') + 's';
         }
 
-        // ===== TOAST =====
         function showToast(message, type = 'info', duration = 4000) {
             var container = document.getElementById('toastContainer');
             var toast = document.createElement('div');
@@ -2592,7 +2606,6 @@
             lbOrder.style.cssText = '';
             lbShare.style.display = 'inline-flex';
 
-            // Tentukan harga yang akan ditampilkan dan dikirim ke WA
             var priceToShow = post.discountedPrice || post.editedPrice || post.price || '';
             var priceForWa = post.discountedPrice || post.editedPrice || post.price || '';
 
@@ -2615,7 +2628,6 @@
                 lbDesc.style.display = lbDesc.textContent ? '' : 'none';
                 lbIgLink.href = post.url || '#';
                 lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
-                // Simpan harga untuk WA di dataset atau variabel
                 lbOrder.dataset.price = priceForWa;
             }
             lbEl.classList.add('active');
@@ -2645,7 +2657,6 @@
         lbOrder.addEventListener('click', function() {
             if (!lbCurrentPost) return;
             if (lbOpts.isSold) return;
-            // Gunakan harga yang sudah disimpan di dataset atau fallback
             var price = this.dataset.price || lbCurrentPost.discountedPrice || lbCurrentPost.editedPrice || lbCurrentPost
                 .price || '';
             var waMsg;
@@ -2765,10 +2776,10 @@
         }, (err) => { console.error("Secret cars error:", err); });
     </script>
 
-    <!-- ===== FIREBASE: MAIN STOCK ===== -->
+    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE OTOMATIS ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot } from
+        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
         "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
         const app = initializeApp({
@@ -2800,7 +2811,6 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
-        // Flash Sale helpers
         function getDiscountedPrice(post) {
             if (!post.discount) return null;
             var original = post.originalPrice || post.price || '';
@@ -2814,7 +2824,6 @@
             return Math.max(0, toMs(post.flashSaleEnd) - Date.now());
         }
 
-        // Filter functions
         function getFilteredAvailable() {
             var min = parseInt(document.getElementById('priceMin').value) || 0;
             var max = parseInt(document.getElementById('priceMax').value) || Infinity;
@@ -2836,7 +2845,7 @@
             return nonFlash;
         }
 
-        // Render Flash Sale section
+        // RENDER FLASH SALE
         function renderFlashSale() {
             var flashItems = POSTS.filter(function(p) {
                 return p.status === 'available' && p.discount === true;
@@ -2888,7 +2897,6 @@
                 grid.appendChild(card);
             });
 
-            // Start countdown timer
             startFlashTimer();
         }
 
@@ -3090,10 +3098,78 @@
             }, 300);
         });
 
+        // ===== FLASH SALE OTOMATIS (CLIENT-SIDE FALLBACK) =====
+        async function cleanupFlashSale() {
+            const now = Date.now();
+            const toCleanup = POSTS.filter(p =>
+                p.discount === true &&
+                (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
+            );
+            for (const p of toCleanup) {
+                try {
+                    await updateDoc(doc(db, "carStock", p.id), {
+                        discount: false,
+                        discountedPrice: "",
+                        flashSaleEnd: null,
+                        originalPrice: ""
+                    });
+                    console.log('Flash sale cleaned up for', p.id);
+                } catch (e) {
+                    console.error('Cleanup flash sale error', e);
+                }
+            }
+        }
+
+        async function startFlashSale() {
+            const available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
+            if (available.length < 10) {
+                console.log('Tidak cukup item untuk flash sale (butuh 10)');
+                return;
+            }
+            const shuffled = available.sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 10);
+            const now = Date.now();
+            const end = now + 3 * 60 * 60 * 1000;
+
+            console.log('Memulai flash sale dengan', selected.length, 'item');
+            for (const item of selected) {
+                const price = item.editedPrice || item.price || '0';
+                const numPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
+                const discounted = Math.round(numPrice * 0.8);
+                try {
+                    await updateDoc(doc(db, "carStock", item.id), {
+                        discount: true,
+                        discountedPrice: 'Rp ' + discounted.toLocaleString('id-ID'),
+                        flashSaleEnd: end,
+                        originalPrice: price
+                    });
+                } catch (e) {
+                    console.error('Start flash sale error', e);
+                }
+            }
+            showToast('🔥 Flash Sale dimulai! 10 item mendapat diskon 20%', 'success');
+        }
+
+        async function checkFlashSale() {
+            await cleanupFlashSale();
+            const activeFlash = POSTS.some(p =>
+                p.discount === true &&
+                p.status === 'available' &&
+                p.flashSaleEnd &&
+                Date.now() < toMs(p.flashSaleEnd)
+            );
+            if (!activeFlash) {
+                console.log('Tidak ada flash sale aktif, mencoba memulai...');
+                await startFlashSale();
+            } else {
+                console.log('Flash sale masih aktif');
+            }
+        }
+
+        // ===== LISTENER UTAMA =====
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
-            // Tambahkan properti discountedPrice untuk setiap item yang memiliki discount
             POSTS = newPosts.map(p => {
                 if (p.discount === true) {
                     p.discountedPrice = getDiscountedPrice(p);
@@ -3103,7 +3179,15 @@
             renderSold();
             renderFlashSale();
             renderAvailable();
+            checkFlashSale();
         }, (err) => { console.error("Stock listener error:", err); });
+
+        setInterval(checkFlashSale, 60000);
+
+        window.triggerFlashSale = async function() {
+            await cleanupFlashSale();
+            await startFlashSale();
+        };
     </script>
 
     <!-- ===== FIREBASE: GUESTBOOK ===== -->
