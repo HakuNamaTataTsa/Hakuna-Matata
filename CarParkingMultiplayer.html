@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <meta property="og:title" content="AkinoCh/Akino Store - CPM">
-  <meta property="og:description" content="Car Parking Multiplayer">
+  <meta property="og:title" content="Akino Store - Car Parking Multiplayer">
+  <meta property="og:description" content="Layanan CPM - Tune Up, Glitch, Coin, dan lainnya">
   <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg">
   <title>Car Parking Multiplayer - Akino Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    :root {
-      --bg:#07070d;
-      --bg-card:rgba(255,255,255,0.04);
-      --fg:#f0f0f5;
-      --muted:#7a7a90;
-      --accent:#FFDD57;
-      --accent-dim:rgba(255,221,87,0.15);
-      --border:rgba(255,255,255,0.07);
-      --radius:16px;
-      --font-display:'Space Grotesk',sans-serif;
-      --font-body:'DM Sans',sans-serif;
-    }
+    /* ===== RESET & BASE ===== */
     *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--fg:#f0f0f5;--muted:#7a7a90;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--radius:16px;--font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif}
     html{scroll-behavior:smooth}
     body{font-family:var(--font-body);background:var(--bg);color:var(--fg);overflow-x:hidden}
 
-    /* ─── Navbar ─── */
+    /* ===== AMBIENT GLOWS ===== */
+    .ambient-glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .ambient-glows .glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.06}
+    .ambient-glows .glow-1{width:600px;height:600px;top:-150px;left:-100px;background:#FFDD57;animation:glowFloat1 12s ease-in-out infinite}
+    .ambient-glows .glow-2{width:500px;height:500px;bottom:-100px;right:-80px;background:#FFA726;animation:glowFloat2 15s ease-in-out infinite}
+    .ambient-glows .glow-3{width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:#FFDD57;animation:glowFloat3 18s ease-in-out infinite}
+    @keyframes glowFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+    @keyframes glowFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
+    @keyframes glowFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.3)}}
+
+    /* ===== NAVBAR ===== */
     .navbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1.5rem;background:rgba(7,7,13,0.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background 0.3s}
     .navbar.scrolled{background:rgba(7,7,13,0.92)}
     .nav-brand{font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:-0.3px}
@@ -45,14 +45,14 @@
     .menu-toggle:hover{border-color:rgba(255,255,255,0.15)}
     @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-    /* ─── Hero ─── */
+    /* ===== HERO ===== */
     .page-hero{padding:6rem 1.5rem 2rem;text-align:center;position:relative}
     .page-hero::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--accent-dim),var(--accent),var(--accent-dim),transparent);border-radius:2px}
     .page-hero h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;letter-spacing:-1px;margin-bottom:.4rem}
     .page-hero h1 .accent{color:var(--accent)}
     .page-hero p{color:var(--muted);font-size:0.95rem;max-width:480px;margin:0 auto;line-height:1.6}
 
-    /* ─── Slider ─── */
+    /* ===== SLIDER ===== */
     .slider-wrap{max-width:900px;margin:1.5rem auto;padding:0 1.5rem}
     .slider{position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid var(--border);background:#0a0a12}
     .slides{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1)}
@@ -62,70 +62,99 @@
     .slider-dots span{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s}
     .slider-dots span.active{background:var(--accent);width:24px;border-radius:4px}
 
-    /* ─── Services ─── */
-    .services-section{max-width:1100px;margin:2rem auto;padding:0 1.5rem}
+    /* ===== FLASH SALE SECTION - HORIZONTAL SCROLL ===== */
+    .flash-car-section{max-width:1100px;margin:1.5rem auto;padding:0 1.5rem}
+    .flash-car-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.6rem;margin-bottom:0.8rem}
+    .flash-car-header h2{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fb923c;display:flex;align-items:center;gap:0.4rem}
+    .flash-car-header h2 i{font-size:0.9rem;animation:pulse 1.5s infinite}
+    .flash-car-header .flash-count{font-size:0.65rem;padding:0.1rem 0.5rem;border-radius:50px;background:rgba(251,146,60,0.15);color:#fb923c;font-weight:600}
+    .flash-car-header .view-all{color:var(--muted);font-size:0.75rem;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:0.25rem}
+    .flash-car-header .view-all:hover{color:var(--accent)}
+    .flash-car-header .view-all i{font-size:0.5rem}
+
+    /* WRAPPER SCROLL - DENGAN SCROLLBAR WARNA */
+    .flash-car-scroll{overflow-x:auto;overflow-y:hidden;padding:0.2rem 0 0.8rem;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;margin:0 -0.5rem;padding-left:0.5rem;padding-right:0.5rem}
+    /* SCROLLBAR UNTUK CHROME/EDGE/SAFARI */
+    .flash-car-scroll::-webkit-scrollbar{height:4px}
+    .flash-car-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:10px}
+    .flash-car-scroll::-webkit-scrollbar-thumb{background:#fb923c;border-radius:10px;transition:background .3s}
+    .flash-car-scroll::-webkit-scrollbar-thumb:hover{background:#f97316}
+    /* SCROLLBAR UNTUK FIREFOX */
+    .flash-car-scroll{scrollbar-color:#fb923c rgba(255,255,255,0.05);scrollbar-width:thin}
+
+    .flash-car-grid{display:inline-flex;flex-direction:row;gap:0.7rem;flex-wrap:nowrap;padding:0.1rem 0}
+
+    .flash-car-card{flex:0 0 160px;width:160px;background:var(--bg-card);border:1px solid rgba(251,146,60,0.25);border-radius:var(--radius-sm);overflow:hidden;transition:all .3s;cursor:pointer;scroll-snap-align:start}
+    .flash-car-card:hover{border-color:#fb923c;transform:translateY(-3px);box-shadow:0 8px 30px rgba(251,146,60,0.1)}
+    .flash-car-card .thumb-wrap{width:100%;aspect-ratio:3/3.5;overflow:hidden;position:relative;background:#0a0a12}
+    .flash-car-card .thumb-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;border:none}
+    .flash-car-card .thumb-wrap .flash-badge{position:absolute;top:5px;right:5px;z-index:2;background:#fb923c;color:#0a0a0f;font-size:0.45rem;font-weight:700;padding:0.05rem 0.35rem;border-radius:50px;display:flex;align-items:center;gap:0.1rem}
+    .flash-car-card .thumb-wrap .flash-badge i{font-size:0.35rem}
+    .flash-car-card .card-info{padding:0.4rem 0.5rem 0.6rem}
+    .flash-car-card .card-info .original{font-size:0.55rem;color:var(--muted);text-decoration:line-through}
+    .flash-car-card .card-info .discount{font-family:var(--font-display);font-size:0.8rem;font-weight:700;color:#fb923c;display:block;line-height:1.2}
+    .flash-car-card .card-info .timer{font-size:0.5rem;color:var(--muted);margin-top:0.05rem}
+    .flash-car-card .card-info .timer span{color:#fb923c;font-weight:600}
+
+    .flash-car-empty{text-align:center;padding:1rem;color:var(--muted);font-size:0.8rem;grid-column:1/-1}
+
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:0.7}}
+
+    /* ===== PROMO BANNER ===== */
+    .promo-banner{max-width:900px;margin:0 auto 1.5rem;padding:1rem 1.5rem;background:linear-gradient(145deg,rgba(251,146,60,0.12),rgba(251,146,60,0.04));border:1px solid rgba(251,146,60,0.3);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;animation:pulseGlow 3s ease-in-out infinite}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 20px rgba(251,146,60,0.05)}50%{box-shadow:0 0 40px rgba(251,146,60,0.15)}}
+    .promo-banner .promo-icon{font-size:1.8rem;color:#fb923c;animation:pulse 1.5s infinite}
+    .promo-banner .promo-text{flex:1;font-size:0.9rem;color:var(--fg-dim)}
+    .promo-banner .promo-text strong{color:#fb923c;font-weight:700}
+    .promo-banner .promo-timer{font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:#fb923c;background:rgba(251,146,60,0.12);padding:0.3rem 0.9rem;border-radius:50px;border:1px solid rgba(251,146,60,0.2);white-space:nowrap}
+
+    /* ===== TOOLBAR ===== */
+    .toolbar{max-width:1100px;margin:0 auto 1.5rem;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:0.8rem;align-items:center;justify-content:center}
+    .toolbar .filter-group{display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center}
+    .toolbar .filter-group label{font-size:0.7rem;color:var(--muted);font-weight:500;margin-right:0.2rem}
+    .filter-btn{padding:0.25rem 0.8rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-family:var(--font-body);font-size:0.7rem;font-weight:500;cursor:pointer;transition:all .25s;white-space:nowrap}
+    .filter-btn:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
+    .filter-btn.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+    .sort-select{padding:0.3rem 0.8rem;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;color:var(--fg);font-family:var(--font-body);font-size:0.7rem;outline:none;cursor:pointer;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6a82' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.7rem center;padding-right:1.8rem}
+    .sort-select:focus{border-color:var(--accent)}
+    .sort-select option{background:#0e0e18;color:var(--fg)}
+
+    /* ===== SERVICES ===== */
+    .services-section{max-width:1100px;margin:0 auto 2rem;padding:0 1.5rem}
     .section-title{font-family:var(--font-display);font-size:1.4rem;font-weight:600;text-align:center;margin-bottom:1.5rem;letter-spacing:-0.3px}
     .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem}
 
-    .service-card{
-      background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
-      overflow:hidden;transition:all .4s cubic-bezier(0.25,0.46,0.45,0.94);
-      position:relative;animation:fadeUp 0.5s ease both;
-    }
-    .service-card:nth-child(1){animation-delay:0.02s}
-    .service-card:nth-child(2){animation-delay:0.04s}
-    .service-card:nth-child(3){animation-delay:0.06s}
-    .service-card:nth-child(4){animation-delay:0.08s}
-    .service-card:nth-child(5){animation-delay:0.10s}
-    .service-card:nth-child(6){animation-delay:0.12s}
-    .service-card:nth-child(7){animation-delay:0.14s}
-    .service-card:nth-child(8){animation-delay:0.16s}
-    .service-card:nth-child(9){animation-delay:0.18s}
-    .service-card:nth-child(10){animation-delay:0.20s}
-    .service-card:nth-child(11){animation-delay:0.22s}
-    .service-card:nth-child(12){animation-delay:0.24s}
-    .service-card:nth-child(13){animation-delay:0.26s}
-    .service-card:nth-child(14){animation-delay:0.28s}
-    .service-card:nth-child(15){animation-delay:0.30s}
-    .service-card:nth-child(16){animation-delay:0.32s}
-    .service-card:nth-child(17){animation-delay:0.34s}
+    .service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;animation:fadeUp 0.5s ease both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(30px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .service-card:hover{
-      border-color:rgba(255,221,87,0.25);
-      transform:translateY(-5px);
-      box-shadow:0 16px 48px rgba(0,0,0,.35);
-    }
-    .service-card img{width:100%;height:160px;object-fit:cover;border-bottom:1px solid var(--border);display:block}
+    .service-card:hover{border-color:rgba(255,221,87,0.25);transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+    .service-card img{width:100%;height:160px;object-fit:cover;border-bottom:1px solid var(--border);display:block;background:#0a0a12}
     .service-card .card-body{padding:1.1rem 1.1rem 1.25rem}
     .service-card h3{font-family:var(--font-display);font-size:0.95rem;font-weight:600;margin-bottom:0.3rem;line-height:1.3}
     .service-card .price{color:var(--accent);font-weight:600;font-size:0.9rem;margin-bottom:0.15rem}
+    .service-card .price .original{color:var(--muted);text-decoration:line-through;font-weight:400;font-size:0.75rem;margin-right:0.3rem}
+    .service-card .price .discount{color:#fb923c;font-weight:700}
+    .service-card .price .promo-timer-small{display:block;font-size:0.6rem;color:#fb923c;font-weight:600;margin-top:0.1rem}
     .service-card .note{color:#f87171;font-size:0.75rem;margin-bottom:0.5rem}
     .service-card .desc{color:var(--muted);font-size:0.8rem;line-height:1.5;margin-bottom:0.7rem}
-    .service-card a{color:var(--muted);font-size:0.8rem;text-decoration:none;transition:color .2s}
-    .service-card a:hover{color:var(--accent)}
+    .service-card .badge-category{display:inline-block;font-size:0.55rem;font-weight:600;padding:0.1rem 0.5rem;border-radius:50px;background:var(--accent-dim);color:var(--accent);margin-bottom:0.4rem;letter-spacing:0.3px}
 
-    .btn-order{
-      display:inline-flex;align-items:center;gap:.4rem;
-      padding:0.5rem 1.2rem;border-radius:10px;
-      background:var(--accent-dim);color:var(--accent);
-      border:1px solid rgba(255,221,87,0.2);
-      font-family:var(--font-body);font-size:0.8rem;font-weight:600;
-      text-decoration:none;transition:all .3s ease;cursor:pointer;
-      margin-top:0.3rem;
-    }
-    .btn-order:hover{
-      background:var(--accent);color:#0a0a0f;
-      box-shadow:0 4px 20px rgba(255,221,87,.3);
-      transform:translateY(-2px);
-    }
+    .service-card.promo{border-color:rgba(251,146,60,0.4);background:rgba(251,146,60,0.04)}
+    .service-card.promo:hover{border-color:#fb923c;box-shadow:0 16px 48px rgba(251,146,60,0.12)}
+    .service-card .promo-badge{position:absolute;top:10px;right:10px;background:#fb923c;color:#0a0a0f;font-size:0.6rem;font-weight:700;padding:0.15rem 0.6rem;border-radius:50px;letter-spacing:0.5px;display:flex;align-items:center;gap:0.2rem;z-index:2}
+    .service-card .promo-badge i{font-size:0.5rem}
+
+    .btn-order{display:inline-flex;align-items:center;gap:.4rem;padding:0.5rem 1.2rem;border-radius:10px;background:var(--accent-dim);color:var(--accent);border:1px solid rgba(255,221,87,0.2);font-family:var(--font-body);font-size:0.8rem;font-weight:600;text-decoration:none;transition:all .3s ease;cursor:pointer;margin-top:0.3rem}
+    .btn-order:hover{background:var(--accent);color:#0a0a0f;box-shadow:0 4px 20px rgba(255,221,87,.3);transform:translateY(-2px)}
     .btn-order:active{transform:scale(0.96)}
+    .btn-order.quick{background:rgba(37,211,102,0.12);color:#25D366;border-color:rgba(37,211,102,0.2)}
+    .btn-order.quick:hover{background:#25D366;color:#fff;border-color:#25D366;box-shadow:0 4px 20px rgba(37,211,102,0.3)}
 
-    /* ─── Guestbook ─── */
+    .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1}
+    .empty-state i{font-size:3rem;display:block;margin-bottom:1rem;opacity:0.3}
+    .empty-state p{font-size:0.9rem}
+
+    /* ===== GUESTBOOK ===== */
     .guestbook-section{max-width:700px;margin:3rem auto;padding:0 1.5rem}
     .guestbook{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.25rem}
     .guestbook h2{font-family:var(--font-display);font-size:1.1rem;text-align:center;margin-bottom:1.25rem}
@@ -145,24 +174,13 @@
     .message p{font-size:0.82rem;color:var(--muted);line-height:1.5}
     .message small{font-size:0.68rem;color:rgba(255,255,255,.2);display:block;margin-top:0.2rem}
 
-    /* ─── Social Row ─── */
+    /* ===== SOCIAL ROW & FOOTER ===== */
     .social-row{display:flex;justify-content:center;gap:0.8rem;padding:1.5rem 1rem}
     .social-row a{width:42px;height:42px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.95rem;transition:all .3s;text-decoration:none}
     .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-3px)}
-
     .footer{text-align:center;padding:1.5rem 1rem;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border)}
 
-    /* ─── Ambient Glows ─── */
-    .ambient-glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-    .ambient-glows .glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.06}
-    .ambient-glows .glow-1{width:600px;height:600px;top:-150px;left:-100px;background:#FFDD57;animation:glowFloat1 12s ease-in-out infinite}
-    .ambient-glows .glow-2{width:500px;height:500px;bottom:-100px;right:-80px;background:#FFA726;animation:glowFloat2 15s ease-in-out infinite}
-    .ambient-glows .glow-3{width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);background:#FFDD57;animation:glowFloat3 18s ease-in-out infinite}
-    @keyframes glowFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
-    @keyframes glowFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
-    @keyframes glowFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.3)}}
-
-    /* ─── Floating Chat ─── */
+    /* ===== FLOATING CHAT ===== */
     .chat-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem}
     .chat-float-label{background:rgba(15,15,25,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:0.5rem 0.9rem;font-size:0.75rem;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px) scale(0.95);transition:all 0.3s ease;pointer-events:none}
     .chat-float-label span{color:var(--accent);font-weight:600}
@@ -171,13 +189,13 @@
     .chat-float-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,0.45)}
     .chat-float-btn:active{transform:scale(0.95)}
 
-    /* ─── Back to Top ─── */
+    /* ===== BACK TO TOP ===== */
     .back-to-top{position:fixed;bottom:1.5rem;left:1.5rem;z-index:99;width:44px;height:44px;border-radius:12px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);pointer-events:none;transition:all 0.3s ease;text-decoration:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
     .back-to-top.show{opacity:1;transform:translateY(0);pointer-events:auto}
     .back-to-top:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-dim);transform:translateY(-2px)}
     .back-to-top:active{transform:scale(0.93)}
 
-    /* ─── Responsive ─── */
+    /* ===== RESPONSIVE ===== */
     @media(max-width:768px){
       .navbar{padding:0.6rem 1rem}
       .menu-toggle{display:flex}
@@ -188,12 +206,27 @@
       .dropdown:hover .dropdown-menu{display:none}
       .dropdown.active .dropdown-menu{display:block!important}
       .dropdown-menu a{padding:0.4rem 0.8rem;white-space:normal}
-
       .page-hero{padding:5rem 1rem 1.5rem}
       .page-hero h1{font-size:clamp(1.5rem,5vw,2.2rem)}
       .page-hero p{font-size:0.88rem}
-
       .slider-wrap{padding:0 1rem;margin:1rem auto}
+      .flash-car-section{padding:0 0.8rem;margin:1rem auto}
+      .flash-car-header h2{font-size:0.95rem}
+      .flash-car-header .view-all{font-size:0.65rem}
+      .flash-car-card{flex:0 0 130px;width:130px}
+      .flash-car-card .card-info .discount{font-size:0.7rem}
+      .flash-car-card .card-info .original{font-size:0.5rem}
+      .flash-car-card .card-info .timer{font-size:0.45rem}
+      .flash-car-card .thumb-wrap .flash-badge{font-size:0.4rem}
+      .flash-car-scroll::-webkit-scrollbar{height:3px}
+      .promo-banner{flex-direction:column;text-align:center;padding:0.8rem 1rem;margin:0.5rem auto 1rem}
+      .promo-banner .promo-icon{font-size:1.4rem}
+      .promo-banner .promo-text{font-size:0.8rem}
+      .promo-banner .promo-timer{font-size:0.75rem;padding:0.2rem 0.7rem}
+      .toolbar{padding:0 1rem;gap:0.5rem;justify-content:flex-start}
+      .toolbar .filter-group{gap:0.3rem}
+      .filter-btn{font-size:0.65rem;padding:0.2rem 0.6rem}
+      .sort-select{font-size:0.65rem;padding:0.2rem 0.6rem;padding-right:1.5rem}
       .services-section{padding:0 1rem}
       .services-grid{grid-template-columns:1fr;gap:1rem}
       .service-card img{height:140px}
@@ -201,34 +234,38 @@
       .service-card h3{font-size:0.9rem}
       .service-card .price{font-size:0.85rem}
       .btn-order{padding:0.45rem 1rem;font-size:0.78rem;width:100%;justify-content:center}
-
       .guestbook-section{padding:0 1rem;margin:2rem auto}
       .guestbook{padding:1.25rem 1rem}
       .guestbook input,.guestbook textarea{font-size:0.82rem;padding:0.55rem 0.8rem}
       .guestbook .btn-submit{font-size:0.82rem;padding:0.6rem}
-
       .chat-float{bottom:1rem;right:1rem}
       .chat-float-btn{width:48px;height:48px;border-radius:14px;font-size:1.3rem}
       .back-to-top{bottom:1rem;left:1rem;width:40px;height:40px;font-size:0.8rem}
       .social-row{gap:0.6rem;padding:1rem}
       .social-row a{width:38px;height:38px;font-size:0.85rem}
     }
-
+    @media(max-width:420px){
+      .flash-car-card{flex:0 0 110px;width:110px}
+      .flash-car-card .card-info .discount{font-size:0.6rem}
+      .flash-car-card .card-info .original{font-size:0.45rem}
+      .flash-car-card .card-info .timer{font-size:0.4rem}
+    }
     @media(min-width:769px) and (max-width:1024px){
       .services-grid{grid-template-columns:repeat(2,1fr)}
+      .flash-car-card{flex:0 0 150px;width:150px}
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Background Glows -->
+  <!-- ===== AMBIENT GLOWS ===== -->
   <div class="ambient-glows">
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
     <div class="glow glow-3"></div>
   </div>
 
-  <!-- ═══ NAVBAR ═══ -->
+  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -247,13 +284,35 @@
     </ul>
   </nav>
 
-  <!-- ═══ HERO ═══ -->
+  <!-- ===== HERO ===== -->
   <section class="page-hero">
     <h1>Car Parking <span class="accent">Multiplayer</span></h1>
     <p>Layanan lengkap untuk CPM — tune up, glitch, coin, dan lainnya.</p>
   </section>
 
-  <!-- ═══ SLIDER ═══ -->
+  <!-- ===== FLASH SALE SECTION (HORIZONTAL SCROLL) ===== -->
+  <section class="flash-car-section" id="flashCarSection" style="display:none">
+    <div class="flash-car-header">
+      <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale !! <span class="flash-count" id="flashCarCount">0</span></h2>
+      <a href="stockmobil.html" class="view-all">Lihat Stock Lainnya <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="flash-car-scroll">
+      <div class="flash-car-grid" id="flashCarGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== PROMO BANNER ===== -->
+  <div class="slider-wrap">
+    <div class="promo-banner" id="promoBanner" style="display:none">
+      <div class="promo-icon"><i class="fas fa-bolt"></i></div>
+      <div class="promo-text">
+        <strong>🔥 Promo Layanan!</strong> <span id="promoText">Beberapa layanan sedang diskon 20%</span>
+      </div>
+      <div class="promo-timer" id="promoTimer">⏳ Berakhir dalam 2j 45m</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDER ===== -->
   <div class="slider-wrap">
     <div class="slider">
       <div class="slides" id="slides">
@@ -267,190 +326,38 @@
     <div class="slider-dots" id="sliderDots"></div>
   </div>
 
-  <!-- ═══ SERVICES ═══ -->
+  <!-- ===== TOOLBAR ===== -->
+  <div class="toolbar">
+    <div class="filter-group">
+      <label><i class="fas fa-tags"></i> Kategori:</label>
+      <button class="filter-btn active" data-category="all" onclick="setCategory('all')">Semua</button>
+      <button class="filter-btn" data-category="Tune Up" onclick="setCategory('Tune Up')">Tune Up</button>
+      <button class="filter-btn" data-category="Glitch" onclick="setCategory('Glitch')">Glitch</button>
+      <button class="filter-btn" data-category="Coin/Uang" onclick="setCategory('Coin/Uang')">Coin/Uang</button>
+      <button class="filter-btn" data-category="Livery" onclick="setCategory('Livery')">Livery</button>
+      <button class="filter-btn" data-category="Premium Car" onclick="setCategory('Premium Car')">Premium Car</button>
+      <button class="filter-btn" data-category="Sirine" onclick="setCategory('Sirine')">Sirine</button>
+      <button class="filter-btn" data-category="Lainnya" onclick="setCategory('Lainnya')">Lainnya</button>
+    </div>
+    <div class="filter-group">
+      <label><i class="fas fa-sort"></i> Urutkan:</label>
+      <select class="sort-select" id="sortSelect" onchange="setSort(this.value)">
+        <option value="default">Default</option>
+        <option value="price-asc">Termurah</option>
+        <option value="price-desc">Termahal</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
   <section class="services-section">
     <h2 class="section-title">Daftar Layanan</h2>
-    <div class="services-grid">
-
-      <div class="service-card">
-        <img src="Screenshot_20260619-210721.png" alt="Custom ID">
-        <div class="card-body">
-          <h3>Custom ID</h3>
-          <div class="price">Rp 5.000 / Mobil</div>
-          <a href="order.html?service=Custom%20ID" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122112_0000.png" alt="Tune Up">
-        <div class="card-body">
-          <h3>Tune Up</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=Tune%20Up" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122314_0000.png" alt="Tune Up ECU">
-        <div class="card-body">
-          <h3>Tune Up Suara Asli / ECU</h3>
-          <div class="price">Rp 4.000 / Mobil</div>
-          <a href="order.html?service=Tune%20Up%20Suara%20Asli/ECU" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122413_0000.png" alt="FFA/Ghoib">
-        <div class="card-body">
-          <h3>FFA / Ghoib</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=FFA/Ghoib" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122501_0000.png" alt="FFA ECU">
-        <div class="card-body">
-          <h3>FFA / Ghoib Suara Asli / ECU</h3>
-          <div class="price">Rp 4.000 / Mobil</div>
-          <a href="order.html?service=FFA/Ghoib%20Suara%20Asli/ECU" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122520_0000.png" alt="Glitch">
-        <div class="card-body">
-          <h3>Glitch</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=Glitch" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122545_0000.png" alt="Glitch ECU">
-        <div class="card-body">
-          <h3>Glitch Suara Asli / ECU</h3>
-          <div class="price">Rp 4.000 / Mobil</div>
-          <a href="order.html?service=Glitch%20Suara%20Asli/ECU" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122655_0000.png" alt="Chrome">
-        <div class="card-body">
-          <h3>Chrome / Bakar Body / Velg</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=Chrome/Bakar%20Body/Velg" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122743_0000.png" alt="Spoiler">
-        <div class="card-body">
-          <h3>Custom Spoiler / Trondol</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=Custom%20Spoiler/Trondol" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122808_0000.png" alt="Alis">
-        <div class="card-body">
-          <h3>Alis Nyala / Kaliper</h3>
-          <div class="price">Rp 3.000 / Mobil</div>
-          <a href="order.html?service=Alis%20nyala/Kaliper" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="sirine.png" alt="Sirine">
-        <div class="card-body">
-          <h3>Unlock Sirine</h3>
-          <div class="price">Rp 5.000 / Mobil</div>
-          <a href="order.html?service=Unlock%20Sirine%20Car" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="mobil berbayar.png" alt="Premium Car">
-        <div class="card-body">
-          <h3>Unlock Paid / Premium Car</h3>
-          <div class="price">Rp 5.000 / Mobil</div>
-          <a href="order.html?service=Unlock%20Paid/Premium%20Car" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="mobil berbayar.png" alt="Premium Car+Sirine">
-        <div class="card-body">
-          <h3>Unlock Premium Car + Sirine</h3>
-          <div class="price">Rp 8.000 / Mobil</div>
-          <a href="order.html?service=Unlock%20Paid/Premium%20Car+Sirine" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122850_0000.png" alt="Coin">
-        <div class="card-body">
-          <h3>Isi 30.000 Coin</h3>
-          <div class="price">Rp 5.000</div>
-          <div class="note">NOTE: Wajib Pilih Metode Login Akun</div>
-          <a href="order.html?service=Isi%2030.000%20Coin" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122850_0000.png" alt="Uang">
-        <div class="card-body">
-          <h3>Isi 50.000.000 Uang</h3>
-          <div class="price">Rp 4.000</div>
-          <a href="order.html?service=Suntik%2050.000.000%20Uang" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_122850_0000.png" alt="Bundle">
-        <div class="card-body">
-          <h3>Bundle 50M Uang + 30K Coin</h3>
-          <div class="price">Rp 8.000</div>
-          <div class="note">NOTE: Wajib Pilih Metode Login Akun</div>
-          <a href="order.html?service=Bundle%2050.000.000%20Uang+30.000%20Coin" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="Error.png" alt="Joki King">
-        <div class="card-body">
-          <h3>Joki Akun Ke King</h3>
-          <div class="desc">Bonus isi Uang + Koin (Akun Baru/Lama)</div>
-          <div class="note">NOTE: Wajib Pilih Metode Login Akun</div>
-          <a href="order.html?service=Paket%20Akun%20King" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_123629_0000.png" alt="Livery">
-        <div class="card-body">
-          <h3>Request Livery Mobil</h3>
-          <div class="price">Rp 20.000 — Rp 50.000</div>
-          <div class="desc">Tergantung tingkat kesulitan design</div>
-          <a href="order.html?service=Request%20Livery%20Mobil" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
-        </div>
-      </div>
-
-      <div class="service-card">
-        <img src="20240911_125134_0000.png" alt="Stock Mobil">
-        <div class="card-body">
-          <h3>Stock Mobil Murah</h3>
-          <div class="desc">Bisa pilih sendiri mobilnya</div>
-          <a href="stockmobil.html" class="btn-order" style="margin-top:0.5rem"><i class="fas fa-car"></i> Lihat Stock</a>
-        </div>
-      </div>
-
+    <div class="services-grid" id="servicesGrid">
+      <!-- Akan diisi oleh JavaScript -->
     </div>
   </section>
 
-  <!-- ═══ GUESTBOOK ═══ -->
+  <!-- ===== GUESTBOOK ===== -->
   <section class="guestbook-section">
     <div class="guestbook">
       <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Kolom Komentar</h2>
@@ -465,7 +372,7 @@
     </div>
   </section>
 
-  <!-- ═══ SOCIAL ROW ═══ -->
+  <!-- ===== SOCIAL ROW ===== -->
   <div class="social-row">
     <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -473,7 +380,7 @@
     <a href="https://wa.me/6289687163314" target="_blank"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- ═══ FLOATING CHAT ═══ -->
+  <!-- ===== FLOATING CHAT ===== -->
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
     <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -481,22 +388,24 @@
     </a>
   </div>
 
-  <!-- ═══ BACK TO TOP ═══ -->
+  <!-- ===== BACK TO TOP ===== -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
 
-  <!-- ═══ SCRIPTS ═══ -->
+  <!-- ============================================================ -->
+  <!-- ===== SCRIPTS ===== -->
+  <!-- ============================================================ -->
+
   <script>
-    // ─── Navbar scroll ───
+    // ===== NAVBAR =====
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // ─── Mobile menu ───
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
@@ -505,7 +414,6 @@
       icon.className = navLinks.classList.contains('active') ? 'fas fa-xmark' : 'fas fa-bars';
     });
 
-    // ─── Dropdown mobile ───
     const dropdownService = document.getElementById('dropdownService');
     const dropdownToggle = document.getElementById('dropdownToggle');
     dropdownToggle.addEventListener('click', (e) => {
@@ -515,7 +423,6 @@
       }
     });
 
-    // ─── Close menu on link click (mobile) ───
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
@@ -525,7 +432,7 @@
       });
     });
 
-    // ─── Back to Top ───
+    // ===== BACK TO TOP =====
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       backToTop.classList.toggle('show', window.scrollY > 400);
@@ -534,19 +441,17 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ─── Slider ───
+    // ===== SLIDER =====
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
     let slideIndex = 0;
     const dotsContainer = document.getElementById('sliderDots');
-
     if (totalSlides > 0) {
       for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement('span');
         dot.addEventListener('click', () => goSlide(i));
         dotsContainer.appendChild(dot);
       }
-
       function goSlide(i) {
         slideIndex = i;
         slides.style.transform = 'translateX(-' + (i * 100) + '%)';
@@ -554,18 +459,20 @@
           d.classList.toggle('active', idx === i);
         });
       }
-
       goSlide(0);
       setInterval(() => goSlide((slideIndex + 1) % totalSlides), 4000);
     }
   </script>
 
-  <!-- ═══ FIREBASE GUESTBOOK ═══ -->
+  <!-- ============================================================ -->
+  <!-- ===== MAIN SCRIPT ===== -->
+  <!-- ============================================================ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import {
-      getFirestore, collection, addDoc, query, orderBy, limit,
-      serverTimestamp, onSnapshot, startAfter, getDocs
+      getFirestore, collection, query, onSnapshot, addDoc,
+      orderBy, limit, serverTimestamp, startAfter, getDocs,
+      doc, onSnapshot as docOnSnapshot
     } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -580,9 +487,312 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // ================================================================
+    // 1. FLASH CAR (horizontal scroll)
+    // ================================================================
+    function renderFlashCars(cars) {
+      const section = document.getElementById('flashCarSection');
+      const grid = document.getElementById('flashCarGrid');
+      const count = document.getElementById('flashCarCount');
+
+      const flashItems = cars.filter(c => c.discount === true && c.status === 'available');
+      if (flashItems.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = 'block';
+      count.textContent = flashItems.length + ' item';
+
+      // Urutkan berdasarkan sisa waktu terpendek, ambil maks 10
+      const sorted = flashItems.sort((a, b) => {
+        const endA = a.flashSaleEnd || 0;
+        const endB = b.flashSaleEnd || 0;
+        return endA - endB;
+      });
+      const show = sorted.slice(0, 10);
+
+      grid.innerHTML = '';
+      show.forEach((car, i) => {
+        const code = car.url ? getIgCode(car.url) : null;
+        const price = car.editedPrice || car.price || 'Rp 0';
+        const discountPrice = car.discountedPrice || price;
+        const originalPrice = car.originalPrice || price;
+        const remaining = car.flashSaleEnd ? Math.max(0, car.flashSaleEnd - Date.now()) : 0;
+        const timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Habis';
+
+        const card = document.createElement('div');
+        card.className = 'flash-car-card';
+        card.style.animationDelay = (i * 0.05) + 's';
+        card.innerHTML = `
+          <div class="thumb-wrap">
+            ${code ? `<iframe src="https://www.instagram.com/p/${code}/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>` : '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.7rem">No image</div>'}
+            <div class="flash-badge"><i class="fas fa-bolt"></i> FLASH</div>
+          </div>
+          <div class="card-info">
+            <span class="original">${originalPrice}</span>
+            <span class="discount">${discountPrice}</span>
+            <div class="timer">⏳ <span>${timerText}</span></div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          window.open('stockmobil.html', '_blank');
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function formatCountdown(ms) {
+      if (ms <= 0) return '⏳ Habis';
+      const hours = Math.floor(ms / 3600000);
+      const minutes = Math.floor((ms % 3600000) / 60000);
+      const seconds = Math.floor((ms % 60000) / 1000);
+      if (hours > 0) return hours + 'j ' + String(minutes).padStart(2, '0') + 'm';
+      return String(minutes).padStart(2, '0') + 'm ' + String(seconds).padStart(2, '0') + 's';
+    }
+    function getIgCode(url) {
+      if (!url) return null;
+      const m = url.match(/\/p\/([A-Za-z0-9_-]+)/);
+      return m ? m[1] : null;
+    }
+
+    // Listener carStock
+    onSnapshot(query(collection(db, "carStock")), (snapshot) => {
+      const cars = [];
+      snapshot.forEach((doc) => {
+        cars.push({ id: doc.id, ...doc.data() });
+      });
+      renderFlashCars(cars);
+    }, (err) => {
+      console.error("Error loading flash cars:", err);
+    });
+
+    // ================================================================
+    // 2. LAYANAN CPM
+    // ================================================================
+    const DEFAULT_SERVICES = [
+      { name: "Custom ID", price: "Rp 5.000", image: "Screenshot_20260619-210721.png", desc: "", note: "", kategori: "Lainnya" },
+      { name: "Tune Up", price: "Rp 3.000", image: "20240911_122112_0000.png", desc: "", note: "", kategori: "Tune Up" },
+      { name: "Tune Up Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122314_0000.png", desc: "", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib", price: "Rp 3.000", image: "20240911_122413_0000.png", desc: "", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122501_0000.png", desc: "", note: "", kategori: "Tune Up" },
+      { name: "Glitch", price: "Rp 3.000", image: "20240911_122520_0000.png", desc: "", note: "", kategori: "Glitch" },
+      { name: "Glitch Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122545_0000.png", desc: "", note: "", kategori: "Glitch" },
+      { name: "Chrome / Bakar Body / Velg", price: "Rp 3.000", image: "20240911_122655_0000.png", desc: "", note: "", kategori: "Lainnya" },
+      { name: "Custom Spoiler / Trondol", price: "Rp 3.000", image: "20240911_122743_0000.png", desc: "", note: "", kategori: "Lainnya" },
+      { name: "Alis Nyala / Kaliper", price: "Rp 3.000", image: "20240911_122808_0000.png", desc: "", note: "", kategori: "Lainnya" },
+      { name: "Unlock Sirine", price: "Rp 5.000", image: "sirine.png", desc: "", note: "", kategori: "Sirine" },
+      { name: "Unlock Paid / Premium Car", price: "Rp 5.000", image: "mobil berbayar.png", desc: "", note: "", kategori: "Premium Car" },
+      { name: "Unlock Premium Car + Sirine", price: "Rp 8.000", image: "mobil berbayar.png", desc: "", note: "", kategori: "Premium Car" },
+      { name: "Isi 30.000 Coin", price: "Rp 5.000", image: "20240911_122850_0000.png", desc: "", note: "NOTE: Wajib Pilih Metode Login Akun", kategori: "Coin/Uang" },
+      { name: "Isi 50.000.000 Uang", price: "Rp 4.000", image: "20240911_122850_0000.png", desc: "", note: "", kategori: "Coin/Uang" },
+      { name: "Bundle 50M Uang + 30K Coin", price: "Rp 8.000", image: "20240911_122850_0000.png", desc: "", note: "NOTE: Wajib Pilih Metode Login Akun", kategori: "Coin/Uang" },
+      { name: "Joki Akun Ke King", price: "Rp 0", image: "Error.png", desc: "Bonus isi Uang + Koin (Akun Baru/Lama)", note: "NOTE: Wajib Pilih Metode Login Akun", kategori: "Lainnya" },
+      { name: "Request Livery Mobil", price: "Rp 20.000 — Rp 50.000", image: "20240911_123629_0000.png", desc: "Tergantung tingkat kesulitan design", note: "", kategori: "Livery" },
+      { name: "Stock Mobil Murah", price: "Lihat Stock", image: "20240911_125134_0000.png", desc: "Bisa pilih sendiri mobilnya", note: "", kategori: "Lainnya", isSpecial: true }
+    ];
+
+    const SERVICES_COLLECTION = 'services';
+
+    let currentCategory = 'all';
+    let currentSort = 'default';
+    let allServices = [];
+    let promoItems = [];
+
+    window.setCategory = function(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === cat);
+      });
+      renderServices(allServices, promoItems);
+    };
+
+    window.setSort = function(sort) {
+      currentSort = sort;
+      renderServices(allServices, promoItems);
+    };
+
+    function renderServices(services, promos = []) {
+      const grid = document.getElementById('servicesGrid');
+      grid.innerHTML = '';
+
+      const promoMap = {};
+      promos.forEach(item => { promoMap[item.name] = item; });
+
+      let filtered = services;
+      if (currentCategory !== 'all') {
+        filtered = filtered.filter(s => s.kategori === currentCategory);
+      }
+
+      const sorted = [...filtered];
+      if (currentSort === 'price-asc') {
+        sorted.sort((a, b) => {
+          const priceA = parseInt(a.price.replace(/[^0-9]/g, '')) || 0;
+          const priceB = parseInt(b.price.replace(/[^0-9]/g, '')) || 0;
+          return priceA - priceB;
+        });
+      } else if (currentSort === 'price-desc') {
+        sorted.sort((a, b) => {
+          const priceA = parseInt(a.price.replace(/[^0-9]/g, '')) || 0;
+          const priceB = parseInt(b.price.replace(/[^0-9]/g, '')) || 0;
+          return priceB - priceA;
+        });
+      }
+
+      sorted.sort((a, b) => {
+        const aPromo = !!promoMap[a.name];
+        const bPromo = !!promoMap[b.name];
+        if (aPromo && !bPromo) return -1;
+        if (!aPromo && bPromo) return 1;
+        return 0;
+      });
+
+      let hasPromo = false;
+      let minRemaining = Infinity;
+      let promoServiceNames = [];
+      sorted.forEach(s => {
+        const promo = promoMap[s.name];
+        if (promo) {
+          hasPromo = true;
+          promoServiceNames.push(s.name);
+          const rem = promo.endTime ? Math.max(0, promo.endTime - Date.now()) : 0;
+          if (rem > 0 && rem < minRemaining) minRemaining = rem;
+        }
+      });
+
+      const banner = document.getElementById('promoBanner');
+      const promoText = document.getElementById('promoText');
+      const promoTimer = document.getElementById('promoTimer');
+
+      if (hasPromo && minRemaining > 0 && minRemaining < Infinity) {
+        banner.style.display = 'flex';
+        const names = promoServiceNames.slice(0, 3).join(', ');
+        promoText.textContent = `${promoServiceNames.length} layanan sedang diskon! (${names}${promoServiceNames.length > 3 ? ' & lainnya' : ''})`;
+        promoTimer.textContent = '⏳ Berakhir dalam ' + formatCountdown(minRemaining);
+        if (window.promoTimerInterval) clearInterval(window.promoTimerInterval);
+        let startTime = Date.now();
+        window.promoTimerInterval = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const newRemaining = Math.max(0, minRemaining - elapsed);
+          if (newRemaining <= 0) {
+            promoTimer.textContent = '⏳ Berakhir';
+            clearInterval(window.promoTimerInterval);
+            window.promoTimerInterval = null;
+          } else {
+            promoTimer.textContent = '⏳ Berakhir dalam ' + formatCountdown(newRemaining);
+          }
+        }, 1000);
+      } else {
+        banner.style.display = 'none';
+        if (window.promoTimerInterval) {
+          clearInterval(window.promoTimerInterval);
+          window.promoTimerInterval = null;
+        }
+      }
+
+      if (sorted.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-search"></i>
+            <p>Tidak ada layanan di kategori <strong>${currentCategory === 'all' ? 'Semua' : currentCategory}</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      sorted.forEach((service, index) => {
+        const promo = promoMap[service.name];
+        const isPromo = !!promo;
+        const remaining = promo && promo.endTime ? Math.max(0, promo.endTime - Date.now()) : 0;
+        const timerHtml = (isPromo && remaining > 0) ? `<span class="promo-timer-small">⏳ ${formatCountdown(remaining)}</span>` : '';
+
+        let originalDisplay = '';
+        let promoDisplay = '';
+        if (isPromo && promo.promoPrice) {
+          originalDisplay = `<span class="original">${service.price}</span>`;
+          promoDisplay = `<span class="discount">${promo.promoPrice}</span>`;
+        }
+
+        const waMsg = `Halo admin, saya mau pesan *${service.name}* - ${service.price}\n\n${service.desc || ''}\n${service.note || ''}`.trim();
+        const waLink = `https://wa.me/6289687163314?text=${encodeURIComponent(waMsg)}`;
+
+        let btnHtml = '';
+        if (service.isSpecial) {
+          btnHtml = `<a href="stockmobil.html" class="btn-order" style="margin-top:0.5rem;"><i class="fas fa-car"></i> Lihat Stock</a>`;
+        } else {
+          btnHtml = `
+            <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.3rem;">
+              <a href="order.html?service=${encodeURIComponent(service.name)}" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
+              <a href="${waLink}" target="_blank" class="btn-order quick"><i class="fab fa-whatsapp"></i> Cepat</a>
+            </div>
+          `;
+        }
+
+        const card = document.createElement('div');
+        card.className = `service-card${isPromo ? ' promo' : ''}`;
+        card.style.animationDelay = (index * 0.02) + 's';
+        card.innerHTML = `
+          ${isPromo ? '<div class="promo-badge"><i class="fas fa-bolt"></i> PROMO</div>' : ''}
+          <img src="${service.image || 'placeholder.png'}" alt="${service.name}" loading="lazy" onerror="this.src='placeholder.png'">
+          <div class="card-body">
+            <span class="badge-category">${service.kategori || 'Lainnya'}</span>
+            <h3>${service.name}</h3>
+            <div class="price">
+              ${originalDisplay}
+              ${promoDisplay || service.price}
+              ${timerHtml}
+            </div>
+            ${service.desc ? `<div class="desc">${service.desc}</div>` : ''}
+            ${service.note ? `<div class="note">${service.note}</div>` : ''}
+            ${btnHtml}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ===== LOAD SERVICES =====
+    onSnapshot(query(collection(db, SERVICES_COLLECTION)), (snapshot) => {
+      if (snapshot.empty) {
+        allServices = DEFAULT_SERVICES;
+        renderServices(allServices, []);
+      } else {
+        const services = [];
+        snapshot.forEach((doc) => {
+          services.push({ id: doc.id, ...doc.data() });
+        });
+        allServices = services;
+        renderServices(allServices, []);
+      }
+    }, (error) => {
+      console.error('Error loading services, using default:', error);
+      allServices = DEFAULT_SERVICES;
+      renderServices(allServices, []);
+    });
+
+    // ===== PROMO LISTENER =====
+    const promoDocRef = doc(db, 'promos', 'active');
+    docOnSnapshot(promoDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        promoItems = data.items || [];
+        renderServices(allServices, promoItems);
+      } else {
+        promoItems = [];
+        renderServices(allServices, []);
+      }
+    }, (error) => {
+      console.error('Error loading promo:', error);
+      promoItems = [];
+      renderServices(allServices, []);
+    });
+
+    // ================================================================
+    // ===== GUESTBOOK =====
+    // ================================================================
     const form = document.getElementById('messageForm');
     const messagesDiv = document.getElementById('messages');
-
     let lastVisible = null;
     let loading = false;
 
@@ -590,14 +800,17 @@
       event.preventDefault();
       const name = document.getElementById('name').value.trim();
       const message = document.getElementById('message').value.trim();
-
       if (name && message) {
-        await addDoc(collection(db, "messages"), {
-          name: name,
-          message: message,
-          timestamp: serverTimestamp()
-        });
-        form.reset();
+        try {
+          await addDoc(collection(db, "messages"), {
+            name: name,
+            message: message,
+            timestamp: serverTimestamp()
+          });
+          form.reset();
+        } catch (e) {
+          console.error('Error sending message:', e);
+        }
       }
     });
 
@@ -607,7 +820,6 @@
         orderBy("timestamp", "desc"),
         limit(10)
       );
-
       onSnapshot(q, (snapshot) => {
         messagesDiv.innerHTML = "";
         snapshot.forEach((doc) => {
@@ -617,6 +829,8 @@
         if (snapshot.docs.length > 0) {
           lastVisible = snapshot.docs[snapshot.docs.length - 1];
         }
+      }, (error) => {
+        console.error('Error loading messages:', error);
       });
     }
 
@@ -625,18 +839,22 @@
       if (messagesDiv.scrollTop + messagesDiv.clientHeight >= messagesDiv.scrollHeight - 10) {
         loading = true;
         if (lastVisible) {
-          const nextQ = query(
-            collection(db, "messages"),
-            orderBy("timestamp", "desc"),
-            startAfter(lastVisible),
-            limit(10)
-          );
-          const nextSnap = await getDocs(nextQ);
-          nextSnap.forEach((doc) => {
-            renderMessage(doc.data(), true);
-          });
-          if (nextSnap.docs.length > 0) {
-            lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
+          try {
+            const nextQ = query(
+              collection(db, "messages"),
+              orderBy("timestamp", "desc"),
+              startAfter(lastVisible),
+              limit(10)
+            );
+            const nextSnap = await getDocs(nextQ);
+            nextSnap.forEach((doc) => {
+              renderMessage(doc.data(), true);
+            });
+            if (nextSnap.docs.length > 0) {
+              lastVisible = nextSnap.docs[nextSnap.docs.length - 1];
+            }
+          } catch (e) {
+            console.error('Error loading more messages:', e);
           }
         }
         loading = false;
@@ -650,7 +868,6 @@
         "<strong>" + data.name + "</strong>" +
         "<p>" + data.message + "</p>" +
         "<small>" + (data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleString() : "") + "</small>";
-
       if (appendBottom) {
         messagesDiv.appendChild(div);
       } else {
@@ -660,6 +877,5 @@
 
     loadInitialMessages();
   </script>
-
 </body>
 </html>
