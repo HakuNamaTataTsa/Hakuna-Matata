@@ -103,27 +103,38 @@
     }
     .back-btn:hover { color: var(--accent); }
 
-    .chapter-images {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .chapter-images img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      background: #0a0a12;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-
-    .loading, .error, .info-box {
+    .info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
       text-align: center;
-      padding: 3rem 0;
-      font-size: 1.1rem;
       color: var(--muted);
     }
-    .error { color: #ff6b6b; }
+    .info-box i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .info-box h2 {
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+    .info-box .btn-primary {
+      display: inline-block;
+      padding: 0.6rem 1.8rem;
+      background: var(--accent);
+      color: #0a0a0f;
+      border-radius: 30px;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: all 0.3s;
+    }
+    .info-box .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,221,87,0.3);
+    }
 
     .footer {
       text-align: center;
@@ -149,7 +160,17 @@
 
   <div class="container">
     <button class="back-btn" onclick="window.location.href='manga.html'"><i class="fas fa-arrow-left"></i> Kembali ke Daftar</button>
-    <div id="mainContent"><div class="loading">⏳ Memuat chapter...</div></div>
+
+    <div class="info-box">
+      <i class="fas fa-book-open"></i>
+      <h2>Baca Chapter</h2>
+      <p>Untuk membaca chapter, buka link di bawah ini:</p>
+      <a href="#" id="chapterLink" target="_blank" class="btn-primary">
+        <i class="fas fa-external-link-alt"></i> Buka Chapter
+      </a>
+      <p style="margin-top:1rem;font-size:0.8rem;">Atau salin dan tempel link ini:</p>
+      <code id="linkDisplay" style="background:#0a0a12;padding:0.5rem 1rem;border-radius:8px;display:block;word-break:break-all;color:var(--accent);margin-top:0.5rem;"></code>
+    </div>
   </div>
 
   <footer class="footer">
@@ -158,53 +179,19 @@
   </footer>
 
   <script>
-    const KOMIKU_API = 'https://komiku-rest-api.vercel.app';
-    const container = document.getElementById('mainContent');
-
     const urlParams = new URLSearchParams(window.location.search);
     const chapterLink = urlParams.get('link');
 
-    if (!chapterLink) {
-      container.innerHTML = `<div class="error"><i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:0.5rem;"></i>Parameter link tidak ditemukan. Gunakan <code style="color:var(--accent);">?link=URL_CHAPTER</code></div>`;
-      throw new Error('No chapter link');
+    const linkDisplay = document.getElementById('linkDisplay');
+    const chapterLinkEl = document.getElementById('chapterLink');
+
+    if (chapterLink) {
+      linkDisplay.textContent = decodeURIComponent(chapterLink);
+      chapterLinkEl.href = decodeURIComponent(chapterLink);
+    } else {
+      linkDisplay.textContent = 'Tidak ada link chapter yang diberikan.';
+      chapterLinkEl.style.display = 'none';
     }
-
-    async function fetchChapterImages() {
-      try {
-        const url = `${KOMIKU_API}/baca-chapter?link=${encodeURIComponent(chapterLink)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        return data;
-      } catch (err) {
-        throw new Error(`Gagal memuat chapter: ${err.message}`);
-      }
-    }
-
-    async function loadChapter() {
-      container.innerHTML = `<div class="loading">⏳ Memuat gambar...</div>`;
-      try {
-        const data = await fetchChapterImages();
-        const images = data.images || data.data || [];
-
-        if (images.length === 0) {
-          container.innerHTML = `<div class="error">Tidak ada gambar untuk chapter ini.</div>`;
-          return;
-        }
-
-        let html = '<div class="chapter-images">';
-        images.forEach(img => {
-          html += `<img src="${img}" alt="Halaman" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.style.display='none'">`;
-        });
-        html += '</div>';
-        container.innerHTML = html;
-
-      } catch (err) {
-        container.innerHTML = `<div class="error">❌ ${err.message}</div>`;
-      }
-    }
-
-    loadChapter();
 
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
