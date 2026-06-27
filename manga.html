@@ -1,80 +1,90 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test MangaDex Proxy</title>
+  <title>Test MangaDex Cover</title>
   <style>
-    body { font-family: Arial; background: #0a0a0f; color: #eee; padding: 20px; }
-    h1 { color: #FFDD57; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-    .card { background: #1a1a24; border-radius: 8px; padding: 10px; text-align: center; }
-    .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 4px; background: #222; }
-    .card h3 { font-size: 14px; margin: 8px 0 4px; }
-    .card p { font-size: 12px; color: #999; margin: 0; }
+    body { font-family: sans-serif; background: #111; color: #eee; padding: 20px; }
+    .manga-list { display: flex; flex-wrap: wrap; gap: 20px; }
+    .manga-item { width: 150px; background: #222; border-radius: 10px; overflow: hidden; }
+    .manga-item img { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #333; }
+    .manga-item .title { padding: 8px; font-size: 13px; text-align: center; }
     .error { color: #ff6b6b; }
+    .success { color: #69db7c; }
   </style>
 </head>
 <body>
-  <h1>📚 Test MangaDex Proxy</h1>
-  <p>Mengambil data dari: <code>https://wandering-violet-e0b0.akinostore.workers.dev</code></p>
-  <div id="container" class="grid">⏳ Memuat...</div>
+  <h1>🧪 Test Cover MangaDex</h1>
+  <p id="status">Memuat...</p>
+  <div id="container" class="manga-list"></div>
 
   <script>
+    // ========== KONFIGURASI ==========
     const WORKER_URL = 'https://wandering-violet-e0b0.akinostore.workers.dev';
-    const container = document.getElementById('container');
 
-    async function testManga() {
+    async function fetchManga() {
+      const url = `${WORKER_URL}/manga?limit=10&availableTranslatedLanguage[]=id&includes[]=cover_art`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    function getProxyImageUrl(originalUrl) {
+      return `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
+    }
+
+    async function load() {
+      const container = document.getElementById('container');
+      const status = document.getElementById('status');
+
       try {
-        // 1. Ambil data API lewat Worker
-        const url = `${WORKER_URL}/manga?limit=10&availableTranslatedLanguage[]=id&includes[]=cover_art`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        console.log('Data dari Worker:', data);
-
-        const mangaList = data.data || [];
-        if (mangaList.length === 0) {
-          container.innerHTML = '<p class="error">Tidak ada manga ditemukan.</p>';
+        const data = await fetchManga();
+        const list = data.data || [];
+        if (list.length === 0) {
+          status.textContent = '⚠️ Tidak ada data';
           return;
         }
 
-        // 2. Render kartu manga
+        status.textContent = `✅ Berhasil mengambil ${list.length} manga (API OK)`;
+        status.style.color = '#69db7c';
+
         let html = '';
-        mangaList.forEach(manga => {
-          const title = manga.attributes.title.en || Object.values(manga.attributes.title)[0] || 'Tanpa Judul';
+        list.forEach(manga => {
+          const title = manga.attributes.title.en || Object.values(manga.attributes.title)[0] || '?';
+
+          // Cari cover
           let coverFile = null;
           const coverRel = manga.relationships.find(r => r.type === 'cover_art');
           if (coverRel && coverRel.attributes?.fileName) {
             coverFile = coverRel.attributes.fileName;
           }
-          // Buat URL cover melalui proxy Worker
-          let coverUrl = '';
+
+          let imgSrc = '';
           if (coverFile && manga.id) {
-            const directUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-            // Kirim melalui proxy /image/
-            coverUrl = `${WORKER_URL}/image/?url=${encodeURIComponent(directUrl)}`;
+            const direct = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
+            // Pakai proxy!
+            imgSrc = getProxyImageUrl(direct);
           } else {
-            coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+            imgSrc = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23333" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="16" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
           }
 
           html += `
-            <div class="card">
-              <img src="${coverUrl}" alt="${title}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
-              <h3>${title}</h3>
-              <p>${manga.attributes.year || '?'}</p>
+            <div class="manga-item">
+              <img src="${imgSrc}" alt="${title}" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.style.display='none'; this.parentElement.innerHTML += '<p style=\\'color:red;font-size:10px;padding:4px;\\'>❌ cover gagal</p>';">
+              <div class="title">${title}</div>
             </div>
           `;
         });
+
         container.innerHTML = html;
 
       } catch (err) {
-        container.innerHTML = `<p class="error">❌ Error: ${err.message}</p>`;
-        console.error(err);
+        status.textContent = `❌ Error: ${err.message}`;
+        status.style.color = '#ff6b6b';
       }
     }
 
-    testManga();
+    load();
   </script>
 </body>
 </html>
