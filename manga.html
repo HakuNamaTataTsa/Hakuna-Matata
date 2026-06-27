@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ===== SAMA SEPERTI SEBELUMNYA ===== */
+    /* ===== TEMA AKINO STORE (sama) ===== */
     :root {
       --bg: #07070d;
       --bg-card: rgba(255,255,255,0.04);
@@ -345,7 +345,7 @@
       return res.json();
     }
 
-    // ==================== PROXY GAMBAR ====================
+    // ==================== PROXY GAMBAR (fallback) ====================
     function getProxyImageUrl(originalUrl) {
       return `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
     }
@@ -375,19 +375,33 @@
           coverFile = coverRel.attributes.fileName;
         }
 
-        let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+        // Buat direct URL dan proxy URL
+        let directUrl = '';
+        let proxyUrl = '';
         if (coverFile && manga.id) {
           const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-          coverUrl = getProxyImageUrl(original);
+          directUrl = original;
+          proxyUrl = getProxyImageUrl(original);
         }
 
         const year = manga.attributes.year || '?';
         const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
         const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
 
+        // Gunakan direct URL, dengan fallback proxy jika gagal
+        const imgSrc = directUrl || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+        const fallbackSrc = proxyUrl || imgSrc;
+
         cards += `
           <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}">
-            <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
+            <img 
+              src="${imgSrc}" 
+              alt="${titleText}" 
+              loading="lazy" 
+              referrerpolicy="no-referrer" 
+              crossorigin="anonymous"
+              onerror="this.onerror=null; this.src='${fallbackSrc}'; console.log('Fallback ke proxy untuk ${titleText}');"
+            >
             <div class="info">
               <div class="title">${titleText}</div>
               <div class="meta">
@@ -492,15 +506,30 @@
           let coverFile = null;
           const coverRel = manga.relationships.find(r => r.type === 'cover_art');
           if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
-          let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+          let directUrl = '';
+          let proxyUrl = '';
           if (coverFile && manga.id) {
             const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-            coverUrl = getProxyImageUrl(original);
+            directUrl = original;
+            proxyUrl = getProxyImageUrl(original);
           }
+          const imgSrc = directUrl || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+          const fallbackSrc = proxyUrl || imgSrc;
           const year = manga.attributes.year || '?';
           const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
           const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
-          html += `<div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;"><img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous"><div class="info"><div class="title">${titleText}</div><div class="meta"><span>${year}</span><span>${status}</span></div></div></div>`;
+          html += `
+            <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">
+              <img src="${imgSrc}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+              <div class="info">
+                <div class="title">${titleText}</div>
+                <div class="meta">
+                  <span>${year}</span>
+                  <span>${status}</span>
+                </div>
+              </div>
+            </div>
+          `;
         });
         html += `</div></div></div>`;
         container.innerHTML = html;
