@@ -1,88 +1,186 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Test Cover MangaDex</title>
-    <style>
-        body { background: #0a0a0f; color: #fff; font-family: sans-serif; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .card { background: #1a1a24; border-radius: 12px; overflow: hidden; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #222; }
-        .card .title { padding: 10px; font-size: 14px; }
-        .log { background: #111; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 13px; color: #aaa; max-height: 300px; overflow-y: auto; }
-        .log .ok { color: #4caf50; }
-        .log .err { color: #f44336; }
-    </style>
-</head>
-<body>
-    <h1>Test Cover MangaDex (Direct URL)</h1>
-    <div id="log" class="log">⏳ Memuat...</div>
-    <div id="grid" class="grid"></div>
+// ================================================================
+// WORKER - MANGADEX PROXY DENGAN 3 FALLBACK GAMBAR
+// ================================================================
 
-    <script>
-        const WORKER_URL = 'https://wandering-violet-e0b0.akinostore.workers.dev';
-        const log = document.getElementById('log');
-        const grid = document.getElementById('grid');
+const API_BASE = 'https://api.mangadex.org';
 
-        function addLog(msg, type = '') {
-            const p = document.createElement('div');
-            p.textContent = msg;
-            if (type) p.className = type;
-            log.appendChild(p);
-            log.scrollTop = log.scrollHeight;
+async function handleRequest(request) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    // ---------- PROXY GAMBAR (dengan 3 fallback) ----------
+    if (path === '/image/') {
+        const imageUrl = url.searchParams.get('url');
+        if (!imageUrl) {
+            return new Response(
+                JSON.stringify({ error: 'Parameter "url" diperlukan' }),
+                {
+                    status: 400,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }
+            );
         }
 
-        async function test() {
+        // Coba 3 metode
+        const methods = [
+            // Metode 1: Langsung ke uploads.mangadex.org
+            async () => {
+                return await fetch(imageUrl, {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                        'Referer': 'https://mangadex.org/',
+                        'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8'
+                    }
+                });
+            },
+            // Metode 2: Via corsproxy.io
+            async () => {
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(imageUrl)}`;
+                return await fetch(proxyUrl, {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                    }
+                });
+            },
+            // Metode 3: Via allorigins
+            async () => {
+                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(imageUrl)}`;
+                return await fetch(proxyUrl);
+            }
+        ];
+
+        let lastError = null;
+
+        for (let i = 0; i < methods.length; i++) {
             try {
-                addLog('📡 Memuat data manga...');
-                const res = await fetch(`${WORKER_URL}/manga?limit=10&availableTranslatedLanguage[]=id&order[updatedAt]=desc&includes[]=cover_art`);
-                const data = await res.json();
-                addLog(`✅ Berhasil mengambil ${data.data.length} manga`, 'ok');
-                
-                grid.innerHTML = '';
-                for (const manga of data.data) {
-                    const title = manga.attributes.title.en || manga.attributes.title.id || '?';
-                    let coverFile = null;
-                    const coverRel = manga.relationships.find(r => r.type === 'cover_art');
-                    if (coverRel) coverFile = coverRel.attributes?.fileName;
-                    
-                    // Direct URL (tanpa proxy)
-                    const directUrl = coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '';
-                    const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+                console.log(`[IMAGE] Mencoba metode ${i + 1}...`);
+                const response = await methods[i]();
 
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    
-                    const img = document.createElement('img');
-                    img.src = directUrl || placeholder;
-                    img.alt = title;
-                    img.referrerPolicy = 'no-referrer';
-                    img.crossOrigin = 'anonymous';
-                    
-                    img.onerror = function() {
-                        addLog(`❌ Cover gagal: ${title}`, 'err');
-                        this.src = placeholder;
-                    };
-                    
-                    img.onload = function() {
-                        addLog(`✅ Cover berhasil: ${title}`, 'ok');
-                    };
-
-                    const titleDiv = document.createElement('div');
-                    titleDiv.className = 'title';
-                    titleDiv.textContent = title;
-
-                    card.appendChild(img);
-                    card.appendChild(titleDiv);
-                    grid.appendChild(card);
+                if (response.ok) {
+                    console.log(`[IMAGE] ✅ Metode ${i + 1} berhasil`);
+                    const newResponse = new Response(response.body, response);
+                    newResponse.headers.set('Access-Control-Allow-Origin', '*');
+                    newResponse.headers.set('Cache-Control', 'public, max-age=86400');
+                    return newResponse;
                 }
 
-                addLog('✅ Selesai', 'ok');
-            } catch (err) {
-                addLog(`❌ Error: ${err.message}`, 'err');
+                console.log(`[IMAGE] Metode ${i + 1} gagal: ${response.status}`);
+                lastError = `Metode ${i + 1} gagal: ${response.status}`;
+            } catch (e) {
+                console.log(`[IMAGE] Metode ${i + 1} error: ${e.message}`);
+                lastError = `Metode ${i + 1} error: ${e.message}`;
             }
         }
 
-        test();
-    </script>
-</body>
-</html>
+        // Semua metode gagal
+        return new Response(
+            JSON.stringify({
+                error: 'Semua metode gagal mengambil gambar',
+                detail: lastError,
+                imageUrl: imageUrl
+            }),
+            {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }
+        );
+    }
+
+    // ---------- PROXY API ----------
+    if (path.startsWith('/manga') || 
+        path.startsWith('/chapter') || 
+        path.startsWith('/at-home') || 
+        path.startsWith('/author') ||
+        path.startsWith('/cover')) {
+
+        const targetUrl = `${API_BASE}${path}${url.search}`;
+
+        try {
+            const newRequest = new Request(targetUrl, {
+                method: request.method,
+                headers: request.headers,
+                body: (request.method !== 'GET' && request.method !== 'HEAD' && request.method !== 'OPTIONS') 
+                    ? request.body 
+                    : undefined,
+            });
+            newRequest.headers.delete('Via');
+
+            let response = await fetch(newRequest);
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+            }
+
+            response = new Response(response.body, response);
+            response.headers.set('Access-Control-Allow-Origin', '*');
+            response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            response.headers.set('Access-Control-Allow-Headers', '*');
+            response.headers.set('Access-Control-Max-Age', '86400');
+            return response;
+
+        } catch (error) {
+            return new Response(
+                JSON.stringify({ error: 'Gagal mengakses API MangaDex', message: error.message }),
+                {
+                    status: 500,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }
+            );
+        }
+    }
+
+    // ---------- ROOT ----------
+    if (path === '/' || path === '') {
+        return new Response(
+            JSON.stringify({
+                status: 'ok',
+                message: 'Worker berjalan dengan 3 fallback image proxy',
+                methods: ['direct', 'corsproxy.io', 'allorigins']
+            }),
+            {
+                status: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            }
+        );
+    }
+
+    return new Response(
+        JSON.stringify({ error: 'Endpoint tidak dikenal', path: path }),
+        {
+            status: 404,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
+    );
+}
+
+export default {
+    async fetch(request) {
+        if (request.method === 'OPTIONS') {
+            return new Response(null, {
+                status: 204,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': '*',
+                    'Access-Control-Max-Age': '86400'
+                }
+            });
+        }
+        return handleRequest(request);
+    }
+};
