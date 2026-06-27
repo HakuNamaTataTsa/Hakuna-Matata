@@ -192,23 +192,11 @@
       border-color: var(--accent);
       box-shadow: 0 12px 40px rgba(255,221,87,0.08);
     }
-    .manga-card .cover-placeholder {
+    .manga-card img {
       width: 100%;
       aspect-ratio: 2/3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-card);
-      color: var(--muted);
-      font-size: 0.7rem;
-      text-align: center;
-      padding: 1rem;
-    }
-    .manga-card .cover-placeholder i {
-      font-size: 2.5rem;
-      margin-bottom: 0.3rem;
-      opacity: 0.3;
+      object-fit: cover;
+      background: #111;
     }
     .manga-card .info {
       padding: 0.6rem 0.6rem 0.8rem;
@@ -313,25 +301,28 @@
   </div>
 
   <footer class="footer">
-    Data dari <a href="https://mangadex.org" target="_blank" style="color:var(--accent);">MangaDex</a> • 
+    Data dari <a href="https://komiku.id" target="_blank" style="color:var(--accent);">Komiku</a> • 
     <span style="color:var(--muted);">Untuk tujuan belajar – tidak untuk komersial</span>
   </footer>
 
   <script>
-    const WORKER_URL = 'https://plain-block-86e9.akinostore.workers.dev';
+    // ==================== KONFIGURASI KOMIKU API ====================
+    const KOMIKU_API = 'https://komiku-rest-api.vercel.app';
     const LIMIT = 12;
     const container = document.getElementById('sectionsContainer');
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
 
-    async function fetchSection(endpoint, params = {}) {
+    // ==================== FETCH KOMIKU ====================
+    async function fetchKomiku(endpoint, params = {}) {
       const urlParams = new URLSearchParams(params);
-      const url = `${WORKER_URL}${endpoint}?${urlParams.toString()}`;
+      const url = `${KOMIKU_API}${endpoint}?${urlParams.toString()}`;
       const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
     }
 
+    // ==================== RENDER CAROUSEL ====================
     function renderCarousel(sectionId, title, icon, data, badge = '') {
       const mangaList = data.data || [];
       if (mangaList.length === 0) {
@@ -342,22 +333,19 @@
       }
 
       let cards = '';
-      mangaList.forEach(manga => {
-        const titleObj = manga.attributes.title;
-        const titleText = titleObj.id || titleObj.en || Object.values(titleObj)[0] || 'Tanpa Judul';
-        const year = manga.attributes.year || '?';
-        const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
-        const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
+      mangaList.forEach(item => {
+        const titleText = item.title || 'Tanpa Judul';
+        const coverUrl = item.img || '';
+        const chapter = item.chapter || '?';
+        const type = item.type || 'Manga';
+        const update = item.update || '';
 
         cards += `
-          <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}">
-            <div class="cover-placeholder">
-              <i class="fas fa-image"></i>
-              <span>Cover tidak tersedia</span>
-            </div>
+          <div class="manga-card" data-link="${item.link || '#'}" data-title="${encodeURIComponent(titleText)}">
+            <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 280%22%3E%3Crect fill=%22%23111%22 width=%22200%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22sans-serif%22 font-size=%2214%22 fill=%22%23666%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Cover%3C/text%3E%3C/svg%3E'">
             <div class="info">
               <div class="title">${titleText}</div>
-              <div class="meta"><span>${year}</span><span>${status}</span></div>
+              <div class="meta"><span>${type}</span><span>Ch ${chapter}</span><span>${update}</span></div>
             </div>
           </div>
         `;
@@ -396,14 +384,16 @@
       nextBtn.classList.toggle('hidden', !canScrollRight);
     }
 
+    // ==================== LOAD SEMUA ====================
     async function loadAllSections() {
       container.innerHTML = `<div class="loading">⏳ Memuat manga...</div>`;
       try {
+        // Komiku API endpoints
         const [latest, mangaPop, manhwaPop, manhuaPop] = await Promise.all([
-          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'order[updatedAt]': 'desc', 'includes[]': 'cover_art' }),
-          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'ja', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' }),
-          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'ko', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' }),
-          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'zh', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' })
+          fetchKomiku('/terbaru', { page: 1 }),
+          fetchKomiku('/komik-populer/manga'),
+          fetchKomiku('/komik-populer/manhwa'),
+          fetchKomiku('/komik-populer/manhua')
         ]);
 
         let html = '';
@@ -415,8 +405,11 @@
 
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
-            const id = card.dataset.id;
-            if (id) window.location.href = `baca.html?manga=${id}`;
+            const link = card.dataset.link;
+            if (link && link !== '#') {
+              // Arahkan ke halaman baca Komiku (atau bisa diarahkan ke halaman detail kita)
+              window.location.href = `baca-komiku.html?link=${encodeURIComponent(link)}`;
+            }
           });
         });
 
@@ -432,27 +425,27 @@
       }
     }
 
+    // ==================== SEARCH ====================
     async function handleSearch() {
       const query = searchInput.value.trim();
       if (!query) { loadAllSections(); return; }
       container.innerHTML = `<div class="loading">⏳ Mencari "${query}"...</div>`;
       try {
-        const data = await fetchSection('/manga', { limit: 24, 'availableTranslatedLanguage[]': 'id', 'includes[]': 'cover_art', title: query });
+        const data = await fetchKomiku('/search', { q: query });
         if (!data.data || data.data.length === 0) {
           container.innerHTML = `<div class="error">😕 Tidak ada manga ditemukan untuk "${query}".</div>`;
           return;
         }
-        let html = `<div class="section"><div class="section-header"><h2><i class="fas fa-search"></i> Hasil pencarian: "${query}"</h2><span class="badge">${data.total || data.data.length} ditemukan</span></div><div class="carousel-wrapper"><div class="carousel-track" style="flex-wrap: wrap; gap: 1rem; overflow-x: visible;">`;
-        data.data.forEach(manga => {
-          const titleObj = manga.attributes.title;
-          const titleText = titleObj.id || titleObj.en || Object.values(titleObj)[0] || 'Tanpa Judul';
-          const year = manga.attributes.year || '?';
-          const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
-          const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
+        let html = `<div class="section"><div class="section-header"><h2><i class="fas fa-search"></i> Hasil pencarian: "${query}"</h2><span class="badge">${data.data.length} ditemukan</span></div><div class="carousel-wrapper"><div class="carousel-track" style="flex-wrap: wrap; gap: 1rem; overflow-x: visible;">`;
+        data.data.forEach(item => {
+          const titleText = item.title || 'Tanpa Judul';
+          const coverUrl = item.img || '';
+          const chapter = item.chapter || '?';
+          const type = item.type || 'Manga';
           html += `
-            <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">
-              <div class="cover-placeholder"><i class="fas fa-image"></i><span>Cover tidak tersedia</span></div>
-              <div class="info"><div class="title">${titleText}</div><div class="meta"><span>${year}</span><span>${status}</span></div></div>
+            <div class="manga-card" data-link="${item.link || '#'}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">
+              <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 280%22%3E%3Crect fill=%22%23111%22 width=%22200%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22sans-serif%22 font-size=%2214%22 fill=%22%23666%22 text-anchor=%22middle%22 dy=%22.3em%22%3ENo Cover%3C/text%3E%3C/svg%3E'">
+              <div class="info"><div class="title">${titleText}</div><div class="meta"><span>${type}</span><span>Ch ${chapter}</span></div></div>
             </div>
           `;
         });
@@ -460,8 +453,10 @@
         container.innerHTML = html;
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
-            const id = card.dataset.id;
-            if (id) window.location.href = `baca.html?manga=${id}`;
+            const link = card.dataset.link;
+            if (link && link !== '#') {
+              window.location.href = `baca-komiku.html?link=${encodeURIComponent(link)}`;
+            }
           });
         });
       } catch (err) {
