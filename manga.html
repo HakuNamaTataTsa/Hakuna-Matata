@@ -8,9 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ============================================================
-       TEMA AKINO STORE (DARK)
-       ============================================================ */
+    /* ===== SAMA SEPERTI SEBELUMNYA ===== */
     :root {
       --bg: #07070d;
       --bg-card: rgba(255,255,255,0.04);
@@ -34,7 +32,6 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* ─── NAVBAR ─── */
     .navbar {
       position: fixed; top:0; left:0; right:0; z-index:100;
       display: flex; justify-content: space-between; align-items: center;
@@ -86,7 +83,6 @@
       .nav-links a { padding: 0.5rem 0.8rem; width: 100%; }
     }
 
-    /* ─── KONTEN ─── */
     .container {
       max-width: 1300px;
       margin: 0 auto;
@@ -138,7 +134,6 @@
     }
     .search-box button:hover { background: #e6c64a; }
 
-    /* ─── SECTION CAROUSEL ─── */
     .section {
       margin-bottom: 2.5rem;
     }
@@ -156,10 +151,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .section-header h2 i {
-      font-size: 1rem;
-      opacity: 0.7;
-    }
+    .section-header h2 i { font-size: 1rem; opacity: 0.7; }
     .section-header .badge {
       font-size: 0.7rem;
       padding: 0.15rem 0.6rem;
@@ -287,7 +279,6 @@
       color: var(--muted);
     }
     .error { color: #ff6b6b; }
-    .info-box { color: var(--accent); }
 
     .footer {
       text-align: center;
@@ -307,7 +298,6 @@
   </style>
 </head>
 <body>
-
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -327,7 +317,6 @@
         <button id="searchBtn"><i class="fas fa-search"></i> Cari</button>
       </div>
     </div>
-
     <div id="sectionsContainer">
       <div class="loading">⏳ Memuat manga...</div>
     </div>
@@ -356,12 +345,12 @@
       return res.json();
     }
 
-    // Fungsi untuk mendapatkan URL cover melalui proxy Worker
+    // ==================== PROXY GAMBAR ====================
     function getProxyImageUrl(originalUrl) {
       return `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
     }
 
-    // ==================== RENDER ====================
+    // ==================== RENDER CAROUSEL ====================
     function renderCarousel(sectionId, title, icon, data, badge = '') {
       const mangaList = data.data || [];
       if (mangaList.length === 0) {
@@ -385,10 +374,11 @@
         if (coverRel && coverRel.attributes?.fileName) {
           coverFile = coverRel.attributes.fileName;
         }
+
         let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
         if (coverFile && manga.id) {
-          const originalUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-          coverUrl = getProxyImageUrl(originalUrl);
+          const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
+          coverUrl = getProxyImageUrl(original);
         }
 
         const year = manga.attributes.year || '?';
@@ -447,39 +437,15 @@
       nextBtn.classList.toggle('hidden', !canScrollRight);
     }
 
-    // ==================== LOAD SEMUA SECTION ====================
+    // ==================== LOAD SEMUA ====================
     async function loadAllSections() {
       container.innerHTML = `<div class="loading">⏳ Memuat manga...</div>`;
-
       try {
         const [latest, mangaPop, manhwaPop, manhuaPop] = await Promise.all([
-          fetchSection('/manga', {
-            limit: LIMIT,
-            'availableTranslatedLanguage[]': 'id',
-            'order[updatedAt]': 'desc',
-            'includes[]': 'cover_art'
-          }),
-          fetchSection('/manga', {
-            limit: LIMIT,
-            'availableTranslatedLanguage[]': 'id',
-            'originalLanguage[]': 'ja',
-            'order[followedCount]': 'desc',
-            'includes[]': 'cover_art'
-          }),
-          fetchSection('/manga', {
-            limit: LIMIT,
-            'availableTranslatedLanguage[]': 'id',
-            'originalLanguage[]': 'ko',
-            'order[followedCount]': 'desc',
-            'includes[]': 'cover_art'
-          }),
-          fetchSection('/manga', {
-            limit: LIMIT,
-            'availableTranslatedLanguage[]': 'id',
-            'originalLanguage[]': 'zh',
-            'order[followedCount]': 'desc',
-            'includes[]': 'cover_art'
-          })
+          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'order[updatedAt]': 'desc', 'includes[]': 'cover_art' }),
+          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'ja', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' }),
+          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'ko', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' }),
+          fetchSection('/manga', { limit: LIMIT, 'availableTranslatedLanguage[]': 'id', 'originalLanguage[]': 'zh', 'order[followedCount]': 'desc', 'includes[]': 'cover_art' })
         ]);
 
         let html = '';
@@ -487,16 +453,12 @@
         html += renderCarousel('manga', 'Manga Populer', 'fas fa-flag', mangaPop, '🇯🇵');
         html += renderCarousel('manhwa', 'Manhwa Populer', 'fas fa-flag', manhwaPop, '🇰🇷');
         html += renderCarousel('manhua', 'Manhua Populer', 'fas fa-flag', manhuaPop, '🇨🇳');
-
         container.innerHTML = html;
 
-        // Event klik kartu -> ke baca.html
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const id = card.dataset.id;
-            if (id) {
-              window.location.href = `baca.html?manga=${id}`;
-            }
+            if (id) window.location.href = `baca.html?manga=${id}`;
           });
         });
 
@@ -507,110 +469,58 @@
             setTimeout(() => updateCarouselButtons(id), 100);
           }
         });
-
       } catch (err) {
-        container.innerHTML = `
-          <div class="error">
-            <i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:0.5rem;"></i>
-            Gagal memuat data: ${err.message}
-            <br><br>
-            <span style="font-size:0.85rem;color:var(--muted);">
-              💡 Pastikan Worker Cloudflare aktif dan URL-nya benar.
-              <br>Coba buka <a href="${WORKER_URL}/manga?limit=1" target="_blank" style="color:var(--accent);">link ini</a> untuk test.
-            </span>
-          </div>
-        `;
-        console.error('Load error:', err);
+        container.innerHTML = `<div class="error">❌ Gagal memuat: ${err.message}</div>`;
       }
     }
 
     // ==================== SEARCH ====================
     async function handleSearch() {
       const query = searchInput.value.trim();
-      if (!query) {
-        loadAllSections();
-        return;
-      }
-
+      if (!query) { loadAllSections(); return; }
       container.innerHTML = `<div class="loading">⏳ Mencari "${query}"...</div>`;
       try {
-        const data = await fetchSection('/manga', {
-          limit: 24,
-          'availableTranslatedLanguage[]': 'id',
-          'includes[]': 'cover_art',
-          title: query
-        });
-
+        const data = await fetchSection('/manga', { limit: 24, 'availableTranslatedLanguage[]': 'id', 'includes[]': 'cover_art', title: query });
         if (!data.data || data.data.length === 0) {
           container.innerHTML = `<div class="error">😕 Tidak ada manga ditemukan untuk "${query}".</div>`;
           return;
         }
-
-        let html = `
-          <div class="section">
-            <div class="section-header">
-              <h2><i class="fas fa-search"></i> Hasil pencarian: "${query}"</h2>
-              <span class="badge">${data.total || data.data.length} ditemukan</span>
-            </div>
-            <div class="carousel-wrapper">
-              <div class="carousel-track" style="flex-wrap: wrap; gap: 1rem; overflow-x: visible;">
-        `;
+        let html = `<div class="section"><div class="section-header"><h2><i class="fas fa-search"></i> Hasil pencarian: "${query}"</h2><span class="badge">${data.total || data.data.length} ditemukan</span></div><div class="carousel-wrapper"><div class="carousel-track" style="flex-wrap: wrap; gap: 1rem; overflow-x: visible;">`;
         data.data.forEach(manga => {
           const titleObj = manga.attributes.title;
           const titleText = titleObj.id || titleObj.en || Object.values(titleObj)[0] || 'Tanpa Judul';
           let coverFile = null;
           const coverRel = manga.relationships.find(r => r.type === 'cover_art');
-          if (coverRel && coverRel.attributes?.fileName) {
-            coverFile = coverRel.attributes.fileName;
-          }
+          if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
           let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
           if (coverFile && manga.id) {
-            const originalUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-            coverUrl = getProxyImageUrl(originalUrl);
+            const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
+            coverUrl = getProxyImageUrl(original);
           }
           const year = manga.attributes.year || '?';
           const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
           const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
-
-          html += `
-            <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex: 0 0 160px; width: 160px;">
-              <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
-              <div class="info">
-                <div class="title">${titleText}</div>
-                <div class="meta">
-                  <span>${year}</span>
-                  <span>${status}</span>
-                </div>
-              </div>
-            </div>
-          `;
+          html += `<div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;"><img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous"><div class="info"><div class="title">${titleText}</div><div class="meta"><span>${year}</span><span>${status}</span></div></div></div>`;
         });
         html += `</div></div></div>`;
         container.innerHTML = html;
-
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const id = card.dataset.id;
-            if (id) {
-              window.location.href = `baca.html?manga=${id}`;
-            }
+            if (id) window.location.href = `baca.html?manga=${id}`;
           });
         });
-
       } catch (err) {
         container.innerHTML = `<div class="error">❌ Error: ${err.message}</div>`;
       }
     }
 
     searchBtn.addEventListener('click', handleSearch);
-    searchInput.addEventListener('keypress', e => {
-      if (e.key === 'Enter') handleSearch();
-    });
+    searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
 
-    // ==================== START ====================
     loadAllSections();
 
-    // ==================== NAVBAR MOBILE ====================
+    // ===== MOBILE NAV =====
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
@@ -629,6 +539,5 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
   </script>
-
 </body>
 </html>
