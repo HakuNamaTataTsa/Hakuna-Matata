@@ -93,7 +93,6 @@
       padding: 0 1.5rem 2rem;
     }
 
-    /* Header halaman */
     .page-header {
       display: flex;
       justify-content: space-between;
@@ -175,7 +174,6 @@
     }
     .section-header .view-all:hover { color: var(--accent); }
 
-    /* Carousel wrapper */
     .carousel-wrapper {
       position: relative;
       overflow: hidden;
@@ -206,7 +204,6 @@
       scrollbar-width: thin;
     }
 
-    /* Kartu manga di carousel */
     .manga-card {
       flex: 0 0 160px;
       width: 160px;
@@ -255,7 +252,6 @@
       border-radius: 20px;
     }
 
-    /* Tombol navigasi carousel */
     .carousel-btn {
       position: absolute;
       top: 50%;
@@ -284,7 +280,6 @@
     .carousel-btn.next { right: 0; }
     .carousel-btn.hidden { opacity: 0; pointer-events: none; }
 
-    /* ─── LOADING & ERROR ─── */
     .loading, .error, .info-box {
       text-align: center;
       padding: 3rem 0;
@@ -294,7 +289,6 @@
     .error { color: #ff6b6b; }
     .info-box { color: var(--accent); }
 
-    /* ─── FOOTER ─── */
     .footer {
       text-align: center;
       padding: 1.5rem 1rem;
@@ -304,7 +298,6 @@
       margin-top: 1rem;
     }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 600px) {
       .manga-card { flex: 0 0 130px; width: 130px; }
       .page-header h1 { font-size: 1.5rem; }
@@ -315,7 +308,6 @@
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -327,9 +319,7 @@
     </ul>
   </nav>
 
-  <!-- ===== KONTEN ===== -->
   <div class="container">
-    <!-- Header + Search -->
     <div class="page-header">
       <h1>📚 Baca <span>Manga</span></h1>
       <div class="search-box">
@@ -338,25 +328,20 @@
       </div>
     </div>
 
-    <!-- Tempat semua section -->
     <div id="sectionsContainer">
       <div class="loading">⏳ Memuat manga...</div>
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     Data dari <a href="https://mangadex.org" target="_blank" style="color:var(--accent);">MangaDex</a> • 
     <span style="color:var(--muted);">Untuk tujuan belajar – tidak untuk komersial</span>
   </footer>
 
-  <!-- ============================================================
-       SCRIPT: Menggunakan Cloudflare Worker
-       ============================================================ -->
   <script>
     // ==================== KONFIGURASI ====================
     const WORKER_URL = 'https://wandering-violet-e0b0.akinostore.workers.dev';
-    const LIMIT = 12; // jumlah per section
+    const LIMIT = 12;
 
     const container = document.getElementById('sectionsContainer');
     const searchInput = document.getElementById('searchInput');
@@ -371,7 +356,12 @@
       return res.json();
     }
 
-    // ==================== RENDER SATU SECTION ====================
+    // Fungsi untuk mendapatkan URL cover melalui proxy Worker
+    function getProxyImageUrl(originalUrl) {
+      return `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
+    }
+
+    // ==================== RENDER ====================
     function renderCarousel(sectionId, title, icon, data, badge = '') {
       const mangaList = data.data || [];
       if (mangaList.length === 0) {
@@ -395,9 +385,11 @@
         if (coverRel && coverRel.attributes?.fileName) {
           coverFile = coverRel.attributes.fileName;
         }
-        const coverUrl = coverFile 
-          ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`
-          : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+        let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+        if (coverFile && manga.id) {
+          const originalUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
+          coverUrl = getProxyImageUrl(originalUrl);
+        }
 
         const year = manga.attributes.year || '?';
         const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
@@ -405,7 +397,7 @@
 
         cards += `
           <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}">
-            <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer">
+            <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
             <div class="info">
               <div class="title">${titleText}</div>
               <div class="meta">
@@ -434,17 +426,15 @@
       `;
     }
 
-    // ==================== SCROLL CAROUSEL ====================
     function scrollCarousel(sectionId, direction) {
       const track = document.getElementById(`track-${sectionId}`);
       if (!track) return;
       const cardWidth = track.querySelector('.manga-card')?.offsetWidth || 160;
       const gap = 16;
-      const scrollAmount = (cardWidth + gap) * 3; // scroll 3 kartu
+      const scrollAmount = (cardWidth + gap) * 3;
       track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
 
-    // ==================== SHOW/HIDE CAROUSEL BUTTONS ====================
     function updateCarouselButtons(sectionId) {
       const track = document.getElementById(`track-${sectionId}`);
       if (!track) return;
@@ -462,16 +452,13 @@
       container.innerHTML = `<div class="loading">⏳ Memuat manga...</div>`;
 
       try {
-        // Kirim 4 request sekaligus (paralel)
         const [latest, mangaPop, manhwaPop, manhuaPop] = await Promise.all([
-          // 1. Update Terbaru (order by updatedAt)
           fetchSection('/manga', {
             limit: LIMIT,
             'availableTranslatedLanguage[]': 'id',
             'order[updatedAt]': 'desc',
             'includes[]': 'cover_art'
           }),
-          // 2. Manga Populer (Jepang, order by followedCount)
           fetchSection('/manga', {
             limit: LIMIT,
             'availableTranslatedLanguage[]': 'id',
@@ -479,7 +466,6 @@
             'order[followedCount]': 'desc',
             'includes[]': 'cover_art'
           }),
-          // 3. Manhwa Populer (Korea)
           fetchSection('/manga', {
             limit: LIMIT,
             'availableTranslatedLanguage[]': 'id',
@@ -487,7 +473,6 @@
             'order[followedCount]': 'desc',
             'includes[]': 'cover_art'
           }),
-          // 4. Manhua Populer (China)
           fetchSection('/manga', {
             limit: LIMIT,
             'availableTranslatedLanguage[]': 'id',
@@ -497,7 +482,6 @@
           })
         ]);
 
-        // Render HTML
         let html = '';
         html += renderCarousel('latest', 'Update Terbaru', 'fas fa-clock', latest, '🔥');
         html += renderCarousel('manga', 'Manga Populer', 'fas fa-flag', mangaPop, '🇯🇵');
@@ -506,8 +490,7 @@
 
         container.innerHTML = html;
 
-        // ==================== EVENT KLIK KARTU ====================
-        // Setiap kartu akan mengarah ke baca.html?manga=ID
+        // Event klik kartu -> ke baca.html
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const id = card.dataset.id;
@@ -517,12 +500,10 @@
           });
         });
 
-        // Setel ulang tombol carousel setelah render
         ['latest', 'manga', 'manhwa', 'manhua'].forEach(id => {
           const track = document.getElementById(`track-${id}`);
           if (track) {
             track.addEventListener('scroll', () => updateCarouselButtons(id));
-            // Tampilkan tombol jika perlu
             setTimeout(() => updateCarouselButtons(id), 100);
           }
         });
@@ -565,7 +546,6 @@
           return;
         }
 
-        // Tampilkan hasil pencarian sebagai satu section
         let html = `
           <div class="section">
             <div class="section-header">
@@ -583,16 +563,18 @@
           if (coverRel && coverRel.attributes?.fileName) {
             coverFile = coverRel.attributes.fileName;
           }
-          const coverUrl = coverFile 
-            ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`
-            : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+          let coverUrl = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
+          if (coverFile && manga.id) {
+            const originalUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
+            coverUrl = getProxyImageUrl(originalUrl);
+          }
           const year = manga.attributes.year || '?';
           const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
           const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
 
           html += `
             <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex: 0 0 160px; width: 160px;">
-              <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer">
+              <img src="${coverUrl}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous">
               <div class="info">
                 <div class="title">${titleText}</div>
                 <div class="meta">
@@ -606,7 +588,6 @@
         html += `</div></div></div>`;
         container.innerHTML = html;
 
-        // Event klik kartu hasil pencarian
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const id = card.dataset.id;
