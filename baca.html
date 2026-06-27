@@ -114,13 +114,7 @@
       max-width: 220px;
       position: relative;
     }
-    .manga-detail .cover img {
-      width: 100%;
-      border-radius: var(--radius);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      background: #111;
-    }
-    .manga-detail .cover .cover-error {
+    .manga-detail .cover .cover-placeholder {
       width: 100%;
       aspect-ratio: 2/3;
       display: flex;
@@ -133,8 +127,13 @@
       font-size: 0.8rem;
       text-align: center;
       padding: 1rem;
+      border: 1px solid var(--border);
     }
-    .manga-detail .cover .cover-error i { font-size: 2rem; margin-bottom: 0.5rem; }
+    .manga-detail .cover .cover-placeholder i {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.3;
+    }
     .manga-detail .info {
       flex: 1;
       min-width: 250px;
@@ -275,6 +274,22 @@
       background: #0a0a12;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
+    .chapter-images .image-placeholder {
+      width: 100%;
+      max-width: 800px;
+      padding: 3rem 1rem;
+      text-align: center;
+      background: var(--bg-card);
+      border-radius: 8px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .chapter-images .image-placeholder i {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      opacity: 0.3;
+    }
 
     .loading, .error, .info-box {
       text-align: center;
@@ -327,7 +342,6 @@
   </footer>
 
   <script>
-    // ==================== KONFIGURASI ====================
     const WORKER_URL = 'https://plain-block-86e9.akinostore.workers.dev';
     const container = document.getElementById('mainContent');
     const urlParams = new URLSearchParams(window.location.search);
@@ -341,59 +355,13 @@
     let mangaData = null;
     let chapters = [];
     let currentChapterIndex = 0;
-    let coverFile = null;
 
-    // ==================== FETCH ====================
     async function fetchAPI(endpoint, params = {}) {
       const urlParams = new URLSearchParams(params);
       const url = `${WORKER_URL}${endpoint}?${urlParams.toString()}`;
       const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
-    }
-
-    // ==================== MULTI FALLBACK COVER ====================
-    function getCoverUrls(mangaId, coverFile) {
-      if (!coverFile || !mangaId) return [];
-      const direct = `https://uploads.mangadex.org/covers/${mangaId}/${coverFile}`;
-      const viaWorker = `${WORKER_URL}/image/?url=${encodeURIComponent(direct)}`;
-      const viaCorsproxy = `https://corsproxy.io/?${encodeURIComponent(direct)}`;
-      const viaAllorigins = `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`;
-      return [direct, viaWorker, viaCorsproxy, viaAllorigins];
-    }
-
-    function createCoverElement(mangaId, coverFile, title) {
-      const img = document.createElement('img');
-      img.alt = title;
-      img.referrerPolicy = 'no-referrer';
-      img.crossOrigin = 'anonymous';
-      img.style.width = '100%';
-      img.style.borderRadius = 'var(--radius)';
-      img.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
-      img.style.background = '#111';
-
-      const urls = getCoverUrls(mangaId, coverFile);
-      let attempt = 0;
-      const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
-
-      function tryNextUrl() {
-        if (attempt < urls.length) {
-          img.src = urls[attempt];
-          attempt++;
-        } else {
-          img.src = placeholder;
-          img.onerror = null;
-          console.warn(`[Cover] Semua metode gagal untuk: ${title}`);
-        }
-      }
-
-      img.onerror = function() {
-        console.warn(`[Cover] Gagal metode ${attempt}: ${urls[attempt-1]}`);
-        tryNextUrl();
-      };
-
-      tryNextUrl();
-      return img;
     }
 
     function getDescription(descObj) {
@@ -405,7 +373,6 @@
       return 'Tidak ada sinopsis.';
     }
 
-    // ==================== LOAD DETAIL ====================
     async function loadMangaDetail() {
       try {
         const detail = await fetchAPI(`/manga/${mangaId}`, { 'includes[]': ['cover_art', 'author', 'artist'] });
@@ -427,32 +394,23 @@
       }
     }
 
-    // ==================== RENDER DETAIL ====================
     function renderMangaDetail() {
       const attr = mangaData.attributes;
       const title = attr.title.id || attr.title.en || Object.values(attr.title)[0] || 'Tanpa Judul';
       const altTitle = attr.altTitles?.map(t => Object.values(t)[0]).filter(Boolean).join(', ') || '';
 
-      coverFile = null;
-      const coverRel = mangaData.relationships.find(r => r.type === 'cover_art');
-      if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
-
       const statusMap = { 'completed': 'Selesai', 'ongoing': 'Ongoing', 'hiatus': 'Hiatus', 'cancelled': 'Dibatalkan' };
       const status = statusMap[attr.status] || attr.status || '?';
       const desc = getDescription(attr.description);
 
-      // Buat cover dengan fallback
-      let coverHtml = '';
-      if (coverFile) {
-        const img = createCoverElement(mangaId, coverFile, title);
-        coverHtml = img.outerHTML;
-      } else {
-        coverHtml = `<div class="cover-error"><i class="fas fa-image"></i>Cover tidak tersedia</div>`;
-      }
-
       const html = `
         <div class="manga-detail">
-          <div class="cover" id="coverContainer">${coverHtml}</div>
+          <div class="cover">
+            <div class="cover-placeholder">
+              <i class="fas fa-image"></i>
+              <span>Cover tidak tersedia<br><small style="font-size:0.6rem;color:var(--muted);">Gunakan VPN atau DNS kustom</small></span>
+            </div>
+          </div>
           <div class="info">
             <h1>${title}</h1>
             ${altTitle ? `<div class="alt-title">${altTitle}</div>` : ''}
@@ -496,7 +454,6 @@
       if (btn) btn.textContent = desc.classList.contains('expanded') ? ' ...sembunyikan' : ' ...baca selengkapnya';
     }
 
-    // ==================== RENDER CHAPTER LIST ====================
     function renderChapterList() {
       const list = document.getElementById('chapterList');
       if (!list) return;
@@ -525,7 +482,6 @@
       });
     }
 
-    // ==================== LOAD CHAPTER (multi fallback) ====================
     async function loadChapter(index) {
       if (index < 0 || index >= chapters.length) return;
       currentChapterIndex = index;
@@ -559,13 +515,10 @@
         let imgHtml = '<div class="chapter-images">';
         pages.forEach((file) => {
           const originalUrl = `${baseUrl}/data/${hash}/${file}`;
-          // Fallback untuk chapter: coba proxy worker dulu, lalu direct, lalu corsproxy
           const proxyUrl = `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
-          const corsproxyUrl = `https://corsproxy.io/?${encodeURIComponent(originalUrl)}`;
-          const alloriginsUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(originalUrl)}`;
-          const urls = [proxyUrl, originalUrl, corsproxyUrl, alloriginsUrl];
+          // Coba semua metode
+          const urls = [proxyUrl, originalUrl, `https://corsproxy.io/?${encodeURIComponent(originalUrl)}`, `https://api.allorigins.win/raw?url=${encodeURIComponent(originalUrl)}`];
           let attempt = 0;
-          const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
 
           const img = document.createElement('img');
           img.alt = 'Halaman';
@@ -583,8 +536,11 @@
               img.src = urls[attempt];
               attempt++;
             } else {
-              img.src = placeholder;
-              img.onerror = null;
+              // Jika semua gagal, tampilkan placeholder
+              const placeholder = document.createElement('div');
+              placeholder.className = 'image-placeholder';
+              placeholder.innerHTML = `<i class="fas fa-image"></i><span>Gambar tidak dapat dimuat<br><small style="font-size:0.6rem;color:var(--muted);">Gunakan VPN atau DNS kustom</small></span>`;
+              img.replaceWith(placeholder);
             }
           }
 
@@ -601,7 +557,6 @@
       }
     }
 
-    // ==================== NAVIGASI CHAPTER ====================
     document.addEventListener('click', (e) => {
       if (e.target.id === 'prevChapterBtn' || e.target.closest('#prevChapterBtn')) {
         if (currentChapterIndex > 0) loadChapter(currentChapterIndex - 1);
@@ -611,10 +566,8 @@
       }
     });
 
-    // ==================== START ====================
     loadMangaDetail();
 
-    // ===== MOBILE NAV =====
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
