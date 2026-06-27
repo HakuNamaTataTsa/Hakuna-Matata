@@ -345,11 +345,6 @@
       return res.json();
     }
 
-    // ==================== PROXY GAMBAR (fallback) ====================
-    function getProxyImageUrl(originalUrl) {
-      return `${WORKER_URL}/image/?url=${encodeURIComponent(originalUrl)}`;
-    }
-
     // ==================== RENDER CAROUSEL ====================
     function renderCarousel(sectionId, title, icon, data, badge = '') {
       const mangaList = data.data || [];
@@ -375,18 +370,13 @@
           coverFile = coverRel.attributes.fileName;
         }
 
-        let directUrl = '';
-        let proxyUrl = '';
-        if (coverFile && manga.id) {
-          const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-          directUrl = original;
-          proxyUrl = getProxyImageUrl(original);
-        }
+        // Direct URL (tanpa proxy)
+        const directUrl = (coverFile && manga.id) 
+          ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`
+          : '';
 
-        // Gunakan placeholder jika tidak ada cover
         const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
         const imgSrc = directUrl || placeholder;
-        const fallbackSrc = proxyUrl || placeholder;
 
         const year = manga.attributes.year || '?';
         const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
@@ -400,7 +390,7 @@
               loading="lazy" 
               referrerpolicy="no-referrer" 
               crossorigin="anonymous"
-              onerror="console.log('Fallback ke proxy untuk ${titleText}'); this.onerror=null; this.src='${fallbackSrc}';"
+              onerror="console.log('Cover gagal dimuat untuk ${titleText}'); this.onerror=null; this.src='${placeholder}';"
             >
             <div class="info">
               <div class="title">${titleText}</div>
@@ -506,22 +496,17 @@
           let coverFile = null;
           const coverRel = manga.relationships.find(r => r.type === 'cover_art');
           if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
-          let directUrl = '';
-          let proxyUrl = '';
-          if (coverFile && manga.id) {
-            const original = `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`;
-            directUrl = original;
-            proxyUrl = getProxyImageUrl(original);
-          }
+          const directUrl = (coverFile && manga.id) 
+            ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}`
+            : '';
           const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
           const imgSrc = directUrl || placeholder;
-          const fallbackSrc = proxyUrl || placeholder;
           const year = manga.attributes.year || '?';
           const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
           const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
           html += `
             <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">
-              <img src="${imgSrc}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+              <img src="${imgSrc}" alt="${titleText}" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.onerror=null; this.src='${placeholder}';">
               <div class="info">
                 <div class="title">${titleText}</div>
                 <div class="meta">
