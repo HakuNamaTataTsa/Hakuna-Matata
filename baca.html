@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baca Chapter - Akino Store</title>
+  <title>Baca Manga - Akino Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -83,7 +83,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 1.5rem 2rem;
     }
@@ -103,38 +103,186 @@
     }
     .back-btn:hover { color: var(--accent); }
 
-    .info-box {
+    .manga-detail {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .manga-detail .cover {
+      flex: 0 0 220px;
+      max-width: 220px;
+    }
+    .manga-detail .cover img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      background: #111;
+    }
+    .manga-detail .cover .cover-error {
+      width: 100%;
+      aspect-ratio: 2/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid var(--border);
+    }
+    .manga-detail .cover .cover-error i { font-size: 2rem; margin-bottom: 0.5rem; }
+    .manga-detail .info {
+      flex: 1;
+      min-width: 250px;
+    }
+    .manga-detail .info h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .manga-detail .info .alt-title {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    .manga-detail .info .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .manga-detail .info .meta span {
+      padding: 0.15rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 3rem 2rem;
-      text-align: center;
+    }
+    .manga-detail .info .meta .status { border-color: var(--accent); color: var(--accent); }
+    .manga-detail .info .description {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-height: 120px;
+      overflow: hidden;
+      position: relative;
+    }
+    .manga-detail .info .description.expanded { max-height: none; }
+    .manga-detail .info .description .read-more {
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .chapter-section { margin-top: 1rem; }
+    .chapter-section .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chapter-section .section-header h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .chapter-section .section-header .count {
+      font-size: 0.8rem;
       color: var(--muted);
     }
-    .info-box i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--accent);
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
     }
-    .info-box h2 {
-      color: var(--fg);
-      margin-bottom: 0.5rem;
-      font-family: var(--font-display);
-    }
-    .info-box .btn-primary {
-      display: inline-block;
-      padding: 0.6rem 1.8rem;
-      background: var(--accent);
-      color: #0a0a0f;
-      border-radius: 30px;
-      font-weight: 600;
-      margin-top: 1rem;
+    .chapter-list::-webkit-scrollbar { width: 4px; }
+    .chapter-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    .chapter-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    .chapter-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       transition: all 0.3s;
+      cursor: pointer;
     }
-    .info-box .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(255,221,87,0.3);
+    .chapter-item:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .chapter-item .ch-number { font-weight: 600; font-size: 0.9rem; }
+    .chapter-item .ch-title { color: var(--muted); font-size: 0.8rem; }
+    .chapter-item .ch-date { color: var(--muted); font-size: 0.7rem; }
+    .chapter-item .ch-read { color: var(--accent); font-size: 0.8rem; }
+
+    .reader-container {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
     }
+    .reader-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .reader-header .reader-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .reader-nav { display: flex; gap: 0.5rem; }
+    .reader-nav button {
+      padding: 0.3rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.8rem;
+      font-family: var(--font-body);
+    }
+    .reader-nav button:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .reader-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .chapter-images {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chapter-images img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: #0a0a12;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .loading, .error, .info-box {
+      text-align: center;
+      padding: 3rem 0;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .error { color: #ff6b6b; }
 
     .footer {
       text-align: center;
@@ -143,6 +291,16 @@
       color: var(--muted);
       border-top: 1px solid var(--border);
       margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .manga-detail .cover { flex: 0 0 160px; max-width: 160px; }
+      .manga-detail .info h1 { font-size: 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .manga-detail .cover { flex: 0 0 120px; max-width: 120px; }
+      .chapter-item { flex-wrap: wrap; gap: 0.2rem; }
+      .chapter-item .ch-date { font-size: 0.6rem; }
     }
   </style>
 </head>
@@ -158,40 +316,230 @@
     </ul>
   </nav>
 
-  <div class="container">
+  <div class="container" id="app">
     <button class="back-btn" onclick="window.location.href='manga.html'"><i class="fas fa-arrow-left"></i> Kembali ke Daftar</button>
-
-    <div class="info-box">
-      <i class="fas fa-book-open"></i>
-      <h2>Baca Chapter</h2>
-      <p>Untuk membaca chapter, buka link di bawah ini:</p>
-      <a href="#" id="chapterLink" target="_blank" class="btn-primary">
-        <i class="fas fa-external-link-alt"></i> Buka Chapter
-      </a>
-      <p style="margin-top:1rem;font-size:0.8rem;">Atau salin dan tempel link ini:</p>
-      <code id="linkDisplay" style="background:#0a0a12;padding:0.5rem 1rem;border-radius:8px;display:block;word-break:break-all;color:var(--accent);margin-top:0.5rem;"></code>
-    </div>
+    <div id="mainContent"><div class="loading">⏳ Memuat manga...</div></div>
   </div>
 
   <footer class="footer">
-    Data dari <a href="https://komiku.id" target="_blank" style="color:var(--accent);">Komiku</a> • 
+    Data dari <a href="https://mangadex.org" target="_blank" style="color:var(--accent);">MangaDex</a> • 
     <span style="color:var(--muted);">Untuk tujuan belajar – tidak untuk komersial</span>
   </footer>
 
   <script>
+    // ==================== KONFIGURASI ====================
+    const API_BASE = 'https://api.mangadex.org';
+    const container = document.getElementById('mainContent');
     const urlParams = new URLSearchParams(window.location.search);
-    const chapterLink = urlParams.get('link');
+    const mangaId = urlParams.get('manga');
 
-    const linkDisplay = document.getElementById('linkDisplay');
-    const chapterLinkEl = document.getElementById('chapterLink');
-
-    if (chapterLink) {
-      linkDisplay.textContent = decodeURIComponent(chapterLink);
-      chapterLinkEl.href = decodeURIComponent(chapterLink);
-    } else {
-      linkDisplay.textContent = 'Tidak ada link chapter yang diberikan.';
-      chapterLinkEl.style.display = 'none';
+    if (!mangaId) {
+      container.innerHTML = `<div class="error"><i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:0.5rem;"></i>Parameter manga tidak ditemukan. Gunakan <code style="color:var(--accent);">?manga=ID_MANGA</code></div>`;
+      throw new Error('No manga ID');
     }
+
+    let mangaData = null;
+    let chapters = [];
+    let currentChapterIndex = 0;
+
+    // ==================== FETCH ====================
+    async function fetchAPI(endpoint, params = {}) {
+      const urlParams = new URLSearchParams(params);
+      const url = `${API_BASE}${endpoint}?${urlParams.toString()}`;
+      const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    // ==================== AMBIL DESKRIPSI ====================
+    function getDescription(descObj) {
+      if (!descObj) return 'Tidak ada sinopsis.';
+      if (descObj.id) return descObj.id;
+      if (descObj.en) return descObj.en;
+      const keys = Object.keys(descObj);
+      if (keys.length > 0) return descObj[keys[0]];
+      return 'Tidak ada sinopsis.';
+    }
+
+    // ==================== LOAD DETAIL ====================
+    async function loadMangaDetail() {
+      try {
+        const detail = await fetchAPI(`/manga/${mangaId}`, { 'includes[]': ['cover_art', 'author', 'artist'] });
+        mangaData = detail.data;
+
+        const feed = await fetchAPI(`/manga/${mangaId}/feed`, {
+          'translatedLanguage[]': 'id',
+          'order[chapter]': 'desc',
+          'limit': 100,
+          'includes[]': ['scanlation_group']
+        });
+        chapters = feed.data || [];
+
+        renderMangaDetail();
+        renderChapterList();
+      } catch (err) {
+        container.innerHTML = `<div class="error"><i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:0.5rem;"></i>Gagal memuat manga: ${err.message}<br><br><span style="font-size:0.85rem;color:var(--muted);">💡 Pastikan ID manga benar dan koneksi internet aktif (DNS 1.1.1.1).</span></div>`;
+        console.error('Load error:', err);
+      }
+    }
+
+    // ==================== RENDER DETAIL ====================
+    function renderMangaDetail() {
+      const attr = mangaData.attributes;
+      const title = attr.title.id || attr.title.en || Object.values(attr.title)[0] || 'Tanpa Judul';
+      const altTitle = attr.altTitles?.map(t => Object.values(t)[0]).filter(Boolean).join(', ') || '';
+
+      let coverFile = null;
+      const coverRel = mangaData.relationships.find(r => r.type === 'cover_art');
+      if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
+
+      const coverUrl = coverFile 
+        ? `https://uploads.mangadex.org/covers/${mangaId}/${coverFile}`
+        : '';
+
+      const statusMap = { 'completed': 'Selesai', 'ongoing': 'Ongoing', 'hiatus': 'Hiatus', 'cancelled': 'Dibatalkan' };
+      const status = statusMap[attr.status] || attr.status || '?';
+      const desc = getDescription(attr.description);
+
+      let coverHtml = '';
+      if (coverUrl) {
+        coverHtml = `<img src="${coverUrl}" alt="${title}" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.parentElement.innerHTML='<div class=\\'cover-error\\'><i class=\\'fas fa-image\\'></i>Cover tidak tersedia</div>'">`;
+      } else {
+        coverHtml = `<div class="cover-error"><i class="fas fa-image"></i>Cover tidak tersedia</div>`;
+      }
+
+      const html = `
+        <div class="manga-detail">
+          <div class="cover">${coverHtml}</div>
+          <div class="info">
+            <h1>${title}</h1>
+            ${altTitle ? `<div class="alt-title">${altTitle}</div>` : ''}
+            <div class="meta">
+              <span class="status">${status}</span>
+              <span>${attr.year || '?'}</span>
+              <span>${attr.contentRating || '?'}</span>
+              <span>${attr.publicationDemographic || '?'}</span>
+            </div>
+            <div class="description" id="descContainer">
+              ${desc}
+              ${desc.length > 300 ? `<span class="read-more" onclick="toggleDesc()"> ...baca selengkapnya</span>` : ''}
+            </div>
+          </div>
+        </div>
+        <div class="chapter-section" id="chapterSection">
+          <div class="section-header">
+            <h2>📖 Daftar Chapter <span class="count">(${chapters.length} chapter)</span></h2>
+          </div>
+          <div class="chapter-list" id="chapterList"></div>
+        </div>
+        <div class="reader-container" id="readerContainer" style="display:none;">
+          <div class="reader-header">
+            <div class="reader-title" id="readerTitle">Membaca Chapter...</div>
+            <div class="reader-nav">
+              <button id="prevChapterBtn" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+              <button id="nextChapterBtn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div id="chapterImagesContainer"><div class="loading">⏳ Memuat gambar...</div></div>
+        </div>
+      `;
+      container.innerHTML = html;
+    }
+
+    function toggleDesc() {
+      const desc = document.getElementById('descContainer');
+      if (!desc) return;
+      desc.classList.toggle('expanded');
+      const btn = desc.querySelector('.read-more');
+      if (btn) btn.textContent = desc.classList.contains('expanded') ? ' ...sembunyikan' : ' ...baca selengkapnya';
+    }
+
+    // ==================== RENDER CHAPTER LIST ====================
+    function renderChapterList() {
+      const list = document.getElementById('chapterList');
+      if (!list) return;
+      if (chapters.length === 0) {
+        list.innerHTML = `<p style="color:var(--muted);">Belum ada chapter bahasa Indonesia untuk manga ini.</p>`;
+        return;
+      }
+      let html = '';
+      chapters.forEach((ch, index) => {
+        const chNum = ch.attributes.chapter || '?';
+        const chTitle = ch.attributes.title || '';
+        const chDate = ch.attributes.publishAt ? new Date(ch.attributes.publishAt).toLocaleDateString('id-ID') : '?';
+        html += `<div class="chapter-item" data-index="${index}" data-id="${ch.id}">
+          <span class="ch-number">Chapter ${chNum}</span>
+          <span class="ch-title">${chTitle}</span>
+          <span class="ch-date">${chDate}</span>
+          <span class="ch-read"><i class="fas fa-chevron-right"></i></span>
+        </div>`;
+      });
+      list.innerHTML = html;
+      list.querySelectorAll('.chapter-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const index = parseInt(item.dataset.index);
+          loadChapter(index);
+        });
+      });
+    }
+
+    // ==================== LOAD CHAPTER ====================
+    async function loadChapter(index) {
+      if (index < 0 || index >= chapters.length) return;
+      currentChapterIndex = index;
+      const chapter = chapters[index];
+      const chId = chapter.id;
+      const chNum = chapter.attributes.chapter || '?';
+      const chTitle = chapter.attributes.title || '';
+
+      const readerContainer = document.getElementById('readerContainer');
+      const readerTitle = document.getElementById('readerTitle');
+      const imagesContainer = document.getElementById('chapterImagesContainer');
+
+      readerContainer.style.display = 'block';
+      readerTitle.textContent = `📖 Chapter ${chNum} ${chTitle ? '- ' + chTitle : ''}`;
+      imagesContainer.innerHTML = `<div class="loading">⏳ Memuat gambar...</div>`;
+      document.getElementById('prevChapterBtn').disabled = index <= 0;
+      document.getElementById('nextChapterBtn').disabled = index >= chapters.length - 1;
+      readerContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      try {
+        const data = await fetchAPI(`/at-home/server/${chId}`);
+        const baseUrl = data.baseUrl;
+        const hash = data.chapter.hash;
+        const pages = data.chapter.data || data.chapter.dataSaver || [];
+
+        if (pages.length === 0) {
+          imagesContainer.innerHTML = `<div class="error">Tidak ada halaman untuk chapter ini.</div>`;
+          return;
+        }
+
+        let imgHtml = '<div class="chapter-images">';
+        pages.forEach((file) => {
+          const imgUrl = `${baseUrl}/data/${hash}/${file}`;
+          imgHtml += `<img src="${imgUrl}" alt="Halaman" loading="lazy" referrerpolicy="no-referrer" crossorigin="anonymous" onerror="this.style.display='none'">`;
+        });
+        imgHtml += '</div>';
+        imagesContainer.innerHTML = imgHtml;
+
+      } catch (err) {
+        imagesContainer.innerHTML = `<div class="error">❌ Gagal memuat gambar: ${err.message}</div>`;
+        console.error('Chapter load error:', err);
+      }
+    }
+
+    // ==================== NAVIGASI CHAPTER ====================
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'prevChapterBtn' || e.target.closest('#prevChapterBtn')) {
+        if (currentChapterIndex > 0) loadChapter(currentChapterIndex - 1);
+      }
+      if (e.target.id === 'nextChapterBtn' || e.target.closest('#nextChapterBtn')) {
+        if (currentChapterIndex < chapters.length - 1) loadChapter(currentChapterIndex + 1);
+      }
+    });
+
+    // ==================== START ====================
+    loadMangaDetail();
 
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
