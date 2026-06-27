@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <h1>Test Cover MangaDex</h1>
+    <h1>Test Cover MangaDex (Direct URL)</h1>
     <div id="log" class="log">⏳ Memuat...</div>
     <div id="grid" class="grid"></div>
 
@@ -45,25 +45,24 @@
                     const coverRel = manga.relationships.find(r => r.type === 'cover_art');
                     if (coverRel) coverFile = coverRel.attributes?.fileName;
                     
+                    // Direct URL (tanpa proxy)
                     const directUrl = coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '';
-                    const proxyUrl = coverFile ? `${WORKER_URL}/image/?url=${encodeURIComponent(directUrl)}` : '';
+                    const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
 
                     const card = document.createElement('div');
                     card.className = 'card';
                     
                     const img = document.createElement('img');
-                    img.src = proxyUrl;
+                    img.src = directUrl || placeholder;
                     img.alt = title;
                     img.referrerPolicy = 'no-referrer';
                     img.crossOrigin = 'anonymous';
+                    
                     img.onerror = function() {
-                        addLog(`❌ Cover gagal: ${title} (proxy)`, 'err');
-                        this.src = directUrl;
-                        this.onerror = function() {
-                            addLog(`❌ Cover gagal: ${title} (direct juga)`, 'err');
-                            this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
-                        };
+                        addLog(`❌ Cover gagal: ${title}`, 'err');
+                        this.src = placeholder;
                     };
+                    
                     img.onload = function() {
                         addLog(`✅ Cover berhasil: ${title}`, 'ok');
                     };
