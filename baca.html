@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ===== TEMA AKINO STORE (sama) ===== */
+    /* ===== SAMA SEPERTI SEBELUMNYA (tidak diubah) ===== */
     :root {
       --bg: #07070d;
       --bg-card: rgba(255,255,255,0.04);
@@ -380,7 +380,7 @@
 
   <script>
     // ==================== KONFIGURASI ====================
-    const WORKER_URL = 'https://plain-block-86e9.akinostore.workers.dev';
+    const WORKER_URL = 'https://wandering-violet-e0b0.akinostore.workers.dev';
     const container = document.getElementById('mainContent');
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -400,7 +400,7 @@
     let mangaData = null;
     let chapters = [];
     let currentChapterIndex = 0;
-    let coverFile = null; // untuk menyimpan nama file cover
+    let coverFile = null;
 
     // ==================== FETCH FUNGSI ====================
     async function fetchAPI(endpoint, params = {}) {
@@ -465,17 +465,12 @@
       const title = attr.title.id || attr.title.en || Object.values(attr.title)[0] || 'Tanpa Judul';
       const altTitle = attr.altTitles?.map(t => Object.values(t)[0]).filter(Boolean).join(', ') || '';
 
-      // Ambil cover file name
       coverFile = null;
       const coverRel = mangaData.relationships.find(r => r.type === 'cover_art');
       if (coverRel && coverRel.attributes?.fileName) {
         coverFile = coverRel.attributes.fileName;
-        console.log('📁 Cover file ditemukan:', coverFile);
-      } else {
-        console.warn('⚠️ Tidak ada cover art untuk manga ini');
       }
 
-      // Status
       const statusMap = {
         'completed': 'Selesai',
         'ongoing': 'Ongoing',
@@ -483,11 +478,8 @@
         'cancelled': 'Dibatalkan'
       };
       const status = statusMap[attr.status] || attr.status || '?';
-
-      // Deskripsi
       const desc = getDescription(attr.description);
 
-      // HTML cover dengan placeholder sementara (akan diisi ulang oleh fungsi loadCover)
       const html = `
         <div class="manga-detail">
           <div class="cover" id="coverContainer">
@@ -533,12 +525,12 @@
 
       container.innerHTML = html;
 
-      // Muat cover setelah DOM siap
-      loadCover();
+      // Load cover secara terpisah
+      loadCoverDirect();
     }
 
-    // ==================== LOAD COVER ====================
-    function loadCover() {
+    // ==================== LOAD COVER (DIRECT, TANPA PROXY) ====================
+    function loadCoverDirect() {
       const coverContainer = document.getElementById('coverContainer');
       if (!coverContainer) return;
 
@@ -552,14 +544,12 @@
         return;
       }
 
-      const originalUrl = `https://uploads.mangadex.org/covers/${mangaId}/${coverFile}`;
-      const proxyUrl = getProxyImageUrl(originalUrl);
+      // Gunakan direct URL (tidak melalui proxy)
+      const directUrl = `https://uploads.mangadex.org/covers/${mangaId}/${coverFile}`;
+      console.log('🖼️ Mencoba memuat cover direct:', directUrl);
 
-      console.log('🖼️ Mencoba memuat cover via proxy:', proxyUrl);
-
-      // Buat elemen img
       const img = document.createElement('img');
-      img.src = proxyUrl;
+      img.src = directUrl;
       img.alt = 'Cover';
       img.referrerPolicy = 'no-referrer';
       img.crossOrigin = 'anonymous';
@@ -568,41 +558,40 @@
       img.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
       img.style.background = '#111';
 
-      // Event onload
       img.onload = () => {
-        console.log('✅ Cover berhasil dimuat via proxy');
+        console.log('✅ Cover berhasil dimuat (direct)');
         coverContainer.innerHTML = '';
         coverContainer.appendChild(img);
       };
 
-      // Event onerror - coba direct fallback
       img.onerror = () => {
-        console.warn('❌ Cover gagal via proxy, mencoba direct...');
-        // Coba langsung (tanpa proxy) sebagai fallback
-        const directImg = document.createElement('img');
-        directImg.src = originalUrl;
-        directImg.alt = 'Cover';
-        directImg.referrerPolicy = 'no-referrer';
-        directImg.crossOrigin = 'anonymous';
-        directImg.style.width = '100%';
-        directImg.style.borderRadius = 'var(--radius)';
-        directImg.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
-        directImg.style.background = '#111';
+        console.warn('❌ Cover gagal direct, coba via proxy...');
+        // Fallback ke proxy
+        const proxyUrl = getProxyImageUrl(directUrl);
+        const proxyImg = document.createElement('img');
+        proxyImg.src = proxyUrl;
+        proxyImg.alt = 'Cover';
+        proxyImg.referrerPolicy = 'no-referrer';
+        proxyImg.crossOrigin = 'anonymous';
+        proxyImg.style.width = '100%';
+        proxyImg.style.borderRadius = 'var(--radius)';
+        proxyImg.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
+        proxyImg.style.background = '#111';
 
-        directImg.onload = () => {
-          console.log('✅ Cover berhasil dimuat secara direct');
+        proxyImg.onload = () => {
+          console.log('✅ Cover berhasil dimuat via proxy');
           coverContainer.innerHTML = '';
-          coverContainer.appendChild(directImg);
+          coverContainer.appendChild(proxyImg);
         };
 
-        directImg.onerror = () => {
-          console.error('❌ Cover gagal dimuat baik via proxy maupun direct');
+        proxyImg.onerror = () => {
+          console.error('❌ Cover gagal dimuat (direct & proxy)');
           coverContainer.innerHTML = `
             <div class="cover-error">
               <i class="fas fa-image"></i>
               Cover tidak tersedia
               <br><br>
-              <button class="retry-btn" onclick="loadCover()">
+              <button class="retry-btn" onclick="loadCoverDirect()">
                 <i class="fas fa-sync"></i> Coba Muat Ulang
               </button>
               <br>
@@ -614,10 +603,9 @@
         };
 
         coverContainer.innerHTML = '';
-        coverContainer.appendChild(directImg);
+        coverContainer.appendChild(proxyImg);
       };
 
-      // Append img ke container
       coverContainer.innerHTML = '';
       coverContainer.appendChild(img);
     }
