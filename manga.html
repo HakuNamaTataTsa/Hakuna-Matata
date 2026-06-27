@@ -301,7 +301,7 @@
   </div>
 
   <footer class="footer">
-    Data dari <a href="https://myanimelist.net" target="_blank" style="color:var(--accent);">MyAnimeList</a> • 
+    Data dari <a href="https://myanimelist.net" target="_blank" style="color:var(--accent);">MyAnimeList</a> &amp; <a href="https://mangadex.org" target="_blank" style="color:var(--accent);">MangaDex</a> • 
     <span style="color:var(--muted);">Untuk tujuan belajar – tidak untuk komersial</span>
   </footer>
 
@@ -402,8 +402,7 @@
             const malId = card.dataset.malId;
             const title = decodeURIComponent(card.dataset.title);
             if (malId) {
-              // Arahkan ke halaman detail
-              window.location.href = `detail.html?mal=${malId}`;
+              window.location.href = `detail.html?mal=${malId}&title=${encodeURIComponent(title)}`;
             }
           });
         });
@@ -449,7 +448,8 @@
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const malId = card.dataset.malId;
-            if (malId) window.location.href = `detail.html?mal=${malId}`;
+            const title = decodeURIComponent(card.dataset.title);
+            if (malId) window.location.href = `detail.html?mal=${malId}&title=${encodeURIComponent(title)}`;
           });
         });
       } catch (err) {
