@@ -192,11 +192,23 @@
       border-color: var(--accent);
       box-shadow: 0 12px 40px rgba(255,221,87,0.08);
     }
-    .manga-card img {
+    .manga-card .cover-placeholder {
       width: 100%;
       aspect-ratio: 2/3;
-      object-fit: cover;
-      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      color: var(--muted);
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    .manga-card .cover-placeholder i {
+      font-size: 2.5rem;
+      margin-bottom: 0.3rem;
+      opacity: 0.3;
     }
     .manga-card .info {
       padding: 0.6rem 0.6rem 0.8rem;
@@ -306,14 +318,12 @@
   </footer>
 
   <script>
-    // ==================== KONFIGURASI ====================
     const WORKER_URL = 'https://plain-block-86e9.akinostore.workers.dev';
     const LIMIT = 12;
     const container = document.getElementById('sectionsContainer');
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
 
-    // ==================== FUNGSI FETCH ====================
     async function fetchSection(endpoint, params = {}) {
       const urlParams = new URLSearchParams(params);
       const url = `${WORKER_URL}${endpoint}?${urlParams.toString()}`;
@@ -322,53 +332,6 @@
       return res.json();
     }
 
-    // ==================== MULTI FALLBACK COVER ====================
-    function getCoverUrls(mangaId, coverFile) {
-      if (!coverFile || !mangaId) return [];
-      const direct = `https://uploads.mangadex.org/covers/${mangaId}/${coverFile}`;
-      const viaWorker = `${WORKER_URL}/image/?url=${encodeURIComponent(direct)}`;
-      const viaCorsproxy = `https://corsproxy.io/?${encodeURIComponent(direct)}`;
-      const viaAllorigins = `https://api.allorigins.win/raw?url=${encodeURIComponent(direct)}`;
-      return [direct, viaWorker, viaCorsproxy, viaAllorigins];
-    }
-
-    function createCoverElement(mangaId, coverFile, title) {
-      const img = document.createElement('img');
-      img.alt = title;
-      img.loading = 'lazy';
-      img.referrerPolicy = 'no-referrer';
-      img.crossOrigin = 'anonymous';
-      img.style.width = '100%';
-      img.style.aspectRatio = '2/3';
-      img.style.objectFit = 'cover';
-      img.style.background = '#111';
-
-      const urls = getCoverUrls(mangaId, coverFile);
-      let attempt = 0;
-      const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280"%3E%3Crect fill="%23111" width="200" height="280"/%3E%3Ctext x="50%25" y="50%25" font-family="sans-serif" font-size="14" fill="%23666" text-anchor="middle" dy=".3em"%3ENo Cover%3C/text%3E%3C/svg%3E';
-
-      function tryNextUrl() {
-        if (attempt < urls.length) {
-          img.src = urls[attempt];
-          attempt++;
-        } else {
-          img.src = placeholder;
-          img.onerror = null;
-          console.warn(`[Cover] Semua metode gagal untuk: ${title}`);
-        }
-      }
-
-      img.onerror = function() {
-        console.warn(`[Cover] Gagal metode ${attempt}: ${urls[attempt-1]}`);
-        tryNextUrl();
-      };
-
-      // Mulai dengan URL pertama
-      tryNextUrl();
-      return img;
-    }
-
-    // ==================== RENDER CAROUSEL ====================
     function renderCarousel(sectionId, title, icon, data, badge = '') {
       const mangaList = data.data || [];
       if (mangaList.length === 0) {
@@ -382,21 +345,16 @@
       mangaList.forEach(manga => {
         const titleObj = manga.attributes.title;
         const titleText = titleObj.id || titleObj.en || Object.values(titleObj)[0] || 'Tanpa Judul';
-        let coverFile = null;
-        const coverRel = manga.relationships.find(r => r.type === 'cover_art');
-        if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
-
         const year = manga.attributes.year || '?';
         const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
         const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
 
-        // Gunakan createCoverElement untuk gambar dengan fallback
-        const img = createCoverElement(manga.id, coverFile, titleText);
-        const imgHTML = img.outerHTML;
-
         cards += `
           <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}">
-            ${imgHTML}
+            <div class="cover-placeholder">
+              <i class="fas fa-image"></i>
+              <span>Cover tidak tersedia</span>
+            </div>
             <div class="info">
               <div class="title">${titleText}</div>
               <div class="meta"><span>${year}</span><span>${status}</span></div>
@@ -438,7 +396,6 @@
       nextBtn.classList.toggle('hidden', !canScrollRight);
     }
 
-    // ==================== LOAD SEMUA ====================
     async function loadAllSections() {
       container.innerHTML = `<div class="loading">⏳ Memuat manga...</div>`;
       try {
@@ -456,7 +413,6 @@
         html += renderCarousel('manhua', 'Manhua Populer', 'fas fa-flag', manhuaPop, '🇨🇳');
         container.innerHTML = html;
 
-        // Event klik kartu
         document.querySelectorAll('.manga-card').forEach(card => {
           card.addEventListener('click', () => {
             const id = card.dataset.id;
@@ -476,7 +432,6 @@
       }
     }
 
-    // ==================== SEARCH ====================
     async function handleSearch() {
       const query = searchInput.value.trim();
       if (!query) { loadAllSections(); return; }
@@ -491,14 +446,15 @@
         data.data.forEach(manga => {
           const titleObj = manga.attributes.title;
           const titleText = titleObj.id || titleObj.en || Object.values(titleObj)[0] || 'Tanpa Judul';
-          let coverFile = null;
-          const coverRel = manga.relationships.find(r => r.type === 'cover_art');
-          if (coverRel && coverRel.attributes?.fileName) coverFile = coverRel.attributes.fileName;
-          const img = createCoverElement(manga.id, coverFile, titleText);
           const year = manga.attributes.year || '?';
           const statusMap = { 'completed':'Selesai', 'ongoing':'Ongoing', 'hiatus':'Hiatus', 'cancelled':'Batal' };
           const status = statusMap[manga.attributes.status] || manga.attributes.status || '?';
-          html += `<div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">${img.outerHTML}<div class="info"><div class="title">${titleText}</div><div class="meta"><span>${year}</span><span>${status}</span></div></div></div>`;
+          html += `
+            <div class="manga-card" data-id="${manga.id}" data-title="${encodeURIComponent(titleText)}" style="flex:0 0 160px;width:160px;">
+              <div class="cover-placeholder"><i class="fas fa-image"></i><span>Cover tidak tersedia</span></div>
+              <div class="info"><div class="title">${titleText}</div><div class="meta"><span>${year}</span><span>${status}</span></div></div>
+            </div>
+          `;
         });
         html += `</div></div></div>`;
         container.innerHTML = html;
@@ -517,7 +473,6 @@
     searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSearch(); });
     loadAllSections();
 
-    // ===== MOBILE NAV =====
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
