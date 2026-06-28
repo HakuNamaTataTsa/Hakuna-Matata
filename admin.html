@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-    /* ===== CSS SAMA SEPERTI SEBELUMNYA (tidak diubah) ===== */
+    /* ===== CSS SAMA (tidak diubah) ===== */
     *{margin:0;padding:0;box-sizing:border-box}
     :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--bg-el:#0e0e18;--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--r:14px;--rs:10px;--fd:'Space Grotesk',sans-serif;--fb:'DM Sans',sans-serif}
     html{scroll-behavior:smooth}
@@ -62,7 +62,6 @@
     .filter-flash-btn.active{background:#fb923c;color:#0a0a0f;border-color:#fb923c}
     .filter-flash-btn:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
     .filter-flash-btn i{font-size:.6rem}
-    /* tombol cek duplikat */
     .check-duplicate-btn{background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.2);color:#fb923c;padding:.3rem .7rem;border-radius:50px;font-size:.7rem;cursor:pointer;transition:all var(--transition);font-family:var(--fb);font-weight:500;display:inline-flex;align-items:center;gap:.3rem}
     .check-duplicate-btn:hover{background:#fb923c;color:#0a0a0f;border-color:#fb923c}
     .check-duplicate-btn i{font-size:.6rem}
@@ -99,7 +98,6 @@
     .edit-card .ea .btn-save:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
     .edit-card .ea .btn-cancel{background:var(--bg-card);color:var(--muted);border:1px solid var(--border)}
     .edit-card .ea .btn-cancel:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
-    /* batch bar */
     .batch-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(255,221,87,.05);border:1px solid rgba(255,221,87,.12);border-radius:var(--rs);margin-bottom:.8rem;transition:all .3s ease;min-height:44px}
     .batch-bar.empty{opacity:.4;pointer-events:none}
     .batch-bar .bb-select-all{display:flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--muted);cursor:pointer;user-select:none}
@@ -120,7 +118,6 @@
     .batch-bar .bb-btn.bb-delete:hover:not(:disabled){background:#ef4444;color:#fff}
     .batch-bar .bb-clear{background:none;border:none;color:var(--muted);font-size:.7rem;cursor:pointer;padding:.2rem .4rem;border-radius:4px;transition:all .2s}
     .batch-bar .bb-clear:hover{color:var(--fg);background:var(--bg-card)}
-    /* item tanpa tombol aksi */
     .item-wrap{display:flex;align-items:stretch;gap:.4rem;margin-bottom:.4rem}
     .item-wrap .item-check{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);transition:all .2s}
     .item-wrap .item-check input[type="checkbox"]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);transition:all .2s}
@@ -210,7 +207,6 @@
     @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
     @keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    /* ===== BATCH ADD ROWS ===== */
     .batch-add-row{display:flex;gap:.5rem;align-items:flex-start;flex-wrap:wrap;padding:.5rem 0;border-bottom:1px solid var(--border)}
     .batch-add-row .fr{flex:1;min-width:120px;margin-bottom:0}
     .batch-add-row .fr label{font-size:.65rem}
@@ -226,7 +222,6 @@
     .add-mode-toggle{display:flex;gap:.3rem;margin-bottom:.5rem}
     .add-mode-toggle button{padding:.3rem .9rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-size:.75rem;font-weight:500;cursor:pointer;transition:all .2s}
     .add-mode-toggle button.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
-    /* Modal duplikat */
     .modal-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1.5rem;animation:fadeUp .25s ease}
     .modal-overlay.active{display:flex}
     .modal-box{background:var(--bg-el);border:1px solid var(--border);border-radius:var(--r);padding:2rem;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fadeUp .3s ease}
@@ -256,11 +251,7 @@
     .dup-item .dup-status.deleted{background:rgba(255,255,255,.05);color:var(--muted)}
     .dup-item .dup-del-btn{background:none;border:none;color:#f87171;cursor:pointer;padding:.1rem .3rem;border-radius:4px;transition:all .2s;font-size:.7rem}
     .dup-item .dup-del-btn:hover{background:rgba(248,113,113,.2)}
-    @media(max-width:768px){
-      .batch-add-row{flex-direction:column;gap:.3rem}
-      .batch-add-row .fr{min-width:100%}
-      .modal-box{padding:1.2rem}
-    }
+    @media(max-width:768px){.batch-add-row{flex-direction:column;gap:.3rem}.batch-add-row .fr{min-width:100%}.modal-box{padding:1.2rem}}
   </style>
 </head>
 <body>
@@ -410,7 +401,6 @@
         <button class="bb-btn bb-sold" id="batchSoldBtn" onclick="batchMarkSold()" disabled>
           <i class="fas fa-tag"></i> Tandai Terjual
         </button>
-        <!-- TOMBOL HAPUS BATCH -->
         <button class="bb-btn bb-delete" id="batchDeleteBtn" onclick="batchDelete()" disabled>
           <i class="fas fa-trash"></i> Hapus
         </button>
@@ -1409,7 +1399,6 @@
       var desc = document.getElementById('dupDesc');
       var deleteAllBtn = document.getElementById('dupDeleteAllBtn');
 
-      // Kumpulkan semua item (termasuk deleted)
       var allItems = POSTS;
       var codeMap = {};
       allItems.forEach(function(p) {
@@ -1460,22 +1449,18 @@
       document.getElementById('duplicateModal').classList.remove('active');
     };
 
-    // Hapus satu duplikat (hanya yang status available)
     window.deleteSingleDuplicate = async function(id) {
       if (!confirm('Hapus item ini?')) return;
       try {
         await updateDoc(doc(db, "carStock", id), { status: 'deleted', soldAt: null, discount: false,
           discountedPrice: "", flashSaleEnd: null });
         toast('Item dihapus', 'err');
-        // refresh daftar duplikat
         window.checkDuplicates();
       } catch (err) { toast('Gagal: ' + err.message, 'err') }
     };
 
-    // Hapus semua duplikat (kecuali satu yang paling awal)
     window.deleteAllDuplicates = function(codeMap) {
       if (!codeMap) {
-        // jika dipanggil tanpa parameter, ambil ulang data
         var allItems = POSTS;
         var tempMap = {};
         allItems.forEach(function(p) {
@@ -1490,18 +1475,16 @@
       Object.keys(codeMap).forEach(function(code) {
         var items = codeMap[code];
         if (items.length <= 1) return;
-        // urutkan berdasarkan addedAt (yang paling awal dipertahankan)
         items.sort(function(a, b) { return toMs(a.addedAt) - toMs(b.addedAt) });
-        // hapus semua kecuali yang pertama
         for (var i = 1; i < items.length; i++) {
           if (items[i].status === 'available') {
             toDelete.push(items[i].id);
           }
         }
       });
-      if (toDelete.length === 0) { toast('Tidak ada duplikat yang bisa dihapus (semua sudah sold/deleted).', 'info');
+      if (toDelete.length === 0) { toast('Tidak ada duplikat yang bisa dihapus.', 'info');
         window.closeDuplicateModal(); return }
-      if (!confirm('Hapus ' + toDelete.length + ' item duplikat (yang status available)?')) return;
+      if (!confirm('Hapus ' + toDelete.length + ' item duplikat?')) return;
       var btn = document.getElementById('dupDeleteAllBtn');
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
@@ -1524,10 +1507,13 @@
 
     // ===== RENDER STOCK =====
     function renderStock() {
+      console.log('🔄 renderStock() dipanggil, POSTS length:', POSTS.length);
       var PER_PAGE = getPerPage();
       var allAvail = POSTS.filter(p => p.status === 'available');
       var allSold = POSTS.filter(p => p.status === 'sold');
       var allDel = POSTS.filter(p => p.status === 'deleted');
+
+      console.log('📊 Tersedia:', allAvail.length, 'Terjual:', allSold.length, 'Dihapus:', allDel.length);
 
       var soldList = filterByFlash(allSold);
       var delList = filterByFlash(allDel);
@@ -1603,6 +1589,7 @@
       });
       var la = document.getElementById('listAvail');
       la.innerHTML = ha;
+      console.log('✅ Tersedia rendered:', pageItems.length);
 
       renderPag('pagAvail', avail.length, currentPage, PER_PAGE, 'stockGoPage');
 
@@ -1743,8 +1730,10 @@
 
     // === LISTENER UTAMA ===
     onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
+      console.log('📦 Snapshot diterima, jumlah dokumen:', snap.size);
       POSTS = [];
       snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+      console.log('📦 Data POSTS length:', POSTS.length);
       var now = Date.now();
       POSTS.forEach(function(p) {
         if (p.discount === true && p.flashSaleEnd && now > toMs(p.flashSaleEnd)) {
