@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-    /* ===== CSS SAMA (tidak diubah) ===== */
+    /* ===== CSS SAMA SEPERTI SEBELUMNYA ===== */
     *{margin:0;padding:0;box-sizing:border-box}
     :root{--bg:#07070d;--bg-card:rgba(255,255,255,0.04);--bg-el:#0e0e18;--fg:#f0f0f5;--fg-dim:#c0c0d0;--muted:#6a6a82;--accent:#FFDD57;--accent-dim:rgba(255,221,87,0.15);--border:rgba(255,255,255,0.07);--r:14px;--rs:10px;--fd:'Space Grotesk',sans-serif;--fb:'DM Sans',sans-serif}
     html{scroll-behavior:smooth}
@@ -62,9 +62,6 @@
     .filter-flash-btn.active{background:#fb923c;color:#0a0a0f;border-color:#fb923c}
     .filter-flash-btn:hover{border-color:rgba(255,255,255,.15);color:var(--fg)}
     .filter-flash-btn i{font-size:.6rem}
-    .check-duplicate-btn{background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.2);color:#fb923c;padding:.3rem .7rem;border-radius:50px;font-size:.7rem;cursor:pointer;transition:all var(--transition);font-family:var(--fb);font-weight:500;display:inline-flex;align-items:center;gap:.3rem}
-    .check-duplicate-btn:hover{background:#fb923c;color:#0a0a0f;border-color:#fb923c}
-    .check-duplicate-btn i{font-size:.6rem}
     .sec-title{font-family:var(--fd);font-size:.95rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
     .sec-title i{color:var(--accent);font-size:.85rem}
     .sec-title .count{font-size:.68rem;padding:.15rem .5rem;border-radius:50px;background:var(--accent-dim);color:var(--accent);font-weight:600}
@@ -84,7 +81,6 @@
     .btn-primary{padding:.6rem 1.2rem;border-radius:8px;background:var(--accent);color:#0a0a0f;border:none;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem}
     .btn-primary:hover{box-shadow:0 4px 16px rgba(255,221,87,.3);transform:translateY(-1px)}
     .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-    .btn-secondary{background:var(--bg-card);color:var(--fg);border:1px solid var(--border)}.btn-secondary:hover{background:var(--border)}
     .form-msg{font-size:.78rem;padding:.5rem .75rem;border-radius:8px;margin-top:.6rem;display:none;align-items:center;gap:.35rem;animation:fadeUp .3s ease}
     .form-msg.show{display:flex}
     .form-msg.ok{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);color:#4ade80}
@@ -98,6 +94,7 @@
     .edit-card .ea .btn-save:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
     .edit-card .ea .btn-cancel{background:var(--bg-card);color:var(--muted);border:1px solid var(--border)}
     .edit-card .ea .btn-cancel:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
+    /* batch bar */
     .batch-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(255,221,87,.05);border:1px solid rgba(255,221,87,.12);border-radius:var(--rs);margin-bottom:.8rem;transition:all .3s ease;min-height:44px}
     .batch-bar.empty{opacity:.4;pointer-events:none}
     .batch-bar .bb-select-all{display:flex;align-items:center;gap:.3rem;font-size:.7rem;color:var(--muted);cursor:pointer;user-select:none}
@@ -114,10 +111,9 @@
     .batch-bar .bb-btn.bb-desc:hover:not(:disabled){background:#60a5fa;color:#0a0a0f}
     .batch-bar .bb-btn.bb-sold{background:rgba(248,113,113,.1);color:#f87171;border-color:rgba(248,113,113,.2)}
     .batch-bar .bb-btn.bb-sold:hover:not(:disabled){background:#f87171;color:#fff}
-    .batch-bar .bb-btn.bb-delete{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.2)}
-    .batch-bar .bb-btn.bb-delete:hover:not(:disabled){background:#ef4444;color:#fff}
     .batch-bar .bb-clear{background:none;border:none;color:var(--muted);font-size:.7rem;cursor:pointer;padding:.2rem .4rem;border-radius:4px;transition:all .2s}
     .batch-bar .bb-clear:hover{color:var(--fg);background:var(--bg-card)}
+    /* item tanpa tombol aksi */
     .item-wrap{display:flex;align-items:stretch;gap:.4rem;margin-bottom:.4rem}
     .item-wrap .item-check{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);transition:all .2s}
     .item-wrap .item-check input[type="checkbox"]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;border-radius:4px;background:rgba(255,255,255,.05);border:1px solid var(--border);transition:all .2s}
@@ -159,6 +155,7 @@
     .ii-status .timer{color:#f87171;font-family:var(--fd)}
     .ii-status .timer-remaining{color:#fb923c;font-family:var(--fd);font-weight:600}
     .item-actions{display:flex;gap:.2rem;flex-shrink:0;flex-wrap:nowrap}
+    /* tombol aksi yang tersisa: hanya untuk sold dan deleted */
     .btn-sm{padding:.25rem .4rem;border-radius:6px;font-family:var(--fb);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;min-width:28px;min-height:28px}
     .btn-sm i{font-size:.7rem}
     .btn-unsold{background:rgba(74,222,128,.1);color:#4ade80;border-color:rgba(74,222,128,.2)}.btn-unsold:hover{background:#4ade80;color:#0a0a0f}
@@ -207,33 +204,67 @@
     @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
     @keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    .batch-add-row{display:flex;gap:.5rem;align-items:flex-start;flex-wrap:wrap;padding:.5rem 0;border-bottom:1px solid var(--border)}
-    .batch-add-row .fr{flex:1;min-width:120px;margin-bottom:0}
-    .batch-add-row .fr label{font-size:.65rem}
-    .batch-add-row .fr select,.batch-add-row .fr input,.batch-add-row .fr textarea{font-size:.75rem;padding:.35rem .6rem}
-    .batch-add-row .remove-row{background:none;border:none;color:var(--muted);cursor:pointer;padding:.2rem .4rem;border-radius:4px;transition:all .2s;font-size:.8rem;align-self:center}
-    .batch-add-row .remove-row:hover{color:#f87171;background:rgba(248,113,113,.1)}
-    .batch-add-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
-    .btn-add-row{background:var(--bg-card);color:var(--fg);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:.75rem;cursor:pointer;transition:all .2s}
-    .btn-add-row:hover{background:var(--border)}
-    .btn-batch-add{background:var(--accent);color:#0a0a0f;border:none;padding:.4rem 1.2rem;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
-    .btn-batch-add:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
-    .btn-batch-add:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-    .add-mode-toggle{display:flex;gap:.3rem;margin-bottom:.5rem}
-    .add-mode-toggle button{padding:.3rem .9rem;border-radius:50px;background:var(--bg-card);border:1px solid var(--border);color:var(--muted);font-size:.75rem;font-weight:500;cursor:pointer;transition:all .2s}
-    .add-mode-toggle button.active{background:var(--accent);color:#0a0a0f;border-color:var(--accent)}
+    @media(max-width:768px){
+      .tabs{padding:0 .8rem;flex-wrap:wrap}.tab-btn{flex:1 1 auto;min-width:0;font-size:.62rem;padding:.6rem .3rem;border-right:1px solid var(--border)!important}
+      .tab-panel{padding:.8rem}
+      .topbar{padding:.5rem .8rem}.topbar-inner{justify-content:center}
+      .topbar-actions{justify-content:center}
+      .item-wrap .item-check{width:28px}
+      .item-wrap .item-check input[type="checkbox"]{width:14px;height:14px}
+      .item{gap:.4rem;padding:.5rem .5rem}
+      .item-thumb{width:48px;height:48px;border-radius:6px}
+      .item-thumb iframe{transform:scale(0.0889)}
+      .item-info .ii-desc{max-width:100px;font-size:.58rem}
+      .item-info .ii-link a{max-width:80px;font-size:.5rem}
+      .item-actions{gap:.15rem}
+      .btn-sm{padding:.2rem .3rem;font-size:.6rem;min-width:24px;min-height:24px}
+      .btn-sm i{font-size:.6rem}
+      .item-info .ii-price{font-size:.72rem}
+      .item-info .ii-status{font-size:.55rem}
+      .pagination{gap:.3rem}.pg-btn{padding:.25rem .5rem;font-size:.6rem;min-height:24px}.pg-info{font-size:.6rem;min-width:40px}
+      .oi-top{flex-direction:column}.oi-actions{width:100%;flex-wrap:wrap}
+      .oi-actions select{flex:1;min-width:0}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .order-item{padding:.6rem}
+      .oi-name{font-size:.72rem}
+      .oi-meta{font-size:.6rem;gap:.4rem}
+      .oi-customer{font-size:.58rem;gap:.4rem}
+      .fr select{font-size:.75rem;padding:.4rem .6rem}
+      .search-bar{flex-wrap:wrap;gap:.3rem}
+      .search-bar input{width:70px;font-size:.7rem}
+      .search-bar .search-result{font-size:.65rem;width:100%;text-align:center;margin-left:0}
+      .filter-flash-btn{font-size:.65rem;padding:.2rem .6rem}
+      .batch-bar{gap:.3rem;padding:.4rem .6rem;flex-wrap:wrap}
+      .batch-bar .bb-divider{display:none}
+      .batch-bar .bb-btn{font-size:.65rem;padding:.2rem .5rem}
+      .batch-bar .bb-count{font-size:.65rem}
+    }
+    @media(max-width:400px){
+      .item-thumb{width:40px;height:40px}
+      .item-thumb iframe{transform:scale(0.074)}
+      .item-info .ii-desc{max-width:70px}
+      .item-info .ii-link a{max-width:60px}
+      .btn-sm{padding:.15rem .25rem;font-size:.55rem;min-width:20px;min-height:20px}
+      .btn-sm i{font-size:.55rem}
+      .search-bar input{width:60px}
+      .item-wrap .item-check{width:24px}
+      .item-wrap .item-check input[type="checkbox"]{width:12px;height:12px}
+      .batch-bar .bb-btn{font-size:.6rem;padding:.15rem .4rem}
+      .batch-bar .bb-count{font-size:.6rem}
+    }
+    /* modal */
     .modal-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:1.5rem;animation:fadeUp .25s ease}
     .modal-overlay.active{display:flex}
-    .modal-box{background:var(--bg-el);border:1px solid var(--border);border-radius:var(--r);padding:2rem;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fadeUp .3s ease}
+    .modal-box{background:var(--bg-el);border:1px solid var(--border);border-radius:var(--r);padding:2rem;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.6);animation:fadeUp .3s ease}
     .modal-box h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
     .modal-box h3 i{color:var(--accent)}
-    .modal-box p{font-size:.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.5}
+    .modal-box p{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5}
     .modal-box .fr label{font-size:.72rem;font-weight:500;color:var(--muted);display:block;margin-bottom:.2rem}
     .modal-box .fr input,.modal-box .fr textarea{width:100%;padding:.6rem .85rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;color:var(--fg);font-family:var(--fb);font-size:.84rem;outline:none;transition:border-color .2s}
     .modal-box .fr input:focus,.modal-box .fr textarea:focus{border-color:var(--accent)}
     .modal-box .fr textarea{resize:vertical;min-height:80px}
-    .modal-box .modal-actions{display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
-    .modal-box .modal-actions button{flex:1;padding:.6rem;border-radius:8px;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-width:100px}
+    .modal-box .modal-actions{display:flex;gap:.5rem;margin-top:1.2rem}
+    .modal-box .modal-actions button{flex:1;padding:.6rem;border-radius:8px;font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s;border:none;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
     .modal-box .modal-actions .btn-confirm{background:var(--accent);color:#0a0a0f}
     .modal-box .modal-actions .btn-confirm:hover{box-shadow:0 4px 16px rgba(255,221,87,.3)}
     .modal-box .modal-actions .btn-confirm.danger{background:#f87171;color:#fff}
@@ -242,16 +273,6 @@
     .modal-box .modal-actions .btn-cancel-modal:hover{color:var(--fg);border-color:rgba(255,255,255,.15)}
     .modal-box .modal-count{font-size:.7rem;color:var(--muted);padding:.2rem .5rem;background:var(--bg-card);border-radius:50px;display:inline-block;margin-bottom:.8rem}
     .modal-box .modal-count strong{color:var(--accent)}
-    .dup-item{display:flex;align-items:center;gap:.5rem;padding:.3rem .5rem;border-bottom:1px solid var(--border);font-size:.75rem;flex-wrap:wrap}
-    .dup-item .dup-url{flex:1;word-break:break-all;color:var(--fg-dim)}
-    .dup-item .dup-id{font-family:var(--fd);font-size:.6rem;color:var(--muted)}
-    .dup-item .dup-status{font-size:.6rem;font-weight:600;padding:.05rem .4rem;border-radius:50px;background:var(--bg-card)}
-    .dup-item .dup-status.available{background:rgba(74,222,128,.1);color:#4ade80}
-    .dup-item .dup-status.sold{background:rgba(248,113,113,.1);color:#f87171}
-    .dup-item .dup-status.deleted{background:rgba(255,255,255,.05);color:var(--muted)}
-    .dup-item .dup-del-btn{background:none;border:none;color:#f87171;cursor:pointer;padding:.1rem .3rem;border-radius:4px;transition:all .2s;font-size:.7rem}
-    .dup-item .dup-del-btn:hover{background:rgba(248,113,113,.2)}
-    @media(max-width:768px){.batch-add-row{flex-direction:column;gap:.3rem}.batch-add-row .fr{min-width:100%}.modal-box{padding:1.2rem}}
   </style>
 </head>
 <body>
@@ -292,7 +313,7 @@
       <!-- STATS -->
       <div class="stats" id="stockStats"></div>
 
-      <!-- SEARCH BAR + FILTER FLASH SALE + CEK DUPLIKAT -->
+      <!-- SEARCH BAR + FILTER FLASH SALE -->
       <div class="search-bar">
         <label><i class="fas fa-search"></i> Cari Harga (Tersedia):</label>
         <input type="number" id="searchPriceMin" placeholder="Min" min="0" step="1000" oninput="applyPriceFilter()" />
@@ -303,67 +324,43 @@
         <button class="filter-flash-btn" id="flashFilterBtn" onclick="toggleFlashFilter()">
           <i class="fas fa-bolt"></i> Flash Sale
         </button>
-        <button class="check-duplicate-btn" onclick="checkDuplicates()">
-          <i class="fas fa-copy"></i> Cek Duplikat
-        </button>
       </div>
 
-      <!-- ===== FORM TAMBAH (SATUAN & BATCH) ===== -->
+      <!-- FORM TAMBAH -->
       <div class="form-card">
-        <div class="add-mode-toggle">
-          <button class="active" id="modeSingleBtn" onclick="setAddMode('single')"><i class="fas fa-plus"></i> Satuan</button>
-          <button id="modeBatchBtn" onclick="setAddMode('batch')"><i class="fas fa-layer-group"></i> Batch</button>
+        <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru</h4>
+        <div class="fr">
+          <label>Link Post Instagram</label>
+          <input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/" />
+          <div class="hint"><i class="fas fa-info-circle"></i> Buka post → 3 titik → Copy Link</div>
         </div>
-
-        <!-- Mode Satuan -->
-        <div id="addSingleMode">
-          <h4><i class="fas fa-plus-circle"></i> Tambah Stock Baru (Satuan)</h4>
-          <div class="fr">
-            <label>Link Post Instagram</label>
-            <input type="text" id="addUrl" placeholder="https://www.instagram.com/p/XXXXXX/" />
-            <div class="hint"><i class="fas fa-info-circle"></i> Buka post → 3 titik → Copy Link</div>
-          </div>
-          <div class="fr">
-            <label>Harga</label>
-            <select id="addPriceSelect" onchange="updatePriceInput()">
-              <option value="Rp 2.000">Rp 2.000</option>
-              <option value="Rp 3.000" selected>Rp 3.000</option>
-              <option value="Rp 4.000">Rp 4.000</option>
-              <option value="Rp 5.000">Rp 5.000</option>
-              <option value="Rp 10.000">Rp 10.000</option>
-              <option value="Rp 15.000">Rp 15.000</option>
-              <option value="Rp 20.000">Rp 20.000</option>
-              <option value="custom">✏️ Custom</option>
-            </select>
-            <input type="text" id="addPrice" placeholder="Rp 3.000" style="margin-top:0.3rem;display:none;" />
-          </div>
-          <div class="fr">
-            <label>Keterangan / Caption</label>
-            <select id="addDescSelect" onchange="updateDescInput()">
-              <option value="1" selected>🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)</option>
-              <option value="2">🔥 + Alis+Kaliper On + Velg Bakar/Chrome</option>
-              <option value="3">🔥 + Nama (Optional)</option>
-              <option value="4">🔥 + Sirine</option>
-              <option value="custom">✏️ Custom</option>
-            </select>
-            <textarea id="addDesc" rows="3" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea>
-          </div>
-          <div class="form-msg" id="addMsg"></div>
-          <button class="btn-primary" id="addBtn" onclick="addStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
+        <div class="fr">
+          <label>Harga</label>
+          <select id="addPriceSelect" onchange="updatePriceInput()">
+            <option value="Rp 2.000">Rp 2.000</option>
+            <option value="Rp 3.000" selected>Rp 3.000</option>
+            <option value="Rp 5.000">Rp 4.000</option>
+            <option value="Rp 5.000">Rp 5.000</option>
+            <option value="Rp 10.000">Rp 10.000</option>
+            <option value="Rp 15.000">Rp 15.000</option>
+            <option value="Rp 20.000">Rp 20.000</option>
+            <option value="custom">✏️ Custom</option>
+          </select>
+          <input type="text" id="addPrice" placeholder="Rp 3.000" style="margin-top:0.3rem;display:none;" />
         </div>
-
-        <!-- Mode Batch -->
-        <div id="addBatchMode" style="display:none">
-          <h4><i class="fas fa-layer-group"></i> Tambah Stock Batch</h4>
-          <p style="font-size:.75rem;color:var(--muted);margin-bottom:.8rem;">Isi setiap baris dengan link, harga, dan deskripsi. Baris kosong akan diabaikan.</p>
-          <div id="batchRowsContainer"></div>
-          <div class="batch-add-actions">
-            <button class="btn-add-row" onclick="addBatchRow()"><i class="fas fa-plus"></i> Tambah Baris</button>
-            <button class="btn-batch-add" id="batchAddBtn" onclick="batchAddStock()"><i class="fas fa-check"></i> Tambah Semua</button>
-            <span style="font-size:.7rem;color:var(--muted);margin-left:.5rem;" id="batchAddStatus"></span>
-          </div>
-          <div class="form-msg" id="batchAddMsg"></div>
+        <div class="fr">
+          <label>Keterangan / Caption</label>
+          <select id="addDescSelect" onchange="updateDescInput()">
+            <option value="1" selected>🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)</option>
+            <option value="2">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome</option>
+            <option value="3">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional)</option>
+            <option value="4">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional) + Sirine</option>
+            <option value="custom">✏️ Custom</option>
+          </select>
+          <textarea id="addDesc" rows="3" placeholder="Nama mobil, jenis layanan, keterangan..."></textarea>
         </div>
+        <div class="form-msg" id="addMsg"></div>
+        <button class="btn-primary" id="addBtn" onclick="addStock()"><i class="fas fa-plus"></i> Tambah Stock</button>
       </div>
 
       <!-- EDIT HARGA (Batch) -->
@@ -400,9 +397,6 @@
         </button>
         <button class="bb-btn bb-sold" id="batchSoldBtn" onclick="batchMarkSold()" disabled>
           <i class="fas fa-tag"></i> Tandai Terjual
-        </button>
-        <button class="bb-btn bb-delete" id="batchDeleteBtn" onclick="batchDelete()" disabled>
-          <i class="fas fa-trash"></i> Hapus
         </button>
         <button class="bb-clear" onclick="clearAllSelected()" title="Hapus semua pilihan">
           <i class="fas fa-times"></i>
@@ -460,7 +454,7 @@
     </div>
   </div>
 
-  <!-- ===== MODAL BATCH EDIT ===== -->
+  <!-- ===== BATCH MODAL ===== -->
   <div class="modal-overlay" id="batchModal">
     <div class="modal-box">
       <h3 id="modalTitle"><i class="fas fa-pen"></i> Batch Edit</h3>
@@ -478,21 +472,6 @@
     </div>
   </div>
 
-  <!-- ===== MODAL DUPLIKAT ===== -->
-  <div class="modal-overlay" id="duplicateModal">
-    <div class="modal-box">
-      <h3><i class="fas fa-copy"></i> Cek Duplikat</h3>
-      <p id="dupDesc">Memindai data... </p>
-      <div id="dupList" style="max-height:300px;overflow-y:auto;"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel-modal" onclick="closeDuplicateModal()"><i class="fas fa-times"></i> Tutup</button>
-        <button class="btn-confirm danger" id="dupDeleteAllBtn" onclick="deleteAllDuplicates()" style="display:none">
-          <i class="fas fa-trash"></i> Hapus Semua Duplikat (kecuali 1)
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- ===== TOAST ===== -->
   <div class="toast-wrap" id="toasts"></div>
 
@@ -504,7 +483,6 @@
     var PASS = 'bajingan011';
     var sosmedFilter = 'all';
     var sosmedOrders = [];
-    var addMode = 'single';
 
     var DESC_TEMPLATES = {
       '1': '🔥 Gratis Request Spek Mesinnya (Tune Up, FFA, atau Glitch) ‼️',
@@ -563,7 +541,6 @@
       return '<iframe src="https://www.instagram.com/p/' + code + '/embed/" allowtransparency="true" scrolling="no" frameborder="0"></iframe>';
     };
 
-    // ---- Update Price & Desc untuk Satuan ----
     window.updatePriceInput = function() {
       var select = document.getElementById('addPriceSelect');
       var input = document.getElementById('addPrice');
@@ -577,6 +554,7 @@
         input.value = select.value;
       }
     };
+
     window.updateDescInput = function() {
       var select = document.getElementById('addDescSelect');
       var textarea = document.getElementById('addDesc');
@@ -589,242 +567,16 @@
       }
     };
 
-    // ---- Fungsi untuk Batch Add ----
-    function createBatchRow(initialUrl, initialPrice, initialDesc) {
-      var row = document.createElement('div');
-      row.className = 'batch-add-row';
-      row.innerHTML = `
-        <div class="fr"><label>Link Instagram</label><input type="text" class="batch-url" placeholder="https://www.instagram.com/p/..." value="${esc(initialUrl||'')}" /></div>
-        <div class="fr"><label>Harga</label>
-          <select class="batch-price-select" onchange="batchPriceSelectChange(this)">
-            <option value="Rp 2.000">Rp 2.000</option>
-            <option value="Rp 3.000" ${initialPrice==='Rp 3.000'?'selected':''}>Rp 3.000</option>
-            <option value="Rp 4.000">Rp 4.000</option>
-            <option value="Rp 5.000" ${initialPrice==='Rp 5.000'?'selected':''}>Rp 5.000</option>
-            <option value="Rp 10.000">Rp 10.000</option>
-            <option value="Rp 15.000">Rp 15.000</option>
-            <option value="Rp 20.000">Rp 20.000</option>
-            <option value="custom">✏️ Custom</option>
-          </select>
-          <input type="text" class="batch-price-custom" placeholder="Custom harga..." style="margin-top:0.2rem;display:none;" value="${esc(initialPrice||'')}" />
-        </div>
-        <div class="fr"><label>Deskripsi</label>
-          <select class="batch-desc-select" onchange="batchDescSelectChange(this)">
-            <option value="1" ${initialDesc===DESC_TEMPLATES['1']?'selected':''}>🔥 Gratis Request Spek Mesin</option>
-            <option value="2" ${initialDesc===DESC_TEMPLATES['2']?'selected':''}>🔥 + Alis+Kaliper+Velg</option>
-            <option value="3" ${initialDesc===DESC_TEMPLATES['3']?'selected':''}>🔥 + Nama</option>
-            <option value="4" ${initialDesc===DESC_TEMPLATES['4']?'selected':''}>🔥 + Sirine</option>
-            <option value="custom" ${!DESC_TEMPLATES['1']&&!DESC_TEMPLATES['2']&&!DESC_TEMPLATES['3']&&!DESC_TEMPLATES['4']?'selected':''}>✏️ Custom</option>
-          </select>
-          <textarea class="batch-desc-custom" rows="2" placeholder="Deskripsi custom..." style="margin-top:0.2rem;display:none;">${esc(initialDesc||'')}</textarea>
-          <textarea class="batch-desc" rows="2" placeholder="Nama mobil, layanan...">${esc(initialDesc||'')}</textarea>
-        </div>
-        <button class="remove-row" onclick="this.parentElement.remove()" title="Hapus baris"><i class="fas fa-times"></i></button>
-      `;
-      var descSelect = row.querySelector('.batch-desc-select');
-      var descTextarea = row.querySelector('.batch-desc');
-      var descCustom = row.querySelector('.batch-desc-custom');
-      if (descSelect.value === 'custom') {
-        descTextarea.style.display = 'none';
-        descCustom.style.display = 'block';
-      } else {
-        descTextarea.style.display = 'block';
-        descCustom.style.display = 'none';
-        descTextarea.value = DESC_TEMPLATES[descSelect.value] || '';
-      }
-      var priceSelect = row.querySelector('.batch-price-select');
-      var priceCustom = row.querySelector('.batch-price-custom');
-      if (priceSelect.value === 'custom') {
-        priceCustom.style.display = 'block';
-      } else {
-        priceCustom.style.display = 'none';
-        priceCustom.value = priceSelect.value;
-      }
-      return row;
-    }
-
-    window.batchPriceSelectChange = function(select) {
-      var row = select.closest('.batch-add-row');
-      var custom = row.querySelector('.batch-price-custom');
-      if (select.value === 'custom') {
-        custom.style.display = 'block';
-        custom.value = '';
-        custom.focus();
-      } else {
-        custom.style.display = 'none';
-        custom.value = select.value;
-      }
-    };
-    window.batchDescSelectChange = function(select) {
-      var row = select.closest('.batch-add-row');
-      var desc = row.querySelector('.batch-desc');
-      var custom = row.querySelector('.batch-desc-custom');
-      if (select.value === 'custom') {
-        desc.style.display = 'none';
-        custom.style.display = 'block';
-        custom.value = '';
-        custom.focus();
-      } else {
-        custom.style.display = 'none';
-        desc.style.display = 'block';
-        desc.value = DESC_TEMPLATES[select.value] || '';
-      }
-    };
-
-    function addBatchRow(url, price, desc) {
-      var container = document.getElementById('batchRowsContainer');
-      var row = createBatchRow(url, price, desc);
-      container.appendChild(row);
-    }
-
-    function initBatchRows() {
-      var container = document.getElementById('batchRowsContainer');
-      container.innerHTML = '';
-      for (var i = 0; i < 5; i++) addBatchRow();
-    }
-
-    // ---- Toggle Mode ----
-    window.setAddMode = function(mode) {
-      addMode = mode;
-      document.getElementById('modeSingleBtn').classList.toggle('active', mode === 'single');
-      document.getElementById('modeBatchBtn').classList.toggle('active', mode === 'batch');
-      document.getElementById('addSingleMode').style.display = mode === 'single' ? '' : 'none';
-      document.getElementById('addBatchMode').style.display = mode === 'batch' ? '' : 'none';
-      if (mode === 'batch' && document.getElementById('batchRowsContainer').children.length === 0) {
-        initBatchRows();
-      }
-    };
-
-    // ---- Batch Add Submit ----
-    window.batchAddStock = async function() {
-      var btn = document.getElementById('batchAddBtn');
-      var status = document.getElementById('batchAddStatus');
-      var msg = document.getElementById('batchAddMsg');
-      msg.className = 'form-msg';
-      msg.style.display = 'none';
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-      status.textContent = '';
-
-      var rows = document.querySelectorAll('#batchRowsContainer .batch-add-row');
-      var validItems = [];
-      var duplicateCodes = new Set();
-
-      rows.forEach(function(row) {
-        var url = row.querySelector('.batch-url').value.trim();
-        if (!url) return;
-        var priceSelect = row.querySelector('.batch-price-select');
-        var priceCustom = row.querySelector('.batch-price-custom');
-        var price = priceSelect.value === 'custom' ? priceCustom.value.trim() : priceSelect.value;
-        if (!price) return;
-        var descSelect = row.querySelector('.batch-desc-select');
-        var descTextarea = row.querySelector('.batch-desc');
-        var descCustom = row.querySelector('.batch-desc-custom');
-        var desc = descSelect.value === 'custom' ? descCustom.value.trim() : descTextarea.value.trim();
-        if (!desc) return;
-        var code = window.getIgCode(url);
-        if (!code) return;
-        if (duplicateCodes.has(code)) return;
-        duplicateCodes.add(code);
-        validItems.push({ url: url, price: price, desc: desc });
-      });
-
-      if (!validItems.length) {
-        msg.className = 'form-msg err show';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Tidak ada data valid.';
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-check"></i> Tambah Semua';
-        return;
-      }
-
-      var existingCodes = new Set();
-      if (window.POSTS) {
-        window.POSTS.forEach(function(p) {
-          var c = window.getIgCode(p.url);
-          if (c) existingCodes.add(c);
-        });
-      }
-      var duplicates = validItems.filter(function(item) {
-        var code = window.getIgCode(item.url);
-        return existingCodes.has(code);
-      });
-      if (duplicates.length) {
-        msg.className = 'form-msg err show';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + duplicates.length +
-          ' item memiliki link yang sudah ada.';
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-check"></i> Tambah Semua';
-        return;
-      }
-
-      var success = 0,
-        errors = 0;
-      for (var i = 0; i < validItems.length; i++) {
-        var item = validItems[i];
-        try {
-          await window.addSingleStock(item.url, item.price, item.desc);
-          success++;
-        } catch (err) {
-          errors++;
-          console.error('Gagal:', item.url, err);
-        }
-        status.textContent = 'Memproses ' + (i + 1) + '/' + validItems.length + ' ...';
-      }
-
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-check"></i> Tambah Semua';
-      status.textContent = '';
-      if (errors === 0) {
-        msg.className = 'form-msg ok show';
-        msg.innerHTML = '<i class="fas fa-check-circle"></i> Berhasil menambahkan ' + success + ' stock.';
-        document.querySelectorAll('#batchRowsContainer .batch-add-row').forEach(function(row) {
-          row.querySelector('.batch-url').value = '';
-          row.querySelector('.batch-price-select').value = 'Rp 3.000';
-          row.querySelector('.batch-price-custom').value = '';
-          row.querySelector('.batch-price-custom').style.display = 'none';
-          row.querySelector('.batch-desc-select').value = '1';
-          row.querySelector('.batch-desc').value = DESC_TEMPLATES['1'];
-          row.querySelector('.batch-desc-custom').value = '';
-          row.querySelector('.batch-desc-custom').style.display = 'none';
-          row.querySelector('.batch-desc').style.display = 'block';
-        });
-        var currentRows = document.querySelectorAll('#batchRowsContainer .batch-add-row').length;
-        while (currentRows < 5) { addBatchRow();
-          currentRows++; }
-      } else {
-        msg.className = 'form-msg err show';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + errors +
-          ' item gagal. Cek konsol.';
-      }
-      setTimeout(function() { msg.style.display = 'none' }, 5000);
-    };
-
-    window.addSingleStock = function(url, price, desc) {
-      return new Promise(async function(resolve, reject) {
-        try {
-          var code = window.getIgCode(url);
-          if (!code) { reject(new Error('Link tidak valid')); return; }
-          if (window.POSTS && window.POSTS.some(function(p) { return window.getIgCode(p.url) === code })) {
-            reject(new Error('Link sudah ada'));
-            return;
-          }
-          await window.addDocToFirestore(url, price, desc);
-          resolve();
-        } catch (err) { reject(err); }
-      });
-    };
-    window.addDocToFirestore = null;
-
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('addPriceSelect').value = 'Rp 3.000';
+      var priceSelect = document.getElementById('addPriceSelect');
+      priceSelect.value = 'Rp 3.000';
       document.getElementById('addPrice').value = 'Rp 3.000';
       document.getElementById('addPrice').style.display = 'none';
-      document.getElementById('addDescSelect').value = '1';
+      var descSelect = document.getElementById('addDescSelect');
+      descSelect.value = '1';
       document.getElementById('addDesc').value = DESC_TEMPLATES['1'];
-      setAddMode('single');
     });
 
-    // ===== SOSMED FUNCTIONS =====
     window.renderSosmedOrders = function(orders) { sosmedOrders = orders || [];
       renderSosmedStats();
       renderSosmedFilter();
@@ -907,7 +659,7 @@
   </script>
 
   <!-- ============================================================ -->
-  <!-- MODULE 1: Firebase — Stock Mobil dengan BATCH EDIT & BATCH ADD & BATCH DELETE & DUPLIKAT -->
+  <!-- MODULE 1: Firebase — Stock Mobil dengan BATCH EDIT            -->
   <!-- ============================================================ -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
@@ -921,23 +673,6 @@
       editIdx = null,
       soldTimer = null;
     var editDescIdx = null;
-
-    // === EKSPOS addDoc ke window untuk batch add ===
-    window.addDocToFirestore = async function(url, price, desc) {
-      await addDoc(collection(db, "carStock"), {
-        url: url,
-        price: price,
-        desc: desc,
-        addedAt: Date.now(),
-        status: "available",
-        soldAt: null,
-        editedPrice: "",
-        discount: false,
-        discountedPrice: "",
-        flashSaleEnd: null,
-        originalPrice: ""
-      });
-    };
 
     // === BATCH SELECTION STATE ===
     var selectedItems = new Set();
@@ -1102,12 +837,10 @@
       var priceBtn = document.getElementById('batchPriceBtn');
       var descBtn = document.getElementById('batchDescBtn');
       var soldBtn = document.getElementById('batchSoldBtn');
-      var deleteBtn = document.getElementById('batchDeleteBtn');
       var disabled = count === 0;
       priceBtn.disabled = disabled;
       descBtn.disabled = disabled;
       soldBtn.disabled = disabled;
-      deleteBtn.disabled = disabled;
 
       if (total > 0) {
         checkAll.checked = (count === total);
@@ -1123,12 +856,14 @@
     // === EKSPOS FUNGSI KE WINDOW ===
     window.toggleItemSelection = function(id) {
       if (selectedItems.has(id)) { selectedItems.delete(id); } else { selectedItems.add(id); }
+      // update visual checkbox
       var wrap = document.querySelector('.item-wrap[data-id="' + id + '"]');
       if (wrap) {
         var cb = wrap.querySelector('.item-check input[type="checkbox"]');
         if (cb) { cb.checked = selectedItems.has(id); }
         wrap.classList.toggle('selected', selectedItems.has(id));
       }
+      // update select all
       var avail = getAvailableItems();
       var checkAll = document.getElementById('selectAllCheck');
       if (avail.length > 0) {
@@ -1219,7 +954,7 @@
         var val = input.value.trim();
         if (!val) { toast('Harga tidak boleh kosong.', 'err'); return }
         var num = parsePriceFromString(val);
-        if (num === 0 && val !== '0') { toast('Format harga tidak valid.', 'err'); return }
+        if (num === 0 && val !== '0') { toast('Format harga tidak valid. Contoh: Rp 15.000 atau 15000', 'err'); return }
         var formatted = 'Rp ' + num.toLocaleString('id-ID');
         batchUpdatePrice(selected, formatted);
       } else if (batchActionType === 'desc') {
@@ -1320,45 +1055,6 @@
       }
     }
 
-    // ===== BATCH DELETE (HAPUS LANGSUNG KE DELETED) =====
-    window.batchDelete = function() {
-      var selected = getSelectedAvailableItems();
-      if (selected.length === 0) { toast('Pilih item terlebih dahulu.', 'err'); return }
-      var names = selected.map(function(p) { return firstLine(p.desc) }).slice(0, 5);
-      var more = selected.length > 5 ? ' (+' + (selected.length - 5) + ' lainnya)' : '';
-      var msg = 'Hapus ' + selected.length + ' item (pindahkan ke Dihapus)?\n\n' + names.join('\n') + more;
-      if (!confirm(msg)) return;
-      batchDeleteConfirm(selected);
-    };
-
-    async function batchDeleteConfirm(items) {
-      var btn = document.getElementById('batchDeleteBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
-      try {
-        var count = 0;
-        for (var item of items) {
-          await updateDoc(doc(db, "carStock", item.id), {
-            status: 'deleted',
-            soldAt: null,
-            discount: false,
-            discountedPrice: "",
-            flashSaleEnd: null
-          });
-          count++;
-        }
-        toast('🗑️ ' + count + ' item dihapus', 'err');
-        selectedItems.clear();
-        renderStock();
-        updateBatchBar();
-      } catch (err) {
-        toast('Gagal: ' + err.message, 'err');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-trash"></i> Hapus';
-      }
-    }
-
     // ===== BATCH BUTTON HANDLERS =====
     window.batchEditPrice = function() {
       var selected = getSelectedAvailableItems();
@@ -1389,131 +1085,16 @@
     window.batchMarkSold = function() {
       var selected = getSelectedAvailableItems();
       if (selected.length === 0) { toast('Pilih item terlebih dahulu.', 'err'); return }
+      // langsung konfirmasi karena sold tidak butuh input
       batchMarkSoldConfirm(selected);
-    };
-
-    // ===== CEK DUPLIKAT =====
-    window.checkDuplicates = function() {
-      var modal = document.getElementById('duplicateModal');
-      var list = document.getElementById('dupList');
-      var desc = document.getElementById('dupDesc');
-      var deleteAllBtn = document.getElementById('dupDeleteAllBtn');
-
-      var allItems = POSTS;
-      var codeMap = {};
-      allItems.forEach(function(p) {
-        var code = window.getIgCode(p.url);
-        if (!code) return;
-        if (!codeMap[code]) codeMap[code] = [];
-        codeMap[code].push(p);
-      });
-
-      var duplicates = Object.keys(codeMap).filter(function(code) { return codeMap[code].length > 1 });
-      if (duplicates.length === 0) {
-        desc.textContent = '✅ Tidak ditemukan duplikat. Semua link unik.';
-        list.innerHTML = '';
-        deleteAllBtn.style.display = 'none';
-        modal.classList.add('active');
-        return;
-      }
-
-      desc.textContent = '⚠️ Ditemukan ' + duplicates.length + ' grup duplikat. Total item duplikat: ' +
-        duplicates.reduce(function(sum, code) { return sum + codeMap[code].length }, 0);
-      var html = '';
-      duplicates.forEach(function(code) {
-        var items = codeMap[code];
-        html += '<div style="margin-bottom:.5rem;border-left:2px solid #fb923c;padding-left:.5rem;">';
-        html += '<div style="font-size:.65rem;color:var(--muted);font-family:var(--fd);">🔗 ' + esc(code) +
-          '</div>';
-        items.forEach(function(p) {
-          var statusClass = p.status || 'available';
-          html += '<div class="dup-item">' +
-            '<span class="dup-id">' + esc(p.id.substring(0, 6)) + '</span>' +
-            '<span class="dup-url"><a href="' + esc(p.url) + '" target="_blank" style="color:var(--accent);">' +
-            esc(window.shortIgUrl(p.url)) + '</a></span>' +
-            '<span class="dup-status ' + statusClass + '">' + statusClass + '</span>' +
-            (p.status === 'available' ? '<button class="dup-del-btn" data-id="' + p.id +
-              '" onclick="deleteSingleDuplicate(\'' + p.id + '\')"><i class="fas fa-trash"></i></button>' :
-              '') +
-            '</div>';
-        });
-        html += '</div>';
-      });
-      list.innerHTML = html;
-      deleteAllBtn.style.display = 'inline-flex';
-      deleteAllBtn.onclick = function() { deleteAllDuplicates(codeMap) };
-      modal.classList.add('active');
-    };
-
-    window.closeDuplicateModal = function() {
-      document.getElementById('duplicateModal').classList.remove('active');
-    };
-
-    window.deleteSingleDuplicate = async function(id) {
-      if (!confirm('Hapus item ini?')) return;
-      try {
-        await updateDoc(doc(db, "carStock", id), { status: 'deleted', soldAt: null, discount: false,
-          discountedPrice: "", flashSaleEnd: null });
-        toast('Item dihapus', 'err');
-        window.checkDuplicates();
-      } catch (err) { toast('Gagal: ' + err.message, 'err') }
-    };
-
-    window.deleteAllDuplicates = function(codeMap) {
-      if (!codeMap) {
-        var allItems = POSTS;
-        var tempMap = {};
-        allItems.forEach(function(p) {
-          var code = window.getIgCode(p.url);
-          if (!code) return;
-          if (!tempMap[code]) tempMap[code] = [];
-          tempMap[code].push(p);
-        });
-        codeMap = tempMap;
-      }
-      var toDelete = [];
-      Object.keys(codeMap).forEach(function(code) {
-        var items = codeMap[code];
-        if (items.length <= 1) return;
-        items.sort(function(a, b) { return toMs(a.addedAt) - toMs(b.addedAt) });
-        for (var i = 1; i < items.length; i++) {
-          if (items[i].status === 'available') {
-            toDelete.push(items[i].id);
-          }
-        }
-      });
-      if (toDelete.length === 0) { toast('Tidak ada duplikat yang bisa dihapus.', 'info');
-        window.closeDuplicateModal(); return }
-      if (!confirm('Hapus ' + toDelete.length + ' item duplikat?')) return;
-      var btn = document.getElementById('dupDeleteAllBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
-      var success = 0,
-        errors = 0;
-      for (var id of toDelete) {
-        try {
-          await updateDoc(doc(db, "carStock", id), { status: 'deleted', soldAt: null, discount: false,
-            discountedPrice: "", flashSaleEnd: null });
-          success++;
-        } catch (err) { errors++;
-          console.error(err) }
-      }
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-trash"></i> Hapus Semua Duplikat (kecuali 1)';
-      if (errors === 0) { toast('🗑️ ' + success + ' duplikat dihapus', 'err');
-        window.closeDuplicateModal();
-        renderStock(); } else { toast('Gagal menghapus ' + errors + ' item', 'err') }
     };
 
     // ===== RENDER STOCK =====
     function renderStock() {
-      console.log('🔄 renderStock() dipanggil, POSTS length:', POSTS.length);
       var PER_PAGE = getPerPage();
       var allAvail = POSTS.filter(p => p.status === 'available');
       var allSold = POSTS.filter(p => p.status === 'sold');
       var allDel = POSTS.filter(p => p.status === 'deleted');
-
-      console.log('📊 Tersedia:', allAvail.length, 'Terjual:', allSold.length, 'Dihapus:', allDel.length);
 
       var soldList = filterByFlash(allSold);
       var delList = filterByFlash(allDel);
@@ -1571,6 +1152,7 @@
         var timerHtml = flashTimer ? ' <span class="timer-remaining">' + flashTimer + '</span>' : '';
         var checked = selectedItems.has(p.id) ? 'checked' : '';
 
+        // HAPUS TOMBOL AKSI PER ITEM (hanya checkbox + item info)
         ha += '<div class="item-wrap' + (selectedItems.has(p.id) ? ' selected' : '') + '" data-id="' + p.id +
           '">' +
           '<div class="item-check"><input type="checkbox" ' + checked +
@@ -1589,7 +1171,6 @@
       });
       var la = document.getElementById('listAvail');
       la.innerHTML = ha;
-      console.log('✅ Tersedia rendered:', pageItems.length);
 
       renderPag('pagAvail', avail.length, currentPage, PER_PAGE, 'stockGoPage');
 
@@ -1654,6 +1235,7 @@
           restorePost(btn.getAttribute('data-id')) }) });
       renderPag('pagDel', delList.length, deletedPage, PER_PAGE, 'deletedGoPage');
 
+      // update batch bar after render
       updateBatchBar();
     }
 
@@ -1696,7 +1278,19 @@
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
       try {
-        await window.addDocToFirestore(url, price, desc);
+        await addDoc(collection(db, "carStock"), {
+          url: url,
+          price: price,
+          desc: desc,
+          addedAt: Date.now(),
+          status: "available",
+          soldAt: null,
+          editedPrice: "",
+          discount: false,
+          discountedPrice: "",
+          flashSaleEnd: null,
+          originalPrice: ""
+        });
         msg.className = 'form-msg ok show';
         msg.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
         document.getElementById('addUrl').value = '';
@@ -1715,6 +1309,8 @@
         btn.innerHTML = '<i class="fas fa-plus"></i> Tambah Stock' }
     };
 
+    // ─── fungsi edit harga & desc hanya untuk batch, tidak digunakan per item ───
+    // (tetapi masih dipanggil dari batch modal, tidak ada tombol per item)
     async function toggleSold(docId, sold) { try { if (sold) { await updateDoc(doc(db, "carStock", docId), { status: 'sold',
             soldAt: Date.now(), discount: false, discountedPrice: "", flashSaleEnd: null });
           toast('Ditandai terjual', 'info') } else { await updateDoc(doc(db, "carStock", docId), { status: 'available',
@@ -1724,16 +1320,22 @@
     async function restorePost(docId) { try { await updateDoc(doc(db, "carStock", docId), { status: 'available' });
         toast('Stock dipulihkan', 'ok') } catch (err) { toast('Gagal: ' + err.message, 'err') } }
 
+    // === FUNGSI EDIT HARGA DAN DESKRIPSI (BATCH) TETAP ADA ===
+    // tetapi tidak ada tombol per item, hanya dipanggil dari batch modal
+    // dan dari editCard yang muncul saat batch? Sebenarnya editCard hanya untuk single item, tapi kita tidak punya tombol single.
+    // Namun kita pertahankan editCard untuk kemungkinan jika ada panggilan lain, tapi tombolnya tidak ada.
+    // Kita bisa hapus fungsi startEdit dan startEditDesc karena tidak digunakan, tetapi biarkan agar tidak error jika ada kode lain.
+
+    // (Fungsi startEdit dan startEditDesc tidak dipanggil, jadi aman)
+
     var resizeTimer;
     window.addEventListener('resize', function() { clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function() { renderStock() }, 300) });
 
     // === LISTENER UTAMA ===
     onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
-      console.log('📦 Snapshot diterima, jumlah dokumen:', snap.size);
       POSTS = [];
       snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
-      console.log('📦 Data POSTS length:', POSTS.length);
       var now = Date.now();
       POSTS.forEach(function(p) {
         if (p.discount === true && p.flashSaleEnd && now > toMs(p.flashSaleEnd)) {
@@ -1747,6 +1349,7 @@
           }
         }
       });
+      // clean up selected items that no longer exist
       var existingIds = new Set(POSTS.map(p => p.id));
       for (var id of selectedItems) {
         if (!existingIds.has(id)) selectedItems.delete(id);
