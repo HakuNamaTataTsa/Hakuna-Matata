@@ -1469,6 +1469,34 @@
             .batch-bar .bb-count {
                 font-size: .65rem
             }
+            /* batch modal responsive */
+            .batch-input-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap
+            }
+            .batch-input-table td,
+            .batch-input-table th {
+                padding: .3rem .2rem;
+                min-width: 80px
+            }
+            .batch-input-table td:last-child,
+            .batch-input-table th:last-child {
+                min-width: 40px
+            }
+            .batch-input-table .batch-url {
+                min-width: 120px
+            }
+            .batch-input-table .batch-price select {
+                min-width: 70px;
+                font-size: .7rem;
+                padding: .2rem
+            }
+            .batch-input-table .batch-desc textarea {
+                min-width: 80px;
+                font-size: .7rem;
+                padding: .2rem
+            }
         }
         @media(max-width:400px) {
             .item-thumb {
@@ -1532,7 +1560,7 @@
             border: 1px solid var(--border);
             border-radius: var(--r);
             padding: 2rem;
-            max-width: 600px;
+            max-width: 900px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
             animation: fadeUp .3s ease;
@@ -1585,10 +1613,7 @@
         }
         .modal-box .fr textarea {
             resize: vertical;
-            min-height: 100px;
-            font-family: monospace;
-            font-size: .78rem;
-            line-height: 1.6
+            min-height: 60px
         }
         .modal-box .fr select {
             appearance: auto;
@@ -1649,83 +1674,185 @@
         .modal-box .modal-count strong {
             color: var(--accent)
         }
-        .batch-preview {
-            margin-top: .8rem;
-            border: 1px solid var(--border);
-            border-radius: var(--rs);
-            overflow: hidden;
-            max-height: 200px;
-            overflow-y: auto
-        }
-        .batch-preview table {
+        /* batch input table */
+        .batch-input-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: .7rem
+            margin-bottom: .5rem;
+            font-size: .8rem
         }
-        .batch-preview th {
-            background: var(--bg-card);
-            color: var(--muted);
-            font-weight: 600;
-            padding: .4rem .5rem;
+        .batch-input-table th {
             text-align: left;
-            position: sticky;
-            top: 0;
-            z-index: 2;
+            font-weight: 600;
+            color: var(--muted);
+            font-size: .7rem;
+            padding: .3rem .2rem;
             border-bottom: 1px solid var(--border)
         }
-        .batch-preview td {
+        .batch-input-table td {
+            padding: .3rem .2rem;
+            vertical-align: middle
+        }
+        .batch-input-table .batch-url input {
+            width: 100%;
+            min-width: 140px;
             padding: .35rem .5rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--fg-dim);
-            vertical-align: top;
-            word-break: break-all
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: .78rem;
+            outline: none;
+            transition: border-color .2s
         }
-        .batch-preview tr:last-child td {
-            border-bottom: none
+        .batch-input-table .batch-url input:focus {
+            border-color: var(--accent)
         }
-        .batch-preview .bp-valid td {
-            color: var(--fg)
+        .batch-input-table .batch-price select {
+            width: 100%;
+            min-width: 90px;
+            padding: .3rem .4rem;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: .78rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color .2s
         }
-        .batch-preview .bp-invalid td {
-            color: #f87171;
-            opacity: .6
+        .batch-input-table .batch-price select:focus {
+            border-color: var(--accent)
         }
-        .batch-preview .bp-invalid td:first-child::before {
-            content: '⚠️ ';
-            font-size: .65rem
+        .batch-input-table .batch-price select option {
+            background: #0e0e18
         }
-        .batch-preview .bp-index {
-            color: var(--muted);
-            font-size: .6rem;
+        .batch-input-table .batch-price .batch-price-custom {
+            margin-top: .2rem;
+            display: none
+        }
+        .batch-input-table .batch-price .batch-price-custom input {
+            width: 100%;
+            padding: .2rem .4rem;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--fg);
+            font-size: .7rem;
+            outline: none
+        }
+        .batch-input-table .batch-price .batch-price-custom input:focus {
+            border-color: var(--accent)
+        }
+        .batch-input-table .batch-desc textarea {
+            width: 100%;
+            min-width: 100px;
+            padding: .3rem .5rem;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--fg);
+            font-size: .78rem;
+            outline: none;
+            resize: vertical;
+            min-height: 40px;
+            transition: border-color .2s;
+            font-family: var(--fb)
+        }
+        .batch-input-table .batch-desc textarea:focus {
+            border-color: var(--accent)
+        }
+        .batch-input-table .batch-status {
+            font-size: .7rem;
+            font-weight: 600;
             text-align: center;
-            width: 24px
+            min-width: 40px
         }
-        .batch-preview .bp-url {
-            max-width: 160px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap
-        }
-        .batch-preview .bp-price {
-            font-family: var(--fd);
-            color: var(--accent);
-            white-space: nowrap
-        }
-        .batch-preview .bp-desc {
-            max-width: 140px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: var(--muted)
-        }
-        .batch-preview .bp-status {
-            font-size: .55rem;
-            font-weight: 600
-        }
-        .batch-preview .bp-status.ok {
+        .batch-input-table .batch-status .valid {
             color: #4ade80
         }
-        .batch-preview .bp-status.err {
+        .batch-input-table .batch-status .invalid {
+            color: #f87171
+        }
+        .batch-input-table .batch-actions {
+            text-align: center;
+            min-width: 30px
+        }
+        .batch-input-table .batch-actions button {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: .7rem;
+            padding: .2rem;
+            border-radius: 4px;
+            transition: all .2s
+        }
+        .batch-input-table .batch-actions button:hover {
+            color: #f87171;
+            background: rgba(248, 113, 113, .1)
+        }
+        .batch-input-table .batch-actions .add-row-btn {
+            color: var(--accent)
+        }
+        .batch-input-table .batch-actions .add-row-btn:hover {
+            background: var(--accent-dim);
+            color: var(--accent)
+        }
+        .batch-input-table .batch-row-invalid .batch-url input {
+            border-color: rgba(248, 113, 113, .4)
+        }
+        .batch-input-table .batch-row-invalid .batch-url input:focus {
+            border-color: #f87171
+        }
+        .batch-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: .5rem;
+            margin-bottom: .5rem
+        }
+        .batch-footer button {
+            padding: .3rem .8rem;
+            border-radius: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--fb);
+            font-size: .7rem;
+            cursor: pointer;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem
+        }
+        .batch-footer button:hover {
+            color: var(--fg);
+            border-color: rgba(255, 255, 255, .15)
+        }
+        .batch-footer .add-multiple-btn {
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-color: rgba(255, 221, 87, .2)
+        }
+        .batch-footer .add-multiple-btn:hover {
+            background: var(--accent);
+            color: #0a0a0f
+        }
+        .batch-summary {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: .7rem;
+            color: var(--muted);
+            margin-bottom: .5rem
+        }
+        .batch-summary span strong {
+            color: var(--fg)
+        }
+        .batch-summary .valid-count {
+            color: #4ade80
+        }
+        .batch-summary .invalid-count {
             color: #f87171
         }
         .form-actions-row {
@@ -1734,28 +1861,32 @@
             flex-wrap: wrap;
             align-items: center
         }
-        @media(max-width:480px) {
+        @media(max-width:600px) {
+            .batch-input-table {
+                font-size: .7rem
+            }
+            .batch-input-table .batch-url input {
+                font-size: .7rem;
+                min-width: 80px
+            }
+            .batch-input-table .batch-price select {
+                font-size: .7rem;
+                min-width: 60px
+            }
+            .batch-input-table .batch-desc textarea {
+                font-size: .7rem;
+                min-width: 60px;
+                min-height: 30px
+            }
+            .batch-input-table th,
+            .batch-input-table td {
+                padding: .2rem .1rem
+            }
             .modal-box {
-                padding: 1.2rem
+                padding: 1rem
             }
-            .batch-preview table {
-                font-size: .6rem
-            }
-            .batch-preview th,
-            .batch-preview td {
-                padding: .25rem .3rem
-            }
-            .batch-preview .bp-url {
-                max-width: 80px
-            }
-            .batch-preview .bp-desc {
-                max-width: 70px
-            }
-            .form-actions-row {
-                flex-direction: column
-            }
-            .form-actions-row .btn-primary {
-                width: 100%;
+            .batch-footer {
+                flex-wrap: wrap;
                 justify-content: center
             }
         }
@@ -1943,51 +2074,67 @@
         </div>
     </div>
 
-    <!-- ===== BATCH ADD MODAL ===== -->
+    <!-- ===== BATCH ADD MODAL (NEW TABLE FORM) ===== -->
     <div class="modal-overlay" id="batchAddModal">
         <div class="modal-box">
             <h3><i class="fas fa-layer-group"></i> Tambah Stock Batch</h3>
-            <p>Masukkan satu item per baris dengan format: <strong>URL | Harga | Deskripsi</strong><br />
-                <span style="font-size:.7rem;color:var(--muted)">Gunakan tanda <strong>|</strong> (pipe) sebagai pemisah. Harga dan deskripsi opsional — akan gunakan default jika kosong.</span>
-            </p>
+            <p>Isi setiap baris dengan URL Instagram, harga, dan deskripsi. Harga dan deskripsi opsional — akan menggunakan default jika kosong.</p>
 
-            <div class="fr">
-                <label>Default Harga (jika tidak diisi per item)</label>
-                <select id="batchDefaultPrice" onchange="updateBatchPreview()">
-                    <option value="Rp 2.000">Rp 2.000</option>
-                    <option value="Rp 3.000" selected>Rp 3.000</option>
-                    <option value="Rp 4.000">Rp 4.000</option>
-                    <option value="Rp 5.000">Rp 5.000</option>
-                    <option value="Rp 10.000">Rp 10.000</option>
-                    <option value="Rp 15.000">Rp 15.000</option>
-                    <option value="Rp 20.000">Rp 20.000</option>
-                    <option value="custom">✏️ Custom</option>
-                </select>
-                <input type="text" id="batchDefaultPriceCustom" placeholder="Rp 3.000" style="margin-top:0.3rem;display:none;" oninput="updateBatchPreview()" />
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem">
+                <div style="flex:1;min-width:120px">
+                    <label style="font-size:.7rem;color:var(--muted)">Default Harga</label>
+                    <select id="batchDefaultPrice" onchange="updateBatchPreview()" style="width:100%;padding:.3rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;color:var(--fg);font-size:.75rem">
+                        <option value="Rp 2.000">Rp 2.000</option>
+                        <option value="Rp 3.000" selected>Rp 3.000</option>
+                        <option value="Rp 4.000">Rp 4.000</option>
+                        <option value="Rp 5.000">Rp 5.000</option>
+                        <option value="Rp 10.000">Rp 10.000</option>
+                        <option value="Rp 15.000">Rp 15.000</option>
+                        <option value="Rp 20.000">Rp 20.000</option>
+                        <option value="custom">✏️ Custom</option>
+                    </select>
+                    <input type="text" id="batchDefaultPriceCustom" placeholder="Rp 3.000" style="margin-top:0.2rem;width:100%;padding:.2rem .4rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:4px;color:var(--fg);font-size:.7rem;display:none" oninput="updateBatchPreview()" />
+                </div>
+                <div style="flex:2;min-width:180px">
+                    <label style="font-size:.7rem;color:var(--muted)">Default Deskripsi</label>
+                    <select id="batchDefaultDesc" onchange="updateBatchPreview()" style="width:100%;padding:.3rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;color:var(--fg);font-size:.75rem">
+                        <option value="1" selected>🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)</option>
+                        <option value="2">🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome</option>
+                        <option value="3">🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome + Nama</option>
+                        <option value="4">🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome + Nama + Sirine</option>
+                        <option value="custom">✏️ Custom</option>
+                    </select>
+                    <textarea id="batchDefaultDescCustom" rows="1" placeholder="Masukkan deskripsi custom..." style="margin-top:0.2rem;width:100%;padding:.2rem .4rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:4px;color:var(--fg);font-size:.7rem;display:none;resize:vertical;min-height:30px" oninput="updateBatchPreview()"></textarea>
+                </div>
             </div>
 
-            <div class="fr">
-                <label>Default Deskripsi (jika tidak diisi per item)</label>
-                <select id="batchDefaultDesc" onchange="updateBatchPreview()">
-                    <option value="1" selected>🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)</option>
-                    <option value="2">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome</option>
-                    <option value="3">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional)</option>
-                    <option value="4">🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch) + Alis+Kaliper On + Velg Bakar/Chrome + Nama (Optional) + Sirine</option>
-                    <option value="custom">✏️ Custom</option>
-                </select>
-                <textarea id="batchDefaultDescCustom" rows="2" placeholder="Masukkan deskripsi custom..." style="margin-top:0.3rem;display:none;" oninput="updateBatchPreview()"></textarea>
-            </div>
-
-            <div class="fr">
-                <label>Daftar Item <span style="font-weight:400;color:var(--muted)">(satu per baris)</span></label>
-                <textarea id="batchInput" rows="6" placeholder="https://www.instagram.com/p/ABC123/ | Rp 5.000 | Deskripsi item 1&#10;https://www.instagram.com/p/DEF456/ | Rp 3.000 | Deskripsi item 2&#10;https://www.instagram.com/p/GHI789/ | | &#10;https://www.instagram.com/p/JKL012/ | Rp 10.000 |" oninput="updateBatchPreview()"></textarea>
-            </div>
-
-            <div class="batch-preview" id="batchPreviewWrap" style="display:none">
-                <table>
-                    <thead><tr><th class="bp-index">#</th><th class="bp-url">URL</th><th class="bp-price">Harga</th><th class="bp-desc">Deskripsi</th><th class="bp-status">Status</th></tr></thead>
-                    <tbody id="batchPreviewBody"></tbody>
+            <div style="overflow-x:auto;margin-bottom:.5rem">
+                <table class="batch-input-table" id="batchTable">
+                    <thead>
+                        <tr>
+                            <th style="min-width:140px">URL Instagram</th>
+                            <th style="min-width:90px">Harga</th>
+                            <th style="min-width:120px">Deskripsi</th>
+                            <th style="width:50px">Status</th>
+                            <th style="width:40px"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchTableBody">
+                        <!-- rows akan ditambahkan via JS -->
+                    </tbody>
                 </table>
+            </div>
+
+            <div class="batch-footer">
+                <button onclick="addBatchRow()"><i class="fas fa-plus"></i> Tambah Baris</button>
+                <button class="add-multiple-btn" onclick="addMultipleRows(5)"><i class="fas fa-plus-circle"></i> Tambah 5 Baris</button>
+                <button onclick="clearBatchRows()"><i class="fas fa-trash"></i> Kosongkan</button>
+            </div>
+
+            <div class="batch-summary" id="batchSummary">
+                <span>Total: <strong id="batchTotal">0</strong></span>
+                <span class="valid-count">Valid: <strong id="batchValid">0</strong></span>
+                <span class="invalid-count">Invalid: <strong id="batchInvalid">0</strong></span>
             </div>
 
             <div class="form-msg" id="batchAddMsg" style="display:none"></div>
@@ -2123,6 +2270,8 @@
             // batch default
             document.getElementById('batchDefaultPrice').value = 'Rp 3.000';
             document.getElementById('batchDefaultDesc').value = '1';
+            // init batch table with 3 empty rows
+            for (var i = 0; i < 3; i++) addBatchRow();
         });
 
         window.renderSosmedOrders = function(orders) { sosmedOrders = orders || [];
@@ -2634,24 +2783,146 @@
             batchMarkSoldConfirm(selected);
         };
 
-        // ===== BATCH ADD STOCK =====
-        // State untuk batch add
-        var batchParsedItems = [];
+        // ===== BATCH ADD STOCK (TABLE FORM) =====
+        var batchRowCounter = 0;
 
-        window.openBatchAddModal = function() {
-            document.getElementById('batchAddModal').classList.add('active');
-            document.getElementById('batchInput').value = '';
-            document.getElementById('batchPreviewWrap').style.display = 'none';
-            document.getElementById('batchAddMsg').style.display = 'none';
-            document.getElementById('batchAddMsg').className = 'form-msg';
+        window.addBatchRow = function(urlVal, priceVal, descVal) {
+            var tbody = document.getElementById('batchTableBody');
+            var tr = document.createElement('tr');
+            tr.className = 'batch-row';
+            var idx = batchRowCounter++;
+
+            // URL
+            var tdUrl = document.createElement('td');
+            tdUrl.className = 'batch-url';
+            var inpUrl = document.createElement('input');
+            inpUrl.type = 'text';
+            inpUrl.placeholder = 'https://www.instagram.com/p/...';
+            inpUrl.value = urlVal || '';
+            inpUrl.dataset.idx = idx;
+            inpUrl.addEventListener('input', updateBatchPreview);
+            tdUrl.appendChild(inpUrl);
+            tr.appendChild(tdUrl);
+
+            // Price
+            var tdPrice = document.createElement('td');
+            tdPrice.className = 'batch-price';
+            var selPrice = document.createElement('select');
+            var priceOptions = ['Rp 2.000', 'Rp 3.000', 'Rp 4.000', 'Rp 5.000', 'Rp 10.000', 'Rp 15.000', 'Rp 20.000',
+                'custom'
+            ];
+            priceOptions.forEach(function(val) {
+                var opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = val === 'custom' ? '✏️ Custom' : val;
+                if (val === (priceVal || 'Rp 3.000')) opt.selected = true;
+                selPrice.appendChild(opt);
+            });
+            selPrice.dataset.idx = idx;
+            selPrice.addEventListener('change', function() {
+                var customDiv = this.parentElement.querySelector('.batch-price-custom');
+                if (this.value === 'custom') {
+                    customDiv.style.display = 'block';
+                    customDiv.querySelector('input').focus();
+                } else {
+                    customDiv.style.display = 'none';
+                }
+                updateBatchPreview();
+            });
+            tdPrice.appendChild(selPrice);
+            var customDiv = document.createElement('div');
+            customDiv.className = 'batch-price-custom';
+            var customInput = document.createElement('input');
+            customInput.type = 'text';
+            customInput.placeholder = 'Rp 3.000';
+            customInput.value = '';
+            customInput.dataset.idx = idx;
+            customInput.addEventListener('input', updateBatchPreview);
+            customDiv.appendChild(customInput);
+            tdPrice.appendChild(customDiv);
+            if (priceVal && !priceOptions.includes(priceVal)) {
+                selPrice.value = 'custom';
+                customDiv.style.display = 'block';
+                customInput.value = priceVal;
+            }
+            tr.appendChild(tdPrice);
+
+            // Description
+            var tdDesc = document.createElement('td');
+            tdDesc.className = 'batch-desc';
+            var taDesc = document.createElement('textarea');
+            taDesc.rows = 1;
+            taDesc.placeholder = 'Deskripsi (opsional)';
+            taDesc.value = descVal || '';
+            taDesc.dataset.idx = idx;
+            taDesc.addEventListener('input', function() { this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+                updateBatchPreview() });
+            tdDesc.appendChild(taDesc);
+            tr.appendChild(tdDesc);
+
+            // Status
+            var tdStatus = document.createElement('td');
+            tdStatus.className = 'batch-status';
+            var statusSpan = document.createElement('span');
+            statusSpan.textContent = '⬜';
+            tdStatus.appendChild(statusSpan);
+            tr.appendChild(tdStatus);
+
+            // Actions
+            var tdAction = document.createElement('td');
+            tdAction.className = 'batch-actions';
+            var delBtn = document.createElement('button');
+            delBtn.innerHTML = '<i class="fas fa-times"></i>';
+            delBtn.title = 'Hapus baris';
+            delBtn.addEventListener('click', function() {
+                if (document.getElementById('batchTableBody').children.length > 1) {
+                    tr.remove();
+                    updateBatchPreview();
+                } else {
+                    toast('Minimal 1 baris', 'info');
+                }
+            });
+            tdAction.appendChild(delBtn);
+            tr.appendChild(tdAction);
+
+            tbody.appendChild(tr);
             updateBatchPreview();
-            setTimeout(function() { document.getElementById('batchInput').focus() }, 200);
+            // auto resize
+            setTimeout(function() { taDesc.style.height = 'auto';
+                taDesc.style.height = taDesc.scrollHeight + 'px' }, 50);
+            return tr;
         };
 
-        window.closeBatchAddModal = function() {
-            document.getElementById('batchAddModal').classList.remove('active');
-            batchParsedItems = [];
+        window.addMultipleRows = function(n) {
+            for (var i = 0; i < n; i++) addBatchRow();
         };
+
+        window.clearBatchRows = function() {
+            var tbody = document.getElementById('batchTableBody');
+            while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+            addBatchRow(); // keep at least one
+            updateBatchPreview();
+        };
+
+        function getBatchRowData() {
+            var rows = document.querySelectorAll('#batchTableBody .batch-row');
+            var data = [];
+            rows.forEach(function(tr) {
+                var url = tr.querySelector('.batch-url input').value.trim();
+                var priceSelect = tr.querySelector('.batch-price select');
+                var price = priceSelect.value;
+                if (price === 'custom') {
+                    var custom = tr.querySelector('.batch-price-custom input').value.trim();
+                    if (custom) price = custom;
+                    else price = getBatchDefaultPrice(); // fallback
+                }
+                var desc = tr.querySelector('.batch-desc textarea').value.trim();
+                if (!desc) desc = getBatchDefaultDesc();
+                data.push({ url: url, price: price, desc: desc });
+            });
+            return data;
+        }
 
         function getBatchDefaultPrice() {
             var sel = document.getElementById('batchDefaultPrice');
@@ -2671,7 +2942,82 @@
             return DESC_TEMPLATES[sel.value] || DESC_TEMPLATES['1'];
         }
 
-        // Event listener untuk custom price/desc di batch modal
+        window.updateBatchPreview = function() {
+            var rows = document.querySelectorAll('#batchTableBody .batch-row');
+            var total = rows.length;
+            var valid = 0;
+            var invalid = 0;
+
+            rows.forEach(function(tr) {
+                var url = tr.querySelector('.batch-url input').value.trim();
+                var code = window.getIgCode(url);
+                var statusSpan = tr.querySelector('.batch-status span');
+                var isValid = !!code && url.length > 0;
+                if (isValid) {
+                    statusSpan.textContent = '✅';
+                    statusSpan.className = 'valid';
+                    valid++;
+                    tr.classList.remove('batch-row-invalid');
+                } else {
+                    statusSpan.textContent = url ? '❌' : '⬜';
+                    statusSpan.className = 'invalid';
+                    invalid++;
+                    tr.classList.add('batch-row-invalid');
+                }
+            });
+
+            document.getElementById('batchTotal').textContent = total;
+            document.getElementById('batchValid').textContent = valid;
+            document.getElementById('batchInvalid').textContent = invalid;
+
+            var msg = document.getElementById('batchAddMsg');
+            if (valid === 0 && total > 0) {
+                msg.style.display = 'flex';
+                msg.className = 'form-msg err show';
+                msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Tidak ada item yang valid. Periksa URL Instagram.';
+                document.getElementById('batchAddConfirmBtn').disabled = true;
+            } else if (invalid > 0 && valid > 0) {
+                msg.style.display = 'flex';
+                msg.className = 'form-msg err show';
+                msg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + invalid +
+                    ' item tidak valid (link Instagram salah), ' + valid + ' item siap ditambahkan.';
+                document.getElementById('batchAddConfirmBtn').disabled = false;
+            } else if (valid > 0 && invalid === 0) {
+                msg.style.display = 'flex';
+                msg.className = 'form-msg ok show';
+                msg.innerHTML = '<i class="fas fa-check-circle"></i> ' + valid +
+                    ' item valid, siap ditambahkan!';
+                document.getElementById('batchAddConfirmBtn').disabled = false;
+            } else {
+                msg.style.display = 'none';
+                document.getElementById('batchAddConfirmBtn').disabled = true;
+            }
+        };
+
+        window.openBatchAddModal = function() {
+            document.getElementById('batchAddModal').classList.add('active');
+            document.getElementById('batchAddMsg').style.display = 'none';
+            // ensure at least one row
+            if (document.querySelectorAll('#batchTableBody .batch-row').length === 0) {
+                addBatchRow();
+            }
+            updateBatchPreview();
+            // re-trigger custom price visibility
+            document.querySelectorAll('#batchTableBody .batch-price select').forEach(function(sel) {
+                var customDiv = sel.parentElement.querySelector('.batch-price-custom');
+                if (sel.value === 'custom') {
+                    customDiv.style.display = 'block';
+                } else {
+                    customDiv.style.display = 'none';
+                }
+            });
+        };
+
+        window.closeBatchAddModal = function() {
+            document.getElementById('batchAddModal').classList.remove('active');
+        };
+
+        // event listener untuk default price/desc change di modal
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('batchDefaultPrice').addEventListener('change', function() {
                 var customInput = document.getElementById('batchDefaultPriceCustom');
@@ -2693,109 +3039,31 @@
                 }
                 updateBatchPreview();
             });
-            // Input listeners untuk preview
             document.getElementById('batchDefaultPriceCustom').addEventListener('input', updateBatchPreview);
             document.getElementById('batchDefaultDescCustom').addEventListener('input', updateBatchPreview);
         });
 
-        window.updateBatchPreview = function() {
-            var raw = document.getElementById('batchInput').value;
-            var lines = raw.split('\n').filter(function(l) { return l.trim() !== '' });
-            var defaultPrice = getBatchDefaultPrice();
-            var defaultDesc = getBatchDefaultDesc();
-
-            batchParsedItems = [];
-            var previewBody = document.getElementById('batchPreviewBody');
-            previewBody.innerHTML = '';
-
-            if (lines.length === 0) {
-                document.getElementById('batchPreviewWrap').style.display = 'none';
-                return;
-            }
-
-            document.getElementById('batchPreviewWrap').style.display = 'block';
-
-            var validCount = 0;
-            lines.forEach(function(line, idx) {
-                // Parse: URL | Price | Description
-                var parts = line.split('|').map(function(s) { return s.trim() });
-                var url = parts[0] || '';
-                var price = parts[1] ? parts[1].trim() : '';
-                var desc = parts[2] ? parts[2].trim() : '';
-
-                // Jika price kosong, pakai default
-                if (!price) price = defaultPrice;
-                // Jika desc kosong, pakai default
-                if (!desc) desc = defaultDesc;
-
+        window.confirmBatchAdd = async function() {
+            var rows = document.querySelectorAll('#batchTableBody .batch-row');
+            var items = [];
+            var validItems = [];
+            rows.forEach(function(tr) {
+                var url = tr.querySelector('.batch-url input').value.trim();
+                var priceSelect = tr.querySelector('.batch-price select');
+                var price = priceSelect.value;
+                if (price === 'custom') {
+                    var custom = tr.querySelector('.batch-price-custom input').value.trim();
+                    if (custom) price = custom;
+                    else price = getBatchDefaultPrice();
+                }
+                var desc = tr.querySelector('.batch-desc textarea').value.trim();
+                if (!desc) desc = getBatchDefaultDesc();
                 var code = window.getIgCode(url);
-                var isValid = !!code;
-                if (isValid) validCount++;
-
-                var tr = document.createElement('tr');
-                tr.className = isValid ? 'bp-valid' : 'bp-invalid';
-
-                var tdIdx = document.createElement('td');
-                tdIdx.className = 'bp-index';
-                tdIdx.textContent = idx + 1;
-                tr.appendChild(tdIdx);
-
-                var tdUrl = document.createElement('td');
-                tdUrl.className = 'bp-url';
-                tdUrl.textContent = url || '(kosong)';
-                tr.appendChild(tdUrl);
-
-                var tdPrice = document.createElement('td');
-                tdPrice.className = 'bp-price';
-                tdPrice.textContent = price;
-                tr.appendChild(tdPrice);
-
-                var tdDesc = document.createElement('td');
-                tdDesc.className = 'bp-desc';
-                tdDesc.textContent = desc.replace(/\n/g, ' ');
-                tr.appendChild(tdDesc);
-
-                var tdStatus = document.createElement('td');
-                tdStatus.className = 'bp-status ' + (isValid ? 'ok' : 'err');
-                tdStatus.textContent = isValid ? '✅' : '❌ ' + (url ? 'Link tidak valid' : 'URL kosong');
-                tr.appendChild(tdStatus);
-
-                previewBody.appendChild(tr);
-
-                // Simpan data untuk diproses
-                batchParsedItems.push({
-                    url: url,
-                    price: price,
-                    desc: desc,
-                    isValid: isValid,
-                    code: code,
-                    raw: line
-                });
+                var isValid = !!code && url.length > 0;
+                items.push({ url: url, price: price, desc: desc, code: code, isValid: isValid });
+                if (isValid) validItems.push({ url: url, price: price, desc: desc, code: code });
             });
 
-            var msg = document.getElementById('batchAddMsg');
-            if (validCount === 0) {
-                msg.style.display = 'flex';
-                msg.className = 'form-msg err show';
-                msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Tidak ada item yang valid. Periksa format URL Instagram.';
-                document.getElementById('batchAddConfirmBtn').disabled = true;
-            } else if (validCount < lines.length) {
-                msg.style.display = 'flex';
-                msg.className = 'form-msg err show';
-                msg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (lines.length - validCount) +
-                    ' item tidak valid (link Instagram salah), ' + validCount + ' item siap ditambahkan.';
-                document.getElementById('batchAddConfirmBtn').disabled = false;
-            } else {
-                msg.style.display = 'flex';
-                msg.className = 'form-msg ok show';
-                msg.innerHTML = '<i class="fas fa-check-circle"></i> ' + validCount +
-                    ' item valid, siap ditambahkan!';
-                document.getElementById('batchAddConfirmBtn').disabled = false;
-            }
-        };
-
-        window.confirmBatchAdd = async function() {
-            var validItems = batchParsedItems.filter(function(item) { return item.isValid });
             if (validItems.length === 0) {
                 toast('Tidak ada item valid untuk ditambahkan.', 'err');
                 return;
@@ -2817,7 +3085,6 @@
                 if (!confirm(msg)) {
                     return;
                 }
-                // Filter duplikat
                 validItems = validItems.filter(function(item) { return !existingCodes.has(item.code) });
                 if (validItems.length === 0) {
                     toast('Semua item sudah ada, tidak ada yang ditambahkan.', 'info');
@@ -2864,9 +3131,11 @@
                     msgEl.innerHTML = '<i class="fas fa-check-circle"></i> Berhasil menambahkan ' + successCount +
                         ' item!';
                     toast('✅ ' + successCount + ' item berhasil ditambahkan!', 'ok');
-                    document.getElementById('batchInput').value = '';
-                    batchParsedItems = [];
-                    document.getElementById('batchPreviewWrap').style.display = 'none';
+                    // Clear only valid rows? Better to clear all rows and keep one empty
+                    var tbody = document.getElementById('batchTableBody');
+                    while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+                    addBatchRow();
+                    updateBatchPreview();
                     setTimeout(function() { msgEl.style.display = 'none' }, 3000);
                     // Refresh stock
                     currentPage = 1;
@@ -2887,16 +3156,6 @@
                 }
 
                 if (successCount > 0) {
-                    // Clear input if all succeeded or some succeeded
-                    var remaining = batchParsedItems.filter(function(item) {
-                        return item.isValid && !validItems.includes(item);
-                    });
-                    if (remaining.length === 0) {
-                        document.getElementById('batchInput').value = '';
-                        batchParsedItems = [];
-                        document.getElementById('batchPreviewWrap').style.display = 'none';
-                    }
-                    // Refresh
                     renderStock();
                 }
 
