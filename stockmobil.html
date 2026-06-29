@@ -1228,6 +1228,28 @@
             font-size: 0.7rem;
         }
 
+        /* TOMBOL MANUAL MULAI FLASH SALE (untuk admin) */
+        .btn-admin-flash {
+            background: rgba(251, 146, 60, 0.15);
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            color: #fb923c;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .btn-admin-flash:hover {
+            background: #fb923c;
+            color: #0a0a0f;
+            border-color: #fb923c;
+        }
+
         /* ===== MAIN GRID ===== */
         .ig-list {
             display: grid;
@@ -2132,6 +2154,10 @@
                 font-size: 0.65rem;
                 padding: 0.2rem 0.6rem;
             }
+            .btn-admin-flash {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.5rem;
+            }
 
             .sort-tabs {
                 gap: 0.3rem;
@@ -2471,6 +2497,8 @@
                 <div class="filter-actions">
                     <button class="filter-flash-btn" id="flashFilterBtn" onclick="toggleFlashFilter()">🔥 Flash Sale</button>
                     <button class="refresh-btn" onclick="manualRefresh()"><i class="fas fa-sync"></i> Refresh</button>
+                    <!-- Tombol manual untuk admin: mulai flash sale -->
+                    <button class="btn-admin-flash" onclick="manualStartFlashSale()"><i class="fas fa-bolt"></i> Mulai Flash</button>
                 </div>
             </div>
 
@@ -2859,7 +2887,7 @@
         }, (err) => { console.error("Secret cars error:", err); });
     </script>
 
-    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE (DENGAN PERBAIKAN BUG) ===== -->
+    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
@@ -2882,16 +2910,9 @@
             currentSort = 'newest',
             POSTS = [];
 
-        // --- STATE UNTUK NOTIFIKASI FLASH SALE BARU ---
         var prevFlashIds = new Set();
-
-        // --- STATE UNTUK FILTER FLASH SALE ONLY ---
         var flashFilterActive = false;
-
-        // --- STATE UNTUK REFRESH MANUAL ---
         var manualRefresh = false;
-
-        // --- FLAG UNTUK MENCEGAH OVERLAP CHECK FLASH ---
         var isCheckingFlash = false;
 
         function escLocal(t) { var d = document.createElement('div');
@@ -2905,7 +2926,6 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
-        // --- HELPERS FLASH SALE ---
         function getDiscountedPrice(post) {
             if (!post.discount) return null;
             var original = post.originalPrice || post.price || '';
@@ -2919,7 +2939,6 @@
             return Math.max(0, toMs(post.flashSaleEnd) - Date.now());
         }
 
-        // --- FILTER & SORT ---
         function getFilteredAvailable() {
             var min = parseInt(document.getElementById('priceMin').value) || 0;
             var max = parseInt(document.getElementById('priceMax').value) || Infinity;
@@ -2971,7 +2990,6 @@
             section.style.display = 'block';
             count.textContent = flashItems.length + ' item';
 
-            // Banner global
             var minRemaining = Infinity;
             flashItems.forEach(function(p) {
                 var rem = getFlashRemaining(p);
@@ -3027,7 +3045,6 @@
         function startFlashTimer() {
             if (flashTimer) clearInterval(flashTimer);
             flashTimer = setInterval(function() {
-                // Update per card
                 document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(function(el) {
                     var end = parseInt(el.dataset.flashend);
                     var rem = Math.max(0, end - Date.now());
@@ -3037,7 +3054,6 @@
                         el.textContent = '⏳ ' + formatCountdown(rem);
                     }
                 });
-                // Update global
                 var flashItems = POSTS.filter(function(p) {
                     return p.status === 'available' && p.discount === true;
                 });
@@ -3055,7 +3071,6 @@
             }, 1000);
         }
 
-        // --- FILTER FLASH SALE ONLY ---
         window.toggleFlashFilter = function() {
             flashFilterActive = !flashFilterActive;
             var btn = document.getElementById('flashFilterBtn');
@@ -3065,7 +3080,6 @@
             renderAvailable();
         };
 
-        // --- REFRESH MANUAL ---
         window.manualRefresh = function() {
             manualRefresh = true;
             renderAvailable();
@@ -3074,7 +3088,6 @@
             setTimeout(function() { manualRefresh = false; }, 500);
         };
 
-        // --- SET SORT ---
         window.setSort = function(sort) {
             currentSort = sort;
             document.querySelectorAll('#sortTabs .sort-btn').forEach(function(b) {
@@ -3084,7 +3097,6 @@
             renderAvailable();
         };
 
-        // --- SOLD TOGGLE ---
         window.toggleSoldList = function() {
             soldListOpen = !soldListOpen;
             var list = document.getElementById('soldList'),
@@ -3265,7 +3277,8 @@
         });
 
         // ================================================================
-        // FLASH SALE OTOMATIS - DENGAN PERBAIKAN BUG
+        // FLASH SALE OTOMATIS - HANYA DIPANGGIL SAAT PERUBAHAN DATA
+        // TIDAK ADA INTERVAL SETIAP MENIT
         // ================================================================
 
         async function cleanupFlashSale() {
@@ -3296,9 +3309,9 @@
             const available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
             if (available.length < 10) {
                 console.log(`⚠️ Stok tersedia hanya ${available.length}, butuh 10 untuk flash sale`);
+                showToast(`Stok tersedia hanya ${available.length}, butuh 10 item untuk flash sale`, 'info');
                 return;
             }
-            // Acak dan ambil 10
             const shuffled = available.sort(() => 0.5 - Math.random());
             const selected = shuffled.slice(0, 10);
             const endTime = Date.now() + 3 * 60 * 60 * 1000; // 3 jam
@@ -3323,22 +3336,17 @@
         }
 
         async function checkFlashSale() {
-            // Cegah eksekusi bersamaan
             if (isCheckingFlash) {
                 console.log('⏳ Pengecekan flash sale sedang berjalan, dilewati');
                 return;
             }
             isCheckingFlash = true;
             try {
-                console.log('⏰ Menjalankan checkFlashSale...');
-                // 1. Bersihkan flash sale yang kadaluarsa / tidak valid
+                console.log('⏰ Menjalankan checkFlashSale (hanya saat data berubah)...');
                 const cleaned = await cleanupFlashSale();
                 if (cleaned > 0) {
-                    // Tunggu sebentar agar listener Firestore memperbarui POSTS
                     await new Promise(resolve => setTimeout(resolve, 500));
                 }
-
-                // 2. Periksa ulang apakah masih ada flash sale aktif (dengan data terbaru)
                 const now = Date.now();
                 const activeFlash = POSTS.some(p =>
                     p.discount === true &&
@@ -3346,7 +3354,6 @@
                     p.flashSaleEnd &&
                     now < toMs(p.flashSaleEnd)
                 );
-
                 if (!activeFlash) {
                     console.log('🚀 Tidak ada flash sale aktif, memulai batch baru...');
                     await startFlashSale();
@@ -3360,13 +3367,14 @@
             }
         }
 
-        // Jalankan pengecekan setiap 60 detik (lebih aman)
-        setInterval(checkFlashSale, 60000);
-        // Panggil sekali saat awal (tunda agar POSTS terisi)
-        setTimeout(checkFlashSale, 3000);
+        // Tombol manual untuk admin
+        window.manualStartFlashSale = async function() {
+            await cleanupFlashSale();
+            await startFlashSale();
+        };
 
         // ================================================================
-        // LISTENER UTAMA
+        // LISTENER UTAMA (Sekaligus panggil checkFlashSale saat data berubah)
         // ================================================================
 
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
@@ -3379,7 +3387,6 @@
                 return p;
             });
 
-            // --- NOTIFIKASI FLASH SALE BARU ---
             var currentFlashIds = new Set(POSTS.filter(p => p.discount === true && p.status === 'available').map(p => p.id));
             var newFlashIds = [];
             currentFlashIds.forEach(id => {
@@ -3397,6 +3404,9 @@
             renderSold();
             renderFlashSale();
             renderAvailable();
+
+            // Jalankan pengecekan flash sale setiap kali data berubah (tanpa interval)
+            checkFlashSale();
         }, (err) => { console.error("Stock listener error:", err); });
 
         // ===== EXPOSE GLOBAL =====
@@ -3404,6 +3414,11 @@
             await cleanupFlashSale();
             await startFlashSale();
         };
+
+        // Panggil sekali saat awal untuk memastikan flash sale berjalan
+        setTimeout(() => {
+            checkFlashSale();
+        }, 3000);
     </script>
 
     <!-- ===== FIREBASE: GUESTBOOK ===== -->
