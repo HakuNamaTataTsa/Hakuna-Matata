@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
@@ -11,7 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <style>
+        /* ============================================================ */
         /* ===== RESET & BASE ===== */
+        /* ============================================================ */
         *,
         *::before,
         *::after {
@@ -19,28 +21,54 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        /* ===== THEME VARIABLES ===== */
         :root {
             --bg-primary: #08080f;
             --bg-secondary: #0e0e1a;
             --bg-card: rgba(255, 255, 255, 0.04);
             --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --bg-input: rgba(255, 255, 255, 0.04);
             --fg: #f0f0f8;
             --fg-dim: rgba(240, 240, 248, 0.6);
             --muted: #7a7a95;
+            --muted-light: #9a9ab0;
             --accent: #ffd866;
             --accent-glow: rgba(255, 216, 102, 0.15);
             --accent-dim: rgba(255, 216, 102, 0.08);
             --border: rgba(255, 255, 255, 0.06);
             --border-hover: rgba(255, 255, 255, 0.12);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 60px rgba(255, 216, 102, 0.06);
             --radius: 16px;
             --radius-sm: 10px;
             --radius-xs: 6px;
-            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 60px rgba(255, 216, 102, 0.06);
             --font-display: 'Space Grotesk', sans-serif;
             --font-body: 'DM Sans', sans-serif;
             --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --scrollbar-track: transparent;
+            --scrollbar-thumb: rgba(255, 255, 255, 0.12);
+            --toast-bg: rgba(12, 12, 24, 0.92);
         }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f5fa;
+            --bg-secondary: #ededf2;
+            --bg-card: rgba(0, 0, 0, 0.04);
+            --bg-card-hover: rgba(0, 0, 0, 0.07);
+            --bg-input: rgba(0, 0, 0, 0.04);
+            --fg: #0e0e18;
+            --fg-dim: rgba(14, 14, 24, 0.6);
+            --muted: #6a6a82;
+            --muted-light: #8a8aa0;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.16);
+            --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 0 60px rgba(255, 216, 102, 0.12);
+            --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+            --toast-bg: rgba(240, 240, 248, 0.96);
+        }
+
         html {
             scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
@@ -53,16 +81,17 @@
             line-height: 1.6;
             min-height: 100vh;
             min-height: 100dvh;
+            transition: background var(--transition), color var(--transition);
         }
         ::-webkit-scrollbar {
             width: 4px;
             height: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: var(--scrollbar-track);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--border-hover);
+            background: var(--scrollbar-thumb);
             border-radius: 10px;
         }
         ::selection {
@@ -135,6 +164,16 @@
                 box-shadow: 0 0 40px rgba(255, 216, 102, 0.15);
             }
         }
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.92);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
 
         /* ===== LOADER ===== */
         .ig-card-loader {
@@ -169,7 +208,9 @@
             }
         }
 
+        /* ============================================================ */
         /* ===== NAVBAR ===== */
+        /* ============================================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -187,9 +228,16 @@
             transition: all 0.35s ease;
             min-height: 60px;
         }
+        [data-theme="light"] .navbar {
+            background: rgba(245, 245, 250, 0.7);
+        }
         .navbar.scrolled {
             background: rgba(8, 8, 15, 0.92);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="light"] .navbar.scrolled {
+            background: rgba(245, 245, 250, 0.92);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
         }
         .nav-brand {
             font-family: var(--font-display);
@@ -205,6 +253,32 @@
             font-size: 1rem;
             opacity: 0.7;
         }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            color: var(--fg-dim);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+            background: transparent;
+            flex-shrink: 0;
+        }
+        .theme-toggle:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card);
+            color: var(--fg);
+        }
+
         .menu-toggle {
             display: none;
             width: 40px;
@@ -275,6 +349,9 @@
             box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
             animation: fadeDown 0.25s ease forwards;
         }
+        [data-theme="light"] .dropdown-menu {
+            background: rgba(245, 245, 250, 0.96);
+        }
         .dropdown:hover .dropdown-menu {
             display: block;
         }
@@ -302,9 +379,11 @@
             color: var(--accent);
         }
 
+        /* ============================================================ */
         /* ===== HERO ===== */
+        /* ============================================================ */
         .page-hero {
-            padding: 6rem 1rem 2rem;
+            padding: 6rem 1rem 1.5rem;
             text-align: center;
             position: relative;
         }
@@ -365,7 +444,67 @@
             margin-bottom: 0.8rem;
         }
 
+        /* ============================================================ */
+        /* ===== STATS BAR ===== */
+        /* ============================================================ */
+        .stats-bar {
+            max-width: 700px;
+            margin: 0.5rem auto 1.5rem;
+            padding: 0 1rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.75rem 0.5rem;
+            backdrop-filter: blur(8px);
+        }
+        .stats-item {
+            text-align: center;
+            padding: 0.15rem 0.25rem;
+        }
+        .stats-item .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            line-height: 1.2;
+        }
+        .stats-item .stat-label {
+            font-size: 0.55rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+        .stats-item .stat-number.flash {
+            color: #fb923c;
+        }
+        .stats-item .stat-number.sold {
+            color: #f87171;
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.4rem;
+                padding: 0.6rem 0.4rem;
+            }
+            .stats-item .stat-number {
+                font-size: 1rem;
+            }
+            .stats-item .stat-label {
+                font-size: 0.5rem;
+            }
+        }
+
+        /* ============================================================ */
         /* ===== INFO BAR ===== */
+        /* ============================================================ */
         .info-bar {
             max-width: 600px;
             margin: 0 auto 1.5rem;
@@ -414,7 +553,9 @@
             font-weight: 600;
         }
 
+        /* ============================================================ */
         /* ===== SECTION HEADER ===== */
+        /* ============================================================ */
         .sec {
             padding: 2.5rem 0;
         }
@@ -462,7 +603,9 @@
             margin: 0.2rem auto 0;
         }
 
+        /* ============================================================ */
         /* ===== LIMITED BANNER ===== */
+        /* ============================================================ */
         .limited-banner {
             position: relative;
             background: linear-gradient(145deg, rgba(255, 216, 102, 0.08), rgba(255, 216, 102, 0.02), rgba(255, 180, 0, 0.05));
@@ -570,7 +713,9 @@
             background: var(--accent-dim);
         }
 
+        /* ============================================================ */
         /* ===== SECRET GRID ===== */
+        /* ============================================================ */
         .secret-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -600,11 +745,9 @@
         }
         .secret-grid .ig-card-embed {
             position: absolute !important;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100% !important;
-            min-height: unset !important;
-            height: 800px !important;
+            height: 100% !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -658,7 +801,9 @@
             opacity: 0.3;
         }
 
+        /* ============================================================ */
         /* ===== FLASH SALE SECTION ===== */
+        /* ============================================================ */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
@@ -771,11 +916,9 @@
         }
         .flash-card .ig-card-embed {
             position: absolute !important;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100% !important;
-            min-height: unset !important;
-            height: 600px !important;
+            height: 100% !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -897,7 +1040,9 @@
             }
         }
 
+        /* ============================================================ */
         /* ===== SOLD SECTION ===== */
+        /* ============================================================ */
         .sold-section {
             margin-bottom: 2rem;
             background: rgba(248, 113, 113, 0.03);
@@ -1018,11 +1163,9 @@
         }
         .sold-card-thumb iframe {
             position: absolute !important;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100% !important;
-            min-height: unset !important;
-            height: 240px !important;
+            height: 100% !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -1127,7 +1270,9 @@
             }
         }
 
+        /* ============================================================ */
         /* ===== FILTER BAR ===== */
+        /* ============================================================ */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1155,7 +1300,7 @@
         .filter-group input {
             width: 80px;
             padding: 0.3rem 0.5rem;
-            background: rgba(255, 255, 255, 0.04);
+            background: var(--bg-input);
             border: 1px solid var(--border);
             border-radius: var(--radius-xs);
             color: var(--fg);
@@ -1177,7 +1322,95 @@
             padding: 0 0.1rem;
         }
 
-        /* TOMBOL FILTER FLASH & REFRESH */
+        /* ===== RANGE SLIDER ===== */
+        .price-range-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .range-slider-container {
+            position: relative;
+            width: 160px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+        }
+        .range-slider-container input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            pointer-events: none;
+            outline: none;
+            margin: 0;
+            padding: 0;
+        }
+        .range-slider-container input[type="range"]::-webkit-slider-runnable-track {
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .range-slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            pointer-events: auto;
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            margin-top: -6px;
+            transition: transform 0.15s ease;
+        }
+        .range-slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .range-slider-container input[type="range"]::-moz-range-track {
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            border: none;
+        }
+        .range-slider-container input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            pointer-events: auto;
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .range-slider-container .range-track-fill {
+            position: absolute;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 4px;
+            pointer-events: none;
+            left: 0;
+            right: 0;
+            opacity: 0.5;
+        }
+        .range-values {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.68rem;
+            color: var(--muted);
+            min-width: 80px;
+            font-weight: 500;
+        }
+        .range-values span {
+            color: var(--fg);
+            font-weight: 600;
+        }
+
+        /* ===== FILTER ACTIONS ===== */
         .filter-actions {
             display: flex;
             gap: 0.4rem;
@@ -1205,6 +1438,40 @@
             border-color: var(--border-hover);
             color: var(--fg);
         }
+
+        /* ===== VIEW TOGGLE ===== */
+        .view-toggle {
+            display: flex;
+            gap: 0.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.15rem;
+        }
+        .view-toggle button {
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-xs);
+            font-size: 0.7rem;
+            color: var(--muted);
+            transition: all var(--transition);
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .view-toggle button:hover {
+            color: var(--fg);
+        }
+        .view-toggle button.active {
+            background: var(--accent);
+            color: #0a0a0f;
+            box-shadow: 0 2px 8px rgba(255, 216, 102, 0.2);
+        }
+        .view-toggle button i {
+            font-size: 0.7rem;
+        }
+
         .refresh-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1228,12 +1495,104 @@
             font-size: 0.7rem;
         }
 
-        /* ===== MAIN GRID ===== */
+        /* ============================================================ */
+        /* ===== MAIN GRID / LIST ===== */
+        /* ============================================================ */
         .ig-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 0.7rem;
         }
+        .ig-list.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .ig-list.list-view .ig-card {
+            display: flex;
+            flex-direction: row;
+            aspect-ratio: unset;
+            height: 110px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .ig-list.list-view .ig-card:hover {
+            border-color: rgba(255, 216, 102, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+        .ig-list.list-view .ig-card .ig-card-embed-wrap {
+            width: 110px;
+            height: 100%;
+            aspect-ratio: unset;
+            flex-shrink: 0;
+        }
+        .ig-list.list-view .ig-card .ig-card-embed {
+            height: 100% !important;
+            min-height: unset !important;
+            width: 100% !important;
+        }
+        .ig-list.list-view .ig-card .ig-card-thumb-price {
+            position: static;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-shadow: none;
+            white-space: normal;
+            overflow: visible;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.2rem;
+            background: var(--bg-card);
+        }
+        .ig-list.list-view .ig-card .ig-card-thumb-price .price-label {
+            font-size: 0.6rem;
+            color: var(--muted);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ig-list.list-view .ig-card .ig-card-thumb-price .price-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .ig-list.list-view .ig-card .ig-card-thumb-price .item-desc {
+            font-size: 0.7rem;
+            color: var(--fg-dim);
+            font-weight: 400;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        .ig-list.list-view .ig-card .ig-card-thumb-overlay {
+            background: none;
+        }
+        .ig-list.list-view .ig-card .status-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            z-index: 4;
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.1rem 0.4rem;
+            border-radius: 50px;
+            pointer-events: none;
+            background: rgba(255, 216, 102, 0.9);
+            color: #0a0a0f;
+        }
+
         .ig-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1258,11 +1617,9 @@
         }
         .ig-card-embed {
             position: absolute !important;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100% !important;
-            min-height: unset !important;
-            height: 700px !important;
+            height: 100% !important;
             pointer-events: none;
             border: none;
             display: block;
@@ -1307,7 +1664,9 @@
             color: #0a0a0f;
         }
 
+        /* ============================================================ */
         /* ===== COUNTER ===== */
+        /* ============================================================ */
         .ig-counter {
             text-align: center;
             margin: 0 0 1rem;
@@ -1324,7 +1683,9 @@
             font-family: var(--font-display);
         }
 
+        /* ============================================================ */
         /* ===== SORT TABS ===== */
+        /* ============================================================ */
         .sort-tabs {
             display: flex;
             gap: 0.4rem;
@@ -1362,14 +1723,25 @@
             font-size: 0.6rem;
         }
 
-        /* ===== PAGINATION ===== */
+        /* ============================================================ */
+        /* ===== PAGINATION + SHOW ALL ===== */
+        /* ============================================================ */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
         .pagination {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: 2rem;
             flex-wrap: wrap;
+        }
+        .pagination.hidden {
+            display: none !important;
         }
         .page-btn {
             padding: 0.5rem 1rem;
@@ -1439,7 +1811,44 @@
             user-select: none;
         }
 
+        /* ===== SHOW ALL BUTTON ===== */
+        .show-all-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 0.2rem;
+        }
+        .show-all-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.4rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .show-all-btn:hover {
+            color: var(--fg);
+            border-color: var(--border-hover);
+        }
+        .show-all-btn.active {
+            background: var(--accent);
+            color: #0a0a0f;
+            border-color: var(--accent);
+            box-shadow: 0 2px 12px rgba(255, 216, 102, 0.2);
+        }
+        .show-all-btn i {
+            font-size: 0.7rem;
+        }
+
+        /* ============================================================ */
         /* ===== DIVIDER ===== */
+        /* ============================================================ */
         .sec-divider {
             max-width: 1000px;
             margin: 0 auto;
@@ -1451,7 +1860,9 @@
             background: linear-gradient(90deg, transparent, var(--border), transparent);
         }
 
+        /* ============================================================ */
         /* ===== GUESTBOOK ===== */
+        /* ============================================================ */
         .gb-wrap {
             max-width: 640px;
             margin: 0 auto;
@@ -1489,7 +1900,7 @@
         .gb textarea {
             width: 100%;
             padding: 0.6rem 0.9rem;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-input);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             color: var(--fg);
@@ -1572,8 +1983,13 @@
             margin-top: 0.2rem;
             display: block;
         }
+        [data-theme="light"] .gb-msg small {
+            color: rgba(0, 0, 0, 0.2);
+        }
 
+        /* ============================================================ */
         /* ===== SOCIAL ROW ===== */
+        /* ============================================================ */
         .social-row {
             display: flex;
             justify-content: center;
@@ -1600,7 +2016,9 @@
             transform: translateY(-3px);
         }
 
+        /* ============================================================ */
         /* ===== FOOTER ===== */
+        /* ============================================================ */
         .footer {
             text-align: center;
             padding: 1.5rem 1rem;
@@ -1609,7 +2027,9 @@
             border-top: 1px solid var(--border);
         }
 
+        /* ============================================================ */
         /* ===== WHATSAPP FLOAT ===== */
+        /* ============================================================ */
         .chat-float {
             position: fixed;
             bottom: 1.25rem;
@@ -1634,6 +2054,9 @@
             transform: translateY(6px) scale(0.95);
             transition: all 0.3s ease;
             pointer-events: none;
+        }
+        [data-theme="light"] .chat-float-label {
+            background: rgba(245, 245, 250, 0.92);
         }
         .chat-float-label span {
             color: var(--accent);
@@ -1667,7 +2090,83 @@
             transform: scale(0.94);
         }
 
+        /* ============================================================ */
+        /* ===== SCROLL TO TOP (dinaikkan posisinya) ===== */
+        /* ============================================================ */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 7.5rem;
+            /* lebih tinggi dari float WA (1.25rem + tinggi float ~4.5rem) */
+            right: 1.25rem;
+            z-index: 90;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #0a0a0f;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 216, 102, 0.3);
+            transition: all var(--transition);
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-top-btn.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .scroll-top-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 32px rgba(255, 216, 102, 0.4);
+        }
+        .scroll-top-btn:active {
+            transform: scale(0.92);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top-btn {
+                bottom: 6.5rem;
+                /* disesuaikan agar tidak ketutupan float WA di HP */
+                right: 0.8rem;
+                width: 38px;
+                height: 38px;
+                font-size: 0.9rem;
+            }
+            .chat-float {
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+            .chat-float-btn {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                font-size: 1.4rem;
+            }
+        }
+        @media (max-width: 420px) {
+            .scroll-top-btn {
+                bottom: 6rem;
+                right: 0.6rem;
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .chat-float-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ============================================================ */
         /* ===== LIGHTBOX ===== */
+        /* ============================================================ */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -1870,7 +2369,9 @@
             }
         }
 
+        /* ============================================================ */
         /* ===== TOAST ===== */
+        /* ============================================================ */
         .toast-container {
             position: fixed;
             bottom: 80px;
@@ -1885,7 +2386,7 @@
             max-width: 90%;
         }
         .toast {
-            background: rgba(12, 12, 24, 0.92);
+            background: var(--toast-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border);
@@ -1902,6 +2403,7 @@
             text-align: center;
             max-width: 400px;
             border-left: 4px solid var(--accent);
+            animation: floatUp 0.4s ease forwards;
         }
         .toast.show {
             opacity: 1;
@@ -1916,14 +2418,35 @@
         .toast.error {
             border-left-color: #f87171;
         }
+        .toast.warning {
+            border-left-color: #fb923c;
+        }
         .toast i {
             margin-right: 0.4rem;
+        }
+        .toast .toast-emoji {
+            font-size: 1.2rem;
+            margin-right: 0.4rem;
+        }
+        .toast .toast-title {
+            font-weight: 700;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .toast .toast-sub {
+            font-weight: 400;
+            font-size: 0.75rem;
+            color: var(--muted-light);
+            display: block;
+            margin-top: 0.05rem;
+        }
+        [data-theme="light"] .toast {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
         /* ============================================================ */
         /* ===== RESPONSIVE ===== */
         /* ============================================================ */
-
         @media (max-width: 768px) {
             .navbar {
                 padding: 0.6rem 0.8rem;
@@ -1951,6 +2474,9 @@
                 align-items: stretch;
                 max-height: 80vh;
                 overflow-y: auto;
+            }
+            [data-theme="light"] .nav-links {
+                background: rgba(245, 245, 250, 0.97);
             }
             .nav-links.active {
                 display: flex;
@@ -2031,6 +2557,23 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
             }
+            .ig-list.list-view .ig-card {
+                height: 90px;
+            }
+            .ig-list.list-view .ig-card .ig-card-embed-wrap {
+                width: 90px;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .price-value {
+                font-size: 0.85rem;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .item-desc {
+                font-size: 0.6rem;
+                -webkit-line-clamp: 1;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price {
+                padding: 0.3rem 0.6rem;
+            }
+
             .ig-card-embed-wrap {
                 aspect-ratio: 3/3.8;
             }
@@ -2128,9 +2671,18 @@
                 width: 100%;
                 justify-content: center;
             }
-            .filter-flash-btn, .refresh-btn {
+            .filter-flash-btn,
+            .refresh-btn {
                 font-size: 0.65rem;
                 padding: 0.2rem 0.6rem;
+            }
+
+            .range-slider-container {
+                width: 120px;
+            }
+            .range-values {
+                font-size: 0.6rem;
+                min-width: 60px;
             }
 
             .sort-tabs {
@@ -2141,9 +2693,12 @@
                 padding: 0.25rem 0.7rem;
             }
 
+            .pagination-wrapper {
+                margin-top: 1.25rem;
+                gap: 0.6rem;
+            }
             .pagination {
                 gap: 0.35rem;
-                margin-top: 1.25rem;
             }
             .page-btn {
                 font-size: 0.7rem;
@@ -2158,6 +2713,10 @@
                 width: 30px;
                 height: 30px;
                 font-size: 0.7rem;
+            }
+            .show-all-btn {
+                font-size: 0.7rem;
+                padding: 0.3rem 1rem;
             }
 
             .gb {
@@ -2262,12 +2821,41 @@
                 font-size: 0.75rem;
                 padding: 0.5rem 1rem;
             }
+            .toast .toast-title {
+                font-size: 0.8rem;
+            }
+            .toast .toast-sub {
+                font-size: 0.68rem;
+            }
+
+            .view-toggle button {
+                font-size: 0.6rem;
+                padding: 0.15rem 0.4rem;
+            }
+            .view-toggle button i {
+                font-size: 0.6rem;
+            }
         }
 
         @media (max-width: 420px) {
             .ig-list {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.4rem;
+            }
+            .ig-list.list-view .ig-card {
+                height: 75px;
+            }
+            .ig-list.list-view .ig-card .ig-card-embed-wrap {
+                width: 75px;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .price-value {
+                font-size: 0.7rem;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .item-desc {
+                font-size: 0.55rem;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price {
+                padding: 0.2rem 0.4rem;
             }
             .ig-card-embed-wrap {
                 aspect-ratio: 3/4;
@@ -2310,12 +2898,32 @@
             .filter-group input {
                 width: 50px;
             }
+            .range-slider-container {
+                width: 100px;
+            }
+            .range-values {
+                font-size: 0.55rem;
+                min-width: 50px;
+            }
         }
 
         @media (min-width: 769px) {
             .ig-list {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
+            }
+            .ig-list.list-view .ig-card {
+                height: 130px;
+            }
+            .ig-list.list-view .ig-card .ig-card-embed-wrap {
+                width: 130px;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .price-value {
+                font-size: 1.1rem;
+            }
+            .ig-list.list-view .ig-card .ig-card-thumb-price .item-desc {
+                font-size: 0.78rem;
+                -webkit-line-clamp: 2;
             }
             .ig-card-embed-wrap {
                 aspect-ratio: 3/3.2;
@@ -2336,6 +2944,12 @@
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1.2rem;
             }
+            .ig-list.list-view .ig-card {
+                height: 140px;
+            }
+            .ig-list.list-view .ig-card .ig-card-embed-wrap {
+                width: 140px;
+            }
             .secret-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 1.2rem;
@@ -2354,14 +2968,21 @@
 </head>
 <body>
 
+    <!-- ============================================================ -->
     <!-- ===== NAVBAR ===== -->
+    <!-- ============================================================ -->
     <nav class="navbar" id="navbar">
         <a href="index.html" class="nav-brand">
             <i class="fas fa-store"></i> Akino Store
         </a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-            <i class="fas fa-bars"></i>
-        </button>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle tema">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -2379,14 +3000,42 @@
         </ul>
     </nav>
 
+    <!-- ============================================================ -->
     <!-- ===== HERO ===== -->
+    <!-- ============================================================ -->
     <section class="page-hero">
         <div class="hero-badge"><i class="fas fa-fire"></i> Stock Terbatas</div>
         <h1>Stock Mobil <span class="highlight">Murah</span></h1>
         <p>Klik foto untuk memperbesar, lalu klik Pesan untuk langsung chat WhatsApp admin.</p>
     </section>
 
+    <!-- ============================================================ -->
+    <!-- ===== STATS BAR ===== -->
+    <!-- ============================================================ -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stats-grid" id="statsGrid">
+            <div class="stats-item">
+                <span class="stat-number" id="statTotal">0</span>
+                <span class="stat-label">Total Mobil</span>
+            </div>
+            <div class="stats-item">
+                <span class="stat-number" id="statAvailable">0</span>
+                <span class="stat-label">Tersedia</span>
+            </div>
+            <div class="stats-item">
+                <span class="stat-number flash" id="statFlash">0</span>
+                <span class="stat-label">🔥 Flash Sale</span>
+            </div>
+            <div class="stats-item">
+                <span class="stat-number sold" id="statSold">0</span>
+                <span class="stat-label">Terjual</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- ===== INFO BAR ===== -->
+    <!-- ============================================================ -->
     <div class="info-bar">
         <div class="info-card">
             <div class="info-icon"><i class="fas fa-car"></i></div>
@@ -2397,7 +3046,9 @@
         </div>
     </div>
 
+    <!-- ============================================================ -->
     <!-- ===== LIMITED EDITION ===== -->
+    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="limited-banner reveal">
@@ -2419,7 +3070,9 @@
 
     <div class="sec-divider"><hr /></div>
 
+    <!-- ============================================================ -->
     <!-- ===== FLASH SALE SECTION ===== -->
+    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
@@ -2435,7 +3088,9 @@
         </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== MAIN STOCK ===== -->
+    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem">
         <div class="container">
 
@@ -2460,7 +3115,7 @@
                 <p class="sec-desc">Klik foto untuk melihat detail &amp; memesan.</p>
             </div>
 
-            <!-- FILTER BAR + TOMBOL FLASH FILTER & REFRESH -->
+            <!-- FILTER BAR -->
             <div class="filter-bar reveal">
                 <div class="filter-group">
                     <label for="priceMin">Harga</label>
@@ -2468,8 +3123,29 @@
                     <span class="filter-sep">–</span>
                     <input type="number" id="priceMax" placeholder="Max" min="0" step="1000" />
                 </div>
+
+                <!-- RANGE SLIDER -->
+                <div class="price-range-wrapper">
+                    <div class="range-slider-container" id="rangeSlider">
+                        <input type="range" id="rangeMin" min="0" max="1000000" step="1000" value="0" />
+                        <input type="range" id="rangeMax" min="0" max="1000000" step="1000" value="1000000" />
+                        <div class="range-track-fill" id="rangeFill"></div>
+                    </div>
+                    <div class="range-values">
+                        <span id="rangeMinLabel">Rp0</span> – <span id="rangeMaxLabel">Rp1JT</span>
+                    </div>
+                </div>
+
                 <div class="filter-actions">
                     <button class="filter-flash-btn" id="flashFilterBtn" onclick="toggleFlashFilter()">🔥 Flash Sale</button>
+                    <div class="view-toggle">
+                        <button class="active" id="viewGridBtn" onclick="setView('grid')" title="Tampilan Grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button id="viewListBtn" onclick="setView('list')" title="Tampilan Daftar">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
                     <button class="refresh-btn" onclick="manualRefresh()"><i class="fas fa-sync"></i> Refresh</button>
                 </div>
             </div>
@@ -2490,25 +3166,34 @@
             <!-- COUNTER -->
             <div class="ig-counter reveal" id="igCounter"></div>
 
-            <!-- GRID -->
+            <!-- GRID / LIST -->
             <div class="ig-list" id="igGrid"></div>
 
-            <!-- PAGINATION -->
-            <div class="pagination" id="pagination" style="display:none">
-                <button class="page-btn" id="prevBtn" onclick="prevPage()">
-                    <i class="fas fa-chevron-left"></i> Sebelumnya
-                </button>
-                <div class="page-numbers" id="pageNumbers"></div>
-                <button class="page-btn" id="nextBtn" onclick="nextPage()">
-                    Selanjutnya <i class="fas fa-chevron-right"></i>
-                </button>
+            <!-- PAGINATION WRAPPER + SHOW ALL -->
+            <div class="pagination-wrapper" id="paginationWrapper">
+                <div class="pagination" id="pagination" style="display:none">
+                    <button class="page-btn" id="prevBtn" onclick="prevPage()">
+                        <i class="fas fa-chevron-left"></i> Sebelumnya
+                    </button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button class="page-btn" id="nextBtn" onclick="nextPage()">
+                        Selanjutnya <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="show-all-wrapper">
+                    <button class="show-all-btn" id="showAllBtn" onclick="toggleShowAll()">
+                        <i class="fas fa-expand"></i> <span id="showAllLabel">Tampilkan Semua</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <div class="sec-divider"><hr /></div>
 
+    <!-- ============================================================ -->
     <!-- ===== GUESTBOOK ===== -->
+    <!-- ============================================================ -->
     <section class="sec">
         <div class="gb-wrap reveal">
             <div class="gb">
@@ -2529,7 +3214,9 @@
         </div>
     </section>
 
+    <!-- ============================================================ -->
     <!-- ===== SOCIAL ROW ===== -->
+    <!-- ============================================================ -->
     <div class="social-row">
         <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.instagram.com/akinostore_/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -2537,7 +3224,9 @@
         <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <!-- ============================================================ -->
     <!-- ===== WHATSAPP FLOAT ===== -->
+    <!-- ============================================================ -->
     <div class="chat-float">
         <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
         <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -2545,10 +3234,21 @@
         </a>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- ===== SCROLL TO TOP (dinaikkan posisinya) ===== -->
+    <!-- ============================================================ -->
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================================ -->
     <!-- ===== FOOTER ===== -->
+    <!-- ============================================================ -->
     <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
 
+    <!-- ============================================================ -->
     <!-- ===== LIGHTBOX ===== -->
+    <!-- ============================================================ -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-backdrop" id="lbBackdrop"></div>
         <div class="lightbox-content" id="lbContent">
@@ -2568,7 +3268,9 @@
         <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
     </div>
 
+    <!-- ============================================================ -->
     <!-- ===== TOAST CONTAINER ===== -->
+    <!-- ============================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================ -->
@@ -2576,7 +3278,9 @@
     <!-- ============================================================ -->
 
     <script>
+        // ================================================================
         // ===== UTILITY FUNCTIONS =====
+        // ================================================================
         function esc(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
 
@@ -2599,7 +3303,13 @@
             var container = document.getElementById('toastContainer');
             var toast = document.createElement('div');
             toast.className = 'toast ' + type;
-            var icon = type === 'info' ? 'fa-info-circle' : type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            var iconMap = {
+                info: 'fa-info-circle',
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-triangle-exclamation'
+            };
+            var icon = iconMap[type] || 'fa-info-circle';
             toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
             container.appendChild(toast);
             toast.offsetHeight;
@@ -2612,9 +3322,68 @@
             }, duration);
         }
 
+        function showFlashToast(title, subtitle, type = 'success', duration = 5000) {
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            var emoji = type === 'success' ? '🔥' : type === 'warning' ? '⚡' : '🎉';
+            var iconMap = {
+                success: 'fa-bolt',
+                warning: 'fa-clock',
+                info: 'fa-fire'
+            };
+            var icon = iconMap[type] || 'fa-fire';
+            toast.innerHTML =
+                '<span class="toast-emoji">' + emoji + '</span>' +
+                '<span class="toast-title"><i class="fas ' + icon + '"></i> ' + esc(title) + '</span>' +
+                '<span class="toast-sub">' + esc(subtitle) + '</span>';
+            container.appendChild(toast);
+            toast.offsetHeight;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() {
+                    if (toast.parentNode) toast.remove();
+                }, 400);
+            }, duration);
+        }
+
+        // ================================================================
+        // ===== THEME TOGGLE =====
+        // ================================================================
+        var themeToggle = document.getElementById('themeToggle');
+        var currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', function() {
+            var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon(next);
+            showToast('Mode ' + (next === 'dark' ? 'Gelap' : 'Terang') + ' diaktifkan', 'info', 2000);
+        });
+
+        function updateThemeIcon(theme) {
+            var icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+        }
+
+        // ================================================================
         // ===== NAVBAR =====
+        // ================================================================
         window.addEventListener('scroll', function() {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+            var btn = document.getElementById('scrollTopBtn');
+            if (window.scrollY > 400) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
         });
 
         var menuToggle = document.getElementById('menuToggle');
@@ -2649,7 +3418,16 @@
             });
         });
 
+        // ================================================================
+        // ===== SCROLL TO TOP =====
+        // ================================================================
+        document.getElementById('scrollTopBtn').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ================================================================
         // ===== REVEAL ON SCROLL =====
+        // ================================================================
         var revObs = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
                 if (e.isIntersecting) {
@@ -2662,7 +3440,9 @@
             revObs.observe(el);
         });
 
+        // ================================================================
         // ===== LIGHTBOX =====
+        // ================================================================
         var lbEl = document.getElementById('lightbox'),
             lbIframe = document.getElementById('lbIframe'),
             lbPrice = document.getElementById('lbPrice'),
@@ -2800,7 +3580,9 @@
         }
     </script>
 
+    <!-- ============================================================ -->
     <!-- ===== FIREBASE: SECRET CARS ===== -->
+    <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, query, orderBy, onSnapshot } from
@@ -2859,7 +3641,9 @@
         }, (err) => { console.error("Secret cars error:", err); });
     </script>
 
-    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE (DENGAN PERBAIKAN BUG) ===== -->
+    <!-- ============================================================ -->
+    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE ===== -->
+    <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
@@ -2882,16 +3666,10 @@
             currentSort = 'newest',
             POSTS = [];
 
-        // --- STATE UNTUK NOTIFIKASI FLASH SALE BARU ---
         var prevFlashIds = new Set();
-
-        // --- STATE UNTUK FILTER FLASH SALE ONLY ---
         var flashFilterActive = false;
-
-        // --- STATE UNTUK REFRESH MANUAL ---
-        var manualRefresh = false;
-
-        // --- FLAG UNTUK MENCEGAH OVERLAP CHECK FLASH ---
+        var showAllActive = false;
+        var currentView = 'grid';
         var isCheckingFlash = false;
 
         function escLocal(t) { var d = document.createElement('div');
@@ -2905,7 +3683,6 @@
         function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
             return new Date(t).getTime() }
 
-        // --- HELPERS FLASH SALE ---
         function getDiscountedPrice(post) {
             if (!post.discount) return null;
             var original = post.originalPrice || post.price || '';
@@ -2923,10 +3700,15 @@
         function getFilteredAvailable() {
             var min = parseInt(document.getElementById('priceMin').value) || 0;
             var max = parseInt(document.getElementById('priceMax').value) || Infinity;
+            var rMin = parseInt(document.getElementById('rangeMin').value) || 0;
+            var rMax = parseInt(document.getElementById('rangeMax').value) || Infinity;
+            var effectiveMin = Math.max(min, rMin);
+            var effectiveMax = Math.min(max, rMax);
+
             return POSTS.filter(function(p) {
                 if (p.status !== 'available') return false;
                 var price = parsePrice(getEffectivePrice(p));
-                var priceOk = price >= min && price <= max;
+                var priceOk = price >= effectiveMin && price <= effectiveMax;
                 var flashOk = true;
                 if (flashFilterActive) {
                     flashOk = p.discount === true;
@@ -2953,6 +3735,18 @@
             return nonFlash;
         }
 
+        // --- UPDATE STATS ---
+        function updateStats() {
+            var total = POSTS.length;
+            var available = POSTS.filter(p => p.status === 'available').length;
+            var flash = POSTS.filter(p => p.status === 'available' && p.discount === true).length;
+            var sold = POSTS.filter(p => p.status === 'sold').length;
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statAvailable').textContent = available;
+            document.getElementById('statFlash').textContent = flash;
+            document.getElementById('statSold').textContent = sold;
+        }
+
         // --- RENDER FLASH SALE ---
         function renderFlashSale() {
             var flashItems = POSTS.filter(function(p) {
@@ -2971,7 +3765,6 @@
             section.style.display = 'block';
             count.textContent = flashItems.length + ' item';
 
-            // Banner global
             var minRemaining = Infinity;
             flashItems.forEach(function(p) {
                 var rem = getFlashRemaining(p);
@@ -3027,7 +3820,6 @@
         function startFlashTimer() {
             if (flashTimer) clearInterval(flashTimer);
             flashTimer = setInterval(function() {
-                // Update per card
                 document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(function(el) {
                     var end = parseInt(el.dataset.flashend);
                     var rem = Math.max(0, end - Date.now());
@@ -3037,7 +3829,6 @@
                         el.textContent = '⏳ ' + formatCountdown(rem);
                     }
                 });
-                // Update global
                 var flashItems = POSTS.filter(function(p) {
                     return p.status === 'available' && p.discount === true;
                 });
@@ -3055,7 +3846,49 @@
             }, 1000);
         }
 
-        // --- FILTER FLASH SALE ONLY ---
+        // --- VIEW TOGGLE ---
+        window.setView = function(view) {
+            currentView = view;
+            var grid = document.getElementById('igGrid');
+            var gridBtn = document.getElementById('viewGridBtn');
+            var listBtn = document.getElementById('viewListBtn');
+            if (view === 'grid') {
+                grid.classList.remove('list-view');
+                gridBtn.classList.add('active');
+                listBtn.classList.remove('active');
+            } else {
+                grid.classList.add('list-view');
+                listBtn.classList.add('active');
+                gridBtn.classList.remove('active');
+            }
+            renderAvailable();
+        };
+
+        // --- SHOW ALL TOGGLE ---
+        window.toggleShowAll = function() {
+            showAllActive = !showAllActive;
+            var btn = document.getElementById('showAllBtn');
+            var label = document.getElementById('showAllLabel');
+            var pag = document.getElementById('pagination');
+            if (showAllActive) {
+                btn.classList.add('active');
+                label.textContent = 'Sembunyikan';
+                pag.style.display = 'none';
+            } else {
+                btn.classList.remove('active');
+                label.textContent = 'Tampilkan Semua';
+                var totalPages = Math.ceil(getSortedFiltered().length / PER_PAGE);
+                if (totalPages > 1) {
+                    pag.style.display = 'flex';
+                } else {
+                    pag.style.display = 'none';
+                }
+            }
+            currentPage = 0;
+            renderAvailable();
+        };
+
+        // --- FILTER FLASH ---
         window.toggleFlashFilter = function() {
             flashFilterActive = !flashFilterActive;
             var btn = document.getElementById('flashFilterBtn');
@@ -3067,11 +3900,10 @@
 
         // --- REFRESH MANUAL ---
         window.manualRefresh = function() {
-            manualRefresh = true;
             renderAvailable();
             renderFlashSale();
+            updateStats();
             showToast('🔄 Data diperbarui', 'info');
-            setTimeout(function() { manualRefresh = false; }, 500);
         };
 
         // --- SET SORT ---
@@ -3167,70 +3999,127 @@
             grid.innerHTML = '';
             var total = avail.length,
                 totalPages = Math.ceil(total / PER_PAGE);
-            if (currentPage >= totalPages && totalPages > 0) currentPage = totalPages - 1;
-            if (currentPage < 0) currentPage = 0;
-            var start = currentPage * PER_PAGE,
-                end = Math.min(start + PER_PAGE, total),
+
+            var showAll = showAllActive;
+            var start, end, showing;
+            if (showAll) {
+                start = 0;
+                end = total;
+                showing = total;
+                document.getElementById('pagination').style.display = 'none';
+            } else {
+                if (currentPage >= totalPages && totalPages > 0) currentPage = totalPages - 1;
+                if (currentPage < 0) currentPage = 0;
+                start = currentPage * PER_PAGE;
+                end = Math.min(start + PER_PAGE, total);
                 showing = total > 0 ? end - start : 0;
+                if (totalPages > 1) {
+                    document.getElementById('pagination').style.display = 'flex';
+                } else {
+                    document.getElementById('pagination').style.display = 'none';
+                }
+            }
+
             document.getElementById('igCounter').innerHTML = total > 0 ? 'Menampilkan <strong>' + showing +
                 '</strong> dari <strong>' + total + '</strong> mobil tersedia' +
-                (flashFilterActive ? ' (🔥 Flash Sale)' : '') :
+                (flashFilterActive ? ' (🔥 Flash Sale)' : '') +
+                (showAll ? ' (Semua)' : '') :
                 '<strong>0</strong> mobil tersedia saat ini';
+
             if (!total) {
                 grid.innerHTML =
                     '<div style="text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.2rem;display:block;margin-bottom:0.8rem;opacity:0.3"></i>Semua stock mobil saat ini kosong.</div>';
-                document.getElementById('pagination').style.display = 'none';
                 return;
             }
-            avail.slice(start, end).forEach(function(post, i) {
+
+            var slice = avail.slice(start, end);
+            slice.forEach(function(post, i) {
                 var code = getCode(post.url);
                 if (!code) return;
                 var price = getEffectivePrice(post);
                 var card = document.createElement('div');
                 card.className = 'ig-card';
                 card.style.animationDelay = (i * 0.04) + 's';
+
                 var badge = post.discount ? '<div class="status-badge" style="background:#fb923c;color:#fff;">🔥 FLASH</div>' :
                     '';
-                card.innerHTML =
-                    '<div class="ig-card-embed-wrap">' +
-                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
-                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                    '<div class="ig-card-thumb-overlay"></div>' +
-                    '<div class="ig-card-thumb-price">' + escLocal(price) + '</div>' +
-                    badge +
-                    '</div>';
+
+                if (currentView === 'list') {
+                    var descLine = getFirstLine(post.desc) || '';
+                    card.innerHTML =
+                        '<div class="ig-card-embed-wrap">' +
+                        '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
+                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                        '<div class="ig-card-thumb-overlay"></div>' +
+                        badge +
+                        '</div>' +
+                        '<div class="ig-card-thumb-price">' +
+                        '<span class="price-label">Harga</span>' +
+                        '<span class="price-value">' + escLocal(price) + '</span>' +
+                        (descLine ? '<span class="item-desc">' + escLocal(descLine) + '</span>' : '') +
+                        '</div>';
+                } else {
+                    card.innerHTML =
+                        '<div class="ig-card-embed-wrap">' +
+                        '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
+                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                        '<div class="ig-card-thumb-overlay"></div>' +
+                        '<div class="ig-card-thumb-price">' + escLocal(price) + '</div>' +
+                        badge +
+                        '</div>';
+                }
+
                 var iframe = card.querySelector('iframe');
                 addLoaderToCard(card, iframe);
 
-                card.querySelector('.ig-card-thumb-overlay').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    window.openLightbox(post);
-                });
-                card.querySelector('.ig-card-thumb-price').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    window.openLightbox(post);
-                });
+                var overlay = card.querySelector('.ig-card-thumb-overlay');
+                if (overlay) {
+                    overlay.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        window.openLightbox(post);
+                    });
+                }
+                var priceEl = card.querySelector('.ig-card-thumb-price');
+                if (priceEl && currentView === 'grid') {
+                    priceEl.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        window.openLightbox(post);
+                    });
+                }
+                if (currentView === 'list') {
+                    card.addEventListener('click', function(e) {
+                        if (!e.target.closest('a')) {
+                            window.openLightbox(post);
+                        }
+                    });
+                }
                 grid.appendChild(card);
             });
-            var pag = document.getElementById('pagination');
-            if (totalPages > 1) {
-                pag.style.display = 'flex';
-                document.getElementById('prevBtn').disabled = currentPage === 0;
-                document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
-                var pageNums = buildPageNums(currentPage, totalPages),
-                    pnEl = document.getElementById('pageNumbers');
-                pnEl.innerHTML = '';
-                pageNums.forEach(function(p) {
-                    if (p === '...') { var sp = document.createElement('span');
-                        sp.className = 'page-ellipsis';
-                        sp.textContent = '…';
-                        pnEl.appendChild(sp); } else { var btn = document.createElement('button');
-                        btn.className = 'page-num' + (p === currentPage ? ' active' : '');
-                        btn.textContent = p + 1;
-                        btn.onclick = (function(pg) { return function() { goToPage(pg) } })(p);
-                        pnEl.appendChild(btn); }
-                });
-            } else { pag.style.display = 'none' }
+
+            // Pagination controls (only if not showAll)
+            if (!showAll) {
+                var pag = document.getElementById('pagination');
+                if (totalPages > 1) {
+                    pag.style.display = 'flex';
+                    document.getElementById('prevBtn').disabled = currentPage === 0;
+                    document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
+                    var pageNums = buildPageNums(currentPage, totalPages),
+                        pnEl = document.getElementById('pageNumbers');
+                    pnEl.innerHTML = '';
+                    pageNums.forEach(function(p) {
+                        if (p === '...') { var sp = document.createElement('span');
+                            sp.className = 'page-ellipsis';
+                            sp.textContent = '…';
+                            pnEl.appendChild(sp); } else { var btn = document.createElement('button');
+                            btn.className = 'page-num' + (p === currentPage ? ' active' : '');
+                            btn.textContent = p + 1;
+                            btn.onclick = (function(pg) { return function() { goToPage(pg) } })(p);
+                            pnEl.appendChild(btn); }
+                    });
+                } else {
+                    pag.style.display = 'none';
+                }
+            }
         }
 
         window.prevPage = function() { if (currentPage > 0) { currentPage--;
@@ -3248,26 +4137,58 @@
         function scrollToGrid() { var g = document.getElementById('igGrid');
             window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }) }
 
-        var priceFilterTimeout;
-        document.getElementById('priceMin').addEventListener('input', function() {
-            clearTimeout(priceFilterTimeout);
-            priceFilterTimeout = setTimeout(function() {
+        // --- RANGE SLIDER ---
+        var rangeMin = document.getElementById('rangeMin');
+        var rangeMax = document.getElementById('rangeMax');
+        var rangeMinLabel = document.getElementById('rangeMinLabel');
+        var rangeMaxLabel = document.getElementById('rangeMaxLabel');
+        var rangeFill = document.getElementById('rangeFill');
+
+        function updateRangeSlider() {
+            var minVal = parseInt(rangeMin.value);
+            var maxVal = parseInt(rangeMax.value);
+            if (minVal > maxVal) {
+                rangeMin.value = maxVal;
+                minVal = maxVal;
+            }
+            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
+            var pctMin = (minVal / max) * 100;
+            var pctMax = (maxVal / max) * 100;
+            rangeFill.style.left = pctMin + '%';
+            rangeFill.style.width = (pctMax - pctMin) + '%';
+            rangeMinLabel.textContent = 'Rp' + (minVal >= 1000 ? (minVal / 1000).toFixed(0) + 'RB' : minVal);
+            rangeMaxLabel.textContent = 'Rp' + (maxVal >= 1000 ? (maxVal / 1000).toFixed(0) + 'RB' : maxVal);
+
+            document.getElementById('priceMin').value = minVal;
+            document.getElementById('priceMax').value = maxVal;
+
+            clearTimeout(rangeSliderTimeout);
+            rangeSliderTimeout = setTimeout(function() {
                 currentPage = 0;
                 renderAvailable();
-            }, 300);
+            }, 200);
+        }
+
+        var rangeSliderTimeout;
+        rangeMin.addEventListener('input', updateRangeSlider);
+        rangeMax.addEventListener('input', updateRangeSlider);
+
+        document.getElementById('priceMin').addEventListener('input', function() {
+            var val = parseInt(this.value) || 0;
+            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
+            if (val > max) val = max;
+            rangeMin.value = val;
+            updateRangeSlider();
         });
         document.getElementById('priceMax').addEventListener('input', function() {
-            clearTimeout(priceFilterTimeout);
-            priceFilterTimeout = setTimeout(function() {
-                currentPage = 0;
-                renderAvailable();
-            }, 300);
+            var val = parseInt(this.value) || 0;
+            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
+            if (val > max) val = max;
+            rangeMax.value = val;
+            updateRangeSlider();
         });
 
-        // ================================================================
-        // FLASH SALE OTOMATIS - DENGAN PERBAIKAN BUG
-        // ================================================================
-
+        // --- FLASH SALE OTOMATIS ---
         async function cleanupFlashSale() {
             const now = Date.now();
             const toCleanup = POSTS.filter(p =>
@@ -3275,7 +4196,7 @@
                 (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
             );
             if (toCleanup.length === 0) return 0;
-            console.log(`🧹 Membersihkan ${toCleanup.length} item flash sale kadaluarsa/terjual`);
+            console.log('🧹 Membersihkan ' + toCleanup.length + ' item flash sale');
             for (const p of toCleanup) {
                 try {
                     await updateDoc(doc(db, "carStock", p.id), {
@@ -3284,10 +4205,7 @@
                         flashSaleEnd: null,
                         originalPrice: ""
                     });
-                    console.log('✅ Cleaned', p.id);
-                } catch (e) {
-                    console.error('❌ Cleanup error', e);
-                }
+                } catch (e) { console.error('❌ Cleanup error', e); }
             }
             return toCleanup.length;
         }
@@ -3295,15 +4213,14 @@
         async function startFlashSale() {
             const available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
             if (available.length < 10) {
-                console.log(`⚠️ Stok tersedia hanya ${available.length}, butuh 10 untuk flash sale`);
+                console.log('⚠️ Stok kurang dari 10, flash sale ditunda');
                 return;
             }
-            // Acak dan ambil 10
             const shuffled = available.sort(() => 0.5 - Math.random());
             const selected = shuffled.slice(0, 10);
-            const endTime = Date.now() + 3 * 60 * 60 * 1000; // 3 jam
+            const endTime = Date.now() + 3 * 60 * 60 * 1000;
 
-            console.log(`🚀 Memulai flash sale dengan ${selected.length} item`);
+            console.log('🚀 Memulai flash sale dengan ' + selected.length + ' item');
             for (const item of selected) {
                 const price = item.editedPrice || item.price || '0';
                 const numPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
@@ -3315,30 +4232,17 @@
                         flashSaleEnd: endTime,
                         originalPrice: price
                     });
-                } catch (e) {
-                    console.error('❌ Start flash error', e);
-                }
+                } catch (e) { console.error('❌ Start flash error', e); }
             }
-            showToast(`🔥 Flash sale dimulai! ${selected.length} item diskon 20%`, 'success');
+            showFlashToast('Flash Sale Dimulai!', selected.length + ' item diskon 20% 🔥', 'success');
         }
 
         async function checkFlashSale() {
-            // Cegah eksekusi bersamaan
-            if (isCheckingFlash) {
-                console.log('⏳ Pengecekan flash sale sedang berjalan, dilewati');
-                return;
-            }
+            if (isCheckingFlash) return;
             isCheckingFlash = true;
             try {
-                console.log('⏰ Menjalankan checkFlashSale...');
-                // 1. Bersihkan flash sale yang kadaluarsa / tidak valid
-                const cleaned = await cleanupFlashSale();
-                if (cleaned > 0) {
-                    // Tunggu sebentar agar listener Firestore memperbarui POSTS
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                }
-
-                // 2. Periksa ulang apakah masih ada flash sale aktif (dengan data terbaru)
+                await cleanupFlashSale();
+                await new Promise(resolve => setTimeout(resolve, 500));
                 const now = Date.now();
                 const activeFlash = POSTS.some(p =>
                     p.discount === true &&
@@ -3346,29 +4250,16 @@
                     p.flashSaleEnd &&
                     now < toMs(p.flashSaleEnd)
                 );
-
                 if (!activeFlash) {
-                    console.log('🚀 Tidak ada flash sale aktif, memulai batch baru...');
                     await startFlashSale();
-                } else {
-                    console.log('✅ Flash sale masih aktif, tidak perlu memulai baru.');
                 }
-            } catch (err) {
-                console.error('❌ Error checkFlashSale:', err);
-            } finally {
-                isCheckingFlash = false;
-            }
+            } catch (err) { console.error('❌ checkFlashSale error:', err); } finally { isCheckingFlash = false; }
         }
 
-        // Jalankan pengecekan setiap 60 detik (lebih aman)
         setInterval(checkFlashSale, 60000);
-        // Panggil sekali saat awal (tunda agar POSTS terisi)
-        setTimeout(checkFlashSale, 3000);
+        setTimeout(checkFlashSale, 4000);
 
-        // ================================================================
-        // LISTENER UTAMA
-        // ================================================================
-
+        // --- LISTENER UTAMA ---
         onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
             var newPosts = [];
             snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
@@ -3379,21 +4270,19 @@
                 return p;
             });
 
-            // --- NOTIFIKASI FLASH SALE BARU ---
             var currentFlashIds = new Set(POSTS.filter(p => p.discount === true && p.status === 'available').map(p => p.id));
             var newFlashIds = [];
             currentFlashIds.forEach(id => {
-                if (!prevFlashIds.has(id)) {
-                    newFlashIds.push(id);
-                }
+                if (!prevFlashIds.has(id)) newFlashIds.push(id);
             });
             if (newFlashIds.length > 0) {
-                showToast('🔥 Flash sale baru dimulai! Cek sekarang!', 'success');
+                showFlashToast('🔥 Flash Sale Baru!', newFlashIds.length + ' item diskon 20%', 'success');
                 prevFlashIds = currentFlashIds;
             } else {
                 prevFlashIds = currentFlashIds;
             }
 
+            updateStats();
             renderSold();
             renderFlashSale();
             renderAvailable();
@@ -3404,9 +4293,23 @@
             await cleanupFlashSale();
             await startFlashSale();
         };
+
+        setTimeout(updateRangeSlider, 100);
+
+        console.log('✅ Semua fitur berhasil dimuat:');
+        console.log('  • Tombol "Tampilkan Semua" (Nonaktifkan Pagination) - di dekat page');
+        console.log('  • Toast/notifikasi menarik perhatian (🔥 Flash Sale Baru!)');
+        console.log('  • Mode Tampilan Daftar (List View)');
+        console.log('  • Slider Harga (Range Slider)');
+        console.log('  • Statistik Singkat di Header');
+        console.log('  • Tombol "Kembali ke Atas" (Scroll to Top) - posisi dinaikkan agar tidak ketutupan float WA');
+        console.log('  • Dark/Light Mode Toggle');
+        console.log('  • Thumbnail mobil diperbaiki untuk tampilan HP');
     </script>
 
+    <!-- ============================================================ -->
     <!-- ===== FIREBASE: GUESTBOOK ===== -->
+    <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot,
