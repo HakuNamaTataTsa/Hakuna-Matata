@@ -1492,6 +1492,11 @@
                 font-size: .7rem;
                 padding: .2rem
             }
+            .batch-input-table .batch-desc select {
+                min-width: 80px;
+                font-size: .7rem;
+                padding: .2rem
+            }
             .batch-input-table .batch-desc textarea {
                 min-width: 80px;
                 font-size: .7rem;
@@ -1560,7 +1565,7 @@
             border: 1px solid var(--border);
             border-radius: var(--r);
             padding: 2rem;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
             animation: fadeUp .3s ease;
@@ -1744,22 +1749,43 @@
         .batch-input-table .batch-price .batch-price-custom input:focus {
             border-color: var(--accent)
         }
-        .batch-input-table .batch-desc textarea {
+        .batch-input-table .batch-desc select {
             width: 100%;
-            min-width: 100px;
-            padding: .3rem .5rem;
+            min-width: 120px;
+            padding: .3rem .4rem;
             background: rgba(255, 255, 255, .03);
             border: 1px solid var(--border);
             border-radius: 6px;
             color: var(--fg);
             font-size: .78rem;
             outline: none;
+            cursor: pointer;
+            transition: border-color .2s
+        }
+        .batch-input-table .batch-desc select:focus {
+            border-color: var(--accent)
+        }
+        .batch-input-table .batch-desc select option {
+            background: #0e0e18
+        }
+        .batch-input-table .batch-desc .batch-desc-custom {
+            margin-top: .2rem;
+            display: none
+        }
+        .batch-input-table .batch-desc .batch-desc-custom textarea {
+            width: 100%;
+            padding: .2rem .4rem;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--fg);
+            font-size: .7rem;
+            outline: none;
             resize: vertical;
-            min-height: 40px;
-            transition: border-color .2s;
+            min-height: 30px;
             font-family: var(--fb)
         }
-        .batch-input-table .batch-desc textarea:focus {
+        .batch-input-table .batch-desc .batch-desc-custom textarea:focus {
             border-color: var(--accent)
         }
         .batch-input-table .batch-status {
@@ -1872,6 +1898,10 @@
             .batch-input-table .batch-price select {
                 font-size: .7rem;
                 min-width: 60px
+            }
+            .batch-input-table .batch-desc select {
+                font-size: .7rem;
+                min-width: 80px
             }
             .batch-input-table .batch-desc textarea {
                 font-size: .7rem;
@@ -2074,11 +2104,11 @@
         </div>
     </div>
 
-    <!-- ===== BATCH ADD MODAL (NEW TABLE FORM) ===== -->
+    <!-- ===== BATCH ADD MODAL (TABLE FORM WITH DESC DROPDOWN) ===== -->
     <div class="modal-overlay" id="batchAddModal">
         <div class="modal-box">
             <h3><i class="fas fa-layer-group"></i> Tambah Stock Batch</h3>
-            <p>Isi setiap baris dengan URL Instagram, harga, dan deskripsi. Harga dan deskripsi opsional — akan menggunakan default jika kosong.</p>
+            <p>Isi setiap baris dengan URL Instagram, harga, dan deskripsi. Gunakan dropdown untuk memilih template deskripsi atau pilih custom.</p>
 
             <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem">
                 <div style="flex:1;min-width:120px">
@@ -2114,7 +2144,7 @@
                         <tr>
                             <th style="min-width:140px">URL Instagram</th>
                             <th style="min-width:90px">Harga</th>
-                            <th style="min-width:120px">Deskripsi</th>
+                            <th style="min-width:160px">Deskripsi</th>
                             <th style="width:50px">Status</th>
                             <th style="width:40px"></th>
                         </tr>
@@ -2783,10 +2813,10 @@
             batchMarkSoldConfirm(selected);
         };
 
-        // ===== BATCH ADD STOCK (TABLE FORM) =====
+        // ===== BATCH ADD STOCK (TABLE FORM WITH DESC DROPDOWN) =====
         var batchRowCounter = 0;
 
-        window.addBatchRow = function(urlVal, priceVal, descVal) {
+        window.addBatchRow = function(urlVal, priceVal, descTemplateVal, descCustomVal) {
             var tbody = document.getElementById('batchTableBody');
             var tr = document.createElement('tr');
             tr.className = 'batch-row';
@@ -2847,18 +2877,62 @@
             }
             tr.appendChild(tdPrice);
 
-            // Description
+            // Description with dropdown
             var tdDesc = document.createElement('td');
             tdDesc.className = 'batch-desc';
-            var taDesc = document.createElement('textarea');
-            taDesc.rows = 1;
-            taDesc.placeholder = 'Deskripsi (opsional)';
-            taDesc.value = descVal || '';
-            taDesc.dataset.idx = idx;
-            taDesc.addEventListener('input', function() { this.style.height = 'auto';
+            // select dropdown
+            var selDesc = document.createElement('select');
+            var descOptions = [
+                { value: '1', label: '🔥 Gratis Request Spek Mesin (Tune Up, FFA, atau Glitch)' },
+                { value: '2', label: '🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome' },
+                { value: '3', label: '🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome + Nama' },
+                { value: '4', label: '🔥 ... + Alis+Kaliper On + Velg Bakar/Chrome + Nama + Sirine' },
+                { value: 'custom', label: '✏️ Custom' }
+            ];
+            var defaultDescVal = descTemplateVal || '1';
+            descOptions.forEach(function(opt) {
+                var option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.label;
+                if (opt.value === defaultDescVal) option.selected = true;
+                selDesc.appendChild(option);
+            });
+            selDesc.dataset.idx = idx;
+            selDesc.addEventListener('change', function() {
+                var customDiv = this.parentElement.querySelector('.batch-desc-custom');
+                if (this.value === 'custom') {
+                    customDiv.style.display = 'block';
+                    customDiv.querySelector('textarea').focus();
+                } else {
+                    customDiv.style.display = 'none';
+                }
+                updateBatchPreview();
+            });
+            tdDesc.appendChild(selDesc);
+
+            // custom textarea
+            var customDescDiv = document.createElement('div');
+            customDescDiv.className = 'batch-desc-custom';
+            var customTextarea = document.createElement('textarea');
+            customTextarea.rows = 1;
+            customTextarea.placeholder = 'Masukkan deskripsi custom...';
+            customTextarea.value = descCustomVal || '';
+            customTextarea.dataset.idx = idx;
+            customTextarea.addEventListener('input', function() {
+                this.style.height = 'auto';
                 this.style.height = this.scrollHeight + 'px';
-                updateBatchPreview() });
-            tdDesc.appendChild(taDesc);
+                updateBatchPreview();
+            });
+            customDescDiv.appendChild(customTextarea);
+            tdDesc.appendChild(customDescDiv);
+
+            // if custom desc is provided, show it
+            if (descCustomVal) {
+                selDesc.value = 'custom';
+                customDescDiv.style.display = 'block';
+                customTextarea.value = descCustomVal;
+            }
+
             tr.appendChild(tdDesc);
 
             // Status
@@ -2888,9 +2962,13 @@
 
             tbody.appendChild(tr);
             updateBatchPreview();
-            // auto resize
-            setTimeout(function() { taDesc.style.height = 'auto';
-                taDesc.style.height = taDesc.scrollHeight + 'px' }, 50);
+            // auto resize custom textarea jika ada
+            if (customTextarea.value) {
+                setTimeout(function() {
+                    customTextarea.style.height = 'auto';
+                    customTextarea.style.height = customTextarea.scrollHeight + 'px';
+                }, 50);
+            }
             return tr;
         };
 
@@ -2915,10 +2993,19 @@
                 if (price === 'custom') {
                     var custom = tr.querySelector('.batch-price-custom input').value.trim();
                     if (custom) price = custom;
-                    else price = getBatchDefaultPrice(); // fallback
+                    else price = getBatchDefaultPrice();
                 }
-                var desc = tr.querySelector('.batch-desc textarea').value.trim();
-                if (!desc) desc = getBatchDefaultDesc();
+                // description
+                var descSelect = tr.querySelector('.batch-desc select');
+                var descVal = descSelect.value;
+                var desc = '';
+                if (descVal === 'custom') {
+                    var customTextarea = tr.querySelector('.batch-desc-custom textarea');
+                    desc = customTextarea.value.trim();
+                    if (!desc) desc = getBatchDefaultDesc();
+                } else {
+                    desc = DESC_TEMPLATES[descVal] || getBatchDefaultDesc();
+                }
                 data.push({ url: url, price: price, desc: desc });
             });
             return data;
@@ -3002,9 +3089,17 @@
                 addBatchRow();
             }
             updateBatchPreview();
-            // re-trigger custom price visibility
+            // re-trigger custom visibility
             document.querySelectorAll('#batchTableBody .batch-price select').forEach(function(sel) {
                 var customDiv = sel.parentElement.querySelector('.batch-price-custom');
+                if (sel.value === 'custom') {
+                    customDiv.style.display = 'block';
+                } else {
+                    customDiv.style.display = 'none';
+                }
+            });
+            document.querySelectorAll('#batchTableBody .batch-desc select').forEach(function(sel) {
+                var customDiv = sel.parentElement.querySelector('.batch-desc-custom');
                 if (sel.value === 'custom') {
                     customDiv.style.display = 'block';
                 } else {
@@ -3056,8 +3151,17 @@
                     if (custom) price = custom;
                     else price = getBatchDefaultPrice();
                 }
-                var desc = tr.querySelector('.batch-desc textarea').value.trim();
-                if (!desc) desc = getBatchDefaultDesc();
+                // description
+                var descSelect = tr.querySelector('.batch-desc select');
+                var descVal = descSelect.value;
+                var desc = '';
+                if (descVal === 'custom') {
+                    var customTextarea = tr.querySelector('.batch-desc-custom textarea');
+                    desc = customTextarea.value.trim();
+                    if (!desc) desc = getBatchDefaultDesc();
+                } else {
+                    desc = DESC_TEMPLATES[descVal] || getBatchDefaultDesc();
+                }
                 var code = window.getIgCode(url);
                 var isValid = !!code && url.length > 0;
                 items.push({ url: url, price: price, desc: desc, code: code, isValid: isValid });
@@ -3131,7 +3235,7 @@
                     msgEl.innerHTML = '<i class="fas fa-check-circle"></i> Berhasil menambahkan ' + successCount +
                         ' item!';
                     toast('✅ ' + successCount + ' item berhasil ditambahkan!', 'ok');
-                    // Clear only valid rows? Better to clear all rows and keep one empty
+                    // Clear all rows and keep one empty
                     var tbody = document.getElementById('batchTableBody');
                     while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
                     addBatchRow();
