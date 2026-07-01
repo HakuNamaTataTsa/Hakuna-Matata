@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /admin.html?*
+Disallow: /stockmobil.html?*
+Allow: /
+
+Sitemap: https://akinocpm.my.id/sitemap.xml
