@@ -1,19 +1,21 @@
+```html
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <meta property="og:title" content="Akino Store - Stock Mobil Murah" />
-    <meta property="og:description" content="Stock mobil CPM murah mulai 2rb" />
+    <meta name="description" content="Stock mobil CPM murah mulai Rp2.000. Tersedia berbagai model dengan harga terjangkau. Flash sale diskon 20%. Hot Stock premium." />
+    <meta property="og:title" content="Stock Mobil Murah - Akino Store" />
+    <meta property="og:description" content="Stock mobil CPM murah mulai 2rb. Hot Stock premium, flash sale, dan limited edition." />
     <meta property="og:image" content="https://res.cloudinary.com/dlwwy1f80/image/upload/v1726074887/gg_2_uy1uqv.jpg" />
+    <meta property="og:type" content="website" />
     <title>Stock Mobil Murah - Akino Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
     <style>
-        /* ============================================================ */
-        /* ===== RESET & BASE ===== */
-        /* ============================================================ */
+        /* ===== RESET & VARIABLES ===== */
         *,
         *::before,
         *::after {
@@ -21,8 +23,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        /* ===== THEME VARIABLES ===== */
         :root {
             --bg-primary: #08080f;
             --bg-secondary: #0e0e1a;
@@ -46,9 +46,8 @@
             --font-display: 'Space Grotesk', sans-serif;
             --font-body: 'DM Sans', sans-serif;
             --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --scrollbar-track: transparent;
-            --scrollbar-thumb: rgba(255, 255, 255, 0.12);
             --toast-bg: rgba(12, 12, 24, 0.92);
+            --scrollbar-thumb: rgba(255, 255, 255, 0.12);
         }
 
         [data-theme="light"] {
@@ -88,7 +87,7 @@
             height: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--scrollbar-track);
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
             background: var(--scrollbar-thumb);
@@ -121,11 +120,6 @@
             margin: 0 auto;
             padding: 0 1rem;
         }
-        .container-narrow {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -135,82 +129,8 @@
             opacity: 1;
             transform: translateY(0);
         }
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.94) translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-        @keyframes pulseGlow {
-            0%,
-            100% {
-                box-shadow: 0 0 20px rgba(255, 216, 102, 0.06);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(255, 216, 102, 0.15);
-            }
-        }
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px) scale(0.92);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
 
-        /* ===== LOADER ===== */
-        .ig-card-loader {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(8, 8, 15, 0.7);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 5;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-            border-radius: inherit;
-        }
-        .ig-card-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .spinner {
-            width: 32px;
-            height: 32px;
-            border: 3px solid var(--border);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ============================================================ */
         /* ===== NAVBAR ===== */
-        /* ============================================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -258,7 +178,6 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .theme-toggle {
             width: 40px;
             height: 40px;
@@ -278,7 +197,6 @@
             background: var(--bg-card);
             color: var(--fg);
         }
-
         .menu-toggle {
             display: none;
             width: 40px;
@@ -379,11 +297,29 @@
             color: var(--accent);
         }
 
-        /* ============================================================ */
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            max-width: 1000px;
+            margin: 5rem auto 0.5rem;
+            padding: 0 1rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+        .breadcrumb a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+        .breadcrumb span {
+            color: var(--fg);
+        }
+
         /* ===== HERO ===== */
-        /* ============================================================ */
         .page-hero {
-            padding: 6rem 1rem 1.5rem;
+            padding: 1rem 1rem 1.5rem;
             text-align: center;
             position: relative;
         }
@@ -444,9 +380,7 @@
             margin-bottom: 0.8rem;
         }
 
-        /* ============================================================ */
         /* ===== STATS BAR ===== */
-        /* ============================================================ */
         .stats-bar {
             max-width: 700px;
             margin: 0.5rem auto 1.5rem;
@@ -487,6 +421,9 @@
         .stats-item .stat-number.sold {
             color: #f87171;
         }
+        .stats-item .stat-number.hot {
+            color: #ff6b6b;
+        }
 
         @media (max-width: 480px) {
             .stats-grid {
@@ -502,9 +439,7 @@
             }
         }
 
-        /* ============================================================ */
         /* ===== INFO BAR ===== */
-        /* ============================================================ */
         .info-bar {
             max-width: 600px;
             margin: 0 auto 1.5rem;
@@ -553,59 +488,7 @@
             font-weight: 600;
         }
 
-        /* ============================================================ */
-        /* ===== SECTION HEADER ===== */
-        /* ============================================================ */
-        .sec {
-            padding: 2.5rem 0;
-        }
-        .sec-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .sec-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 0.4rem;
-        }
-        .sec-label::before {
-            content: '';
-            width: 20px;
-            height: 1.5px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        .sec-label::after {
-            content: '';
-            width: 20px;
-            height: 1.5px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        .sec-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.3rem, 3.5vw, 2rem);
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            line-height: 1.15;
-        }
-        .sec-desc {
-            color: var(--muted);
-            font-size: 0.88rem;
-            line-height: 1.7;
-            max-width: 500px;
-            margin: 0.2rem auto 0;
-        }
-
-        /* ============================================================ */
         /* ===== LIMITED BANNER ===== */
-        /* ============================================================ */
         .limited-banner {
             position: relative;
             background: linear-gradient(145deg, rgba(255, 216, 102, 0.08), rgba(255, 216, 102, 0.02), rgba(255, 180, 0, 0.05));
@@ -635,6 +518,15 @@
                 transform: rotate(360deg);
             }
         }
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 216, 102, 0.06);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 216, 102, 0.15);
+            }
+        }
         .limited-banner>* {
             position: relative;
             z-index: 1;
@@ -653,9 +545,6 @@
             border-radius: 50px;
             border: 1px solid rgba(255, 216, 102, 0.15);
             margin-bottom: 0.5rem;
-        }
-        .limited-badge i {
-            font-size: 0.5rem;
         }
         .limited-title {
             font-family: var(--font-display);
@@ -713,9 +602,7 @@
             background: var(--accent-dim);
         }
 
-        /* ============================================================ */
         /* ===== SECRET GRID ===== */
-        /* ============================================================ */
         .secret-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -801,9 +688,7 @@
             opacity: 0.3;
         }
 
-        /* ============================================================ */
         /* ===== FLASH SALE SECTION ===== */
-        /* ============================================================ */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
@@ -1040,9 +925,7 @@
             }
         }
 
-        /* ============================================================ */
         /* ===== SOLD SECTION ===== */
-        /* ============================================================ */
         .sold-section {
             margin-bottom: 2rem;
             background: rgba(248, 113, 113, 0.03);
@@ -1270,9 +1153,7 @@
             }
         }
 
-        /* ============================================================ */
         /* ===== FILTER BAR ===== */
-        /* ============================================================ */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1439,6 +1320,30 @@
             color: var(--fg);
         }
 
+        .filter-hot-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .filter-hot-btn.active {
+            background: #ff6b6b;
+            color: #0a0a0f;
+            border-color: #ff6b6b;
+        }
+        .filter-hot-btn i {
+            font-size: 0.6rem;
+        }
+
         /* ===== VIEW TOGGLE ===== */
         .view-toggle {
             display: flex;
@@ -1495,9 +1400,7 @@
             font-size: 0.7rem;
         }
 
-        /* ============================================================ */
         /* ===== MAIN GRID / LIST ===== */
-        /* ============================================================ */
         .ig-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1589,7 +1492,9 @@
             padding: 0.1rem 0.4rem;
             border-radius: 50px;
             pointer-events: none;
-            background: rgba(255, 216, 102, 0.9);
+        }
+        .ig-list.list-view .ig-card .hot-badge {
+            background: #ff6b6b;
             color: #0a0a0f;
         }
 
@@ -1608,6 +1513,15 @@
             box-shadow: var(--shadow-card);
             transform: translateY(-3px);
         }
+        .ig-card.hot {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.04);
+        }
+        .ig-card.hot:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.15);
+        }
+
         .ig-card-embed-wrap {
             width: 100%;
             aspect-ratio: 3/3.5;
@@ -1663,10 +1577,16 @@
             background: rgba(255, 216, 102, 0.9);
             color: #0a0a0f;
         }
+        .ig-card .hot-badge {
+            background: #ff6b6b;
+            color: #0a0a0f;
+        }
+        .ig-card .status-badge.flash-badge {
+            background: #fb923c;
+            color: #fff;
+        }
 
-        /* ============================================================ */
         /* ===== COUNTER ===== */
-        /* ============================================================ */
         .ig-counter {
             text-align: center;
             margin: 0 0 1rem;
@@ -1683,9 +1603,7 @@
             font-family: var(--font-display);
         }
 
-        /* ============================================================ */
         /* ===== SORT TABS ===== */
-        /* ============================================================ */
         .sort-tabs {
             display: flex;
             gap: 0.4rem;
@@ -1723,9 +1641,7 @@
             font-size: 0.6rem;
         }
 
-        /* ============================================================ */
         /* ===== PAGINATION + SHOW ALL ===== */
-        /* ============================================================ */
         .pagination-wrapper {
             display: flex;
             flex-direction: column;
@@ -1811,7 +1727,6 @@
             user-select: none;
         }
 
-        /* ===== SHOW ALL BUTTON ===== */
         .show-all-wrapper {
             display: flex;
             justify-content: center;
@@ -1846,9 +1761,7 @@
             font-size: 0.7rem;
         }
 
-        /* ============================================================ */
         /* ===== DIVIDER ===== */
-        /* ============================================================ */
         .sec-divider {
             max-width: 1000px;
             margin: 0 auto;
@@ -1860,9 +1773,7 @@
             background: linear-gradient(90deg, transparent, var(--border), transparent);
         }
 
-        /* ============================================================ */
         /* ===== GUESTBOOK ===== */
-        /* ============================================================ */
         .gb-wrap {
             max-width: 640px;
             margin: 0 auto;
@@ -1987,9 +1898,7 @@
             color: rgba(0, 0, 0, 0.2);
         }
 
-        /* ============================================================ */
         /* ===== SOCIAL ROW ===== */
-        /* ============================================================ */
         .social-row {
             display: flex;
             justify-content: center;
@@ -2016,20 +1925,56 @@
             transform: translateY(-3px);
         }
 
-        /* ============================================================ */
         /* ===== FOOTER ===== */
-        /* ============================================================ */
         .footer {
-            text-align: center;
-            padding: 1.5rem 1rem;
-            font-size: 0.75rem;
-            color: var(--muted);
+            padding: 3rem 1.5rem 1.5rem;
             border-top: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+        .footer-grid h4 {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--fg);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.2px;
+        }
+        .footer-grid p,
+        .footer-grid a {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+        .footer-grid a {
+            display: block;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-grid a:hover {
+            color: var(--accent);
+        }
+        .footer-grid .brand-footer {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--muted);
         }
 
-        /* ============================================================ */
         /* ===== WHATSAPP FLOAT ===== */
-        /* ============================================================ */
         .chat-float {
             position: fixed;
             bottom: 1.25rem;
@@ -2090,13 +2035,10 @@
             transform: scale(0.94);
         }
 
-        /* ============================================================ */
-        /* ===== SCROLL TO TOP (dinaikkan posisinya) ===== */
-        /* ============================================================ */
+        /* ===== SCROLL TO TOP ===== */
         .scroll-top-btn {
             position: fixed;
             bottom: 7.5rem;
-            /* lebih tinggi dari float WA (1.25rem + tinggi float ~4.5rem) */
             right: 1.25rem;
             z-index: 90;
             width: 44px;
@@ -2132,7 +2074,6 @@
         @media (max-width: 768px) {
             .scroll-top-btn {
                 bottom: 6.5rem;
-                /* disesuaikan agar tidak ketutupan float WA di HP */
                 right: 0.8rem;
                 width: 38px;
                 height: 38px;
@@ -2164,9 +2105,7 @@
             }
         }
 
-        /* ============================================================ */
         /* ===== LIGHTBOX ===== */
-        /* ============================================================ */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -2369,9 +2308,7 @@
             }
         }
 
-        /* ============================================================ */
         /* ===== TOAST ===== */
-        /* ============================================================ */
         .toast-container {
             position: fixed;
             bottom: 80px;
@@ -2444,9 +2381,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
-        /* ============================================================ */
         /* ===== RESPONSIVE ===== */
-        /* ============================================================ */
         @media (max-width: 768px) {
             .navbar {
                 padding: 0.6rem 0.8rem;
@@ -2510,8 +2445,12 @@
                 white-space: normal;
             }
 
+            .breadcrumb {
+                margin-top: 4.5rem;
+                padding: 0 0.8rem;
+            }
             .page-hero {
-                padding: 5rem 0.8rem 1.5rem;
+                padding: 0.5rem 0.8rem 1.5rem;
             }
             .page-hero h1 {
                 font-size: clamp(1.4rem, 5vw, 2rem);
@@ -2519,7 +2458,6 @@
             .page-hero p {
                 font-size: 0.84rem;
             }
-
             .info-bar {
                 padding: 0 0.8rem;
             }
@@ -2539,20 +2477,6 @@
             .info-card .info-text p {
                 font-size: 0.72rem;
             }
-
-            .sec {
-                padding: 1.5rem 0;
-            }
-            .sec-header {
-                margin-bottom: 1.25rem;
-            }
-            .sec-title {
-                font-size: clamp(1.2rem, 4vw, 1.6rem);
-            }
-            .sec-desc {
-                font-size: 0.82rem;
-            }
-
             .ig-list {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
@@ -2573,7 +2497,6 @@
             .ig-list.list-view .ig-card .ig-card-thumb-price {
                 padding: 0.3rem 0.6rem;
             }
-
             .ig-card-embed-wrap {
                 aspect-ratio: 3/3.8;
             }
@@ -2589,7 +2512,6 @@
                 top: 5px;
                 right: 5px;
             }
-
             .secret-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 0.5rem;
@@ -2609,7 +2531,6 @@
                 top: 4px;
                 right: 4px;
             }
-
             .limited-banner {
                 padding: 1.25rem 1rem;
                 border-radius: var(--radius-sm);
@@ -2631,7 +2552,6 @@
                 font-size: 0.6rem;
                 padding: 0.15rem 0.6rem;
             }
-
             .flash-section {
                 padding: 0.8rem 0.8rem 0.5rem;
             }
@@ -2645,7 +2565,6 @@
                 width: 100%;
                 text-align: center;
             }
-
             .sold-section {
                 padding: 0.7rem 0.7rem 0.3rem;
                 margin-bottom: 1.25rem;
@@ -2653,7 +2572,6 @@
             .sold-header-left h2 {
                 font-size: 0.82rem;
             }
-
             .filter-bar {
                 padding: 0.5rem 0.8rem;
                 gap: 0.4rem;
@@ -2672,11 +2590,11 @@
                 justify-content: center;
             }
             .filter-flash-btn,
+            .filter-hot-btn,
             .refresh-btn {
                 font-size: 0.65rem;
                 padding: 0.2rem 0.6rem;
             }
-
             .range-slider-container {
                 width: 120px;
             }
@@ -2684,7 +2602,6 @@
                 font-size: 0.6rem;
                 min-width: 60px;
             }
-
             .sort-tabs {
                 gap: 0.3rem;
             }
@@ -2692,7 +2609,6 @@
                 font-size: 0.65rem;
                 padding: 0.25rem 0.7rem;
             }
-
             .pagination-wrapper {
                 margin-top: 1.25rem;
                 gap: 0.6rem;
@@ -2718,7 +2634,6 @@
                 font-size: 0.7rem;
                 padding: 0.3rem 1rem;
             }
-
             .gb {
                 padding: 1.25rem 1rem;
             }
@@ -2734,7 +2649,6 @@
                 font-size: 0.78rem;
                 padding: 0.5rem 1.1rem;
             }
-
             .lightbox {
                 padding: 0.5rem;
                 align-items: center;
@@ -2779,7 +2693,6 @@
                 font-size: 0.75rem;
                 padding: 0.5rem 0.8rem;
             }
-
             .chat-float {
                 bottom: 0.8rem;
                 right: 0.8rem;
@@ -2794,7 +2707,6 @@
                 font-size: 0.65rem;
                 padding: 0.3rem 0.7rem;
             }
-
             .social-row {
                 gap: 0.6rem;
                 padding: 1rem 0.8rem;
@@ -2804,12 +2716,17 @@
                 height: 38px;
                 font-size: 0.85rem;
             }
-
             .footer {
-                font-size: 0.68rem;
-                padding: 1rem 0.8rem;
+                padding: 2rem 1rem 1rem;
             }
-
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .footer-grid h4 {
+                text-align: center;
+            }
             .ig-counter {
                 font-size: 0.74rem;
             }
@@ -2827,7 +2744,6 @@
             .toast .toast-sub {
                 font-size: 0.68rem;
             }
-
             .view-toggle button {
                 font-size: 0.6rem;
                 padding: 0.15rem 0.4rem;
@@ -2905,6 +2821,10 @@
                 font-size: 0.55rem;
                 min-width: 50px;
             }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
 
         @media (min-width: 769px) {
@@ -2957,39 +2877,62 @@
             .container {
                 padding: 0 2rem;
             }
-            .container-narrow {
+            .page-hero {
+                padding: 1.5rem 2rem 2.5rem;
+            }
+            .breadcrumb {
                 padding: 0 2rem;
             }
-            .page-hero {
-                padding: 8rem 2rem 2.5rem;
+        }
+
+        /* ===== loader thumbnail ===== */
+        .ig-card-loader {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 8, 15, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 5;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            border-radius: inherit;
+        }
+        .ig-card-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================ -->
     <!-- ===== NAVBAR ===== -->
-    <!-- ============================================================ -->
     <nav class="navbar" id="navbar">
-        <a href="index.html" class="nav-brand">
-            <i class="fas fa-store"></i> Akino Store
-        </a>
+        <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
         <div class="nav-right">
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle tema">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle tema"><i class="fas fa-moon"></i></button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li class="dropdown" id="dropdownService">
-                <a href="#" class="active" id="dropdownToggle">
-                    Service <i class="fas fa-chevron-down" style="font-size:0.5rem;margin-left:3px"></i>
-                </a>
+                <a href="#" class="active" id="dropdownToggle">Service <i class="fas fa-chevron-down" style="font-size:0.5rem;margin-left:3px"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="CarParkingMultiplayer.html">Car Parking Multiplayer</a></li>
                     <li><a href="SosialMedia.html">Layanan Sosial Media</a></li>
@@ -3000,18 +2943,20 @@
         </ul>
     </nav>
 
-    <!-- ============================================================ -->
+    <!-- ===== BREADCRUMB ===== -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted);"></i>
+        <span>Stock Mobil</span>
+    </nav>
+
     <!-- ===== HERO ===== -->
-    <!-- ============================================================ -->
     <section class="page-hero">
         <div class="hero-badge"><i class="fas fa-fire"></i> Stock Terbatas</div>
         <h1>Stock Mobil <span class="highlight">Murah</span></h1>
         <p>Klik foto untuk memperbesar, lalu klik Pesan untuk langsung chat WhatsApp admin.</p>
     </section>
 
-    <!-- ============================================================ -->
     <!-- ===== STATS BAR ===== -->
-    <!-- ============================================================ -->
     <div class="stats-bar" id="statsBar">
         <div class="stats-grid" id="statsGrid">
             <div class="stats-item">
@@ -3027,15 +2972,13 @@
                 <span class="stat-label">🔥 Flash Sale</span>
             </div>
             <div class="stats-item">
-                <span class="stat-number sold" id="statSold">0</span>
-                <span class="stat-label">Terjual</span>
+                <span class="stat-number hot" id="statHot">0</span>
+                <span class="stat-label">🔥 Hot Stock</span>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================ -->
     <!-- ===== INFO BAR ===== -->
-    <!-- ============================================================ -->
     <div class="info-bar">
         <div class="info-card">
             <div class="info-icon"><i class="fas fa-car"></i></div>
@@ -3046,9 +2989,7 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
     <!-- ===== LIMITED EDITION ===== -->
-    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="limited-banner reveal">
@@ -3063,16 +3004,13 @@
                     <span>Ford F650</span>
                 </div>
             </div>
-
             <div class="secret-grid" id="secretGrid"></div>
         </div>
     </section>
 
     <div class="sec-divider"><hr /></div>
 
-    <!-- ============================================================ -->
     <!-- ===== FLASH SALE SECTION ===== -->
-    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
@@ -3088,9 +3026,7 @@
         </div>
     </section>
 
-    <!-- ============================================================ -->
     <!-- ===== MAIN STOCK ===== -->
-    <!-- ============================================================ -->
     <section class="sec" style="padding-top:0.5rem">
         <div class="container">
 
@@ -3138,13 +3074,10 @@
 
                 <div class="filter-actions">
                     <button class="filter-flash-btn" id="flashFilterBtn" onclick="toggleFlashFilter()">🔥 Flash Sale</button>
+                    <button class="filter-hot-btn" id="hotFilterBtn" onclick="toggleHotFilter()"><i class="fas fa-fire"></i> Hot Stock</button>
                     <div class="view-toggle">
-                        <button class="active" id="viewGridBtn" onclick="setView('grid')" title="Tampilan Grid">
-                            <i class="fas fa-th"></i>
-                        </button>
-                        <button id="viewListBtn" onclick="setView('list')" title="Tampilan Daftar">
-                            <i class="fas fa-list"></i>
-                        </button>
+                        <button class="active" id="viewGridBtn" onclick="setView('grid')" title="Grid"><i class="fas fa-th"></i></button>
+                        <button id="viewListBtn" onclick="setView('list')" title="Daftar"><i class="fas fa-list"></i></button>
                     </div>
                     <button class="refresh-btn" onclick="manualRefresh()"><i class="fas fa-sync"></i> Refresh</button>
                 </div>
@@ -3169,7 +3102,7 @@
             <!-- GRID / LIST -->
             <div class="ig-list" id="igGrid"></div>
 
-            <!-- PAGINATION WRAPPER + SHOW ALL -->
+            <!-- PAGINATION -->
             <div class="pagination-wrapper" id="paginationWrapper">
                 <div class="pagination" id="pagination" style="display:none">
                     <button class="page-btn" id="prevBtn" onclick="prevPage()">
@@ -3191,9 +3124,7 @@
 
     <div class="sec-divider"><hr /></div>
 
-    <!-- ============================================================ -->
     <!-- ===== GUESTBOOK ===== -->
-    <!-- ============================================================ -->
     <section class="sec">
         <div class="gb-wrap reveal">
             <div class="gb">
@@ -3214,9 +3145,7 @@
         </div>
     </section>
 
-    <!-- ============================================================ -->
     <!-- ===== SOCIAL ROW ===== -->
-    <!-- ============================================================ -->
     <div class="social-row">
         <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.instagram.com/akinostore_/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -3224,31 +3153,47 @@
         <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
-    <!-- ============================================================ -->
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" aria-label="Footer">
+        <div class="footer-grid">
+            <div>
+                <h4 class="brand-footer">Akino Store</h4>
+                <p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p>
+            </div>
+            <div>
+                <h4>Layanan</h4>
+                <a href="CarParkingMultiplayer.html">Car Parking</a>
+                <a href="SosialMedia.html">Sosial Media</a>
+                <a href="designedit.html">Design / Edit</a>
+            </div>
+            <div>
+                <h4>Tentang</h4>
+                <a href="about.html">About Us</a>
+                <a href="https://wa.me/6289687163314" target="_blank" rel="noopener">Contact</a>
+                <a href="stockmobil.html">Stock Mobil</a>
+            </div>
+            <div>
+                <h4>Follow</h4>
+                <a href="https://www.tiktok.com/@akinolaset_" target="_blank" rel="noopener">TikTok</a>
+                <a href="https://www.instagram.com/akinostore_" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://youtube.com/@akinolaset" target="_blank" rel="noopener">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
+    </footer>
+
     <!-- ===== WHATSAPP FLOAT ===== -->
-    <!-- ============================================================ -->
     <div class="chat-float">
         <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
-        <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- ===== SCROLL TO TOP (dinaikkan posisinya) ===== -->
-    <!-- ============================================================ -->
+    <!-- ===== SCROLL TO TOP ===== -->
     <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Kembali ke atas">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- ============================================================ -->
-    <!-- ===== FOOTER ===== -->
-    <!-- ============================================================ -->
-    <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
-
-    <!-- ============================================================ -->
     <!-- ===== LIGHTBOX ===== -->
-    <!-- ============================================================ -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-backdrop" id="lbBackdrop"></div>
         <div class="lightbox-content" id="lbContent">
@@ -3268,18 +3213,15 @@
         <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
     </div>
 
-    <!-- ============================================================ -->
     <!-- ===== TOAST CONTAINER ===== -->
-    <!-- ============================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================ -->
     <!-- ===== SCRIPTS ===== -->
     <!-- ============================================================ -->
-
     <script>
         // ================================================================
-        // ===== UTILITY FUNCTIONS =====
+        // ===== UTILITY =====
         // ================================================================
         function esc(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
@@ -3299,16 +3241,14 @@
                 '0') + 's';
         }
 
-        function showToast(message, type = 'info', duration = 4000) {
+        function showToast(message, type, duration) {
+            if (type === undefined) type = 'info';
+            if (duration === undefined) duration = 4000;
             var container = document.getElementById('toastContainer');
             var toast = document.createElement('div');
             toast.className = 'toast ' + type;
-            var iconMap = {
-                info: 'fa-info-circle',
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-circle',
-                warning: 'fa-triangle-exclamation'
-            };
+            var iconMap = { info: 'fa-info-circle', success: 'fa-check-circle', error: 'fa-exclamation-circle',
+                warning: 'fa-triangle-exclamation' };
             var icon = iconMap[type] || 'fa-info-circle';
             toast.innerHTML = '<i class="fas ' + icon + '"></i> ' + message;
             container.appendChild(toast);
@@ -3316,62 +3256,38 @@
             toast.classList.add('show');
             setTimeout(function() {
                 toast.classList.remove('show');
-                setTimeout(function() {
-                    if (toast.parentNode) toast.remove();
-                }, 400);
+                setTimeout(function() { if (toast.parentNode) toast.remove(); }, 400);
             }, duration);
         }
 
-        function showFlashToast(title, subtitle, type = 'success', duration = 5000) {
-            var container = document.getElementById('toastContainer');
-            var toast = document.createElement('div');
-            toast.className = 'toast ' + type;
-            var emoji = type === 'success' ? '🔥' : type === 'warning' ? '⚡' : '🎉';
-            var iconMap = {
-                success: 'fa-bolt',
-                warning: 'fa-clock',
-                info: 'fa-fire'
-            };
-            var icon = iconMap[type] || 'fa-fire';
-            toast.innerHTML =
-                '<span class="toast-emoji">' + emoji + '</span>' +
-                '<span class="toast-title"><i class="fas ' + icon + '"></i> ' + esc(title) + '</span>' +
-                '<span class="toast-sub">' + esc(subtitle) + '</span>';
-            container.appendChild(toast);
-            toast.offsetHeight;
-            toast.classList.add('show');
-            setTimeout(function() {
-                toast.classList.remove('show');
-                setTimeout(function() {
-                    if (toast.parentNode) toast.remove();
-                }, 400);
-            }, duration);
+        function addLoaderToCard(card, iframe) {
+            var wrap = card.querySelector('.ig-card-embed-wrap');
+            if (!wrap) return;
+            var loader = document.createElement('div');
+            loader.className = 'ig-card-loader';
+            var spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            loader.appendChild(spinner);
+            wrap.appendChild(loader);
+            iframe.addEventListener('load', function() { loader.classList.add('hidden'); });
+            setTimeout(function() { loader.classList.add('hidden'); }, 5000);
         }
 
         // ================================================================
-        // ===== THEME TOGGLE =====
+        // ===== THEME =====
         // ================================================================
-        var themeToggle = document.getElementById('themeToggle');
         var currentTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
+        var themeToggle = document.getElementById('themeToggle');
+        var themeIcon = themeToggle.querySelector('i');
+        themeIcon.className = currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
 
         themeToggle.addEventListener('click', function() {
             var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
-            updateThemeIcon(next);
-            showToast('Mode ' + (next === 'dark' ? 'Gelap' : 'Terang') + ' diaktifkan', 'info', 2000);
+            themeIcon.className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
         });
-
-        function updateThemeIcon(theme) {
-            var icon = themeToggle.querySelector('i');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-moon';
-            } else {
-                icon.className = 'fas fa-sun';
-            }
-        }
 
         // ================================================================
         // ===== NAVBAR =====
@@ -3379,11 +3295,8 @@
         window.addEventListener('scroll', function() {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
             var btn = document.getElementById('scrollTopBtn');
-            if (window.scrollY > 400) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
+            if (window.scrollY > 400) btn.classList.add('visible');
+            else btn.classList.remove('visible');
         });
 
         var menuToggle = document.getElementById('menuToggle');
@@ -3392,20 +3305,12 @@
             navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
             var icon = menuToggle.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.className = 'fas fa-xmark';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
+            icon.className = navLinks.classList.contains('active') ? 'fas fa-xmark' : 'fas fa-bars';
         });
 
-        var dropdownToggle = document.getElementById('dropdownToggle');
-        var dropdownService = document.getElementById('dropdownService');
-        dropdownToggle.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                dropdownService.classList.toggle('active');
-            }
+        document.getElementById('dropdownToggle').addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) { e.preventDefault();
+                document.getElementById('dropdownService').classList.toggle('active'); }
         });
 
         navLinks.querySelectorAll('a').forEach(function(link) {
@@ -3418,30 +3323,23 @@
             });
         });
 
-        // ================================================================
-        // ===== SCROLL TO TOP =====
-        // ================================================================
         document.getElementById('scrollTopBtn').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         // ================================================================
-        // ===== REVEAL ON SCROLL =====
+        // ===== REVEAL =====
         // ================================================================
         var revObs = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    revObs.unobserve(e.target);
-                }
+                if (e.isIntersecting) { e.target.classList.add('visible');
+                    revObs.unobserve(e.target); }
             });
         }, { threshold: 0.08 });
-        document.querySelectorAll('.reveal').forEach(function(el) {
-            revObs.observe(el);
-        });
+        document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
 
         // ================================================================
-        // ===== LIGHTBOX =====
+        // ===== LIGHTBOX (FIXED: TOMBOL "PESAN" UNTUK SECRET CAR & STOCK) =====
         // ================================================================
         var lbEl = document.getElementById('lightbox'),
             lbIframe = document.getElementById('lbIframe'),
@@ -3469,30 +3367,52 @@
             lbOrder.style.cssText = '';
             lbShare.style.display = 'inline-flex';
 
-            var priceToShow = post.discountedPrice || post.editedPrice || post.price || '';
-            var priceForWa = post.discountedPrice || post.editedPrice || post.price || '';
+            // Tentukan harga yang akan ditampilkan
+            var priceToShow = '';
+            var priceForWa = '';
+            var waMsg = '';
 
-            if (opts.isSold) {
+            if (opts.isSecret) {
+                // Secret car: harga fixed 5rb (atau dari database jika ada)
+                priceToShow = 'Rp 5.000';
+                priceForWa = 'Rp 5.000';
+                var name = post.name || 'Secret Car';
+                // Pesan untuk secret car
+                waMsg = "Halo admin, saya tertarik dengan Secret Car:\n\n" + name + "\n\nHarga: " + priceForWa +
+                    "\n\nLink: " + post.url;
+                // Tampilkan harga di lightbox
+                lbPrice.textContent = priceToShow;
+                lbDesc.textContent = name;
+                lbDesc.style.display = '';
+                lbIgLink.href = post.url || '#';
+                lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
+                lbOrder.dataset.waMsg = waMsg;
+            } else if (opts.isSold) {
+                // Mobil sudah terjual
+                priceToShow = post.discountedPrice || post.editedPrice || post.price || '';
                 lbPrice.textContent = priceToShow;
                 lbDesc.textContent = post.desc || '';
                 lbDesc.style.display = lbDesc.textContent ? '' : 'none';
                 lbIgLink.href = post.url || '#';
                 lbOrder.innerHTML = '<i class="fas fa-check-circle"></i> Sudah Terjual';
                 lbOrder.className = 'btn-order-sm sold-order-badge';
-            } else if (opts.hidePrice) {
-                lbPrice.style.display = 'none';
-                lbDesc.textContent = opts.nameAsDesc ? (post.name || '') : (post.desc || '');
-                lbDesc.style.display = lbDesc.textContent ? '' : 'none';
-                lbIgLink.href = post.url || '#';
-                lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Tanya Admin';
+                // Nonaktifkan klik
+                delete lbOrder.dataset.waMsg;
             } else {
+                // Stock biasa
+                priceToShow = post.discountedPrice || post.editedPrice || post.price || '';
+                priceForWa = priceToShow;
                 lbPrice.textContent = priceToShow;
                 lbDesc.textContent = post.desc || '';
                 lbDesc.style.display = lbDesc.textContent ? '' : 'none';
                 lbIgLink.href = post.url || '#';
                 lbOrder.innerHTML = '<i class="fab fa-whatsapp"></i> Pesan';
-                lbOrder.dataset.price = priceForWa;
+                // Buat pesan WA
+                var waMsg = "Halo admin, saya mau pesan mobil:\n\n" + priceForWa + "\n" + (post.desc || '') + "\n\nLink: " +
+                    post.url;
+                lbOrder.dataset.waMsg = waMsg;
             }
+
             lbEl.classList.add('active');
             document.body.style.overflow = 'hidden';
             lbContent.scrollTop = 0;
@@ -3511,24 +3431,27 @@
             lbPrice.style.display = '';
             lbDesc.style.display = '';
             lbShare.style.display = 'inline-flex';
-            delete lbOrder.dataset.price;
+            delete lbOrder.dataset.waMsg;
         };
 
         document.getElementById('lbBackdrop').addEventListener('click', closeLightbox);
         document.getElementById('lbClose').addEventListener('click', closeLightbox);
 
+        // Tombol Pesan di lightbox
         lbOrder.addEventListener('click', function() {
             if (!lbCurrentPost) return;
-            if (lbOpts.isSold) return;
-            var price = this.dataset.price || lbCurrentPost.discountedPrice || lbCurrentPost.editedPrice || lbCurrentPost
-                .price || '';
-            var waMsg;
-            if (lbOpts.isSecret) {
-                waMsg = "Halo admin, saya tertarik dengan Limited Secret Car:\n\n" + (lbCurrentPost.name || '') +
-                    "\n\nLink: " + lbCurrentPost.url;
-            } else {
-                waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + lbCurrentPost.desc + "\n\nLink: " +
-                    lbCurrentPost.url;
+            if (this.classList.contains('sold-order-badge')) return;
+            var waMsg = this.dataset.waMsg;
+            if (!waMsg) {
+                // Fallback jika tidak ada waMsg (misal untuk secret car tanpa waMsg)
+                if (lbOpts.isSecret) {
+                    waMsg = "Halo admin, saya tertarik dengan Secret Car:\n\n" + (lbCurrentPost.name || '') +
+                        "\n\nHarga: Rp 5.000\n\nLink: " + lbCurrentPost.url;
+                } else {
+                    var price = lbCurrentPost.discountedPrice || lbCurrentPost.editedPrice || lbCurrentPost.price || '';
+                    waMsg = "Halo admin, saya mau pesan mobil:\n\n" + price + "\n" + (lbCurrentPost.desc || '') +
+                        "\n\nLink: " + lbCurrentPost.url;
+                }
             }
             window.open("https://wa.me/6289687163314?text=" + encodeURIComponent(waMsg), '_blank');
             closeLightbox();
@@ -3562,758 +3485,444 @@
             if (e.touches[0].clientY - lbTouchStartY > 100 && lbContent.scrollTop <= 0) closeLightbox();
         }, { passive: true });
 
-        function addLoaderToCard(card, iframe) {
-            var wrap = card.querySelector('.ig-card-embed-wrap');
-            if (!wrap) return;
-            var loader = document.createElement('div');
-            loader.className = 'ig-card-loader';
-            var spinner = document.createElement('div');
-            spinner.className = 'spinner';
-            loader.appendChild(spinner);
-            wrap.appendChild(loader);
-            iframe.addEventListener('load', function() {
-                loader.classList.add('hidden');
-            });
-            setTimeout(function() {
-                loader.classList.add('hidden');
-            }, 5000);
-        }
-    </script>
+        // ================================================================
+        // ===== SECRET CARS (Firebase) =====
+        // ================================================================
+        (function() {
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.textContent = `
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+                import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-    <!-- ============================================================ -->
-    <!-- ===== FIREBASE: SECRET CARS ===== -->
-    <!-- ============================================================ -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot } from
-        "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-        const app = initializeApp({
-            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-            authDomain: "akinowedding-73271.firebaseapp.com",
-            projectId: "akinowedding-73271",
-            storageBucket: "akinowedding-73271.appspot.com",
-            messagingSenderId: "307666594440",
-            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
-        });
-        const db = getFirestore(app);
-
-        function escLocal(t) { var d = document.createElement('div');
-            d.textContent = t; return d.innerHTML }
-
-        onSnapshot(query(collection(db, "secretCars"), orderBy("addedAt", "desc")), (snap) => {
-            var cars = [];
-            snap.forEach((d) => cars.push({ id: d.id, ...d.data() }));
-            var grid = document.getElementById('secretGrid');
-            grid.innerHTML = '';
-            var avail = cars.filter(c => c.status === 'available');
-            if (!avail.length) {
-                grid.innerHTML =
-                    '<div class="limited-empty"><i class="fas fa-lock"></i>Belum ada secret car tersedia.</div>';
-                return;
-            }
-            avail.forEach((car, i) => {
-                var code = getCode(car.url);
-                if (!code) return;
-                var card = document.createElement('div');
-                card.className = 'ig-card';
-                card.style.animationDelay = (i * 0.06) + 's';
-                card.innerHTML =
-                    '<div class="ig-card-embed-wrap">' +
-                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
-                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                    '<div class="ig-card-thumb-overlay"></div>' +
-                    '<div class="ig-card-thumb-price">' + escLocal(car.name) + '</div>' +
-                    '<div class="secret-badge"><i class="fas fa-star"></i> SECRET</div>' +
-                    '</div>';
-                var iframe = card.querySelector('iframe');
-                addLoaderToCard(card, iframe);
-
-                var openFn = function(e) {
-                    e.stopPropagation();
-                    window.openLightbox({ url: car.url, name: car.name }, { hidePrice: true, isSecret: true,
-                        nameAsDesc: true });
-                };
-                card.querySelector('.ig-card-thumb-overlay').addEventListener('click', openFn);
-                card.querySelector('.ig-card-thumb-price').addEventListener('click', openFn);
-                grid.appendChild(card);
-            });
-        }, (err) => { console.error("Secret cars error:", err); });
-    </script>
-
-    <!-- ============================================================ -->
-    <!-- ===== FIREBASE: MAIN STOCK + FLASH SALE ===== -->
-    <!-- ============================================================ -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from
-        "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-        const app = initializeApp({
-            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
-            authDomain: "akinowedding-73271.firebaseapp.com",
-            projectId: "akinowedding-73271",
-            storageBucket: "akinowedding-73271.appspot.com",
-            messagingSenderId: "307666594440",
-            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
-        });
-        const db = getFirestore(app);
-
-        var SOLD_HOURS = 24,
-            PER_PAGE = 10,
-            currentPage = 0,
-            soldListOpen = true,
-            currentSort = 'newest',
-            POSTS = [];
-
-        var prevFlashIds = new Set();
-        var flashFilterActive = false;
-        var showAllActive = false;
-        var currentView = 'grid';
-        var isCheckingFlash = false;
-
-        function escLocal(t) { var d = document.createElement('div');
-            d.textContent = t; return d.innerHTML }
-
-        function parsePrice(str) { var n = parseInt((str || '').replace(/[^0-9]/g, ''));
-            return isNaN(n) ? 0 : n }
-
-        function getEffectivePrice(post) { return post.editedPrice || post.price || '' }
-
-        function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000;
-            return new Date(t).getTime() }
-
-        function getDiscountedPrice(post) {
-            if (!post.discount) return null;
-            var original = post.originalPrice || post.price || '';
-            var num = parseInt(original.replace(/[^0-9]/g, '')) || 0;
-            var discounted = Math.round(num * 0.8);
-            return 'Rp ' + discounted.toLocaleString('id-ID');
-        }
-
-        function getFlashRemaining(post) {
-            if (!post.discount || !post.flashSaleEnd) return 0;
-            return Math.max(0, toMs(post.flashSaleEnd) - Date.now());
-        }
-
-        // --- FILTER & SORT ---
-        function getFilteredAvailable() {
-            var min = parseInt(document.getElementById('priceMin').value) || 0;
-            var max = parseInt(document.getElementById('priceMax').value) || Infinity;
-            var rMin = parseInt(document.getElementById('rangeMin').value) || 0;
-            var rMax = parseInt(document.getElementById('rangeMax').value) || Infinity;
-            var effectiveMin = Math.max(min, rMin);
-            var effectiveMax = Math.min(max, rMax);
-
-            return POSTS.filter(function(p) {
-                if (p.status !== 'available') return false;
-                var price = parsePrice(getEffectivePrice(p));
-                var priceOk = price >= effectiveMin && price <= effectiveMax;
-                var flashOk = true;
-                if (flashFilterActive) {
-                    flashOk = p.discount === true;
-                }
-                return priceOk && flashOk;
-            });
-        }
-
-        function getSortedFiltered() {
-            var avail = getFilteredAvailable();
-            var nonFlash = avail.filter(p => p.discount !== true);
-            if (currentSort === 'newest') nonFlash.sort(function(a, b) { return toMs(b.addedAt) - toMs(a.addedAt) });
-            else if (currentSort === 'price-asc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(a)) -
-                    parsePrice(getEffectivePrice(b)) });
-            else if (currentSort === 'price-desc') nonFlash.sort(function(a, b) { return parsePrice(getEffectivePrice(b)) -
-                    parsePrice(getEffectivePrice(a)) });
-            if (flashFilterActive) {
-                var flashItems = avail.filter(p => p.discount === true);
-                flashItems.sort(function(a, b) {
-                    return getFlashRemaining(a) - getFlashRemaining(b);
+                const app = initializeApp({
+                    apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+                    authDomain: "akinowedding-73271.firebaseapp.com",
+                    projectId: "akinowedding-73271",
+                    storageBucket: "akinowedding-73271.appspot.com",
+                    messagingSenderId: "307666594440",
+                    appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
                 });
-                return flashItems.concat(nonFlash);
-            }
-            return nonFlash;
-        }
+                const db = getFirestore(app);
 
-        // --- UPDATE STATS ---
-        function updateStats() {
-            var total = POSTS.length;
-            var available = POSTS.filter(p => p.status === 'available').length;
-            var flash = POSTS.filter(p => p.status === 'available' && p.discount === true).length;
-            var sold = POSTS.filter(p => p.status === 'sold').length;
-            document.getElementById('statTotal').textContent = total;
-            document.getElementById('statAvailable').textContent = available;
-            document.getElementById('statFlash').textContent = flash;
-            document.getElementById('statSold').textContent = sold;
-        }
+                function escLocal(t) { var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 
-        // --- RENDER FLASH SALE ---
-        function renderFlashSale() {
-            var flashItems = POSTS.filter(function(p) {
-                return p.status === 'available' && p.discount === true;
-            });
-            var section = document.getElementById('flashSection');
-            var grid = document.getElementById('flashGrid');
-            var count = document.getElementById('flashCount');
-
-            if (!flashItems.length) {
-                section.style.display = 'none';
-                if (flashTimer) clearInterval(flashTimer);
-                document.getElementById('globalCountdown').textContent = '';
-                return;
-            }
-            section.style.display = 'block';
-            count.textContent = flashItems.length + ' item';
-
-            var minRemaining = Infinity;
-            flashItems.forEach(function(p) {
-                var rem = getFlashRemaining(p);
-                if (rem > 0 && rem < minRemaining) minRemaining = rem;
-            });
-            var globalEl = document.getElementById('globalCountdown');
-            if (minRemaining === Infinity || minRemaining <= 0) {
-                globalEl.textContent = '';
-            } else {
-                globalEl.textContent = '⏳ Berakhir dalam ' + formatCountdown(minRemaining);
-            }
-
-            grid.innerHTML = '';
-            flashItems.forEach(function(post, i) {
-                var code = getCode(post.url);
-                if (!code) return;
-                var price = getEffectivePrice(post);
-                var discounted = post.discountedPrice || getDiscountedPrice(post) || price;
-                var remaining = getFlashRemaining(post);
-                var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Habis';
-
-                var card = document.createElement('div');
-                card.className = 'flash-card';
-                card.style.animationDelay = (i * 0.06) + 's';
-                card.setAttribute('data-flash-id', post.id);
-                card.innerHTML =
-                    '<div class="ig-card-embed-wrap">' +
-                    '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
-                    '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                    '<div class="thumb-overlay"></div>' +
-                    '<div class="flash-badge"><i class="fas fa-bolt"></i> FLASH</div>' +
-                    '<div class="price-info">' +
-                    '<span class="original">' + escLocal(price) + '</span>' +
-                    '<span class="discount">' + escLocal(discounted) + '</span>' +
-                    '</div>' +
-                    '<div class="countdown" data-flashend="' + toMs(post.flashSaleEnd) + '">⏳ ' + timerText + '</div>' +
-                    '</div>';
-                var iframe = card.querySelector('iframe');
-                addLoaderToCard(card, iframe);
-
-                card.querySelector('.thumb-overlay').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    window.openLightbox(post);
-                });
-                grid.appendChild(card);
-            });
-
-            startFlashTimer();
-        }
-
-        var flashTimer = null;
-
-        function startFlashTimer() {
-            if (flashTimer) clearInterval(flashTimer);
-            flashTimer = setInterval(function() {
-                document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(function(el) {
-                    var end = parseInt(el.dataset.flashend);
-                    var rem = Math.max(0, end - Date.now());
-                    if (rem <= 0) {
-                        el.textContent = '⏳ Berakhir';
-                    } else {
-                        el.textContent = '⏳ ' + formatCountdown(rem);
+                onSnapshot(query(collection(db, "secretCars"), orderBy("addedAt", "desc")), (snap) => {
+                    var cars = [];
+                    snap.forEach((d) => cars.push({ id: d.id, ...d.data() }));
+                    var grid = document.getElementById('secretGrid');
+                    grid.innerHTML = '';
+                    var avail = cars.filter(c => c.status === 'available');
+                    if (!avail.length) {
+                        grid.innerHTML = '<div class="limited-empty"><i class="fas fa-lock"></i>Belum ada secret car tersedia.</div>';
+                        return;
                     }
+                    avail.forEach((car, i) => {
+                        var code = getCode(car.url);
+                        if (!code) return;
+                        var card = document.createElement('div');
+                        card.className = 'ig-card';
+                        card.style.animationDelay = (i*0.06)+'s';
+                        card.innerHTML =
+                            '<div class="ig-card-embed-wrap">' +
+                            '<iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                            '<div class="ig-card-thumb-overlay"></div>' +
+                            '<div class="ig-card-thumb-price">'+escLocal(car.name)+'</div>' +
+                            '<div class="secret-badge"><i class="fas fa-star"></i> SECRET</div>' +
+                            '</div>';
+                        var iframe = card.querySelector('iframe');
+                        addLoaderToCard(card, iframe);
+
+                        var openFn = function(e) {
+                            e.stopPropagation();
+                            // Kirim secret car dengan flag isSecret
+                            window.openLightbox({ url: car.url, name: car.name }, { isSecret: true });
+                        };
+                        card.querySelector('.ig-card-thumb-overlay').addEventListener('click', openFn);
+                        card.querySelector('.ig-card-thumb-price').addEventListener('click', openFn);
+                        grid.appendChild(card);
+                    });
+                }, (err) => { console.error("Secret cars error:", err); });
+            `;
+            document.body.appendChild(script);
+        })();
+
+        // ================================================================
+        // ===== MAIN STOCK + FLASH + HOT (Firebase) =====
+        // ================================================================
+        (function() {
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.textContent = `
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+                import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+                const app = initializeApp({
+                    apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+                    authDomain: "akinowedding-73271.firebaseapp.com",
+                    projectId: "akinowedding-73271",
+                    storageBucket: "akinowedding-73271.appspot.com",
+                    messagingSenderId: "307666594440",
+                    appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
                 });
-                var flashItems = POSTS.filter(function(p) {
-                    return p.status === 'available' && p.discount === true;
-                });
-                var minRemaining = Infinity;
-                flashItems.forEach(function(p) {
-                    var rem = getFlashRemaining(p);
-                    if (rem > 0 && rem < minRemaining) minRemaining = rem;
-                });
-                var globalEl = document.getElementById('globalCountdown');
-                if (minRemaining === Infinity || !flashItems.length) {
-                    globalEl.textContent = '';
-                } else {
-                    globalEl.textContent = '⏳ Berakhir dalam ' + formatCountdown(minRemaining);
+                const db = getFirestore(app);
+
+                var SOLD_HOURS = 24,
+                    POSTS = [],
+                    flashFilterActive = false,
+                    hotFilterActive = false,
+                    currentSort = 'newest',
+                    currentView = 'grid',
+                    showAllActive = false,
+                    PER_PAGE = 10,
+                    currentPage = 0,
+                    soldListOpen = true,
+                    flashTimer = null;
+
+                function escLocal(t) { var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+                function parsePrice(str) { var n=parseInt((str||'').replace(/[^0-9]/g,'')); return isNaN(n)?0:n; }
+                function getEP(p) { return p.editedPrice || p.price || ''; }
+                function toMs(t) { if(!t) return 0; if(typeof t==='number') return t; if(t.seconds) return t.seconds*1000; return new Date(t).getTime(); }
+                function getDiscountedPrice(p) {
+                    if(!p.discount) return null;
+                    var original = p.originalPrice || p.price || '';
+                    var num = parseInt(original.replace(/[^0-9]/g,'')) || 0;
+                    var discounted = Math.round(num*0.8);
+                    return 'Rp '+discounted.toLocaleString('id-ID');
                 }
-            }, 1000);
-        }
-
-        // --- VIEW TOGGLE ---
-        window.setView = function(view) {
-            currentView = view;
-            var grid = document.getElementById('igGrid');
-            var gridBtn = document.getElementById('viewGridBtn');
-            var listBtn = document.getElementById('viewListBtn');
-            if (view === 'grid') {
-                grid.classList.remove('list-view');
-                gridBtn.classList.add('active');
-                listBtn.classList.remove('active');
-            } else {
-                grid.classList.add('list-view');
-                listBtn.classList.add('active');
-                gridBtn.classList.remove('active');
-            }
-            renderAvailable();
-        };
-
-        // --- SHOW ALL TOGGLE ---
-        window.toggleShowAll = function() {
-            showAllActive = !showAllActive;
-            var btn = document.getElementById('showAllBtn');
-            var label = document.getElementById('showAllLabel');
-            var pag = document.getElementById('pagination');
-            if (showAllActive) {
-                btn.classList.add('active');
-                label.textContent = 'Sembunyikan';
-                pag.style.display = 'none';
-            } else {
-                btn.classList.remove('active');
-                label.textContent = 'Tampilkan Semua';
-                var totalPages = Math.ceil(getSortedFiltered().length / PER_PAGE);
-                if (totalPages > 1) {
-                    pag.style.display = 'flex';
-                } else {
-                    pag.style.display = 'none';
+                function getFlashRemaining(p) {
+                    if(!p.discount || !p.flashSaleEnd) return 0;
+                    return Math.max(0, toMs(p.flashSaleEnd)-Date.now());
                 }
-            }
-            currentPage = 0;
-            renderAvailable();
-        };
 
-        // --- FILTER FLASH ---
-        window.toggleFlashFilter = function() {
-            flashFilterActive = !flashFilterActive;
-            var btn = document.getElementById('flashFilterBtn');
-            btn.classList.toggle('active');
-            btn.textContent = flashFilterActive ? '🔥 Flash Sale' : 'Semua';
-            currentPage = 0;
-            renderAvailable();
-        };
+                function getFilteredAvail() {
+                    var allAvail = POSTS.filter(p => p.status === 'available');
+                    var min = parseInt(document.getElementById('priceMin').value) || 0;
+                    var max = parseInt(document.getElementById('priceMax').value) || Infinity;
+                    var rMin = parseInt(document.getElementById('rangeMin').value) || 0;
+                    var rMax = parseInt(document.getElementById('rangeMax').value) || Infinity;
+                    var effectiveMin = Math.max(min, rMin);
+                    var effectiveMax = Math.min(max, rMax);
 
-        // --- REFRESH MANUAL ---
-        window.manualRefresh = function() {
-            renderAvailable();
-            renderFlashSale();
-            updateStats();
-            showToast('🔄 Data diperbarui', 'info');
-        };
-
-        // --- SET SORT ---
-        window.setSort = function(sort) {
-            currentSort = sort;
-            document.querySelectorAll('#sortTabs .sort-btn').forEach(function(b) {
-                b.classList.toggle('active', b.dataset.sort === sort);
-            });
-            currentPage = 0;
-            renderAvailable();
-        };
-
-        // --- SOLD TOGGLE ---
-        window.toggleSoldList = function() {
-            soldListOpen = !soldListOpen;
-            var list = document.getElementById('soldList'),
-                btn = document.getElementById('soldToggle'),
-                txt = document.getElementById('soldToggleText');
-            if (soldListOpen) { list.classList.remove('collapsed');
-                btn.classList.add('open');
-                txt.textContent = 'Sembunyikan'; } else { list.classList.add('collapsed');
-                btn.classList.remove('open');
-                txt.textContent = 'Tampilkan'; }
-        };
-
-        // --- RENDER SOLD ---
-        function renderSold() {
-            var now = Date.now();
-            var sold = POSTS.filter(function(p) {
-                if (p.status !== 'sold') return false;
-                return (SOLD_HOURS * 3600000 - (now - toMs(p.soldAt))) > 0;
-            });
-            var section = document.getElementById('soldSection'),
-                list = document.getElementById('soldList'),
-                countEl = document.getElementById('soldCount');
-            if (!sold.length) { section.style.display = 'none'; return }
-            section.style.display = 'block';
-            countEl.textContent = sold.length + ' item';
-            var h = '';
-            sold.forEach(function(post, i) {
-                var price = getEffectivePrice(post);
-                var code = getCode(post.url);
-                var name = getFirstLine(post.desc);
-                h += '<div class="sold-card" data-sold-idx="' + i + '" style="animation-delay:' + (i * 0.06) +
-                    's">';
-                if (code) {
-                    h += '<div class="sold-card-thumb">' +
-                        '<iframe src="https://www.instagram.com/p/' + code +
-                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                        '<div class="sold-card-thumb-overlay"></div>' +
-                        '<div class="sold-card-sold-badge"><i class="fas fa-check"></i> TERJUAL</div>' +
-                        '</div>';
-                }
-                h += '<div class="sold-card-body">' +
-                    '<a href="' + post.url + '" target="_blank" class="sc-name" title="' + escLocal(name) + '">' +
-                    escLocal(name) + '</a>' +
-                    '<span class="sc-price">' + escLocal(price) + '</span>' +
-                    '</div></div>';
-            });
-            list.innerHTML = h;
-            list.querySelectorAll('.sold-card').forEach(function(card) {
-                var idx = parseInt(card.dataset.soldIdx);
-                var post = sold[idx];
-                if (!post) return;
-                var thumb = card.querySelector('.sold-card-thumb');
-                if (thumb) {
-                    thumb.querySelector('.sold-card-thumb-overlay').addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.openLightbox(post, { isSold: true });
+                    return allAvail.filter(p => {
+                        var price = parsePrice(getEP(p));
+                        var priceOk = price >= effectiveMin && price <= effectiveMax;
+                        var flashOk = !flashFilterActive || (p.discount === true);
+                        var hotOk = !hotFilterActive || (p.isHot === true);
+                        return priceOk && flashOk && hotOk;
                     });
                 }
-            });
-        }
 
-        // --- PAGINATION HELPERS ---
-        function buildPageNums(current, total) {
-            if (total <= 7) { var a = []; for (var i = 0; i < total; i++) a.push(i); return a }
-            var pages = [0];
-            if (current > 2) pages.push('...');
-            var s = Math.max(1, current - 1),
-                e = Math.min(total - 2, current + 1);
-            for (var i = s; i <= e; i++) pages.push(i);
-            if (current < total - 3) pages.push('...');
-            pages.push(total - 1);
-            return pages;
-        }
-
-        // --- RENDER AVAILABLE ---
-        function renderAvailable() {
-            var avail = getSortedFiltered(),
-                grid = document.getElementById('igGrid');
-            grid.innerHTML = '';
-            var total = avail.length,
-                totalPages = Math.ceil(total / PER_PAGE);
-
-            var showAll = showAllActive;
-            var start, end, showing;
-            if (showAll) {
-                start = 0;
-                end = total;
-                showing = total;
-                document.getElementById('pagination').style.display = 'none';
-            } else {
-                if (currentPage >= totalPages && totalPages > 0) currentPage = totalPages - 1;
-                if (currentPage < 0) currentPage = 0;
-                start = currentPage * PER_PAGE;
-                end = Math.min(start + PER_PAGE, total);
-                showing = total > 0 ? end - start : 0;
-                if (totalPages > 1) {
-                    document.getElementById('pagination').style.display = 'flex';
-                } else {
-                    document.getElementById('pagination').style.display = 'none';
-                }
-            }
-
-            document.getElementById('igCounter').innerHTML = total > 0 ? 'Menampilkan <strong>' + showing +
-                '</strong> dari <strong>' + total + '</strong> mobil tersedia' +
-                (flashFilterActive ? ' (🔥 Flash Sale)' : '') +
-                (showAll ? ' (Semua)' : '') :
-                '<strong>0</strong> mobil tersedia saat ini';
-
-            if (!total) {
-                grid.innerHTML =
-                    '<div style="text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.2rem;display:block;margin-bottom:0.8rem;opacity:0.3"></i>Semua stock mobil saat ini kosong.</div>';
-                return;
-            }
-
-            var slice = avail.slice(start, end);
-            slice.forEach(function(post, i) {
-                var code = getCode(post.url);
-                if (!code) return;
-                var price = getEffectivePrice(post);
-                var card = document.createElement('div');
-                card.className = 'ig-card';
-                card.style.animationDelay = (i * 0.04) + 's';
-
-                var badge = post.discount ? '<div class="status-badge" style="background:#fb923c;color:#fff;">🔥 FLASH</div>' :
-                    '';
-
-                if (currentView === 'list') {
-                    var descLine = getFirstLine(post.desc) || '';
-                    card.innerHTML =
-                        '<div class="ig-card-embed-wrap">' +
-                        '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
-                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                        '<div class="ig-card-thumb-overlay"></div>' +
-                        badge +
-                        '</div>' +
-                        '<div class="ig-card-thumb-price">' +
-                        '<span class="price-label">Harga</span>' +
-                        '<span class="price-value">' + escLocal(price) + '</span>' +
-                        (descLine ? '<span class="item-desc">' + escLocal(descLine) + '</span>' : '') +
-                        '</div>';
-                } else {
-                    card.innerHTML =
-                        '<div class="ig-card-embed-wrap">' +
-                        '<iframe class="ig-card-embed" src="https://www.instagram.com/p/' + code +
-                        '/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
-                        '<div class="ig-card-thumb-overlay"></div>' +
-                        '<div class="ig-card-thumb-price">' + escLocal(price) + '</div>' +
-                        badge +
-                        '</div>';
-                }
-
-                var iframe = card.querySelector('iframe');
-                addLoaderToCard(card, iframe);
-
-                var overlay = card.querySelector('.ig-card-thumb-overlay');
-                if (overlay) {
-                    overlay.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        window.openLightbox(post);
-                    });
-                }
-                var priceEl = card.querySelector('.ig-card-thumb-price');
-                if (priceEl && currentView === 'grid') {
-                    priceEl.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        window.openLightbox(post);
-                    });
-                }
-                if (currentView === 'list') {
-                    card.addEventListener('click', function(e) {
-                        if (!e.target.closest('a')) {
-                            window.openLightbox(post);
+                function getSortedFiltered() {
+                    var avail = getFilteredAvail();
+                    if (currentSort === 'newest') {
+                        avail.sort((a,b) => toMs(b.addedAt)-toMs(a.addedAt));
+                        // Hot stock di atas jika tidak ada filter aktif
+                        if (!flashFilterActive && !hotFilterActive) {
+                            var hot = avail.filter(p => p.isHot === true);
+                            var non = avail.filter(p => p.isHot !== true);
+                            avail = hot.concat(non);
                         }
+                    }
+                    else if (currentSort === 'price-asc') avail.sort((a,b) => parsePrice(getEP(a))-parsePrice(getEP(b)));
+                    else if (currentSort === 'price-desc') avail.sort((a,b) => parsePrice(getEP(b))-parsePrice(getEP(a)));
+                    return avail;
+                }
+
+                // STATS
+                function updateStats() {
+                    var total = POSTS.length;
+                    var available = POSTS.filter(p => p.status === 'available').length;
+                    var flash = POSTS.filter(p => p.status === 'available' && p.discount === true).length;
+                    var hot = POSTS.filter(p => p.status === 'available' && p.isHot === true).length;
+                    document.getElementById('statTotal').textContent = total;
+                    document.getElementById('statAvailable').textContent = available;
+                    document.getElementById('statFlash').textContent = flash;
+                    document.getElementById('statHot').textContent = hot;
+                }
+
+                // FLASH
+                function renderFlashSale() {
+                    var flashItems = POSTS.filter(p => p.status === 'available' && p.discount === true);
+                    var section = document.getElementById('flashSection');
+                    var grid = document.getElementById('flashGrid');
+                    var count = document.getElementById('flashCount');
+                    if (!flashItems.length) { section.style.display = 'none'; return; }
+                    section.style.display = 'block';
+                    count.textContent = flashItems.length + ' item';
+                    var minRemaining = Infinity;
+                    flashItems.forEach(p => { var rem = getFlashRemaining(p); if(rem>0 && rem<minRemaining) minRemaining=rem; });
+                    var globalEl = document.getElementById('globalCountdown');
+                    if (minRemaining === Infinity || minRemaining <= 0) globalEl.textContent = '';
+                    else globalEl.textContent = '⏳ Berakhir dalam '+formatCountdown(minRemaining);
+
+                    grid.innerHTML = '';
+                    flashItems.forEach((post,i) => {
+                        var code = getCode(post.url);
+                        if(!code) return;
+                        var price = getEP(post);
+                        var discounted = post.discountedPrice || getDiscountedPrice(post) || price;
+                        var remaining = getFlashRemaining(post);
+                        var timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Habis';
+                        var card = document.createElement('div');
+                        card.className = 'flash-card';
+                        card.style.animationDelay = (i*0.06)+'s';
+                        card.innerHTML =
+                            '<div class="ig-card-embed-wrap">' +
+                            '<iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>' +
+                            '<div class="thumb-overlay"></div>' +
+                            '<div class="flash-badge"><i class="fas fa-bolt"></i> FLASH</div>' +
+                            '<div class="price-info"><span class="original">'+escLocal(price)+'</span><span class="discount">'+escLocal(discounted)+'</span></div>' +
+                            '<div class="countdown" data-flashend="'+toMs(post.flashSaleEnd)+'">⏳ '+timerText+'</div>' +
+                            '</div>';
+                        var iframe = card.querySelector('iframe');
+                        addLoaderToCard(card, iframe);
+                        card.querySelector('.thumb-overlay').addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            window.openLightbox(post);
+                        });
+                        grid.appendChild(card);
+                    });
+                    startFlashTimer();
+                }
+
+                function startFlashTimer() {
+                    if (flashTimer) clearInterval(flashTimer);
+                    flashTimer = setInterval(function() {
+                        document.querySelectorAll('.flash-card .countdown[data-flashend]').forEach(el => {
+                            var end = parseInt(el.dataset.flashend);
+                            var rem = Math.max(0, end - Date.now());
+                            el.textContent = rem <= 0 ? '⏳ Berakhir' : '⏳ '+formatCountdown(rem);
+                        });
+                        var flashItems = POSTS.filter(p => p.status === 'available' && p.discount === true);
+                        var minRemaining = Infinity;
+                        flashItems.forEach(p => { var rem = getFlashRemaining(p); if(rem>0 && rem<minRemaining) minRemaining=rem; });
+                        var globalEl = document.getElementById('globalCountdown');
+                        if (minRemaining === Infinity || !flashItems.length) globalEl.textContent = '';
+                        else globalEl.textContent = '⏳ Berakhir dalam '+formatCountdown(minRemaining);
+                    }, 1000);
+                }
+
+                // SOLD
+                function renderSold() {
+                    var now = Date.now();
+                    var sold = POSTS.filter(p => p.status === 'sold' && (SOLD_HOURS*3600000 - (now - toMs(p.soldAt))) > 0);
+                    var section = document.getElementById('soldSection'), list = document.getElementById('soldList'), countEl = document.getElementById('soldCount');
+                    if(!sold.length){ section.style.display='none'; return; }
+                    section.style.display='block'; countEl.textContent=sold.length+' item';
+                    var h='';
+                    sold.forEach((post,i) => {
+                        var price=getEP(post), code=getCode(post.url), name=getFirstLine(post.desc);
+                        h += '<div class="sold-card" style="animation-delay:'+(i*0.06)+'s">';
+                        if(code){
+                            h += '<div class="sold-card-thumb"><iframe src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="sold-card-thumb-overlay"></div><div class="sold-card-sold-badge"><i class="fas fa-check"></i> TERJUAL</div></div>';
+                        }
+                        h += '<div class="sold-card-body"><a href="'+post.url+'" target="_blank" class="sc-name" title="'+escLocal(name)+'">'+escLocal(name)+'</a><span class="sc-price">'+escLocal(price)+'</span></div></div>';
+                    });
+                    list.innerHTML = h;
+                    list.querySelectorAll('.sold-card .sold-card-thumb-overlay').forEach((el, idx) => {
+                        el.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); window.openLightbox(sold[idx], {isSold: true}); });
                     });
                 }
-                grid.appendChild(card);
-            });
 
-            // Pagination controls (only if not showAll)
-            if (!showAll) {
-                var pag = document.getElementById('pagination');
-                if (totalPages > 1) {
-                    pag.style.display = 'flex';
-                    document.getElementById('prevBtn').disabled = currentPage === 0;
-                    document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
-                    var pageNums = buildPageNums(currentPage, totalPages),
-                        pnEl = document.getElementById('pageNumbers');
-                    pnEl.innerHTML = '';
-                    pageNums.forEach(function(p) {
-                        if (p === '...') { var sp = document.createElement('span');
-                            sp.className = 'page-ellipsis';
-                            sp.textContent = '…';
-                            pnEl.appendChild(sp); } else { var btn = document.createElement('button');
-                            btn.className = 'page-num' + (p === currentPage ? ' active' : '');
-                            btn.textContent = p + 1;
-                            btn.onclick = (function(pg) { return function() { goToPage(pg) } })(p);
-                            pnEl.appendChild(btn); }
+                // MAIN RENDER
+                function renderAvailable() {
+                    var avail = getSortedFiltered(), grid = document.getElementById('igGrid');
+                    grid.innerHTML = '';
+                    var total = avail.length, totalPages = Math.ceil(total / PER_PAGE);
+                    var showAll = showAllActive;
+                    var start, end, showing;
+                    if(showAll){ start=0; end=total; showing=total; document.getElementById('pagination').style.display='none'; }
+                    else {
+                        if(currentPage >= totalPages && totalPages > 0) currentPage = totalPages-1;
+                        if(currentPage < 0) currentPage = 0;
+                        start = currentPage * PER_PAGE;
+                        end = Math.min(start + PER_PAGE, total);
+                        showing = total > 0 ? end - start : 0;
+                        if(totalPages > 1) document.getElementById('pagination').style.display='flex';
+                        else document.getElementById('pagination').style.display='none';
+                    }
+                    document.getElementById('igCounter').innerHTML = total > 0 ? 'Menampilkan <strong>'+showing+'</strong> dari <strong>'+total+'</strong> mobil tersedia' : '<strong>0</strong> mobil tersedia saat ini';
+                    if(!total){ grid.innerHTML='<div style="text-align:center;padding:2.5rem 1rem;color:var(--muted);grid-column:1/-1"><i class="fas fa-car-side" style="font-size:2.2rem;display:block;margin-bottom:0.8rem;opacity:0.3"></i>Semua stock mobil saat ini kosong.</div>'; return; }
+                    var slice = avail.slice(start, end);
+                    slice.forEach((post,i) => {
+                        var code = getCode(post.url);
+                        if(!code) return;
+                        var price = getEP(post);
+                        var isHot = post.isHot === true;
+                        var hotClass = isHot ? ' hot' : '';
+                        var card = document.createElement('div');
+                        card.className = 'ig-card'+hotClass;
+                        card.style.animationDelay = (i*0.04)+'s';
+                        var badges = '';
+                        if(isHot) badges += '<div class="status-badge hot-badge"><i class="fas fa-fire"></i> HOT</div>';
+                        if(post.discount) badges += '<div class="status-badge flash-badge" style="background:#fb923c;color:#fff;">🔥 FLASH</div>';
+                        if(currentView === 'list'){
+                            var descLine = getFirstLine(post.desc) || '';
+                            card.innerHTML =
+                                '<div class="ig-card-embed-wrap"><iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="ig-card-thumb-overlay"></div>'+badges+'</div>'+
+                                '<div class="ig-card-thumb-price"><span class="price-label">Harga</span><span class="price-value">'+escLocal(price)+'</span>'+(descLine ? '<span class="item-desc">'+escLocal(descLine)+'</span>' : '')+'</div>';
+                        } else {
+                            card.innerHTML =
+                                '<div class="ig-card-embed-wrap"><iframe class="ig-card-embed" src="https://www.instagram.com/p/'+code+'/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe><div class="ig-card-thumb-overlay"></div><div class="ig-card-thumb-price">'+escLocal(price)+'</div>'+badges+'</div>';
+                        }
+                        var iframe = card.querySelector('iframe');
+                        addLoaderToCard(card, iframe);
+                        var overlay = card.querySelector('.ig-card-thumb-overlay');
+                        if(overlay) overlay.addEventListener('click', function(e) { e.stopPropagation(); window.openLightbox(post); });
+                        var priceEl = card.querySelector('.ig-card-thumb-price');
+                        if(priceEl && currentView === 'grid') priceEl.addEventListener('click', function(e) { e.stopPropagation(); window.openLightbox(post); });
+                        if(currentView === 'list') card.addEventListener('click', function(e) { if(!e.target.closest('a')) window.openLightbox(post); });
+                        grid.appendChild(card);
                     });
-                } else {
-                    pag.style.display = 'none';
+                    // pagination
+                    if(!showAll && totalPages > 1){
+                        var pag = document.getElementById('pagination');
+                        pag.style.display = 'flex';
+                        document.getElementById('prevBtn').disabled = currentPage === 0;
+                        document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
+                        var pageNums = buildPageNums(currentPage, totalPages);
+                        var pnEl = document.getElementById('pageNumbers');
+                        pnEl.innerHTML = '';
+                        pageNums.forEach(p => {
+                            if(p === '...'){ var sp=document.createElement('span'); sp.className='page-ellipsis'; sp.textContent='…'; pnEl.appendChild(sp); }
+                            else { var btn=document.createElement('button'); btn.className='page-num'+(p===currentPage?' active':''); btn.textContent=p+1; btn.onclick=(function(pg){ return function(){ goToPage(pg); }; })(p); pnEl.appendChild(btn); }
+                        });
+                    } else {
+                        document.getElementById('pagination').style.display='none';
+                    }
                 }
-            }
-        }
 
-        window.prevPage = function() { if (currentPage > 0) { currentPage--;
-                renderAvailable();
-                scrollToGrid() } };
-        window.nextPage = function() { var tp = Math.ceil(getSortedFiltered().length / PER_PAGE); if (currentPage < tp - 1) {
-                currentPage++;
-                renderAvailable();
-                scrollToGrid() } };
+                function buildPageNums(current, total) {
+                    if(total <= 7) { var a=[]; for(var i=0; i<total; i++) a.push(i); return a; }
+                    var pages=[0];
+                    if(current > 2) pages.push('...');
+                    var s = Math.max(1, current-1), e = Math.min(total-2, current+1);
+                    for(var i=s; i<=e; i++) pages.push(i);
+                    if(current < total-3) pages.push('...');
+                    pages.push(total-1);
+                    return pages;
+                }
 
-        function goToPage(pg) { currentPage = pg;
-            renderAvailable();
-            scrollToGrid() }
+                window.prevPage = function(){ if(currentPage > 0){ currentPage--; renderAvailable(); scrollToGrid(); } };
+                window.nextPage = function(){ var tp=Math.ceil(getSortedFiltered().length/PER_PAGE); if(currentPage < tp-1){ currentPage++; renderAvailable(); scrollToGrid(); } };
+                function goToPage(pg){ currentPage=pg; renderAvailable(); scrollToGrid(); }
+                function scrollToGrid(){ var g=document.getElementById('igGrid'); window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior:'smooth' }); }
 
-        function scrollToGrid() { var g = document.getElementById('igGrid');
-            window.scrollTo({ top: g.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }) }
+                window.toggleFlashFilter = function(){
+                    flashFilterActive = !flashFilterActive;
+                    var btn = document.getElementById('flashFilterBtn');
+                    btn.classList.toggle('active');
+                    btn.textContent = flashFilterActive ? '🔥 Flash Sale' : 'Semua';
+                    currentPage = 0;
+                    renderAvailable();
+                };
+                window.toggleHotFilter = function(){
+                    hotFilterActive = !hotFilterActive;
+                    var btn = document.getElementById('hotFilterBtn');
+                    btn.classList.toggle('active');
+                    btn.innerHTML = hotFilterActive ? '<i class="fas fa-fire"></i> 🔥 Hot Stock' : '<i class="fas fa-fire"></i> Hot Stock';
+                    currentPage = 0;
+                    renderAvailable();
+                };
+                window.setSort = function(sort){
+                    currentSort = sort;
+                    document.querySelectorAll('#sortTabs .sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === sort));
+                    currentPage = 0;
+                    renderAvailable();
+                };
+                window.setView = function(view){
+                    currentView = view;
+                    var grid = document.getElementById('igGrid');
+                    var gridBtn = document.getElementById('viewGridBtn');
+                    var listBtn = document.getElementById('viewListBtn');
+                    if(view === 'grid'){ grid.classList.remove('list-view'); gridBtn.classList.add('active'); listBtn.classList.remove('active'); }
+                    else { grid.classList.add('list-view'); listBtn.classList.add('active'); gridBtn.classList.remove('active'); }
+                    renderAvailable();
+                };
+                window.toggleShowAll = function(){
+                    showAllActive = !showAllActive;
+                    var btn = document.getElementById('showAllBtn');
+                    var label = document.getElementById('showAllLabel');
+                    btn.classList.toggle('active');
+                    label.textContent = showAllActive ? 'Sembunyikan' : 'Tampilkan Semua';
+                    currentPage = 0;
+                    renderAvailable();
+                };
+                window.toggleSoldList = function(){
+                    soldListOpen = !soldListOpen;
+                    var list=document.getElementById('soldList'), btn=document.getElementById('soldToggle'), txt=document.getElementById('soldToggleText');
+                    if(soldListOpen){ list.classList.remove('collapsed'); btn.classList.add('open'); txt.textContent='Sembunyikan'; }
+                    else { list.classList.add('collapsed'); btn.classList.remove('open'); txt.textContent='Tampilkan'; }
+                };
+                window.manualRefresh = function(){ renderAvailable(); renderFlashSale(); updateStats(); showToast('🔄 Data diperbarui', 'info'); };
 
-        // --- RANGE SLIDER ---
-        var rangeMin = document.getElementById('rangeMin');
-        var rangeMax = document.getElementById('rangeMax');
-        var rangeMinLabel = document.getElementById('rangeMinLabel');
-        var rangeMaxLabel = document.getElementById('rangeMaxLabel');
-        var rangeFill = document.getElementById('rangeFill');
+                // RANGE SLIDER
+                var rangeMin=document.getElementById('rangeMin'), rangeMax=document.getElementById('rangeMax'), rangeMinLabel=document.getElementById('rangeMinLabel'), rangeMaxLabel=document.getElementById('rangeMaxLabel'), rangeFill=document.getElementById('rangeFill');
+                function updateRangeSlider(){
+                    var minVal=parseInt(rangeMin.value), maxVal=parseInt(rangeMax.value);
+                    if(minVal > maxVal){ rangeMin.value=maxVal; minVal=maxVal; }
+                    var max=parseInt(rangeMax.getAttribute('max')) || 1000000;
+                    var pctMin=(minVal/max)*100, pctMax=(maxVal/max)*100;
+                    rangeFill.style.left=pctMin+'%'; rangeFill.style.width=(pctMax-pctMin)+'%';
+                    rangeMinLabel.textContent='Rp'+(minVal>=1000?(minVal/1000).toFixed(0)+'RB':minVal);
+                    rangeMaxLabel.textContent='Rp'+(maxVal>=1000?(maxVal/1000).toFixed(0)+'RB':maxVal);
+                    document.getElementById('priceMin').value=minVal;
+                    document.getElementById('priceMax').value=maxVal;
+                    clearTimeout(rangeSliderTimeout);
+                    rangeSliderTimeout=setTimeout(function(){ currentPage=0; renderAvailable(); }, 200);
+                }
+                var rangeSliderTimeout;
+                rangeMin.addEventListener('input', updateRangeSlider);
+                rangeMax.addEventListener('input', updateRangeSlider);
+                document.getElementById('priceMin').addEventListener('input', function(){
+                    var val=parseInt(this.value)||0, max=parseInt(rangeMax.getAttribute('max'))||1000000; if(val>max) val=max; rangeMin.value=val; updateRangeSlider();
+                });
+                document.getElementById('priceMax').addEventListener('input', function(){
+                    var val=parseInt(this.value)||0, max=parseInt(rangeMax.getAttribute('max'))||1000000; if(val>max) val=max; rangeMax.value=val; updateRangeSlider();
+                });
 
-        function updateRangeSlider() {
-            var minVal = parseInt(rangeMin.value);
-            var maxVal = parseInt(rangeMax.value);
-            if (minVal > maxVal) {
-                rangeMin.value = maxVal;
-                minVal = maxVal;
-            }
-            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
-            var pctMin = (minVal / max) * 100;
-            var pctMax = (maxVal / max) * 100;
-            rangeFill.style.left = pctMin + '%';
-            rangeFill.style.width = (pctMax - pctMin) + '%';
-            rangeMinLabel.textContent = 'Rp' + (minVal >= 1000 ? (minVal / 1000).toFixed(0) + 'RB' : minVal);
-            rangeMaxLabel.textContent = 'Rp' + (maxVal >= 1000 ? (maxVal / 1000).toFixed(0) + 'RB' : maxVal);
+                // FLASH AUTO CLEANUP
+                async function cleanupFlashSale(){
+                    var now=Date.now();
+                    var toCleanup = POSTS.filter(p => p.discount === true && (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd))));
+                    if(toCleanup.length===0) return 0;
+                    for(var p of toCleanup){
+                        try { await updateDoc(doc(db, "carStock", p.id), { discount: false, discountedPrice: "", flashSaleEnd: null, originalPrice: "" }); }
+                        catch(e){}
+                    }
+                    return toCleanup.length;
+                }
+                setInterval(cleanupFlashSale, 60000);
+                setTimeout(cleanupFlashSale, 3000);
 
-            document.getElementById('priceMin').value = minVal;
-            document.getElementById('priceMax').value = maxVal;
-
-            clearTimeout(rangeSliderTimeout);
-            rangeSliderTimeout = setTimeout(function() {
-                currentPage = 0;
-                renderAvailable();
-            }, 200);
-        }
-
-        var rangeSliderTimeout;
-        rangeMin.addEventListener('input', updateRangeSlider);
-        rangeMax.addEventListener('input', updateRangeSlider);
-
-        document.getElementById('priceMin').addEventListener('input', function() {
-            var val = parseInt(this.value) || 0;
-            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
-            if (val > max) val = max;
-            rangeMin.value = val;
-            updateRangeSlider();
-        });
-        document.getElementById('priceMax').addEventListener('input', function() {
-            var val = parseInt(this.value) || 0;
-            var max = parseInt(rangeMax.getAttribute('max')) || 1000000;
-            if (val > max) val = max;
-            rangeMax.value = val;
-            updateRangeSlider();
-        });
-
-        // --- FLASH SALE OTOMATIS ---
-        async function cleanupFlashSale() {
-            const now = Date.now();
-            const toCleanup = POSTS.filter(p =>
-                p.discount === true &&
-                (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd)))
-            );
-            if (toCleanup.length === 0) return 0;
-            console.log('🧹 Membersihkan ' + toCleanup.length + ' item flash sale');
-            for (const p of toCleanup) {
-                try {
-                    await updateDoc(doc(db, "carStock", p.id), {
-                        discount: false,
-                        discountedPrice: "",
-                        flashSaleEnd: null,
-                        originalPrice: ""
+                // LISTENER
+                onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
+                    POSTS = [];
+                    snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
+                    POSTS.forEach(p => {
+                        if(p.discount === true) p.discountedPrice = getDiscountedPrice(p);
+                        if(p.isHot === undefined) p.isHot = false; // default
                     });
-                } catch (e) { console.error('❌ Cleanup error', e); }
-            }
-            return toCleanup.length;
-        }
+                    updateStats();
+                    renderSold();
+                    renderFlashSale();
+                    renderAvailable();
+                }, (err) => { console.error("Stock listener error:", err); });
 
-        async function startFlashSale() {
-            const available = POSTS.filter(p => p.status === 'available' && p.discount !== true);
-            if (available.length < 10) {
-                console.log('⚠️ Stok kurang dari 10, flash sale ditunda');
-                return;
-            }
-            const shuffled = available.sort(() => 0.5 - Math.random());
-            const selected = shuffled.slice(0, 10);
-            const endTime = Date.now() + 3 * 60 * 60 * 1000;
-
-            console.log('🚀 Memulai flash sale dengan ' + selected.length + ' item');
-            for (const item of selected) {
-                const price = item.editedPrice || item.price || '0';
-                const numPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
-                const discounted = Math.round(numPrice * 0.8);
-                try {
-                    await updateDoc(doc(db, "carStock", item.id), {
-                        discount: true,
-                        discountedPrice: 'Rp ' + discounted.toLocaleString('id-ID'),
-                        flashSaleEnd: endTime,
-                        originalPrice: price
-                    });
-                } catch (e) { console.error('❌ Start flash error', e); }
-            }
-            showFlashToast('Flash Sale Dimulai!', selected.length + ' item diskon 20% 🔥', 'success');
-        }
-
-        async function checkFlashSale() {
-            if (isCheckingFlash) return;
-            isCheckingFlash = true;
-            try {
-                await cleanupFlashSale();
-                await new Promise(resolve => setTimeout(resolve, 500));
-                const now = Date.now();
-                const activeFlash = POSTS.some(p =>
-                    p.discount === true &&
-                    p.status === 'available' &&
-                    p.flashSaleEnd &&
-                    now < toMs(p.flashSaleEnd)
-                );
-                if (!activeFlash) {
-                    await startFlashSale();
-                }
-            } catch (err) { console.error('❌ checkFlashSale error:', err); } finally { isCheckingFlash = false; }
-        }
-
-        setInterval(checkFlashSale, 60000);
-        setTimeout(checkFlashSale, 4000);
-
-        // --- LISTENER UTAMA ---
-        onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
-            var newPosts = [];
-            snap.forEach((d) => newPosts.push({ id: d.id, ...d.data() }));
-            POSTS = newPosts.map(p => {
-                if (p.discount === true) {
-                    p.discountedPrice = getDiscountedPrice(p);
-                }
-                return p;
-            });
-
-            var currentFlashIds = new Set(POSTS.filter(p => p.discount === true && p.status === 'available').map(p => p.id));
-            var newFlashIds = [];
-            currentFlashIds.forEach(id => {
-                if (!prevFlashIds.has(id)) newFlashIds.push(id);
-            });
-            if (newFlashIds.length > 0) {
-                showFlashToast('🔥 Flash Sale Baru!', newFlashIds.length + ' item diskon 20%', 'success');
-                prevFlashIds = currentFlashIds;
-            } else {
-                prevFlashIds = currentFlashIds;
-            }
-
-            updateStats();
-            renderSold();
-            renderFlashSale();
-            renderAvailable();
-        }, (err) => { console.error("Stock listener error:", err); });
-
-        // ===== EXPOSE GLOBAL =====
-        window.triggerFlashSale = async function() {
-            await cleanupFlashSale();
-            await startFlashSale();
-        };
-
-        setTimeout(updateRangeSlider, 100);
-
-        console.log('✅ Semua fitur berhasil dimuat:');
-        console.log('  • Tombol "Tampilkan Semua" (Nonaktifkan Pagination) - di dekat page');
-        console.log('  • Toast/notifikasi menarik perhatian (🔥 Flash Sale Baru!)');
-        console.log('  • Mode Tampilan Daftar (List View)');
-        console.log('  • Slider Harga (Range Slider)');
-        console.log('  • Statistik Singkat di Header');
-        console.log('  • Tombol "Kembali ke Atas" (Scroll to Top) - posisi dinaikkan agar tidak ketutupan float WA');
-        console.log('  • Dark/Light Mode Toggle');
-        console.log('  • Thumbnail mobil diperbaiki untuk tampilan HP');
+                setTimeout(updateRangeSlider, 100);
+                console.log('✅ Stock Mobil loaded with Hot Stock feature');
+            `;
+            document.body.appendChild(script);
+        })();
     </script>
 
     <!-- ============================================================ -->
-    <!-- ===== FIREBASE: GUESTBOOK ===== -->
+    <!-- ===== GUESTBOOK (Firebase) ===== -->
     <!-- ============================================================ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot,
-            startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
         const app = initializeApp({
             apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
@@ -4373,6 +3982,6 @@
         }
         loadMessages();
     </script>
-
 </body>
 </html>
+```

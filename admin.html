@@ -298,6 +298,9 @@
         .stat-card .sv.purple {
             color: #a855f7
         }
+        .stat-card .sv.hot {
+            color: #ff6b6b
+        }
         .stat-card .sl {
             font-size: .7rem;
             color: var(--muted);
@@ -718,6 +721,16 @@
             background: #f87171;
             color: #fff
         }
+        /* NEW HOT BUTTON */
+        .batch-bar .bb-btn.bb-hot {
+            background: rgba(255, 107, 107, .1);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, .2)
+        }
+        .batch-bar .bb-btn.bb-hot:hover:not(:disabled) {
+            background: #ff6b6b;
+            color: #fff
+        }
         .batch-bar .bb-clear {
             background: none;
             border: none;
@@ -793,6 +806,13 @@
         }
         .item.flash:hover {
             border-color: #fb923c
+        }
+        .item.hot {
+            background: rgba(255, 107, 107, .06);
+            border-color: rgba(255, 107, 107, .3)
+        }
+        .item.hot:hover {
+            border-color: #ff6b6b
         }
         .item-thumb {
             width: 64px;
@@ -997,6 +1017,14 @@
         }
         .btn-sm i {
             font-size: .7rem
+        }
+        .btn-sm.btn-hot.active {
+            background: #ff6b6b;
+            color: #fff;
+            border-color: #ff6b6b
+        }
+        .btn-sm.btn-hot:hover {
+            transform: scale(1.05)
         }
         .btn-unsold {
             background: rgba(74, 222, 128, .1);
@@ -2048,6 +2076,10 @@
                 <button class="bb-btn bb-sold" id="batchSoldBtn" onclick="batchMarkSold()" disabled>
                     <i class="fas fa-tag"></i> Tandai Terjual
                 </button>
+                <!-- NEW HOT STOCK BATCH BUTTON -->
+                <button class="bb-btn bb-hot" id="batchHotBtn" onclick="batchToggleHot()" disabled>
+                    <i class="fas fa-fire"></i> Hot Stock
+                </button>
                 <button class="bb-clear" onclick="clearAllSelected()" title="Hapus semua pilihan">
                     <i class="fas fa-times"></i>
                 </button>
@@ -2564,10 +2596,12 @@
             var priceBtn = document.getElementById('batchPriceBtn');
             var descBtn = document.getElementById('batchDescBtn');
             var soldBtn = document.getElementById('batchSoldBtn');
+            var hotBtn = document.getElementById('batchHotBtn');
             var disabled = count === 0;
             priceBtn.disabled = disabled;
             descBtn.disabled = disabled;
             soldBtn.disabled = disabled;
+            hotBtn.disabled = disabled;
 
             if (total > 0) {
                 checkAll.checked = (count === total);
@@ -2777,6 +2811,39 @@
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-check"></i> Simpan';
+            }
+        }
+
+        // ===== BATCH HOT STOCK =====
+        window.batchToggleHot = function() {
+            var selected = getSelectedAvailableItems();
+            if (selected.length === 0) { toast('Pilih item terlebih dahulu.', 'err'); return }
+            var msg = 'Tandai ' + selected.length + ' item sebagai HOT STOCK?\n\nMobil Hot Stock akan muncul di atas daftar dengan badge 🔥 HOT.';
+            if (confirm(msg)) {
+                var btn = document.getElementById('batchHotBtn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                batchSetHot(selected, true);
+            }
+        };
+
+        async function batchSetHot(items, isHot) {
+            try {
+                var count = 0;
+                for (var item of items) {
+                    await updateDoc(doc(db, "carStock", item.id), { isHot: isHot });
+                    count++;
+                }
+                toast('✅ ' + count + ' item ditandai sebagai Hot Stock!', 'ok');
+                selectedItems.clear();
+                renderStock();
+                updateBatchBar();
+            } catch (err) {
+                toast('Gagal: ' + err.message, 'err');
+            } finally {
+                var btn = document.getElementById('batchHotBtn');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-fire"></i> Hot Stock';
             }
         }
 
@@ -3219,7 +3286,8 @@
                             discount: false,
                             discountedPrice: "",
                             flashSaleEnd: null,
-                            originalPrice: ""
+                            originalPrice: "",
+                            isHot: false
                         });
                         successCount++;
                     } catch (err) {
@@ -3272,6 +3340,20 @@
             }
         };
 
+        // ===== TOGGLE HOT STOCK (PER ITEM) =====
+        window.toggleHotStock = async function(docId) {
+            var post = POSTS.find(p => p.id === docId);
+            if (!post) return;
+            var newStatus = !post.isHot;
+            try {
+                await updateDoc(doc(db, "carStock", docId), { isHot: newStatus });
+                toast(newStatus ? '🔥 Ditandai sebagai Hot Stock!' : 'Hot Stock dibatalkan', newStatus ? 'ok' : 'info');
+                renderStock();
+            } catch (err) {
+                toast('Gagal: ' + err.message, 'err');
+            }
+        };
+
         // ===== RENDER STOCK =====
         function renderStock() {
             var PER_PAGE = getPerPage();
@@ -3292,6 +3374,7 @@
                 'Tidak ada hasil' + flashInfo;
 
             var flashCount = avail.filter(p => p.discount === true && p.status === 'available').length;
+            var hotCount = avail.filter(p => p.isHot === true && p.status === 'available').length;
 
             document.getElementById('stockStats').innerHTML =
                 '<div class="stat-card"><div class="sv yellow">' + POSTS.length +
@@ -3303,7 +3386,9 @@
                 '<div class="stat-card"><div class="sv blue">' + delList.length +
                 '</div><div class="sl">Dihapus</div></div>' +
                 '<div class="stat-card"><div class="sv orange">' + flashCount +
-                '</div><div class="sl">🔥 Flash Sale</div></div>';
+                '</div><div class="sl">🔥 Flash Sale</div></div>' +
+                '<div class="stat-card"><div class="sv hot">' + hotCount +
+                '</div><div class="sl">🔥 Hot Stock</div></div>';
             document.getElementById('cntAvail').textContent = avail.length;
             document.getElementById('cntSold').textContent = soldList.length;
             document.getElementById('cntDel').textContent = delList.length;
@@ -3322,7 +3407,9 @@
                     hasEdit = !!p.editedPrice,
                     code = window.getIgCode(p.url);
                 var isFlash = p.discount === true;
+                var isHot = p.isHot === true;
                 var flashClass = isFlash ? ' flash' : '';
+                var hotClass = isHot ? ' hot' : '';
                 var flashBadge = isFlash ? ' <span class="flash-badge-sm"><i class="fas fa-bolt"></i> FLASH</span>' :
                     '';
                 var discountPrice = getDiscountedPriceDisplay(p);
@@ -3334,25 +3421,61 @@
                 var flashTimer = formatFlashRemaining(p);
                 var timerHtml = flashTimer ? ' <span class="timer-remaining">' + flashTimer + '</span>' : '';
                 var checked = selectedItems.has(p.id) ? 'checked' : '';
+                var hotBtnStyle = isHot ? 'background:#ff6b6b;color:#fff;border-color:#ff6b6b;' :
+                    'color:#ff6b6b;border-color:var(--border);';
 
                 ha += '<div class="item-wrap' + (selectedItems.has(p.id) ? ' selected' : '') + '" data-id="' + p.id +
                     '">' +
                     '<div class="item-check"><input type="checkbox" ' + checked +
                     ' onchange="toggleItemSelection(\'' + p.id + '\')" /></div>' +
-                    '<div class="item' + flashClass + '">' +
+                    '<div class="item' + flashClass + hotClass + '">' +
                     '<a href="' + escL(p.url) + '" target="_blank" rel="noopener noreferrer" class="item-thumb link" title="Buka di Instagram">' +
                     window.getThumbHtml(code) + '</a>' +
                     '<div class="item-info"><div class="ii-price">' + priceDisplay + flashBadge +
+                    (isHot ? ' <span class="flash-badge-sm" style="background:rgba(255,107,107,0.15);color:#ff6b6b"><i class="fas fa-fire"></i> HOT</span>' :
+                        '') +
                     '</div><div class="ii-desc">' + escL(firstLine(p.desc)) +
                     '</div><div class="ii-link"><i class="fab fa-instagram"></i> <a href="' + escL(p.url) +
                     '" target="_blank" rel="noopener noreferrer">' + escL(window.shortIgUrl(p.url)) +
                     '</a></div>' + (hasEdit ? '<div class="ii-status"><span class="edited"><i class="fas fa-pen" style="font-size:.5rem"></i> Harga di-edit</span></div>' :
                         '') +
                     '<div class="ii-status">' + timerHtml +
-                    '</div></div></div></div>';
+                    '</div></div><div class="item-actions">' +
+                    '<button class="btn-sm btn-edit" data-id="' + p.id +
+                    '" title="Edit Harga"><i class="fas fa-pen"></i></button>' +
+                    '<button class="btn-sm btn-edit-desc" data-id="' + p.id +
+                    '" title="Edit Deskripsi" style="color:#60a5fa"><i class="fas fa-align-left"></i></button>' +
+                    '<button class="btn-sm btn-sold" data-id="' + p.id +
+                    '" title="Tandai Terjual" style="color:#f87171"><i class="fas fa-tag"></i></button>' +
+                    '<button class="btn-sm btn-hot' + (isHot ? ' active' : '') + '" data-id="' + p.id +
+                    '" title="Toggle Hot Stock" style="' + hotBtnStyle +
+                    '"><i class="fas fa-fire"></i></button>' +
+                    '</div></div></div>';
             });
             var la = document.getElementById('listAvail');
             la.innerHTML = ha;
+
+            document.querySelectorAll('#listAvail .btn-edit').forEach(function(btn) {
+                btn.addEventListener('click', function() { startPriceEdit(btn.getAttribute('data-id')) });
+            });
+            document.querySelectorAll('#listAvail .btn-edit-desc').forEach(function(btn) {
+                btn.addEventListener('click', function() { startDescEdit(btn.getAttribute('data-id')) });
+            });
+            document.querySelectorAll('#listAvail .btn-sold').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var id = btn.getAttribute('data-id');
+                    var p = POSTS.find(function(x) { return x.id === id });
+                    if (p && confirm('Tandai "' + firstLine(p.desc) + '" sebagai TERJUAL?')) {
+                        toggleSold(id, true);
+                    }
+                });
+            });
+            document.querySelectorAll('#listAvail .btn-hot').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var id = btn.getAttribute('data-id');
+                    window.toggleHotStock(id);
+                });
+            });
 
             renderPag('pagAvail', avail.length, currentPage, PER_PAGE, 'stockGoPage');
 
@@ -3471,7 +3594,8 @@
                     discount: false,
                     discountedPrice: "",
                     flashSaleEnd: null,
-                    originalPrice: ""
+                    originalPrice: "",
+                    isHot: false
                 });
                 msg.className = 'form-msg ok show';
                 msg.innerHTML = '<i class="fas fa-check-circle"></i> Stock berhasil ditambahkan!';
@@ -3520,6 +3644,7 @@
                             function() {});
                     }
                 }
+                if (p.isHot === undefined) p.isHot = false;
             });
             var existingIds = new Set(POSTS.map(p => p.id));
             for (var id of selectedItems) {
