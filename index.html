@@ -354,88 +354,6 @@
     }
     .promo-banner a:hover .promo-arrow { transform: translateX(5px); }
 
-    /* ===== FLASH SALE ===== */
-    .flash-car-section {
-      max-width: 1100px; margin: 1.5rem auto;
-      padding: 0 1.5rem; position: relative; z-index: 2;
-    }
-    .flash-car-header {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.8rem;
-    }
-    .flash-car-header h2 {
-      font-family: var(--font-display);
-      font-size: 1.1rem; font-weight: 700;
-      color: #fb923c;
-      display: flex; align-items: center; gap: 0.4rem;
-    }
-    .flash-car-header h2 i { animation: pulse 1.5s infinite; }
-    .flash-car-header .flash-count {
-      font-size: 0.65rem; padding: 0.1rem 0.5rem;
-      border-radius: 50px; background: rgba(251,146,60,0.15);
-      color: #fb923c; font-weight: 600;
-    }
-    .flash-car-header .view-all {
-      color: var(--muted); font-size: 0.75rem;
-      text-decoration: none; transition: all .2s;
-      display: inline-flex; align-items: center; gap: 0.25rem;
-    }
-    .flash-car-header .view-all:hover { color: var(--accent); }
-    .flash-car-scroll {
-      overflow-x: auto; overflow-y: hidden;
-      padding: 0.2rem 0 0.8rem;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-      margin: 0 -0.5rem; padding-left: 0.5rem; padding-right: 0.5rem;
-    }
-    .flash-car-scroll::-webkit-scrollbar { height: 4px; }
-    .flash-car-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
-    .flash-car-scroll::-webkit-scrollbar-thumb { background: #fb923c; border-radius: 10px; }
-    .flash-car-grid {
-      display: inline-flex; flex-direction: row;
-      gap: 0.7rem; flex-wrap: nowrap; padding: 0.1rem 0;
-    }
-    .flash-car-card {
-      flex: 0 0 160px; width: 160px;
-      background: var(--bg-card); border: 1px solid rgba(251,146,60,0.25);
-      border-radius: var(--radius-sm); overflow: hidden;
-      transition: all .3s; cursor: pointer; scroll-snap-align: start;
-    }
-    .flash-car-card:hover {
-      border-color: #fb923c; transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(251,146,60,0.1);
-    }
-    .flash-car-card .thumb-wrap {
-      width: 100%; aspect-ratio: 3/3.5;
-      overflow: hidden; position: relative; background: #0a0a12;
-    }
-    .flash-car-card .thumb-wrap iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; pointer-events: none; border: none;
-    }
-    .flash-car-card .thumb-wrap .flash-badge {
-      position: absolute; top: 5px; right: 5px; z-index: 2;
-      background: #fb923c; color: #0a0a0f; font-size: 0.45rem; font-weight: 700;
-      padding: 0.05rem 0.35rem; border-radius: 50px;
-      display: flex; align-items: center; gap: 0.1rem;
-    }
-    .flash-car-card .card-info { padding: 0.4rem 0.5rem 0.6rem; }
-    .flash-car-card .card-info .original {
-      font-size: 0.55rem; color: var(--muted); text-decoration: line-through;
-    }
-    .flash-car-card .card-info .discount {
-      font-family: var(--font-display); font-size: 0.8rem; font-weight: 700;
-      color: #fb923c; display: block; line-height: 1.2;
-    }
-    .flash-car-card .card-info .timer {
-      font-size: 0.5rem; color: var(--muted); margin-top: 0.05rem;
-    }
-    .flash-car-card .card-info .timer span { color: #fb923c; font-weight: 600; }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.7; }
-    }
-
     /* ===== TESTIMONIALS ===== */
     .testimonials-section {
       max-width: 1100px; margin: 3rem auto;
@@ -604,7 +522,7 @@
       background: var(--accent-dim); transform: translateY(-3px);
     }
 
-    /* ===== FOOTER ===== */
+    /* ===== FOOTER (TELAH DITAMBAHKAN LINK PRIVACY & TERMS) ===== */
     .footer {
       position: relative; z-index: 2;
       padding: 3rem 1.5rem 1.5rem;
@@ -725,13 +643,6 @@
       .promo-banner a { font-size: 0.85rem; padding: 0.75rem 1.2rem; gap: 0.6rem; }
       .promo-banner a .promo-icon { width: 32px; height: 32px; font-size: 0.85rem; }
 
-      .flash-car-section { padding: 0 0.8rem; margin: 1rem auto; }
-      .flash-car-header h2 { font-size: 0.95rem; }
-      .flash-car-card { flex: 0 0 130px; width: 130px; }
-      .flash-car-card .card-info .discount { font-size: 0.7rem; }
-      .flash-car-card .card-info .original { font-size: 0.5rem; }
-      .flash-car-card .card-info .timer { font-size: 0.45rem; }
-
       .showcase-grid { grid-template-columns: 1fr; gap: 1rem; }
       .features-mini-grid { gap: 1.25rem; }
       .fm-item { font-size: 0.72rem; }
@@ -751,8 +662,7 @@
       .stat-number { font-size: 1.1rem; }
       .services-grid { max-width: 100%; }
       .testimonial-grid { max-width: 100%; }
-      .flash-car-card { flex: 0 0 110px; width: 110px; }
-      .flash-car-card .card-info .discount { font-size: 0.6rem; }
+
       .footer-grid { grid-template-columns: 1fr; gap: 1rem; }
     }
 
@@ -851,17 +761,6 @@
     </div>
   </section>
 
-  <!-- ===== FLASH SALE ===== -->
-  <section class="flash-car-section" id="flashCarSection" style="display:none" aria-label="Flash sale">
-    <div class="flash-car-header">
-      <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale !! <span class="flash-count" id="flashCarCount">0</span></h2>
-      <a href="stockmobil.html" class="view-all">Lihat Stock Lainnya <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="flash-car-scroll">
-      <div class="flash-car-grid" id="flashCarGrid"></div>
-    </div>
-  </section>
-
   <!-- ===== TESTIMONI ===== -->
   <section class="testimonials-section" aria-label="Testimoni pelanggan">
     <div class="section-label reveal">
@@ -926,12 +825,12 @@
     <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ===== FOOTER (TELAH DITAMBAHKAN LINK PRIVACY & TERMS) ===== -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div>
         <h4 class="brand-footer">Akino Store</h4>
-        <p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan digital Anda.</p>
+        <p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p>
       </div>
       <div>
         <h4>Layanan</h4>
@@ -945,13 +844,11 @@
         <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
         <a href="stockmobil.html">Stock Mobil</a>
       </div>
-
       <div>
         <h4>Legal</h4>
         <a href="privacy.html">Kebijakan Privasi</a>
         <a href="terms.html">Syarat &amp; Ketentuan</a>
       </div>
-      
       <div>
         <h4>Follow</h4>
         <a href="https://www.tiktok.com/@akinolaset_" target="_blank">TikTok</a>
