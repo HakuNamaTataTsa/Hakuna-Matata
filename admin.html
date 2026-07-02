@@ -721,7 +721,6 @@
             background: #f87171;
             color: #fff
         }
-        /* NEW HOT BUTTON */
         .batch-bar .bb-btn.bb-hot {
             background: rgba(255, 107, 107, .1);
             color: #ff6b6b;
@@ -729,6 +728,16 @@
         }
         .batch-bar .bb-btn.bb-hot:hover:not(:disabled) {
             background: #ff6b6b;
+            color: #fff
+        }
+        /* NEW FLASH BUTTON */
+        .batch-bar .bb-btn.bb-flash {
+            background: rgba(251, 146, 60, 0.1);
+            color: #fb923c;
+            border-color: rgba(251, 146, 60, 0.2)
+        }
+        .batch-bar .bb-btn.bb-flash:hover:not(:disabled) {
+            background: #fb923c;
             color: #fff
         }
         .batch-bar .bb-clear {
@@ -2076,9 +2085,13 @@
                 <button class="bb-btn bb-sold" id="batchSoldBtn" onclick="batchMarkSold()" disabled>
                     <i class="fas fa-tag"></i> Tandai Terjual
                 </button>
-                <!-- NEW HOT STOCK BATCH BUTTON -->
+                <!-- HOT STOCK -->
                 <button class="bb-btn bb-hot" id="batchHotBtn" onclick="batchToggleHot()" disabled>
                     <i class="fas fa-fire"></i> Hot Stock
+                </button>
+                <!-- AUTO FLASH SALE -->
+                <button class="bb-btn bb-flash" id="batchFlashBtn" onclick="startAutoFlashSale()" disabled>
+                    <i class="fas fa-bolt"></i> Auto Flash Sale
                 </button>
                 <button class="bb-clear" onclick="clearAllSelected()" title="Hapus semua pilihan">
                     <i class="fas fa-times"></i>
@@ -2597,11 +2610,16 @@
             var descBtn = document.getElementById('batchDescBtn');
             var soldBtn = document.getElementById('batchSoldBtn');
             var hotBtn = document.getElementById('batchHotBtn');
+            var flashBtn = document.getElementById('batchFlashBtn');
+
             var disabled = count === 0;
             priceBtn.disabled = disabled;
             descBtn.disabled = disabled;
             soldBtn.disabled = disabled;
             hotBtn.disabled = disabled;
+
+            // Auto Flash Sale diaktifkan jika ada item tersedia (tidak perlu seleksi)
+            flashBtn.disabled = (total === 0);
 
             if (total > 0) {
                 checkAll.checked = (count === total);
@@ -2846,6 +2864,67 @@
                 btn.innerHTML = '<i class="fas fa-fire"></i> Hot Stock';
             }
         }
+
+        // ===== AUTO FLASH SALE =====
+        window.startAutoFlashSale = async function() {
+            // Ambil item available yang belum flash sale
+            const availableItems = POSTS.filter(p => p.status === 'available' && p.discount !== true);
+            if (availableItems.length === 0) {
+                toast('Tidak ada stock tersedia untuk flash sale.', 'err');
+                return;
+            }
+
+            // Acak dan ambil maksimal 10 item
+            const shuffled = availableItems.sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 10);
+            const now = Date.now();
+            const threeHours = 3 * 60 * 60 * 1000;
+            const endTime = now + threeHours;
+
+            const btn = document.getElementById('batchFlashBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+            let successCount = 0;
+            let failCount = 0;
+
+            for (const item of selected) {
+                const originalPrice = item.editedPrice || item.price || '';
+                let discounted = '';
+                if (originalPrice) {
+                    const num = parseInt(originalPrice.replace(/[^0-9]/g, '')) || 0;
+                    if (num > 0) {
+                        discounted = 'Rp ' + Math.round(num * 0.8).toLocaleString('id-ID');
+                    }
+                }
+                try {
+                    await updateDoc(doc(db, "carStock", item.id), {
+                        discount: true,
+                        flashSaleEnd: new Date(endTime),
+                        originalPrice: originalPrice,
+                        discountedPrice: discounted
+                    });
+                    successCount++;
+                } catch (e) {
+                    failCount++;
+                    console.error('Gagal update', item.id, e);
+                }
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-bolt"></i> Auto Flash Sale';
+
+            if (successCount > 0) {
+                toast(`🔥 ${successCount} item berhasil dijadikan flash sale (durasi 3 jam)`, 'ok');
+                if (failCount > 0) {
+                    toast(`⚠️ ${failCount} item gagal`, 'err');
+                }
+                // refresh tampilan
+                renderStock();
+            } else {
+                toast('Gagal memulai flash sale', 'err');
+            }
+        };
 
         // ===== BATCH BUTTON HANDLERS =====
         window.batchEditPrice = function() {
