@@ -1145,16 +1145,407 @@
     animateParticles();
   </script>
 
-    onSnapshot(query(collection(db, "carStock")), (snapshot) => {
-      const cars = [];
-      snapshot.forEach((doc) => {
-        cars.push({ id: doc.id, ...doc.data() });
-      });
-      renderFlashCars(cars);
-    }, (err) => {
-      console.error("Error loading flash cars:", err);
+   <!-- ============================================================ -->
+<!-- FLASH SALE WIDGET – Tempel di halaman mana pun                -->
+<!-- ============================================================ -->
+
+<div id="flash-widget-container">
+  <div id="flash-widget">
+    <!-- Akan diisi oleh JavaScript -->
+    <div style="text-align:center;padding:20px;color:var(--muted, #888);">
+      <i class="fas fa-spinner fa-spin"></i> Memuat Flash Sale...
+    </div>
+  </div>
+</div>
+
+<style>
+/* ===== FLASH WIDGET STYLE (prefix fw-) ===== */
+#flash-widget-container {
+  --fw-bg: rgba(255, 255, 255, 0.04);
+  --fw-border: rgba(255, 255, 255, 0.08);
+  --fw-accent: #fb923c;
+  --fw-accent-dim: rgba(251, 146, 60, 0.08);
+  --fw-radius: 12px;
+  --fw-font: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --fw-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+#flash-widget {
+  background: rgba(251, 146, 60, 0.04);
+  border: 1px solid rgba(251, 146, 60, 0.2);
+  border-radius: var(--fw-radius);
+  padding: 1rem 1rem 0.8rem;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--fw-shadow);
+}
+.fw-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+.fw-header h2 {
+  font-family: var(--fw-font);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fw-accent);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+.fw-header h2 i { animation: fwPulse 1.5s infinite; }
+@keyframes fwPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+.fw-count {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 50px;
+  background: rgba(251, 146, 60, 0.15);
+  color: var(--fw-accent);
+  font-weight: 600;
+}
+.fw-countdown {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 50px;
+  background: rgba(251, 146, 60, 0.1);
+  color: var(--fw-accent);
+  font-weight: 500;
+  margin-left: auto;
+}
+.fw-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding: 0.2rem 0 0.6rem;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.fw-scroll::-webkit-scrollbar { height: 4px; }
+.fw-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+.fw-grid {
+  display: inline-flex;
+  gap: 0.7rem;
+  flex-wrap: nowrap;
+}
+.fw-card {
+  flex: 0 0 160px;
+  width: 160px;
+  background: var(--fw-bg);
+  border: 1px solid var(--fw-border);
+  border-radius: var(--fw-radius);
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+.fw-card:hover {
+  border-color: var(--fw-accent);
+  transform: translateY(-3px);
+}
+.fw-card-wrap {
+  width: 100%;
+  aspect-ratio: 3/3.5;
+  overflow: hidden;
+  position: relative;
+  background: #0a0a12;
+}
+.fw-card-wrap iframe {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  border: none;
+}
+.fw-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 10%, transparent 45%);
+}
+.fw-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 4;
+  background: var(--fw-accent);
+  color: #0a0a0f;
+  font-size: 0.55rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+.fw-price {
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+  right: 8px;
+  z-index: 3;
+  pointer-events: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.fw-price .fw-original {
+  font-size: 0.65rem;
+  color: #a0a0b0;
+  text-decoration: line-through;
+  display: block;
+}
+.fw-price .fw-discount {
+  font-family: var(--fw-font);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fw-accent);
+  display: block;
+}
+.fw-timer {
+  position: absolute;
+  bottom: 46px;
+  left: 8px;
+  right: 8px;
+  z-index: 3;
+  font-size: 0.65rem;
+  color: #fff;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  pointer-events: none;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+}
+.fw-empty {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--muted, #888);
+  font-size: 0.85rem;
+}
+.fw-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.3rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--fw-border);
+}
+.fw-footer a {
+  font-family: var(--fw-font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--fw-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.25s ease;
+}
+.fw-footer a:hover { gap: 0.6rem; }
+.fw-footer a i { font-size: 0.65rem; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .fw-card { flex: 0 0 130px; width: 130px; }
+  .fw-price .fw-discount { font-size: 0.8rem; }
+  .fw-timer { font-size: 0.55rem; bottom: 38px; }
+  .fw-header h2 { font-size: 0.95rem; }
+  .fw-countdown { font-size: 0.6rem; margin-left: 0; width: 100%; text-align: center; }
+}
+@media (max-width: 420px) {
+  .fw-card { flex: 0 0 110px; width: 110px; }
+  .fw-price .fw-discount { font-size: 0.7rem; }
+  .fw-price .fw-original { font-size: 0.5rem; }
+  .fw-timer { font-size: 0.5rem; bottom: 34px; padding: 0.05rem 0.2rem; }
+  .fw-badge { font-size: 0.45rem; padding: 0.05rem 0.3rem; }
+}
+</style>
+
+<script type="module">
+// ================================================================
+// FLASH WIDGET – Firebase + Render
+// ================================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+// Konfigurasi Firebase (sama dengan stockmobil)
+const app = initializeApp({
+  apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+  authDomain: "akinowedding-73271.firebaseapp.com",
+  projectId: "akinowedding-73271",
+  storageBucket: "akinowedding-73271.appspot.com",
+  messagingSenderId: "307666594440",
+  appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+});
+const db = getFirestore(app);
+
+// Utility
+function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+function getCode(url) { const m = url?.match(/\/p\/([A-Za-z0-9_-]+)/); return m ? m[1] : null; }
+function toMs(t) { if (!t) return 0; if (typeof t === 'number') return t; if (t.seconds) return t.seconds * 1000; return new Date(t).getTime(); }
+function parsePrice(str) { const n = parseInt((str || '').replace(/[^0-9]/g, '')); return isNaN(n) ? 0 : n; }
+function formatCountdown(ms) {
+  if (ms <= 0) return '⏳ Habis';
+  const d = Math.floor(ms / 86400000);
+  const h = Math.floor((ms % 86400000) / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  const s = Math.floor((ms % 60000) / 1000);
+  if (d > 0) return d + 'h ' + String(h).padStart(2,'0') + 'j ' + String(m).padStart(2,'0') + 'm';
+  return String(h).padStart(2,'0') + 'j ' + String(m).padStart(2,'0') + 'm ' + String(s).padStart(2,'0') + 's';
+}
+function getDiscountedPrice(p) {
+  if (!p.discount) return null;
+  const num = parsePrice(p.originalPrice || p.price || '');
+  if (!num) return null;
+  return 'Rp ' + Math.round(num * 0.8).toLocaleString('id-ID');
+}
+function getFlashRemaining(p) {
+  if (!p.discount || !p.flashSaleEnd) return 0;
+  return Math.max(0, toMs(p.flashSaleEnd) - Date.now());
+}
+
+const container = document.getElementById('flash-widget');
+let flashItems = [];
+let timerInterval = null;
+
+function render() {
+  const avail = flashItems.filter(p => p.status === 'available' && p.discount === true);
+  const section = container;
+
+  if (!avail.length) {
+    section.innerHTML = `
+      <div class="fw-header">
+        <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2>
+      </div>
+      <div class="fw-empty">Belum ada flash sale saat ini. Cek lagi nanti!</div>
+      <div class="fw-footer">
+        <a href="stockmobil.html">Lihat Stock Lainnya <i class="fas fa-arrow-right"></i></a>
+      </div>
+    `;
+    return;
+  }
+
+  // Hitung countdown global (flash sale dengan sisa waktu terkecil)
+  let minRemaining = Infinity;
+  avail.forEach(p => { const r = getFlashRemaining(p); if (r > 0 && r < minRemaining) minRemaining = r; });
+
+  let html = `
+    <div class="fw-header">
+      <h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2>
+      <span class="fw-count">${avail.length} item</span>
+      <span class="fw-countdown" id="fwGlobalCountdown">
+        ${minRemaining === Infinity || minRemaining <= 0 ? '' : '⏳ Berakhir dalam ' + formatCountdown(minRemaining)}
+      </span>
+    </div>
+    <div class="fw-scroll">
+      <div class="fw-grid">
+  `;
+
+  avail.forEach(post => {
+    const code = getCode(post.url);
+    if (!code) return;
+    const price = post.editedPrice || post.price || '';
+    const discounted = post.discountedPrice || getDiscountedPrice(post) || price;
+    const remaining = getFlashRemaining(post);
+    const timerText = remaining > 0 ? formatCountdown(remaining) : '⏳ Habis';
+
+    html += `
+      <div class="fw-card" data-url="${esc(post.url)}" data-price="${esc(discounted)}" data-desc="${esc(post.desc || '')}">
+        <div class="fw-card-wrap">
+          <iframe src="https://www.instagram.com/p/${code}/embed/" loading="lazy" allowtransparency="true" allowfullscreen="true" scrolling="no" frameborder="0"></iframe>
+          <div class="fw-overlay"></div>
+          <div class="fw-badge"><i class="fas fa-bolt"></i> FLASH</div>
+          <div class="fw-price">
+            <span class="fw-original">${esc(price)}</span>
+            <span class="fw-discount">${esc(discounted)}</span>
+          </div>
+          <div class="fw-timer" data-flashend="${toMs(post.flashSaleEnd)}">⏳ ${timerText}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `
+      </div>
+    </div>
+    <div class="fw-footer">
+      <a href="stockmobil.html">Lihat Stock Lainnya <i class="fas fa-arrow-right"></i></a>
+    </div>
+  `;
+
+  section.innerHTML = html;
+
+  // Event listener untuk buka lightbox (atau langsung ke Instagram)
+  section.querySelectorAll('.fw-card').forEach(card => {
+    const url = card.dataset.url;
+    const price = card.dataset.price;
+    const desc = card.dataset.desc;
+    card.addEventListener('click', () => {
+      // Bisa diarahkan ke halaman detail atau popup, di sini kita buka Instagram
+      // Namun lebih baik kita arahkan ke halaman stockmobil dengan anchor
+      // atau buka link Instagram
+      if (url) window.open(url, '_blank');
     });
-  </script>
+  });
+
+  // Timer update
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    document.querySelectorAll('.fw-timer[data-flashend]').forEach(el => {
+      const end = parseInt(el.dataset.flashend);
+      const rem = Math.max(0, end - Date.now());
+      el.textContent = rem <= 0 ? '⏳ Berakhir' : '⏳ ' + formatCountdown(rem);
+    });
+    // Update global
+    const availNow = flashItems.filter(p => p.status === 'available' && p.discount === true);
+    let minRem = Infinity;
+    availNow.forEach(p => { const r = getFlashRemaining(p); if (r > 0 && r < minRem) minRem = r; });
+    const globalEl = document.getElementById('fwGlobalCountdown');
+    if (globalEl) {
+      globalEl.textContent = (minRem === Infinity || minRem <= 0) ? '' : '⏳ Berakhir dalam ' + formatCountdown(minRem);
+    }
+  }, 1000);
+}
+
+// Listener realtime
+onSnapshot(
+  query(collection(db, "carStock"), where("discount", "==", true), orderBy("addedAt", "desc")),
+  (snap) => {
+    flashItems = [];
+    snap.forEach(doc => {
+      const data = doc.data();
+      data.id = doc.id;
+      // Tambahkan discountedPrice untuk kemudahan
+      if (data.discount) data.discountedPrice = getDiscountedPrice(data);
+      flashItems.push(data);
+    });
+    render();
+  },
+  (err) => {
+    console.error('Flash widget error:', err);
+    container.innerHTML = `
+      <div class="fw-header"><h2><i class="fas fa-bolt"></i> 🔥 Flash Sale</h2></div>
+      <div class="fw-empty">Gagal memuat flash sale. Coba refresh halaman.</div>
+      <div class="fw-footer"><a href="stockmobil.html">Lihat Stock Lainnya <i class="fas fa-arrow-right"></i></a></div>
+    `;
+  }
+);
+
+// Bersihkan interval saat halaman di-unload
+window.addEventListener('beforeunload', () => { if (timerInterval) clearInterval(timerInterval); });
+</script>
+
+<!-- Tambahan Font Awesome jika belum ada -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
 </body>
 </html>
