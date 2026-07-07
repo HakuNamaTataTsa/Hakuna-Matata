@@ -8,9 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- reCAPTCHA Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfJQkgtAAAAALTNEY2FfYaOgyCbo13Av0vca-92"></script>
-
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -52,6 +49,22 @@
       font-size: 0.85rem;
       margin-bottom: 1.5rem;
     }
+    
+    /* TOMBOL KEMBALI */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #a0a0a0;
+      text-decoration: none;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #3B82F6;
+    }
+
     .auth-container .tabs {
       display: flex;
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -132,7 +145,7 @@
       text-align: center;
     }
 
-    /* 🔥 Tombol Google */
+    /* Tombol Google */
     .btn-google {
       display: flex;
       align-items: center;
@@ -211,6 +224,9 @@
 <body>
 
   <div class="auth-container">
+    <!-- TOMBOL KEMBALI KE MANGA -->
+    <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Manga</a>
+
     <div class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></div>
     <div class="sub">Masuk atau daftar untuk menyimpan bookmark</div>
 
@@ -255,7 +271,7 @@
     <!-- Divider -->
     <div class="divider">atau</div>
 
-    <!-- 🔥 Tombol Login dengan Google -->
+    <!-- Tombol Login dengan Google -->
     <button type="button" class="btn-google" id="googleLoginBtn">
       <i class="fab fa-google"></i> Login dengan Google
     </button>
@@ -282,6 +298,23 @@
     }
 
     // ============================================================
+    // CEK PARAMETER RETURN (18+ atau halaman sebelumnya)
+    // ============================================================
+    function getReturnUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('return');
+    }
+
+    function redirectAfterLogin() {
+      const returnUrl = getReturnUrl();
+      if (returnUrl) {
+        window.location.href = returnUrl;
+      } else {
+        window.location.href = 'profile.html';
+      }
+    }
+
+    // ============================================================
     // TABS (Login / Register)
     // ============================================================
     document.querySelectorAll('.tabs button').forEach(btn => {
@@ -300,26 +333,7 @@
     });
 
     // ============================================================
-    // 🔥 reCAPTCHA ENTERPRISE
-    // ============================================================
-    async function getRecaptchaToken(action) {
-      return new Promise((resolve, reject) => {
-        grecaptcha.enterprise.ready(async () => {
-          try {
-            const token = await grecaptcha.enterprise.execute(
-              '6LfJQkgtAAAAALTNEY2FfYaOgyCbo13Av0vca-92',
-              { action: action }
-            );
-            resolve(token);
-          } catch (err) {
-            reject(err);
-          }
-        });
-      });
-    }
-
-    // ============================================================
-    // REGISTER (dengan reCAPTCHA)
+    // REGISTER
     // ============================================================
     document.getElementById('registerForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -339,13 +353,6 @@
       }
 
       try {
-        // 🔥 Dapatkan token reCAPTCHA
-        const token = await getRecaptchaToken('register');
-        console.log('reCAPTCHA token untuk register:', token);
-
-        // (Opsional) Kirim token ke backend untuk verifikasi
-        // Di sini kita lanjutkan registrasi
-
         await registerWithEmail(email, password, name);
         successEl.textContent = 'Registrasi berhasil! Silakan login.';
         errorEl.textContent = '';
@@ -363,7 +370,7 @@
     });
 
     // ============================================================
-    // LOGIN (dengan reCAPTCHA)
+    // LOGIN
     // ============================================================
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -377,15 +384,11 @@
       }
 
       try {
-        // 🔥 Dapatkan token reCAPTCHA
-        const token = await getRecaptchaToken('login');
-        console.log('reCAPTCHA token untuk login:', token);
-
         const user = await loginWithEmail(email, password);
         saveSession(user);
         showToast('Login berhasil!', 'success');
         setTimeout(() => {
-          window.location.href = 'profile.html';
+          redirectAfterLogin();
         }, 500);
       } catch (err) {
         errorEl.textContent = 'Email atau password salah!';
@@ -393,19 +396,15 @@
     });
 
     // ============================================================
-    // 🔥 LOGIN DENGAN GOOGLE
+    // LOGIN DENGAN GOOGLE
     // ============================================================
     document.getElementById('googleLoginBtn').addEventListener('click', async function() {
       try {
-        // 🔥 Dapatkan token reCAPTCHA untuk action login_google
-        const token = await getRecaptchaToken('login_google');
-        console.log('reCAPTCHA token untuk Google login:', token);
-
         const user = await loginWithGoogle();
         saveSession(user);
         showToast('Login dengan Google berhasil!', 'success');
         setTimeout(() => {
-          window.location.href = 'profile.html';
+          redirectAfterLogin();
         }, 500);
       } catch (err) {
         console.error('Google login error:', err);

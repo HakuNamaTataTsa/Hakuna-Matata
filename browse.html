@@ -19,7 +19,7 @@
 
   <style>
     /* ============================================================
-       ROOT VARIABLES
+       ROOT VARIABLES (Sama dengan manga.html)
        ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
@@ -100,7 +100,7 @@
     }
 
     /* ============================================================
-       NAVBAR
+       NAVBAR (sama seperti manga.html)
        ============================================================ */
     .navbar {
       position: fixed;
@@ -199,7 +199,6 @@
       background: var(--accent-dim);
     }
 
-    /* 🔥 TOMBOL AUTH (Login / Profil) */
     .nav-actions .auth-btn {
       padding: 0.4rem 1rem;
       border-radius: var(--radius-sm);
@@ -318,6 +317,28 @@
       color: var(--fg-secondary);
       font-size: 0.9rem;
       margin-top: 0.2rem;
+    }
+
+    /* ===== TOMBOL KEMBALI ===== */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-secondary);
+      font-size: 0.8rem;
+      transition: all var(--transition);
+      cursor: pointer;
+      margin-bottom: 1rem;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+      background: var(--accent-dim);
     }
 
     /* ============================================================
@@ -699,7 +720,6 @@
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <!-- 🔥 TOMBOL AUTH (Login / Profil) -->
         <a href="login.html" class="auth-btn" id="authBtn">
           <i class="fas fa-user"></i> <span id="authText">Login</span>
         </a>
@@ -724,6 +744,9 @@
       <h1><i class="fas fa-search"></i> Jelajahi Manga</h1>
       <div class="sub">Filter berdasarkan genre, origin, status, dan lainnya.</div>
     </div>
+
+    <!-- TOMBOL KEMBALI -->
+    <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Manga</a>
 
     <div class="filter-bar" id="filterBar">
       <select id="genreFilter"><option value="">Semua Genre</option></select>
@@ -812,7 +835,7 @@
     // ============================================================
     const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
     const COVER_BASE = 'https://uploads.mangadex.org/covers';
-    const PER_PAGE = 24; // Jumlah item per halaman
+    const PER_PAGE = 24;
 
     // ============================================================
     // STATE
@@ -1059,18 +1082,15 @@
       const total = state.totalPages;
       const current = state.currentPage;
 
-      // Prev / Next
       prevPage.disabled = current <= 1;
       nextPage.disabled = current >= total;
 
-      // Page numbers
       pageNumbers.innerHTML = '';
       if (total === 0) {
         pageNumbers.innerHTML = '<span style="color:var(--fg-muted);font-size:0.8rem;">Tidak ada halaman</span>';
         return;
       }
 
-      // Tampilkan maksimal 7 halaman
       let start = Math.max(1, current - 3);
       let end = Math.min(total, current + 3);
 
@@ -1138,12 +1158,10 @@
       state.status = statusFilter.value;
       state.sort = sortFilter.value;
 
-      // Reset ke halaman 1
       await fetchMangaList(1);
       renderMangaGrid();
       renderPagination();
 
-      // Update URL
       const params = new URLSearchParams();
       if (state.genre) params.set('genre', state.genre);
       if (state.origin) params.set('origin', state.origin);
@@ -1218,7 +1236,6 @@
         const statusParam = params.get('status');
         const sortParam = params.get('sort');
 
-        // Load genres dropdown
         const genres = await fetchGenres();
         genreFilter.innerHTML = '<option value="">Semua Genre</option>';
         genres.forEach(g => {

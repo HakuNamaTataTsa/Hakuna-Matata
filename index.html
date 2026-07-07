@@ -522,7 +522,7 @@
       background: var(--accent-dim); transform: translateY(-3px);
     }
 
-    /* ===== FOOTER (TELAH DITAMBAHKAN LINK PRIVACY & TERMS) ===== */
+    /* ===== FOOTER ===== */
     .footer {
       position: relative; z-index: 2;
       padding: 3rem 1.5rem 1.5rem;
@@ -683,6 +683,8 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
+      <!-- TAMBAHAN: Link ke Manga -->
+      <li><a href="manga.html">Manga</a></li>
       <li class="dropdown" id="dropdownService">
         <a href="#" id="dropdownToggle">Service <i class="fas fa-chevron-down" style="font-size:0.5rem;margin-left:4px;"></i></a>
         <ul class="dropdown-menu">
@@ -732,6 +734,8 @@
         <a href="CarParkingMultiplayer.html" class="btn btn-outline"><i class="fas fa-gamepad"></i> Car parking Multiplayer 1</a>
         <a href="SosialMedia.html" class="btn btn-outline"><i class="fas fa-share-nodes"></i> Sosmed</a>
         <a href="designedit.html" class="btn btn-outline"><i class="fas fa-palette"></i> Design</a>
+        <!-- TAMBAHAN: Tombol Baca Manga -->
+        <a href="manga.html" class="btn btn-outline"><i class="fas fa-book-open"></i> Baca Manga</a>
       </div>
     </div>
   </section>
@@ -825,7 +829,7 @@
     <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- ===== FOOTER (TELAH DITAMBAHKAN LINK PRIVACY & TERMS) ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div>
@@ -875,7 +879,6 @@
   <!-- ====================================================== -->
   <!-- ===== SCRIPTS ===== -->
   <!-- ====================================================== -->
-
   <script>
     // ─── 1. NAVBAR SCROLL ───
     window.addEventListener('scroll', () => {
@@ -950,7 +953,6 @@
     // ─── 8. MICRO-INTERACTION: BUTTON LOADING ───
     document.querySelectorAll('.btn-primary').forEach(btn => {
       btn.addEventListener('click', function(e) {
-        // Jika tombol adalah link ke #services, tidak perlu loading, biarkan scroll
         if (this.getAttribute('href') === '#services') return;
         if (!this.dataset.loading) {
           this.dataset.loading = 'true';
