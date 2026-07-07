@@ -245,7 +245,7 @@
       opacity:0.4; cursor:not-allowed; transform:none;
     }
 
-    /* ===== READER IMAGES - PAGE ===== */
+    /* ===== READER IMAGES - PAGE (tanpa label next/prev) ===== */
     .reader-images.page {
       display:flex; flex-direction:column; align-items:center; gap:0.4rem;
       padding-bottom:2rem;
@@ -262,32 +262,45 @@
       user-select:none;
       -webkit-user-select:none;
     }
-
+    /* Area klik kiri/kanan gambar (tanpa teks) */
     .reader-images.page .click-area {
-      display:flex; position:relative; width:100%; max-width:800px; margin:0 auto;
+      position:absolute;
+      inset:0;
+      display:flex;
+      cursor:pointer;
       border-radius:var(--radius-sm);
       overflow:hidden;
+      z-index:2;
     }
     .reader-images.page .click-area .half {
-      flex:1; height:100%; min-height:300px; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      color:var(--fg-muted); font-size:1.5rem; transition:all var(--transition);
-      user-select:none;
-      -webkit-user-select:none;
-      position:relative;
+      flex:1;
+      height:100%;
+      min-height:300px;
+      cursor:pointer;
+      transition:background 0.2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .reader-images.page .click-area .half:hover {
-      background:var(--accent-dim);
+    .reader-images.page .click-area .half.left:hover {
+      background:rgba(0,0,0,0.15);
     }
-    .reader-images.page .click-area .half .label {
-      font-size:0.7rem; opacity:0; transition:opacity var(--transition);
+    .reader-images.page .click-area .half.right:hover {
+      background:rgba(0,0,0,0.15);
+    }
+    .reader-images.page .click-area .half .hint {
+      font-size:0.7rem;
+      opacity:0;
+      transition:opacity 0.2s;
       pointer-events:none;
       background:rgba(0,0,0,0.5);
       padding:0.3rem 0.8rem;
       border-radius:var(--radius-sm);
       color:#fff;
     }
-    .reader-images.page .click-area .half:hover .label { opacity:1; }
+    .reader-images.page .click-area .half:hover .hint {
+      opacity:1;
+    }
 
     .reader-images.page .page-footer {
       display:flex; align-items:center; justify-content:space-between;
@@ -320,31 +333,86 @@
       width:100%; height:100%; display:flex; flex-direction:column;
       align-items:center; justify-content:center;
       overflow-y:auto; padding:10px;
+      position:relative;
     }
-    .full-view .full-content img {
-      max-width:100%; max-height:100%; object-fit:contain;
+    .full-view .full-content .full-images {
+      width:100%; display:flex; flex-direction:column; align-items:center; gap:4px;
+      padding:10px 0;
     }
+    .full-view .full-content .full-images img {
+      max-width:100%; height:auto; object-fit:contain;
+    }
+
+    /* Full View - Click Area untuk next/prev */
+    .full-view .full-click-area {
+      position:absolute;
+      inset:0;
+      display:flex;
+      z-index:2;
+      cursor:pointer;
+    }
+    .full-view .full-click-area .half {
+      flex:1;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 0.2s ease;
+    }
+    .full-view .full-click-area .half:hover {
+      background:rgba(255,255,255,0.05);
+    }
+    .full-view .full-click-area .half .hint {
+      font-size:1rem;
+      opacity:0;
+      transition:opacity 0.2s;
+      pointer-events:none;
+      color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,0.5);
+      background:rgba(0,0,0,0.3);
+      padding:0.5rem 1rem;
+      border-radius:var(--radius-sm);
+    }
+    .full-view .full-click-area .half:hover .hint {
+      opacity:1;
+    }
+
     .full-view .full-content .full-nav {
       position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
-      display:flex; gap:1rem; align-items:center;
-      background:rgba(0,0,0,0.6); padding:0.5rem 1rem;
+      display:flex; gap:0.8rem; align-items:center;
+      background:rgba(0,0,0,0.7);
+      backdrop-filter:blur(8px);
+      padding:0.5rem 1rem;
       border-radius:var(--radius-sm);
-      backdrop-filter:blur(8px); z-index:10;
-    }
-    .full-view .full-content .full-nav button {
-      color:#fff; font-size:1.2rem; padding:0.2rem 0.8rem;
-      background:transparent; border:1px solid rgba(255,255,255,0.2);
-      border-radius:var(--radius-sm);
-      transition:all var(--transition);
-    }
-    .full-view .full-content .full-nav button:hover:not(:disabled) {
-      background:rgba(255,255,255,0.1);
-    }
-    .full-view .full-content .full-nav button:disabled {
-      opacity:0.3; cursor:not-allowed;
+      z-index:10;
+      flex-wrap:wrap;
+      justify-content:center;
     }
     .full-view .full-content .full-nav .full-info {
       color:#fff; font-size:0.8rem; min-width:80px; text-align:center;
+    }
+    .full-view .full-content .full-nav .full-next-chapter-btn {
+      padding:0.3rem 1rem;
+      border-radius:var(--radius-sm);
+      background:var(--accent);
+      color:#0a0a0f;
+      font-size:0.75rem;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:all var(--transition);
+      display:inline-flex;
+      align-items:center;
+      gap:0.3rem;
+    }
+    .full-view .full-content .full-nav .full-next-chapter-btn:hover:not(:disabled) {
+      background:var(--accent-hover);
+      transform:scale(1.02);
+    }
+    .full-view .full-content .full-nav .full-next-chapter-btn:disabled {
+      opacity:0.3;
+      cursor:not-allowed;
+      transform:none;
     }
     .full-view .close-full {
       position:fixed; top:20px; right:20px; z-index:11;
@@ -397,7 +465,7 @@
       to { opacity:1; transform:translateX(0); }
     }
 
-    /* ===== KOMENTAR (sama dengan detail.html) ===== */
+    /* ===== KOMENTAR ===== */
     .comment-section {
       margin-top: 2.5rem;
       padding-top: 1.5rem;
@@ -789,12 +857,15 @@
       .comment-item .comment-header { flex-direction:column; align-items:flex-start; }
       .comment-item .replies { margin-left:0.8rem; padding-left:0.4rem; }
       .reader-images.page .page-footer { flex-direction:column; align-items:center; gap:0.4rem; }
+      .full-view .full-content .full-nav { flex-wrap:wrap; gap:0.4rem; padding:0.3rem 0.6rem; bottom:10px; }
+      .full-view .full-content .full-nav .full-next-chapter-btn { font-size:0.65rem; padding:0.2rem 0.6rem; }
     }
     @media (max-width:480px) {
       .reader-header .left .title { max-width:100px; font-size:0.7rem; }
       .reader-header .right select { min-width:60px; font-size:0.65rem; padding:0.2rem 0.4rem; }
       .mode-toggle button { font-size:0.6rem; padding:0.15rem 0.4rem; }
       .reader-images.page .click-area .half { min-height:150px; }
+      .full-view .full-content .full-nav .full-next-chapter-btn { font-size:0.6rem; padding:0.15rem 0.5rem; }
     }
   </style>
 </head>
@@ -963,11 +1034,13 @@
     // ================================================================
     let currentChapterId = null;
     let currentMangaId = null;
-    let chapters = [];
+    let allChapters = []; // [{id, title, chapter, lang}]
     let pageUrls = [];
     let currentMode = 'scroll';
     let currentPageIndex = 0;
     let isFullView = false;
+    let currentLang = null;
+    let currentChapterNum = 0;
 
     // ================================================================
     // UTILITY
@@ -988,10 +1061,6 @@
       if (!ts) return '';
       const d = ts.toDate ? ts.toDate() : new Date(ts);
       return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-    }
-
-    function generateId() {
-      return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
     }
 
     function escapeHtml(text) {
@@ -1304,7 +1373,7 @@
     }
 
     // ================================================================
-    // 🔥 BOOKMARK (opsional, jika diperlukan)
+    // 🔥 BOOKMARK (opsional)
     // ================================================================
     async function getUserProfile(uid) {
       try {
@@ -1359,35 +1428,47 @@
     }
 
     // ================================================================
+    // ⭐ FUNGSI NAVIGASI CHAPTER (berdasarkan nomor chapter)
+    // ================================================================
+    function findNextChapter(currentId, lang) {
+      const current = allChapters.find(c => c.id === currentId);
+      if (!current) return null;
+      const currentNum = parseFloat(current.chapter) || 0;
+      let candidates = allChapters.filter(c => c.lang === lang && (parseFloat(c.chapter) || 0) > currentNum);
+      if (candidates.length === 0) {
+        candidates = allChapters.filter(c => (parseFloat(c.chapter) || 0) > currentNum);
+      }
+      if (candidates.length === 0) return null;
+      candidates.sort((a, b) => (parseFloat(a.chapter) || 0) - (parseFloat(b.chapter) || 0));
+      return candidates[0];
+    }
+
+    function goToNextChapter() {
+      if (!currentChapterId || !currentLang) {
+        showToast('Tidak ada data chapter.', 'fa-info-circle');
+        return;
+      }
+      const next = findNextChapter(currentChapterId, currentLang);
+      if (next) {
+        goToChapter(next.id);
+      } else {
+        showToast('Tidak ada chapter berikutnya.', 'fa-info-circle');
+      }
+    }
+
+    // ================================================================
     // RENDER GAMBAR
     // ================================================================
     function renderImages(mode) {
       const isPage = (mode === 'page');
       readerImages.innerHTML = '';
 
-      const currentIdx = chapters.findIndex(c => c.id === currentChapterId);
-      const hasNext = currentIdx !== -1 && currentIdx < chapters.length - 1;
-      const nextChapter = hasNext ? chapters[currentIdx + 1] : null;
+      const nextChapter = findNextChapter(currentChapterId, currentLang);
 
       if (isPage) {
         readerImages.className = 'reader-images page';
         const wrapper = document.createElement('div');
         wrapper.className = 'page-wrapper';
-
-        const clickArea = document.createElement('div');
-        clickArea.className = 'click-area';
-        const leftHalf = document.createElement('div');
-        leftHalf.className = 'half';
-        leftHalf.innerHTML = `<span class="label"><i class="fas fa-chevron-left"></i> Prev</span>`;
-        leftHalf.addEventListener('click', (e) => { e.stopPropagation();
-          goPage(-1); });
-        const rightHalf = document.createElement('div');
-        rightHalf.className = 'half';
-        rightHalf.innerHTML = `<span class="label">Next <i class="fas fa-chevron-right"></i></span>`;
-        rightHalf.addEventListener('click', (e) => { e.stopPropagation();
-          goPage(1); });
-        clickArea.appendChild(leftHalf);
-        clickArea.appendChild(rightHalf);
 
         const img = document.createElement('img');
         img.src = pageUrls[currentPageIndex] || '';
@@ -1397,6 +1478,26 @@
             'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
         };
 
+        // 🔥 CLICK AREA (kiri/kanan) tanpa teks
+        const clickArea = document.createElement('div');
+        clickArea.className = 'click-area';
+        const leftHalf = document.createElement('div');
+        leftHalf.className = 'half left';
+        leftHalf.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(-1);
+        });
+        const rightHalf = document.createElement('div');
+        rightHalf.className = 'half right';
+        rightHalf.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(1);
+        });
+
+        clickArea.appendChild(leftHalf);
+        clickArea.appendChild(rightHalf);
+
+        // Footer (page info + next chapter)
         const footer = document.createElement('div');
         footer.className = 'page-footer';
         const pageInfo = document.createElement('span');
@@ -1405,8 +1506,9 @@
         const nextBtn = document.createElement('button');
         nextBtn.className = 'next-chapter-btn';
         nextBtn.innerHTML = 'Chapter Selanjutnya <i class="fas fa-arrow-right"></i>';
-        if (hasNext) {
-          nextBtn.addEventListener('click', () => goToChapter(nextChapter.id));
+        if (nextChapter) {
+          nextBtn.addEventListener('click', () => goToNextChapter());
+          nextBtn.disabled = false;
         } else {
           nextBtn.disabled = true;
           nextBtn.innerHTML = 'Tidak ada chapter selanjutnya';
@@ -1445,8 +1547,9 @@
         const nextBtn = document.createElement('button');
         nextBtn.className = 'next-chapter-btn';
         nextBtn.innerHTML = 'Chapter Selanjutnya <i class="fas fa-arrow-right"></i>';
-        if (hasNext) {
-          nextBtn.addEventListener('click', () => goToChapter(nextChapter.id));
+        if (nextChapter) {
+          nextBtn.addEventListener('click', () => goToNextChapter());
+          nextBtn.disabled = false;
         } else {
           nextBtn.disabled = true;
           nextBtn.innerHTML = 'Tidak ada chapter selanjutnya';
@@ -1467,7 +1570,18 @@
       const nextBtn = footer.querySelector('.next-chapter-btn');
       if (info) info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
       const isLast = (currentPageIndex === pageUrls.length - 1);
-      if (nextBtn) nextBtn.style.display = isLast ? 'inline-flex' : 'none';
+      if (nextBtn) {
+        const nextChapter = findNextChapter(currentChapterId, currentLang);
+        if (nextChapter) {
+          nextBtn.disabled = false;
+          nextBtn.innerHTML = 'Chapter Selanjutnya <i class="fas fa-arrow-right"></i>';
+          nextBtn.style.display = isLast ? 'inline-flex' : 'none';
+        } else {
+          nextBtn.disabled = true;
+          nextBtn.innerHTML = 'Tidak ada chapter selanjutnya';
+          nextBtn.style.display = isLast ? 'inline-flex' : 'none';
+        }
+      }
     }
 
     function goPage(direction) {
@@ -1513,20 +1627,25 @@
         renderImages(currentMode);
         chapterSelect.value = chapterId;
 
-        const chapterData = chapters.find(c => c.id === chapterId);
+        const chapterData = allChapters.find(c => c.id === chapterId);
         if (chapterData) {
-          const langLabel = chapterData.lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
+          const langLabel = chapterData.lang === 'id' ? '🇮🇩 ID' : chapterData.lang === 'en' ? '🇬🇧 EN' : chapterData.lang === 'ja' ? '🇯🇵 JP' : '🇨🇳 CN';
           const title = chapterData.title || `Chapter ${chapterData.chapter}`;
           readerTitle.textContent = `${title} (${langLabel})`;
+          currentLang = chapterData.lang;
+          currentChapterNum = parseFloat(chapterData.chapter) || 0;
         } else {
           readerTitle.textContent = `Chapter`;
+          currentLang = null;
+          currentChapterNum = 0;
         }
 
         loadingSpinner.style.display = 'none';
         readerContent.style.display = 'block';
 
-        // Render komentar untuk chapter ini
         if (currentMangaId && currentChapterId) await renderComments();
+
+        setTimeout(() => updatePageFooter(), 100);
 
       } catch (err) {
         console.error('loadChapter error:', err);
@@ -1576,67 +1695,116 @@
       const content = document.createElement('div');
       content.className = 'full-content';
 
-      if (currentMode === 'page') {
-        const img = document.createElement('img');
-        img.src = pageUrls[currentPageIndex] || '';
-        img.alt = `Halaman ${currentPageIndex + 1}`;
-        content.appendChild(img);
-        const nav = document.createElement('div');
-        nav.className = 'full-nav';
-        const prevBtn = document.createElement('button');
-        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-        prevBtn.disabled = currentPageIndex === 0;
-        prevBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          goPage(-1);
-          const imgEl = content.querySelector('img');
-          if (imgEl) imgEl.src = pageUrls[currentPageIndex] || '';
-          const info = content.querySelector('.full-info');
-          if (info) info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
-          const pBtn = content.querySelector('.full-nav button:first-child');
-          const nBtn = content.querySelector('.full-nav button:last-child');
-          if (pBtn) pBtn.disabled = currentPageIndex === 0;
-          if (nBtn) nBtn.disabled = currentPageIndex === pageUrls.length - 1;
-        });
-        const info = document.createElement('span');
-        info.className = 'full-info';
-        info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
-        const nextBtn = document.createElement('button');
-        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-        nextBtn.disabled = currentPageIndex === pageUrls.length - 1;
-        nextBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          goPage(1);
-          const imgEl = content.querySelector('img');
-          if (imgEl) imgEl.src = pageUrls[currentPageIndex] || '';
-          const info = content.querySelector('.full-info');
-          if (info) info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
-          const pBtn = content.querySelector('.full-nav button:first-child');
-          const nBtn = content.querySelector('.full-nav button:last-child');
-          if (pBtn) pBtn.disabled = currentPageIndex === 0;
-          if (nBtn) nBtn.disabled = currentPageIndex === pageUrls.length - 1;
-        });
-        nav.appendChild(prevBtn);
-        nav.appendChild(info);
-        nav.appendChild(nextBtn);
-        content.appendChild(nav);
-        img.addEventListener('click', () => toggleFullView());
-      } else {
-        const scrollContainer = document.createElement('div');
-        scrollContainer.style.cssText =
-          'width:100%;height:100%;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;';
-        pageUrls.forEach(url => {
-          const i = document.createElement('img');
-          i.src = url;
-          i.alt = 'Halaman';
-          i.style.cssText = 'max-width:100%;height:auto;border-radius:0;border:none;';
-          scrollContainer.appendChild(i);
-        });
-        content.appendChild(scrollContainer);
-        content.addEventListener('click', (e) => {
-          if (e.target === content || e.target === e.currentTarget) toggleFullView();
-        });
+      const nextChapter = findNextChapter(currentChapterId, currentLang);
+      let currentImgIndex = currentPageIndex;
+
+      // 🔥 FULL VIEW CLICK AREA (kiri/kanan)
+      const clickArea = document.createElement('div');
+      clickArea.className = 'full-click-area';
+      const leftHalf = document.createElement('div');
+      leftHalf.className = 'half left';
+      leftHalf.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentImgIndex > 0) {
+          currentImgIndex--;
+          updateFullViewImage();
+          updateFullViewInfo();
+        }
+      });
+      const rightHalf = document.createElement('div');
+      rightHalf.className = 'half right';
+      rightHalf.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentImgIndex < pageUrls.length - 1) {
+          currentImgIndex++;
+          updateFullViewImage();
+          updateFullViewInfo();
+        }
+      });
+      clickArea.appendChild(leftHalf);
+      clickArea.appendChild(rightHalf);
+
+      const img = document.createElement('img');
+      img.src = pageUrls[currentImgIndex] || '';
+      img.alt = `Halaman ${currentImgIndex + 1}`;
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '90vh';
+      img.style.objectFit = 'contain';
+
+      function updateFullViewImage() {
+        img.src = pageUrls[currentImgIndex] || '';
+        img.alt = `Halaman ${currentImgIndex + 1}`;
       }
+
+      function updateFullViewInfo() {
+        const info = content.querySelector('.full-info');
+        if (info) info.textContent = `${currentImgIndex + 1} / ${pageUrls.length}`;
+        const nextBtn = content.querySelector('.full-next-chapter-btn');
+        const isLast = (currentImgIndex === pageUrls.length - 1);
+        if (nextBtn) {
+          nextBtn.style.display = isLast ? 'inline-flex' : 'none';
+        }
+        // Update prev/next button status
+        const prevBtn = content.querySelector('.full-nav button:first-child');
+        const nextPageBtn = content.querySelector('.full-nav button:last-child');
+        if (prevBtn) prevBtn.disabled = currentImgIndex === 0;
+        if (nextPageBtn) nextPageBtn.disabled = currentImgIndex === pageUrls.length - 1;
+      }
+
+      const nav = document.createElement('div');
+      nav.className = 'full-nav';
+      const prevBtn = document.createElement('button');
+      prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+      prevBtn.disabled = currentImgIndex === 0;
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentImgIndex > 0) {
+          currentImgIndex--;
+          updateFullViewImage();
+          updateFullViewInfo();
+        }
+      });
+      const info = document.createElement('span');
+      info.className = 'full-info';
+      info.textContent = `${currentImgIndex + 1} / ${pageUrls.length}`;
+      const nextPageBtn = document.createElement('button');
+      nextPageBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+      nextPageBtn.disabled = currentImgIndex === pageUrls.length - 1;
+      nextPageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentImgIndex < pageUrls.length - 1) {
+          currentImgIndex++;
+          updateFullViewImage();
+          updateFullViewInfo();
+        }
+      });
+
+      const nextChapterBtn = document.createElement('button');
+      nextChapterBtn.className = 'full-next-chapter-btn';
+      nextChapterBtn.innerHTML = 'Chapter Selanjutnya <i class="fas fa-arrow-right"></i>';
+      if (nextChapter) {
+        nextChapterBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeFullView();
+          goToNextChapter();
+        });
+        nextChapterBtn.disabled = false;
+      } else {
+        nextChapterBtn.disabled = true;
+        nextChapterBtn.textContent = 'Tidak ada chapter selanjutnya';
+      }
+      const isLastPageFull = (currentImgIndex === pageUrls.length - 1);
+      nextChapterBtn.style.display = isLastPageFull ? 'inline-flex' : 'none';
+
+      nav.appendChild(prevBtn);
+      nav.appendChild(info);
+      nav.appendChild(nextPageBtn);
+      nav.appendChild(nextChapterBtn);
+
+      content.appendChild(clickArea);
+      content.appendChild(img);
+      content.appendChild(nav);
+
       const closeBtn = document.createElement('button');
       closeBtn.className = 'close-full';
       closeBtn.innerHTML = '<i class="fas fa-times"></i>';
@@ -1647,16 +1815,20 @@
       document.body.appendChild(fv);
     }
 
+    function closeFullView() {
+      const fv = document.querySelector('.full-view');
+      if (fv) fv.remove();
+      document.body.style.overflow = '';
+      isFullView = false;
+    }
+
     fullToggleBtn.addEventListener('click', toggleFullView);
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'f' || e.key === 'F') { e.preventDefault();
-        toggleFullView(); }
+      if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullView(); }
       if (e.key === 'Escape' && isFullView) toggleFullView();
-      if (e.key === 'ArrowLeft' && currentMode === 'page') { goPage(-1);
-        e.preventDefault(); }
-      if (e.key === 'ArrowRight' && currentMode === 'page') { goPage(1);
-        e.preventDefault(); }
+      if (e.key === 'ArrowLeft' && currentMode === 'page') { goPage(-1); e.preventDefault(); }
+      if (e.key === 'ArrowRight' && currentMode === 'page') { goPage(1); e.preventDefault(); }
     });
 
     // ================================================================
@@ -1710,8 +1882,7 @@
     // ================================================================
     submitCommentBtn.addEventListener('click', submitComment);
     commentInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault();
-        submitComment(); }
+      if (e.key === 'Enter') { e.preventDefault(); submitComment(); }
     });
 
     // ================================================================
@@ -1729,24 +1900,29 @@
       try {
         const readingData = JSON.parse(localStorage.getItem('currentReading'));
         if (readingData && readingData.chapters && readingData.chapters.length > 0) {
-          chapters = readingData.chapters;
+          allChapters = readingData.chapters;
           currentMangaId = readingData.mangaId || null;
         } else {
-          chapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
+          allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
           currentMangaId = null;
         }
       } catch {
-        chapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
+        allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
         currentMangaId = null;
       }
 
-      // Isi dropdown
+      allChapters.sort((a, b) => {
+        const numA = parseFloat(a.chapter) || 0;
+        const numB = parseFloat(b.chapter) || 0;
+        return numA - numB;
+      });
+
       chapterSelect.innerHTML = '';
-      chapters.forEach((ch, idx) => {
+      allChapters.forEach((ch, idx) => {
         const opt = document.createElement('option');
         opt.value = ch.id;
         const label = ch.title || `Chapter ${ch.chapter || idx + 1}`;
-        const langLabel = ch.lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
+        const langLabel = ch.lang === 'id' ? '🇮🇩 ID' : ch.lang === 'en' ? '🇬🇧 EN' : ch.lang === 'ja' ? '🇯🇵 JP' : '🇨🇳 CN';
         opt.textContent = `${label} (${langLabel})`;
         if (ch.id === chapterId) opt.selected = true;
         chapterSelect.appendChild(opt);
