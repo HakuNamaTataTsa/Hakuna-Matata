@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baca Chapter – Akino Store</title>
+  <meta name="description" content="Baca chapter manga dengan nyaman." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ===== ROOT VARIABLES ===== */
+    :root {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #1f1f1f;
+      --bg-card-hover: #2a2a2a;
+      --bg-glass: rgba(31, 31, 31, 0.7);
+      --fg-primary: #f0f0f0;
+      --fg-secondary: #a0a0a0;
+      --fg-muted: #6b6b6b;
+      --accent: #3B82F6;
+      --accent-hover: #2563eb;
+      --accent-dim: rgba(59, 130, 246, 0.15);
+      --border-color: rgba(255, 255, 255, 0.06);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', sans-serif;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --navbar-height: 68px;
+    }
+
+    body.light-theme {
+      --bg-primary: #f5f5f8;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0f0f5;
+      --bg-glass: rgba(255, 255, 255, 0.7);
+      --fg-primary: #121212;
+      --fg-secondary: #555555;
+      --fg-muted: #888888;
+      --border-color: rgba(0, 0, 0, 0.06);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--fg-primary);
+      transition: background var(--transition), color var(--transition);
+      padding-top: var(--navbar-height);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; max-width:100%; }
+    button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
+    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar-track { background:var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:var(--bg-glass);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border-color);
+      height:var(--navbar-height);
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .navbar.scrolled { background:var(--bg-glass); box-shadow:var(--shadow); }
+    .navbar-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      height:100%; max-width:1400px; margin:0 auto; padding:0 20px; gap:1rem;
+    }
+    .navbar .logo {
+      display:flex; align-items:center; gap:0.4rem;
+      font-size:1.2rem; font-weight:800; color:var(--fg-primary); flex-shrink:0;
+    }
+    .navbar .logo i { color:var(--accent); font-size:1.1rem; }
+    .navbar .logo span { color:var(--accent); }
+
+    .nav-menu {
+      display:flex; align-items:center; gap:0.2rem; list-style:none;
+      flex:1; justify-content:center; flex-wrap:wrap;
+    }
+    .nav-menu a {
+      padding:0.4rem 0.8rem; border-radius:var(--radius-sm);
+      font-size:0.8rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active {
+      color:var(--fg-primary); background:var(--bg-card);
+    }
+    .nav-menu a.active { color:var(--accent); background:var(--accent-dim); }
+
+    .nav-actions {
+      display:flex; align-items:center; gap:0.5rem; flex-shrink:0;
+    }
+    .nav-actions .theme-btn,
+    .nav-actions .login-btn {
+      width:38px; height:38px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); transition:all var(--transition); font-size:0.9rem;
+    }
+    .nav-actions .theme-btn:hover,
+    .nav-actions .login-btn:hover {
+      border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
+    }
+    .nav-actions .login-btn {
+      width:auto; padding:0.4rem 1rem; border-radius:var(--radius-sm);
+      gap:0.4rem; font-size:0.8rem; font-weight:500;
+      background:var(--accent); color:#fff; border:none;
+    }
+    .nav-actions .login-btn:hover { background:var(--accent-hover); color:#fff; }
+
+    .hamburger {
+      display:none; flex-direction:column; gap:4px;
+      background:none; border:none; padding:4px; cursor:pointer;
+    }
+    .hamburger span {
+      display:block; width:24px; height:2px;
+      background:var(--fg-primary); border-radius:2px; transition:all var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
+
+    .mobile-menu {
+      display:none; position:fixed; top:var(--navbar-height); left:0; right:0; bottom:0;
+      background:var(--bg-primary); padding:1.5rem; overflow-y:auto; z-index:999;
+      border-top:1px solid var(--border-color); flex-direction:column; gap:0.5rem;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      padding:0.8rem 1rem; border-radius:var(--radius-sm);
+      font-size:0.95rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); border-bottom:1px solid var(--border-color);
+    }
+    .mobile-menu a:hover, .mobile-menu a.active {
+      color:var(--fg-primary); background:var(--bg-card);
+    }
+    .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width:1000px; margin:0 auto; padding:0 20px; }
+
+    /* ===== READER HEADER ===== */
+    .reader-header {
+      display:flex; flex-wrap:wrap; align-items:center;
+      justify-content:space-between; gap:0.6rem;
+      padding:1rem 0; border-bottom:1px solid var(--border-color);
+      margin-bottom:1rem;
+      transition: all var(--transition);
+    }
+    .reader-header .left {
+      display:flex; align-items:center; gap:0.6rem;
+    }
+    .reader-header .left .back-btn {
+      padding:0.3rem 0.8rem; border-radius:var(--radius-sm);
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); font-size:0.8rem;
+      transition:all var(--transition); cursor:pointer;
+    }
+    .reader-header .left .back-btn:hover {
+      border-color:var(--accent); color:var(--fg-primary);
+    }
+    .reader-header .left .title {
+      font-weight:600; font-size:0.95rem;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:300px;
+    }
+
+    .reader-header .right {
+      display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;
+    }
+    .reader-header .right select {
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm); padding:0.3rem 0.8rem;
+      color:var(--fg-primary); font-size:0.8rem; outline:none;
+      cursor:pointer; font-family:var(--font); min-width:120px;
+    }
+    .reader-header .right select:focus { border-color:var(--accent); }
+    .reader-header .right select option {
+      background:var(--bg-secondary); color:var(--fg-primary);
+    }
+
+    /* Mode toggle */
+    .mode-toggle {
+      display:flex; align-items:center; gap:0.3rem;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm); padding:0.15rem;
+    }
+    .mode-toggle button {
+      padding:0.2rem 0.6rem; border-radius:var(--radius-sm);
+      font-size:0.7rem; font-weight:600; color:var(--fg-secondary);
+      transition:all var(--transition);
+      background:transparent;
+    }
+    .mode-toggle button.active {
+      background:var(--accent); color:#fff;
+    }
+    .mode-toggle button:hover:not(.active) {
+      color:var(--fg-primary);
+    }
+
+    /* ===== READER IMAGES - SCROLL MODE ===== */
+    .reader-images.scroll {
+      display:flex; flex-direction:column; align-items:center; gap:0.4rem;
+      padding-bottom:2rem;
+    }
+    .reader-images.scroll img {
+      max-width:100%; height:auto; border-radius:var(--radius-sm);
+      background:var(--bg-secondary); border:1px solid var(--border-color);
+      box-shadow:var(--shadow);
+    }
+
+    /* ===== READER IMAGES - PAGE MODE ===== */
+    .reader-images.page {
+      display:flex; flex-direction:column; align-items:center; gap:0.4rem;
+      padding-bottom:2rem;
+      position:relative;
+    }
+    .reader-images.page .page-wrapper {
+      position:relative; width:100%; max-width:800px; margin:0 auto;
+    }
+    .reader-images.page .page-wrapper img {
+      width:100%; height:auto; border-radius:var(--radius-sm);
+      background:var(--bg-secondary); border:1px solid var(--border-color);
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+    .reader-images.page .page-nav {
+      display:flex; align-items:center; justify-content:center;
+      gap:1rem; margin-top:0.8rem; width:100%;
+    }
+    .reader-images.page .page-nav button {
+      padding:0.4rem 1.2rem; border-radius:var(--radius-sm);
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); font-size:0.8rem;
+      transition:all var(--transition); cursor:pointer;
+    }
+    .reader-images.page .page-nav button:hover:not(:disabled) {
+      border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
+    }
+    .reader-images.page .page-nav button:disabled {
+      opacity:0.3; cursor:not-allowed;
+    }
+    .reader-images.page .page-nav .page-info {
+      font-size:0.8rem; color:var(--fg-secondary);
+      min-width:80px; text-align:center;
+    }
+
+    /* Page mode click area (left/right half) */
+    .reader-images.page .click-area {
+      display:flex; position:relative; width:100%; max-width:800px; margin:0 auto;
+      border-radius:var(--radius-sm);
+      overflow:hidden;
+    }
+    .reader-images.page .click-area .half {
+      flex:1; height:100%; min-height:300px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--fg-muted); font-size:1.5rem; transition:all var(--transition);
+      user-select:none;
+      -webkit-user-select:none;
+      position:relative;
+    }
+    .reader-images.page .click-area .half:hover {
+      background:var(--accent-dim);
+    }
+    .reader-images.page .click-area .half .label {
+      font-size:0.7rem; opacity:0; transition:opacity var(--transition);
+      pointer-events:none;
+      background:rgba(0,0,0,0.5);
+      padding:0.3rem 0.8rem;
+      border-radius:var(--radius-sm);
+      color:#fff;
+    }
+    .reader-images.page .click-area .half:hover .label { opacity:1; }
+
+    /* ===== FULL VIEW ===== */
+    .full-view {
+      position:fixed; top:0; left:0; right:0; bottom:0; z-index:9999;
+      background:#000;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:0;
+      margin:0;
+    }
+    .full-view .full-content {
+      width:100%; height:100%; display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      overflow-y:auto;
+      padding:10px;
+    }
+    .full-view .full-content img {
+      max-width:100%; max-height:100%; object-fit:contain;
+      border-radius:0;
+      border:none;
+      box-shadow:none;
+    }
+    .full-view .full-content .full-nav {
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      display:flex; gap:1rem; align-items:center;
+      background:rgba(0,0,0,0.6);
+      padding:0.5rem 1rem;
+      border-radius:var(--radius-sm);
+      backdrop-filter:blur(8px);
+      z-index:10;
+    }
+    .full-view .full-content .full-nav button {
+      color:#fff; font-size:1.2rem; padding:0.2rem 0.8rem;
+      background:transparent; border:1px solid rgba(255,255,255,0.2);
+      border-radius:var(--radius-sm);
+      transition:all var(--transition);
+    }
+    .full-view .full-content .full-nav button:hover:not(:disabled) {
+      background:rgba(255,255,255,0.1);
+    }
+    .full-view .full-content .full-nav button:disabled {
+      opacity:0.3; cursor:not-allowed;
+    }
+    .full-view .full-content .full-nav .full-info {
+      color:#fff; font-size:0.8rem; min-width:80px; text-align:center;
+    }
+    .full-view .close-full {
+      position:fixed; top:20px; right:20px; z-index:11;
+      color:#fff; font-size:1.8rem; cursor:pointer;
+      transition:all var(--transition);
+      background:rgba(0,0,0,0.5);
+      width:48px; height:48px;
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,0.2);
+    }
+    .full-view .close-full:hover {
+      background:rgba(255,255,255,0.2);
+    }
+
+    /* Tombol Full View di bawah */
+    .full-toggle-btn {
+      position:fixed; bottom:20px; right:20px; z-index:100;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:50%; width:48px; height:48px;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--fg-secondary); font-size:1.2rem;
+      transition:all var(--transition);
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+    .full-toggle-btn:hover {
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
+    }
+    /* Sembunyikan saat full view aktif */
+    .full-view ~ .full-toggle-btn { display:none; }
+
+    /* ===== LOADING ===== */
+    .loading-spinner {
+      text-align:center; padding:4rem 0; color:var(--fg-secondary);
+    }
+    .loading-spinner i {
+      font-size:2.5rem; color:var(--accent); margin-bottom:0.8rem; display:block;
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container {
+      position:fixed; bottom:30px; right:30px; z-index:9999;
+      display:flex; flex-direction:column; gap:0.5rem;
+    }
+    .toast {
+      padding:0.8rem 1.5rem; background:var(--bg-card);
+      border:1px solid var(--border-color); border-radius:var(--radius);
+      box-shadow:var(--shadow); backdrop-filter:blur(12px);
+      display:flex; align-items:center; gap:0.6rem;
+      animation:slideInToast 0.3s ease; font-size:0.85rem;
+    }
+    .toast i { color:var(--accent); }
+    @keyframes slideInToast {
+      from { opacity:0; transform:translateX(50px); }
+      to { opacity:1; transform:translateX(0); }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding:3rem 1.5rem 1.5rem; border-top:1px solid var(--border-color);
+      margin-top:3rem;
+    }
+    .footer-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:2rem; max-width:1000px; margin:0 auto 2rem; text-align:left;
+    }
+    .footer-grid h4 { font-size:0.85rem; color:var(--fg-primary); margin-bottom:0.8rem; }
+    .footer-grid p, .footer-grid a { font-size:0.8rem; color:var(--fg-secondary); line-height:1.8; }
+    .footer-grid a { display:block; transition:color 0.2s; }
+    .footer-grid a:hover { color:var(--accent); }
+    .footer-grid .brand-footer { font-weight:600; color:var(--accent); }
+    .footer-bottom {
+      max-width:1000px; margin:0 auto; border-top:1px solid var(--border-color);
+      padding-top:1.5rem; text-align:center; font-size:0.7rem; color:var(--fg-muted);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:768px) {
+      :root { --navbar-height:60px; }
+      .nav-menu { display:none; }
+      .hamburger { display:flex; }
+      .nav-actions .login-btn span { display:none; }
+      .reader-header .left .title { max-width:140px; font-size:0.8rem; }
+      .reader-header .right select { min-width:80px; font-size:0.7rem; }
+      .reader-images.page .page-nav button { padding:0.3rem 0.8rem; font-size:0.7rem; }
+      .full-view .close-full { top:10px; right:10px; width:40px; height:40px; font-size:1.4rem; }
+      .full-toggle-btn { width:40px; height:40px; font-size:1rem; bottom:15px; right:15px; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:1.5rem; text-align:center; }
+      .footer-grid h4 { text-align:center; }
+    }
+    @media (max-width:480px) {
+      .reader-header .left .title { max-width:100px; font-size:0.7rem; }
+      .reader-header .right select { min-width:60px; font-size:0.65rem; padding:0.2rem 0.4rem; }
+      .mode-toggle button { font-size:0.6rem; padding:0.15rem 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="manga.html">Manga</a></li>
+        <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <button class="login-btn" id="loginBtn"><i class="fas fa-user"></i><span>Login</span></button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="manga.html">Manga</a>
+    <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="container" id="app">
+    <div class="loading-spinner" id="loadingSpinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Memuat chapter...</p>
+    </div>
+
+    <div id="readerContent" style="display:none;">
+      <div class="reader-header" id="readerHeader">
+        <div class="left">
+          <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Kembali</button>
+          <span class="title" id="readerTitle">Chapter</span>
+        </div>
+        <div class="right">
+          <div class="mode-toggle" id="modeToggle">
+            <button class="active" data-mode="scroll"><i class="fas fa-align-justify"></i></button>
+            <button data-mode="page"><i class="fas fa-square"></i></button>
+          </div>
+          <select id="chapterSelect"></select>
+        </div>
+      </div>
+
+      <div class="reader-images scroll" id="readerImages"></div>
+    </div>
+
+    <!-- Tombol Full View -->
+    <button class="full-toggle-btn" id="fullToggleBtn" title="Full View">
+      <i class="fas fa-expand"></i>
+    </button>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" aria-label="Footer">
+    <div class="footer-grid">
+      <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p></div>
+      <div><h4>Layanan</h4><a href="CarParkingMultiplayer.html">Car Parking</a><a href="SosialMedia.html">Sosial Media</a><a href="designedit.html">Design / Edit</a></div>
+      <div><h4>Tentang</h4><a href="about.html">About Us</a><a href="https://wa.me/6289687163314" target="_blank">Contact</a><a href="stockmobil.html">Stock Mobil</a></div>
+      <div><h4>Legal</h4><a href="privacy.html">Kebijakan Privasi</a><a href="terms.html">Syarat &amp; Ketentuan</a></div>
+      <div><h4>Follow</h4><a href="https://www.tiktok.com/@akinolaset_" target="_blank">TikTok</a><a href="https://www.instagram.com/akinostore_" target="_blank">Instagram</a><a href="https://youtube.com/@akinolaset" target="_blank">YouTube</a></div>
+    </div>
+    <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
+  </footer>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
+
+    // ============================================================
+    // DOM REFS
+    // ============================================================
+    const $ = id => document.getElementById(id);
+    const loadingSpinner = $('loadingSpinner');
+    const readerContent = $('readerContent');
+    const readerTitle = $('readerTitle');
+    const readerImages = $('readerImages');
+    const chapterSelect = $('chapterSelect');
+    const backBtn = $('backBtn');
+    const toastContainer = $('toastContainer');
+    const modeToggle = $('modeToggle');
+    const fullToggleBtn = $('fullToggleBtn');
+    const readerHeader = $('readerHeader');
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let currentChapterId = null;
+    let currentMangaId = null;
+    let chapters = [];
+    let currentIndex = -1;
+    let pageUrls = [];
+    let currentMode = 'scroll';
+    let currentPageIndex = 0;
+    let isFullView = false;
+
+    // ============================================================
+    // UTILITY
+    // ============================================================
+    function showToast(msg, icon = 'fa-check-circle') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
+      toastContainer.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(50px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // ============================================================
+    // API HELPERS
+    // ============================================================
+    async function apiFetch(endpoint, params = {}) {
+      const url = new URL(WORKER_URL + endpoint);
+      Object.keys(params).forEach(key => {
+        if (Array.isArray(params[key])) {
+          params[key].forEach(v => url.searchParams.append(key, v));
+        } else if (typeof params[key] === 'object' && params[key] !== null) {
+          if (key === 'order') {
+            const orderObj = params[key];
+            Object.keys(orderObj).forEach(k => url.searchParams.append(`order[${k}]`, orderObj[k]));
+          } else {
+            url.searchParams.append(key, JSON.stringify(params[key]));
+          }
+        } else if (params[key] !== undefined && params[key] !== '') {
+          url.searchParams.append(key, params[key]);
+        }
+      });
+      console.log('📡 Fetching:', url.toString());
+      const resp = await fetch(url);
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text.substring(0,150)}`);
+      }
+      return resp.json();
+    }
+
+    // ============================================================
+    // RENDER IMAGES (Scroll / Page)
+    // ============================================================
+    function renderImages(mode) {
+      const isPage = (mode === 'page');
+      readerImages.innerHTML = '';
+
+      if (isPage) {
+        readerImages.className = 'reader-images page';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'page-wrapper';
+
+        // Click area (left/right)
+        const clickArea = document.createElement('div');
+        clickArea.className = 'click-area';
+
+        const leftHalf = document.createElement('div');
+        leftHalf.className = 'half';
+        leftHalf.innerHTML = `<span class="label"><i class="fas fa-chevron-left"></i> Prev</span>`;
+        leftHalf.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(-1);
+        });
+
+        const rightHalf = document.createElement('div');
+        rightHalf.className = 'half';
+        rightHalf.innerHTML = `<span class="label">Next <i class="fas fa-chevron-right"></i></span>`;
+        rightHalf.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(1);
+        });
+
+        clickArea.appendChild(leftHalf);
+        clickArea.appendChild(rightHalf);
+
+        // Gambar
+        const img = document.createElement('img');
+        img.src = pageUrls[currentPageIndex] || '';
+        img.alt = `Halaman ${currentPageIndex + 1}`;
+        img.onerror = function() {
+          this.src =
+            'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
+        };
+        // Klik pada gambar juga bisa navigasi (optional)
+        img.addEventListener('click', (e) => {
+          // Jika tidak full view, kita bisa toggle full view atau navigasi
+          // Kita biarkan click area yang handle
+        });
+
+        // Nav bawah
+        const pageNav = document.createElement('div');
+        pageNav.className = 'page-nav';
+        const prevPageBtn = document.createElement('button');
+        prevPageBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Prev';
+        prevPageBtn.disabled = currentPageIndex === 0;
+        prevPageBtn.addEventListener('click', () => goPage(-1));
+
+        const pageInfo = document.createElement('span');
+        pageInfo.className = 'page-info';
+        pageInfo.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
+
+        const nextPageBtn = document.createElement('button');
+        nextPageBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+        nextPageBtn.disabled = currentPageIndex === pageUrls.length - 1;
+        nextPageBtn.addEventListener('click', () => goPage(1));
+
+        pageNav.appendChild(prevPageBtn);
+        pageNav.appendChild(pageInfo);
+        pageNav.appendChild(nextPageBtn);
+
+        wrapper.appendChild(clickArea);
+        wrapper.appendChild(img);
+        wrapper.appendChild(pageNav);
+        readerImages.appendChild(wrapper);
+      } else {
+        // Scroll mode
+        readerImages.className = 'reader-images scroll';
+        pageUrls.forEach(url => {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = 'Halaman';
+          img.loading = 'lazy';
+          img.onerror = function() {
+            this.src =
+              'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
+          };
+          readerImages.appendChild(img);
+        });
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goPage(direction) {
+      const newIndex = currentPageIndex + direction;
+      if (newIndex < 0 || newIndex >= pageUrls.length) return;
+      currentPageIndex = newIndex;
+      renderImages(currentMode);
+    }
+
+    // ============================================================
+    // LOAD CHAPTER
+    // ============================================================
+    async function loadChapter(chapterId) {
+      try {
+        loadingSpinner.style.display = 'block';
+        readerContent.style.display = 'none';
+
+        const serverData = await apiFetch(`/at-home/server/${chapterId}`);
+        const baseUrl = serverData.baseUrl;
+        const chapterHash = serverData.chapter.hash;
+        const pages = serverData.chapter.data || [];
+
+        if (!pages.length) {
+          readerImages.innerHTML =
+            `<p style="color:var(--fg-secondary);text-align:center;padding:2rem 0;">Chapter ini tidak memiliki halaman.</p>`;
+          loadingSpinner.style.display = 'none';
+          readerContent.style.display = 'block';
+          return;
+        }
+
+        pageUrls = pages.map(p => {
+          const original = `${baseUrl}/data/${chapterHash}/${p}`;
+          return `${WORKER_URL}/proxy-image?url=${encodeURIComponent(original)}`;
+        });
+
+        currentPageIndex = 0;
+
+        // Render sesuai mode
+        renderImages(currentMode);
+
+        // Update dropdown
+        chapterSelect.value = chapterId;
+
+        const chapterData = chapters.find(c => c.id === chapterId);
+        if (chapterData) {
+          const langLabel = chapterData.lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
+          const title = chapterData.title || `Chapter ${chapterData.chapter}`;
+          readerTitle.textContent = `${title} (${langLabel})`;
+        } else {
+          readerTitle.textContent = `Chapter`;
+        }
+
+        loadingSpinner.style.display = 'none';
+        readerContent.style.display = 'block';
+      } catch (err) {
+        console.error('loadChapter error:', err);
+        loadingSpinner.innerHTML =
+          `<p style="color:var(--fg-secondary);">Gagal memuat chapter: ${err.message}</p>`;
+        showToast('Gagal memuat chapter', 'fa-exclamation-triangle');
+      }
+    }
+
+    // ============================================================
+    // NAVIGATE
+    // ============================================================
+    function goToChapter(chapterId) {
+      if (chapterId === currentChapterId) return;
+      currentChapterId = chapterId;
+      const url = new URL(window.location);
+      url.searchParams.set('chapter', chapterId);
+      window.history.pushState({}, '', url);
+      loadChapter(chapterId);
+    }
+
+    // ============================================================
+    // MODE TOGGLE
+    // ============================================================
+    modeToggle.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn || !btn.dataset.mode) return;
+      if (btn.dataset.mode === currentMode) return;
+
+      modeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentMode = btn.dataset.mode;
+      currentPageIndex = 0;
+      renderImages(currentMode);
+    });
+
+    // ============================================================
+    // FULL VIEW
+    // ============================================================
+    function toggleFullView() {
+      if (isFullView) {
+        // Keluar full view
+        const fv = document.querySelector('.full-view');
+        if (fv) fv.remove();
+        document.body.style.overflow = '';
+        isFullView = false;
+        return;
+      }
+
+      // Masuk full view
+      isFullView = true;
+      const fv = document.createElement('div');
+      fv.className = 'full-view';
+      fv.id = 'fullView';
+
+      // Konten
+      const content = document.createElement('div');
+      content.className = 'full-content';
+
+      // Gambar
+      const img = document.createElement('img');
+      if (currentMode === 'page') {
+        img.src = pageUrls[currentPageIndex] || '';
+        img.alt = `Halaman ${currentPageIndex + 1}`;
+      } else {
+        // Mode scroll: tampilkan semua gambar dalam full view (scroll)
+        // Kita bisa buat container scroll
+        const scrollContainer = document.createElement('div');
+        scrollContainer.style.cssText = 'width:100%;height:100%;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;';
+        pageUrls.forEach(url => {
+          const i = document.createElement('img');
+          i.src = url;
+          i.alt = 'Halaman';
+          i.style.cssText = 'max-width:100%;height:auto;border-radius:0;border:none;';
+          scrollContainer.appendChild(i);
+        });
+        content.appendChild(scrollContainer);
+      }
+
+      if (currentMode === 'page') {
+        content.appendChild(img);
+        // Nav bawah full view
+        const nav = document.createElement('div');
+        nav.className = 'full-nav';
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.disabled = currentPageIndex === 0;
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(-1);
+          // Update gambar
+          const imgEl = content.querySelector('img');
+          if (imgEl) imgEl.src = pageUrls[currentPageIndex] || '';
+          const info = content.querySelector('.full-info');
+          if (info) info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
+          // Update nav buttons
+          const pBtn = content.querySelector('.full-nav button:first-child');
+          const nBtn = content.querySelector('.full-nav button:last-child');
+          if (pBtn) pBtn.disabled = currentPageIndex === 0;
+          if (nBtn) nBtn.disabled = currentPageIndex === pageUrls.length - 1;
+        });
+
+        const info = document.createElement('span');
+        info.className = 'full-info';
+        info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
+
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.disabled = currentPageIndex === pageUrls.length - 1;
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goPage(1);
+          const imgEl = content.querySelector('img');
+          if (imgEl) imgEl.src = pageUrls[currentPageIndex] || '';
+          const info = content.querySelector('.full-info');
+          if (info) info.textContent = `${currentPageIndex + 1} / ${pageUrls.length}`;
+          const pBtn = content.querySelector('.full-nav button:first-child');
+          const nBtn = content.querySelector('.full-nav button:last-child');
+          if (pBtn) pBtn.disabled = currentPageIndex === 0;
+          if (nBtn) nBtn.disabled = currentPageIndex === pageUrls.length - 1;
+        });
+
+        nav.appendChild(prevBtn);
+        nav.appendChild(info);
+        nav.appendChild(nextBtn);
+        content.appendChild(nav);
+
+        // Klik pada gambar untuk keluar full view
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleFullView();
+        });
+      } else {
+        // Mode scroll: klik pada container untuk keluar
+        content.addEventListener('click', (e) => {
+          if (e.target === content || e.target === e.currentTarget) {
+            toggleFullView();
+          }
+        });
+      }
+
+      // Tombol close
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-full';
+      closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+      closeBtn.addEventListener('click', toggleFullView);
+
+      fv.appendChild(content);
+      fv.appendChild(closeBtn);
+
+      // Sembunyikan scroll body
+      document.body.style.overflow = 'hidden';
+      document.body.appendChild(fv);
+    }
+
+    // Event listener untuk tombol full view
+    fullToggleBtn.addEventListener('click', toggleFullView);
+
+    // ============================================================
+    // KEYBOARD SHORTCUT (Full view toggle: F, ESC untuk keluar)
+    // ============================================================
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullView();
+      }
+      if (e.key === 'Escape' && isFullView) {
+        toggleFullView();
+      }
+      if (e.key === 'ArrowLeft') {
+        if (currentMode === 'page' && isFullView) {
+          // handled by full view nav
+        } else if (currentMode === 'page') {
+          goPage(-1);
+        }
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight') {
+        if (currentMode === 'page' && isFullView) {
+          // handled
+        } else if (currentMode === 'page') {
+          goPage(1);
+        }
+        e.preventDefault();
+      }
+    });
+
+    // ============================================================
+    // NAVBAR & THEME
+    // ============================================================
+    (function navbar() {
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        });
+      });
+
+      const themeToggle = document.getElementById('themeToggle');
+      const icon = themeToggle.querySelector('i');
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+        icon.className = 'fas fa-sun';
+      }
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    })();
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      showToast('Fitur login segera hadir!', 'fa-info-circle');
+    });
+
+    // ============================================================
+    // BACK BUTTON
+    // ============================================================
+    backBtn.addEventListener('click', () => {
+      if (currentMangaId) {
+        window.location.href = `detail.html?id=${currentMangaId}`;
+      } else {
+        window.history.back();
+      }
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const chapterId = params.get('chapter');
+
+      if (!chapterId) {
+        loadingSpinner.innerHTML = '<p style="color:var(--fg-secondary);">ID chapter tidak ditemukan.</p>';
+        return;
+      }
+
+      try {
+        const readingData = JSON.parse(localStorage.getItem('currentReading'));
+        if (readingData && readingData.chapters && readingData.chapters.length > 0) {
+          chapters = readingData.chapters;
+          currentMangaId = readingData.mangaId || null;
+        } else {
+          chapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
+          currentMangaId = null;
+        }
+      } catch (e) {
+        chapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
+        currentMangaId = null;
+      }
+
+      // Populate dropdown
+      chapterSelect.innerHTML = '';
+      chapters.forEach((ch, idx) => {
+        const opt = document.createElement('option');
+        opt.value = ch.id;
+        const label = ch.title || `Chapter ${ch.chapter || idx + 1}`;
+        const langLabel = ch.lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
+        opt.textContent = `${label} (${langLabel})`;
+        if (ch.id === chapterId) opt.selected = true;
+        chapterSelect.appendChild(opt);
+      });
+
+      chapterSelect.addEventListener('change', (e) => {
+        goToChapter(e.target.value);
+      });
+
+      currentChapterId = chapterId;
+      await loadChapter(chapterId);
+    }
+
+    init();
+  </script>
+
+</body>
+</html>

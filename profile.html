@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil – Akino Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-init.js"></script>
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      min-height: 100vh;
+      padding: 20px;
+      padding-top: 80px;
+    }
+    .container { max-width: 800px; margin:0 auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #a0a0a0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: #3B82F6; }
+
+    .profile-card {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #3B82F6;
+      border: 2px solid rgba(59,130,246,0.3);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .profile-avatar:hover {
+      border-color: #3B82F6;
+      opacity: 0.8;
+    }
+    .profile-avatar img { width:100%; height:100%; object-fit:cover; }
+    .profile-avatar .avatar-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 0.7rem;
+    }
+    .profile-avatar:hover .avatar-overlay { opacity: 1; }
+    .profile-avatar .avatar-overlay i { font-size: 1.2rem; }
+
+    .profile-name { font-size:1.4rem; font-weight:700; }
+    .profile-email { color:#a0a0a0; font-size:0.85rem; }
+
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .profile-stats .stat { text-align:center; }
+    .profile-stats .stat .number { font-size:1.3rem; font-weight:700; color:#3B82F6; }
+    .profile-stats .stat .label { font-size:0.7rem; color:#a0a0a0; }
+
+    .profile-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .profile-actions button {
+      padding: 0.4rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: #1f1f1f;
+      color: #f0f0f0;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    .profile-actions button:hover { border-color:#3B82F6; color:#3B82F6; }
+    .profile-actions button.btn-danger:hover { border-color:#ef4444; color:#ef4444; }
+
+    .section-title {
+      font-size:1.1rem;
+      font-weight:700;
+      margin:1.5rem 0 0.8rem 0;
+    }
+    .bookmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.8rem;
+    }
+    .bookmark-item {
+      background: #1f1f1f;
+      border-radius: 8px;
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .bookmark-item:hover { border-color:#3B82F6; transform:translateY(-3px); }
+    .bookmark-item img {
+      width:100%;
+      aspect-ratio:2/3;
+      object-fit:cover;
+      border-radius:4px;
+      background:#2a2a2a;
+    }
+    .bookmark-item .title {
+      font-size:0.7rem;
+      margin-top:0.3rem;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .bookmark-item .remove-btn {
+      margin-top:0.3rem;
+      background:none;
+      border:none;
+      color:#6b6b6b;
+      font-size:0.7rem;
+      cursor:pointer;
+      transition:color 0.3s;
+    }
+    .bookmark-item .remove-btn:hover { color:#ef4444; }
+
+    .edit-form {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #1f1f1f;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .edit-form.open { display:block; }
+    .edit-form .form-group {
+      display:flex;
+      flex-direction:column;
+      gap:0.3rem;
+      margin-bottom:0.8rem;
+    }
+    .edit-form .form-group label { font-size:0.8rem; color:#a0a0a0; }
+    .edit-form .form-group input {
+      padding:0.5rem 0.8rem;
+      border-radius:8px;
+      background:#1a1a1a;
+      border:1px solid rgba(255,255,255,0.06);
+      color:#f0f0f0;
+      outline:none;
+      font-family:'Inter',sans-serif;
+    }
+    .edit-form .form-group input:focus { border-color:#3B82F6; }
+    .edit-form .btn-save {
+      padding:0.5rem 1.5rem;
+      border-radius:8px;
+      background:#3B82F6;
+      color:#fff;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:background 0.3s;
+    }
+    .edit-form .btn-save:hover { background:#2563eb; }
+
+    .upload-section {
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .upload-section input[type="file"] {
+      display: none;
+    }
+    .upload-section .upload-btn {
+      padding: 0.3rem 1rem;
+      border-radius: 8px;
+      background: #3B82F6;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .upload-section .upload-btn:hover {
+      background: #2563eb;
+      transform: scale(1.02);
+    }
+    .upload-section .upload-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .upload-section .upload-status {
+      font-size: 0.7rem;
+      color: #a0a0a0;
+    }
+
+    .empty-state {
+      text-align:center;
+      padding:2rem 0;
+      color:#a0a0a0;
+    }
+    .empty-state i { font-size:2rem; color:#3B82F6; display:block; margin-bottom:0.5rem; }
+
+    .toast-container {
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      z-index:9999;
+      display:flex;
+      flex-direction:column;
+      gap:0.5rem;
+    }
+    .toast {
+      padding:0.8rem 1.5rem;
+      background:#1f1f1f;
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.4);
+      backdrop-filter:blur(12px);
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+      animation:slideIn 0.3s ease;
+      font-size:0.85rem;
+    }
+    .toast i { color:#3B82F6; }
+    .toast.error i { color:#ef4444; }
+    .toast.success i { color:#22c55e; }
+    @keyframes slideIn {
+      from { opacity:0; transform:translateX(50px); }
+      to { opacity:1; transform:translateX(0); }
+    }
+    @media (max-width:480px) {
+      .profile-header { flex-direction:column; text-align:center; }
+      .profile-stats { justify-content:center; }
+      .upload-section { justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="app">
+    <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Manga</a>
+
+    <div class="profile-card" id="profileContent">
+      <div id="loadingState" style="text-align:center;padding:2rem 0;color:#a0a0a0;">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#3B82F6;"></i>
+        <p style="margin-top:0.5rem;">Memuat profil...</p>
+      </div>
+
+      <div id="profileData" style="display:none;">
+        <div class="profile-header">
+          <div class="profile-avatar" id="avatarDisplay">
+            <i class="fas fa-user"></i>
+            <div class="avatar-overlay"><i class="fas fa-camera"></i></div>
+          </div>
+          <div>
+            <div class="profile-name" id="profileName">-</div>
+            <div class="profile-email" id="profileEmail">-</div>
+            <div class="upload-section">
+              <input type="file" id="photoInput" accept="image/*" />
+              <button class="upload-btn" id="uploadPhotoBtn">
+                <i class="fas fa-camera"></i> Ganti Foto
+              </button>
+              <span class="upload-status" id="uploadStatus"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-stats">
+          <div class="stat">
+            <div class="number" id="bookmarkCount">0</div>
+            <div class="label">Bookmark</div>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <button id="editProfileBtn"><i class="fas fa-pen"></i> Edit Profil</button>
+          <button id="logoutBtn" class="btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+
+        <div class="edit-form" id="editForm">
+          <div class="form-group">
+            <label>Nama</label>
+            <input type="text" id="editName" />
+          </div>
+          <button class="btn-save" id="saveProfileBtn"><i class="fas fa-save"></i> Simpan</button>
+        </div>
+
+        <div class="section-title"><i class="fas fa-bookmark" style="color:#3B82F6;"></i> Bookmark</div>
+        <div id="bookmarkList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // ============================================================
+    // TOAST
+    // ============================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icons = { info:'fa-info-circle', success:'fa-check-circle', error:'fa-exclamation-circle' };
+      toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(50px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ============================================================
+    // CEK AUTH STATE
+    // ============================================================
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        saveSession(user);
+        loadProfile(user.uid);
+      } else {
+        showToast('Silakan login terlebih dahulu!', 'error');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
+      }
+    });
+
+    // ============================================================
+    // LOAD PROFILE
+    // ============================================================
+    async function loadProfile(uid) {
+      try {
+        const userData = await getUserProfile(uid);
+        if (!userData) {
+          showToast('Data user tidak ditemukan!', 'error');
+          return;
+        }
+
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('profileData').style.display = 'block';
+
+        document.getElementById('profileName').textContent = userData.name || 'Tanpa Nama';
+        document.getElementById('profileEmail').textContent = userData.email || '-';
+
+        const avatarEl = document.getElementById('avatarDisplay');
+        if (userData.photoURL) {
+          avatarEl.innerHTML = `
+            <img src="${userData.photoURL}" alt="Avatar" />
+            <div class="avatar-overlay"><i class="fas fa-camera"></i></div>
+          `;
+        } else {
+          avatarEl.innerHTML = `
+            <i class="fas fa-user"></i>
+            <div class="avatar-overlay"><i class="fas fa-camera"></i></div>
+          `;
+        }
+
+        const bookmarks = userData.bookmarks || [];
+        document.getElementById('bookmarkCount').textContent = bookmarks.length;
+        document.getElementById('editName').value = userData.name || '';
+
+        renderBookmarks(bookmarks);
+
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal memuat profil: ' + err.message, 'error');
+      }
+    }
+
+    // ============================================================
+    // RENDER BOOKMARKS
+    // ============================================================
+    async function renderBookmarks(bookmarkIds) {
+      const container = document.getElementById('bookmarkList');
+      container.innerHTML = '';
+
+      if (!bookmarkIds || bookmarkIds.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-bookmark"></i>
+            <p>Belum ada bookmark. Yuk, baca manga dan simpan favoritmu!</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        const containerGrid = document.createElement('div');
+        containerGrid.className = 'bookmark-grid';
+
+        for (const mangaId of bookmarkIds) {
+          try {
+            const data = await apiFetch(`/manga/${mangaId}`, { 'includes[]': ['cover_art'] });
+            const manga = data.data;
+            if (!manga) continue;
+
+            const title = getTitle(manga.attributes);
+            const cover = getCoverUrl(manga);
+            const coverSrc = cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
+
+            const item = document.createElement('div');
+            item.className = 'bookmark-item';
+            item.innerHTML = `
+              <img src="${coverSrc}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22%3E%3Crect width=%22200%22 height=%22300%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Cover%3C/text%3E%3C/svg%3E'" />
+              <div class="title">${title}</div>
+              <button class="remove-btn" data-id="${mangaId}"><i class="fas fa-times"></i> Hapus</button>
+            `;
+            item.addEventListener('click', (e) => {
+              if (e.target.closest('.remove-btn')) return;
+              window.location.href = `detail.html?id=${mangaId}`;
+            });
+            item.querySelector('.remove-btn').addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const user = auth.currentUser;
+              if (user) {
+                await removeBookmark(user.uid, mangaId);
+                showToast('Bookmark dihapus!', 'info');
+                loadProfile(user.uid);
+              }
+            });
+
+            containerGrid.appendChild(item);
+          } catch (err) {
+            console.error('Gagal load manga:', mangaId, err);
+          }
+        }
+
+        container.appendChild(containerGrid);
+        if (containerGrid.children.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-bookmark"></i>
+              <p>Beberapa bookmark tidak dapat dimuat.</p>
+            </div>
+          `;
+        }
+
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:#a0a0a0;">Gagal memuat bookmark.</p>`;
+      }
+    }
+
+    // ============================================================
+    // API FETCH
+    // ============================================================
+    const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
+    const COVER_BASE = 'https://uploads.mangadex.org/covers';
+
+    async function apiFetch(endpoint, params = {}) {
+      const url = new URL(WORKER_URL + endpoint);
+      Object.keys(params).forEach(key => {
+        if (Array.isArray(params[key])) {
+          params[key].forEach(v => url.searchParams.append(key, v));
+        } else if (typeof params[key] === 'object' && params[key] !== null) {
+          if (key === 'order') {
+            const orderObj = params[key];
+            Object.keys(orderObj).forEach(k => url.searchParams.append(`order[${k}]`, orderObj[k]));
+          } else {
+            url.searchParams.append(key, JSON.stringify(params[key]));
+          }
+        } else if (params[key] !== undefined && params[key] !== '') {
+          url.searchParams.append(key, params[key]);
+        }
+      });
+      const resp = await fetch(url);
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text.substring(0,150)}`);
+      }
+      return resp.json();
+    }
+
+    function getTitle(attrs) {
+      if (!attrs || !attrs.title) return 'Untitled';
+      const t = attrs.title;
+      return t.en || t.id || t.ja || t['en-jp'] || t['ja-ro'] || Object.values(t)[0] || 'Untitled';
+    }
+
+    function getCoverUrl(manga) {
+      if (!manga || !manga.relationships) return null;
+      const coverRel = manga.relationships.find(r => r.type === 'cover_art');
+      if (!coverRel || !coverRel.attributes) return null;
+      const fileName = coverRel.attributes.fileName;
+      if (!fileName) return null;
+      return `${WORKER_URL}/proxy-image?url=${encodeURIComponent(`${COVER_BASE}/${manga.id}/${fileName}`)}`;
+    }
+
+    // ============================================================
+    // UPLOAD FOTO KE CLOUDINARY
+    // ============================================================
+    const photoInput = document.getElementById('photoInput');
+    const uploadBtn = document.getElementById('uploadPhotoBtn');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    uploadBtn.addEventListener('click', () => {
+      photoInput.click();
+    });
+
+    photoInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('Ukuran foto maksimal 2MB!', 'error');
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        showToast('File harus berupa gambar!', 'error');
+        return;
+      }
+
+      uploadBtn.disabled = true;
+      uploadStatus.textContent = 'Mengupload...';
+      uploadStatus.style.color = '#fbbf24';
+
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          showToast('Silakan login terlebih dahulu!', 'error');
+          return;
+        }
+
+        const photoURL = await uploadToCloudinary(file);
+        await updateUserProfile(user.uid, { photoURL: photoURL });
+
+        uploadStatus.textContent = '✅ Berhasil!';
+        uploadStatus.style.color = '#22c55e';
+        showToast('Foto profil berhasil diupdate!', 'success');
+
+        loadProfile(user.uid);
+
+      } catch (err) {
+        console.error('Upload error:', err);
+        uploadStatus.textContent = '❌ Gagal upload';
+        uploadStatus.style.color = '#ef4444';
+        showToast('Gagal upload foto: ' + err.message, 'error');
+      } finally {
+        uploadBtn.disabled = false;
+        photoInput.value = '';
+        setTimeout(() => {
+          uploadStatus.textContent = '';
+        }, 3000);
+      }
+    });
+
+    // ============================================================
+    // EDIT PROFILE
+    // ============================================================
+    document.getElementById('editProfileBtn').addEventListener('click', () => {
+      document.getElementById('editForm').classList.toggle('open');
+    });
+
+    document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+      const name = document.getElementById('editName').value.trim();
+      if (!name) {
+        showToast('Nama tidak boleh kosong!', 'error');
+        return;
+      }
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          await updateUserProfile(user.uid, { name: name });
+          showToast('Profil berhasil diupdate!', 'success');
+          loadProfile(user.uid);
+          document.getElementById('editForm').classList.remove('open');
+        }
+      } catch (err) {
+        showToast('Gagal update: ' + err.message, 'error');
+      }
+    });
+
+    // ============================================================
+    // LOGOUT
+    // ============================================================
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Yakin ingin logout?')) {
+        await logoutUser();
+        clearSession();
+        showToast('Logout berhasil!', 'success');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 500);
+      }
+    });
+  </script>
+
+</body>
+</html>

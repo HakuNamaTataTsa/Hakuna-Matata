@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jelajahi Manga – Akino Store</title>
+  <meta name="description" content="Cari dan filter manga, manhwa, manhua berdasarkan genre, origin, status, dan lainnya." />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-init.js"></script>
+
+  <style>
+    /* ============================================================
+       ROOT VARIABLES
+       ============================================================ */
+    :root {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #1f1f1f;
+      --bg-card-hover: #2a2a2a;
+      --bg-glass: rgba(31, 31, 31, 0.7);
+      --fg-primary: #f0f0f0;
+      --fg-secondary: #a0a0a0;
+      --fg-muted: #6b6b6b;
+      --accent: #3B82F6;
+      --accent-hover: #2563eb;
+      --accent-dim: rgba(59, 130, 246, 0.15);
+      --border-color: rgba(255, 255, 255, 0.06);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --font: 'Inter', sans-serif;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --navbar-height: 68px;
+    }
+
+    body.light-theme {
+      --bg-primary: #f5f5f8;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0f0f5;
+      --bg-glass: rgba(255, 255, 255, 0.7);
+      --fg-primary: #121212;
+      --fg-secondary: #555555;
+      --fg-muted: #888888;
+      --border-color: rgba(0, 0, 0, 0.06);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--fg-primary);
+      transition: background var(--transition), color var(--transition);
+      padding-top: var(--navbar-height);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+    }
+    button {
+      cursor: pointer;
+      font-family: var(--font);
+      border: none;
+      background: none;
+      color: inherit;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      height: var(--navbar-height);
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .navbar.scrolled {
+      background: var(--bg-glass);
+      box-shadow: var(--shadow);
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      gap: 1rem;
+    }
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--fg-primary);
+      flex-shrink: 0;
+    }
+    .navbar .logo i {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+    .navbar .logo span {
+      color: var(--accent);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      list-style: none;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--fg-secondary);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--fg-primary);
+      background: var(--bg-card);
+    }
+    .nav-menu a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .nav-actions .theme-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-secondary);
+      transition: all var(--transition);
+      font-size: 0.9rem;
+    }
+    .nav-actions .theme-btn:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+      background: var(--accent-dim);
+    }
+
+    /* 🔥 TOMBOL AUTH (Login / Profil) */
+    .nav-actions .auth-btn {
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      transition: all var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      font-family: var(--font);
+    }
+    .nav-actions .auth-btn:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+    .nav-actions .auth-btn i {
+      font-size: 0.8rem;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--fg-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, -4px);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--navbar-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-primary);
+      padding: 1.5rem;
+      overflow-y: auto;
+      z-index: 999;
+      border-top: 1px solid var(--border-color);
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu a {
+      padding: 0.8rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--fg-secondary);
+      transition: all var(--transition);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: var(--fg-primary);
+      background: var(--bg-card);
+    }
+    .mobile-menu a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ============================================================
+       CONTAINER
+       ============================================================ */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ============================================================
+       BROWSE HEADER
+       ============================================================ */
+    .browse-header {
+      padding: 1rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+    .browse-header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .browse-header h1 i {
+      color: var(--accent);
+    }
+    .browse-header .sub {
+      color: var(--fg-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    /* ============================================================
+       FILTER BAR
+       ============================================================ */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1rem 0 1.5rem;
+      align-items: center;
+    }
+    .filter-bar select,
+    .filter-bar input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-primary);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border var(--transition);
+      min-width: 140px;
+    }
+    .filter-bar select:focus,
+    .filter-bar input:focus {
+      border-color: var(--accent);
+    }
+    .filter-bar select option {
+      background: var(--bg-primary);
+      color: var(--fg-primary);
+    }
+    .filter-bar .btn-filter {
+      padding: 0.4rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+    }
+    .filter-bar .btn-filter:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+    .filter-bar .btn-reset {
+      padding: 0.4rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--fg-secondary);
+      font-size: 0.85rem;
+      transition: all var(--transition);
+    }
+    .filter-bar .btn-reset:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+    }
+
+    /* ============================================================
+       MANGA GRID
+       ============================================================ */
+    .manga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .manga-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all var(--transition);
+      border: 1px solid var(--border-color);
+      position: relative;
+      cursor: pointer;
+    }
+    .manga-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      background: var(--bg-card-hover);
+    }
+    .manga-card .cover {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      background: var(--bg-secondary);
+      transition: transform 0.4s ease;
+    }
+    .manga-card:hover .cover {
+      transform: scale(1.03);
+    }
+    .manga-card .info {
+      padding: 0.6rem 0.7rem 0.8rem;
+    }
+    .manga-card .info h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .manga-card .info .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 0.6rem;
+      font-size: 0.65rem;
+      color: var(--fg-secondary);
+      margin-top: 0.2rem;
+    }
+    .manga-card .info .meta .badge {
+      font-size: 0.55rem;
+    }
+    .badge-ongoing {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    .badge-completed {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+    .badge-hiatus {
+      background: rgba(234, 179, 8, 0.2);
+      color: #eab308;
+    }
+    .badge-rating {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent);
+    }
+    .badge-origin {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-secondary);
+    }
+
+    .manga-card .read-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .manga-card:hover .read-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       PAGINATION
+       ============================================================ */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 1rem 0 2rem;
+    }
+    .pagination button {
+      padding: 0.4rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--fg-secondary);
+      font-size: 0.85rem;
+      transition: all var(--transition);
+      cursor: pointer;
+      font-family: var(--font);
+      min-width: 44px;
+    }
+    .pagination button:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+      background: var(--accent-dim);
+    }
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .pagination .page-info {
+      font-size: 0.85rem;
+      color: var(--fg-secondary);
+      padding: 0 0.5rem;
+    }
+    .pagination .page-numbers {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .pagination .page-numbers .page-num {
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--fg-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      transition: all var(--transition);
+      cursor: pointer;
+      min-width: 36px;
+      text-align: center;
+    }
+    .pagination .page-numbers .page-num:hover:not(.active) {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+    }
+    .pagination .page-numbers .page-num.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    .toast-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .toast {
+      padding: 0.8rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: slideInToast 0.3s ease;
+      font-size: 0.85rem;
+    }
+    .toast i {
+      color: var(--accent);
+    }
+    @keyframes slideInToast {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      padding: 3rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 3rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+      text-align: left;
+    }
+    .footer-grid h4 {
+      font-size: 0.85rem;
+      color: var(--fg-primary);
+      margin-bottom: 0.8rem;
+    }
+    .footer-grid p,
+    .footer-grid a {
+      font-size: 0.8rem;
+      color: var(--fg-secondary);
+      line-height: 1.8;
+    }
+    .footer-grid a {
+      display: block;
+      transition: color 0.2s;
+    }
+    .footer-grid a:hover {
+      color: var(--accent);
+    }
+    .footer-grid .brand-footer {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .footer-bottom {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--fg-muted);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      :root {
+        --navbar-height: 60px;
+      }
+      .nav-menu {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-actions .auth-btn span {
+        display: none;
+      }
+      .filter-bar select,
+      .filter-bar input {
+        min-width: 100%;
+        flex: 1 1 100%;
+      }
+      .manga-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.8rem;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        text-align: center;
+      }
+      .footer-grid h4 {
+        text-align: center;
+      }
+      .pagination .page-numbers .page-num {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+        min-width: 30px;
+      }
+    }
+    @media (max-width: 480px) {
+      .manga-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.6rem;
+      }
+      .browse-header h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+  NAVBAR
+  ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="manga.html" class="active">Manga</a></li>
+        <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <!-- 🔥 TOMBOL AUTH (Login / Profil) -->
+        <a href="login.html" class="auth-btn" id="authBtn">
+          <i class="fas fa-user"></i> <span id="authText">Login</span>
+        </a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="manga.html" class="active">Manga</a>
+    <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
+  </div>
+
+  <!-- ============================================================
+  MAIN CONTENT
+  ============================================================ -->
+  <div class="container" id="mainContent">
+    <div class="browse-header">
+      <h1><i class="fas fa-search"></i> Jelajahi Manga</h1>
+      <div class="sub">Filter berdasarkan genre, origin, status, dan lainnya.</div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <select id="genreFilter"><option value="">Semua Genre</option></select>
+      <select id="originFilter">
+        <option value="">Semua Origin</option>
+        <option value="ja">🇯🇵 Manga</option>
+        <option value="ko">🇰🇷 Manhwa</option>
+        <option value="zh">🇨🇳 Manhua</option>
+      </select>
+      <select id="statusFilter">
+        <option value="">Semua Status</option>
+        <option value="ongoing">Ongoing</option>
+        <option value="completed">Completed</option>
+        <option value="hiatus">Hiatus</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+      <select id="sortFilter">
+        <option value="latestUploadedChapter">Terbaru</option>
+        <option value="followedCount">Populer</option>
+        <option value="rating">Rating</option>
+      </select>
+      <button class="btn-filter" id="applyFilter"><i class="fas fa-filter"></i> Terapkan</button>
+      <button class="btn-reset" id="resetFilter"><i class="fas fa-undo"></i> Reset</button>
+    </div>
+
+    <!-- Manga Grid -->
+    <div class="manga-grid" id="mangaGrid">
+      <!-- Akan diisi JS -->
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+      <button id="prevPage" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+      <div class="page-numbers" id="pageNumbers"></div>
+      <button id="nextPage">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+  FOOTER
+  ============================================================ -->
+  <footer class="footer" aria-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <h4 class="brand-footer">Akino Store</h4>
+        <p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p>
+      </div>
+      <div>
+        <h4>Layanan</h4>
+        <a href="CarParkingMultiplayer.html">Car Parking</a>
+        <a href="SosialMedia.html">Sosial Media</a>
+        <a href="designedit.html">Design / Edit</a>
+      </div>
+      <div>
+        <h4>Tentang</h4>
+        <a href="about.html">About Us</a>
+        <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
+        <a href="stockmobil.html">Stock Mobil</a>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <a href="privacy.html">Kebijakan Privasi</a>
+        <a href="terms.html">Syarat &amp; Ketentuan</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="https://www.tiktok.com/@akinolaset_" target="_blank">TikTok</a>
+        <a href="https://www.instagram.com/akinostore_" target="_blank">Instagram</a>
+        <a href="https://youtube.com/@akinolaset" target="_blank">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
+  </footer>
+
+  <!-- ============================================================
+  TOAST CONTAINER
+  ============================================================ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ============================================================
+  SCRIPTS
+  ============================================================ -->
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
+    const COVER_BASE = 'https://uploads.mangadex.org/covers';
+    const PER_PAGE = 24; // Jumlah item per halaman
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    const state = {
+      mangaList: [],
+      total: 0,
+      currentPage: 1,
+      totalPages: 1,
+      genre: '',
+      origin: '',
+      status: '',
+      sort: 'latestUploadedChapter',
+      isFetching: false,
+    };
+
+    // ============================================================
+    // DOM REFS
+    // ============================================================
+    const $ = id => document.getElementById(id);
+    const mangaGrid = $('mangaGrid');
+    const genreFilter = $('genreFilter');
+    const originFilter = $('originFilter');
+    const statusFilter = $('statusFilter');
+    const sortFilter = $('sortFilter');
+    const applyFilter = $('applyFilter');
+    const resetFilter = $('resetFilter');
+    const prevPage = $('prevPage');
+    const nextPage = $('nextPage');
+    const pageNumbers = $('pageNumbers');
+    const toastContainer = $('toastContainer');
+    const authBtn = $('authBtn');
+    const authText = $('authText');
+
+    // ============================================================
+    // 🔥 CEK STATUS LOGIN (FIREBASE)
+    // ============================================================
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        authText.textContent = 'Profil';
+        authBtn.href = 'profile.html';
+        authBtn.querySelector('i').className = 'fas fa-user-check';
+      } else {
+        authText.textContent = 'Login';
+        authBtn.href = 'login.html';
+        authBtn.querySelector('i').className = 'fas fa-user';
+      }
+    });
+
+    // ============================================================
+    // UTILITY
+    // ============================================================
+    function getTitle(attrs) {
+      if (!attrs || !attrs.title) return 'Untitled';
+      const t = attrs.title;
+      return t.en || t.id || t.ja || t['en-jp'] || t['ja-ro'] || Object.values(t)[0] || 'Untitled';
+    }
+
+    function getCoverUrl(manga) {
+      if (!manga || !manga.relationships) return null;
+      const coverRel = manga.relationships.find(r => r.type === 'cover_art');
+      if (!coverRel || !coverRel.attributes) return null;
+      const fileName = coverRel.attributes.fileName;
+      if (!fileName) return null;
+      return `${WORKER_URL}/proxy-image?url=${encodeURIComponent(`${COVER_BASE}/${manga.id}/${fileName}`)}`;
+    }
+
+    function getStatusLabel(status) {
+      const map = { 'ongoing': 'Ongoing', 'completed': 'Completed', 'hiatus': 'Hiatus', 'cancelled': 'Cancelled' };
+      return map[status] || status || 'Unknown';
+    }
+
+    function getStatusBadge(status) {
+      const map = { 'ongoing': 'badge-ongoing', 'completed': 'badge-completed', 'hiatus': 'badge-hiatus',
+        'cancelled': 'badge-hiatus' };
+      return map[status] || '';
+    }
+
+    function getOriginLabel(lang) {
+      const map = { 'ja': '🇯🇵 Manga', 'ko': '🇰🇷 Manhwa', 'zh': '🇨🇳 Manhua' };
+      return map[lang] || lang || '';
+    }
+
+    function showToast(msg, icon = 'fa-check-circle') {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
+      toastContainer.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(50px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // ============================================================
+    // API HELPERS
+    // ============================================================
+    async function apiFetch(endpoint, params = {}) {
+      const url = new URL(WORKER_URL + endpoint);
+      Object.keys(params).forEach(key => {
+        if (Array.isArray(params[key])) {
+          params[key].forEach(v => url.searchParams.append(key, v));
+        } else if (typeof params[key] === 'object' && params[key] !== null) {
+          if (key === 'order') {
+            const orderObj = params[key];
+            Object.keys(orderObj).forEach(k => url.searchParams.append(`order[${k}]`, orderObj[k]));
+          } else {
+            url.searchParams.append(key, JSON.stringify(params[key]));
+          }
+        } else if (params[key] !== undefined && params[key] !== '') {
+          url.searchParams.append(key, params[key]);
+        }
+      });
+      console.log('📡 Fetching:', url.toString());
+      const resp = await fetch(url);
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text.substring(0, 150)}`);
+      }
+      return resp.json();
+    }
+
+    // ============================================================
+    // FETCH GENRES
+    // ============================================================
+    async function fetchGenres() {
+      try {
+        const data = await apiFetch('/manga/tag');
+        return data.data || [];
+      } catch (err) {
+        console.error(err);
+        return [];
+      }
+    }
+
+    // ============================================================
+    // FETCH MANGA LIST (dengan halaman)
+    // ============================================================
+    async function fetchMangaList(page = 1) {
+      if (state.isFetching) return;
+      state.isFetching = true;
+
+      try {
+        const offset = (page - 1) * PER_PAGE;
+
+        const params = {
+          limit: PER_PAGE,
+          offset: offset,
+          'availableTranslatedLanguage[]': ['id'],
+          'contentRating[]': ['safe', 'suggestive', 'erotica'],
+          'includes[]': ['cover_art', 'artist', 'author'],
+          order: { [state.sort]: 'desc' },
+        };
+
+        // Genre
+        if (state.genre) {
+          const allGenres = await fetchGenres();
+          const found = allGenres.find(g =>
+            g.attributes.name.en?.toLowerCase() === state.genre.toLowerCase() ||
+            g.attributes.name.id?.toLowerCase() === state.genre.toLowerCase()
+          );
+          if (found) params['includedTags[]'] = [found.id];
+        }
+
+        // Origin
+        if (state.origin && ['ja', 'ko', 'zh'].includes(state.origin)) {
+          params['originalLanguage[]'] = [state.origin];
+        }
+
+        // Status
+        if (state.status) {
+          params['status[]'] = [state.status];
+        }
+
+        const data = await apiFetch('/manga', params);
+        const items = data.data || [];
+        state.total = data.total || 0;
+        state.totalPages = Math.ceil(state.total / PER_PAGE);
+
+        state.mangaList = items;
+        state.currentPage = page;
+
+        return items;
+      } catch (err) {
+        console.error('fetchMangaList error:', err);
+        showToast('Gagal memuat: ' + err.message, 'fa-exclamation-triangle');
+        return [];
+      } finally {
+        state.isFetching = false;
+      }
+    }
+
+    // ============================================================
+    // RENDER MANGA GRID
+    // ============================================================
+    function renderMangaGrid() {
+      mangaGrid.innerHTML = '';
+      if (!state.mangaList.length) {
+        mangaGrid.innerHTML =
+          `<p style="grid-column:1/-1;text-align:center;color:var(--fg-secondary);padding:2rem 0;">Tidak ada manga ditemukan.</p>`;
+        return;
+      }
+
+      state.mangaList.forEach(manga => {
+        const title = getTitle(manga.attributes);
+        const cover = getCoverUrl(manga);
+        const coverSrc = cover ||
+          'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
+        const status = manga.attributes.status || 'unknown';
+        const rating = manga.attributes?.rating?.bayesianAverage || 0;
+        const origin = manga.attributes.originalLanguage || '';
+        const originLabel = getOriginLabel(origin);
+
+        const card = document.createElement('div');
+        card.className = 'manga-card';
+        card.innerHTML = `
+          <img class="cover" src="${coverSrc}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22%3E%3Crect width=%22200%22 height=%22300%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Cover%3C/text%3E%3C/svg%3E'" />
+          <div class="info">
+            <h4>${title}</h4>
+            <div class="meta">
+              <span class="badge ${getStatusBadge(status)}">${getStatusLabel(status)}</span>
+              ${rating ? `<span class="badge badge-rating"><i class="fas fa-star"></i> ${rating.toFixed(1)}</span>` : ''}
+              ${origin ? `<span class="badge badge-origin">${originLabel}</span>` : ''}
+            </div>
+          </div>
+          <button class="read-btn" data-id="${manga.id}">Baca</button>
+        `;
+        card.querySelector('.read-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = `detail.html?id=${manga.id}`;
+        });
+        card.addEventListener('click', () => {
+          window.location.href = `detail.html?id=${manga.id}`;
+        });
+        mangaGrid.appendChild(card);
+      });
+    }
+
+    // ============================================================
+    // RENDER PAGINATION
+    // ============================================================
+    function renderPagination() {
+      const total = state.totalPages;
+      const current = state.currentPage;
+
+      // Prev / Next
+      prevPage.disabled = current <= 1;
+      nextPage.disabled = current >= total;
+
+      // Page numbers
+      pageNumbers.innerHTML = '';
+      if (total === 0) {
+        pageNumbers.innerHTML = '<span style="color:var(--fg-muted);font-size:0.8rem;">Tidak ada halaman</span>';
+        return;
+      }
+
+      // Tampilkan maksimal 7 halaman
+      let start = Math.max(1, current - 3);
+      let end = Math.min(total, current + 3);
+
+      if (end - start < 6) {
+        if (start === 1) end = Math.min(total, 7);
+        else if (end === total) start = Math.max(1, total - 6);
+      }
+
+      if (start > 1) {
+        const first = document.createElement('span');
+        first.className = 'page-num';
+        first.textContent = '1';
+        first.addEventListener('click', () => goToPage(1));
+        pageNumbers.appendChild(first);
+        if (start > 2) {
+          const dots = document.createElement('span');
+          dots.className = 'page-num';
+          dots.textContent = '…';
+          dots.style.cursor = 'default';
+          pageNumbers.appendChild(dots);
+        }
+      }
+
+      for (let i = start; i <= end; i++) {
+        const el = document.createElement('span');
+        el.className = `page-num${i === current ? ' active' : ''}`;
+        el.textContent = i;
+        el.addEventListener('click', () => goToPage(i));
+        pageNumbers.appendChild(el);
+      }
+
+      if (end < total) {
+        if (end < total - 1) {
+          const dots = document.createElement('span');
+          dots.className = 'page-num';
+          dots.textContent = '…';
+          dots.style.cursor = 'default';
+          pageNumbers.appendChild(dots);
+        }
+        const last = document.createElement('span');
+        last.className = 'page-num';
+        last.textContent = total;
+        last.addEventListener('click', () => goToPage(total));
+        pageNumbers.appendChild(last);
+      }
+    }
+
+    // ============================================================
+    // GO TO PAGE
+    // ============================================================
+    async function goToPage(page) {
+      if (page === state.currentPage || page < 1 || page > state.totalPages) return;
+      await fetchMangaList(page);
+      renderMangaGrid();
+      renderPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ============================================================
+    // APPLY FILTER
+    // ============================================================
+    async function applyFilters() {
+      state.genre = genreFilter.value;
+      state.origin = originFilter.value;
+      state.status = statusFilter.value;
+      state.sort = sortFilter.value;
+
+      // Reset ke halaman 1
+      await fetchMangaList(1);
+      renderMangaGrid();
+      renderPagination();
+
+      // Update URL
+      const params = new URLSearchParams();
+      if (state.genre) params.set('genre', state.genre);
+      if (state.origin) params.set('origin', state.origin);
+      if (state.status) params.set('status', state.status);
+      if (state.sort && state.sort !== 'latestUploadedChapter') params.set('sort', state.sort);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function resetFilters() {
+      genreFilter.value = '';
+      originFilter.value = '';
+      statusFilter.value = '';
+      sortFilter.value = 'latestUploadedChapter';
+      applyFilters();
+    }
+
+    // ============================================================
+    // NAVBAR & THEME
+    // ============================================================
+    (function navbar() {
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        });
+      });
+
+      const themeToggle = document.getElementById('themeToggle');
+      const icon = themeToggle.querySelector('i');
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+        icon.className = 'fas fa-sun';
+      }
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLight = document.body.classList.contains('light-theme');
+        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      });
+    })();
+
+    // ============================================================
+    // PAGINATION EVENT
+    // ============================================================
+    prevPage.addEventListener('click', () => {
+      if (state.currentPage > 1) goToPage(state.currentPage - 1);
+    });
+
+    nextPage.addEventListener('click', () => {
+      if (state.currentPage < state.totalPages) goToPage(state.currentPage + 1);
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    async function init() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const genreParam = params.get('genre');
+        const originParam = params.get('origin');
+        const statusParam = params.get('status');
+        const sortParam = params.get('sort');
+
+        // Load genres dropdown
+        const genres = await fetchGenres();
+        genreFilter.innerHTML = '<option value="">Semua Genre</option>';
+        genres.forEach(g => {
+          const name = g.attributes.name.en || g.attributes.name.id || '?';
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          if (name === genreParam) opt.selected = true;
+          genreFilter.appendChild(opt);
+        });
+
+        if (originParam) originFilter.value = originParam;
+        if (statusParam) statusFilter.value = statusParam;
+        if (sortParam) sortFilter.value = sortParam;
+
+        state.genre = genreFilter.value;
+        state.origin = originFilter.value;
+        state.status = statusFilter.value;
+        state.sort = sortFilter.value;
+
+        await fetchMangaList(1);
+        renderMangaGrid();
+        renderPagination();
+
+        applyFilter.addEventListener('click', applyFilters);
+        resetFilter.addEventListener('click', resetFilters);
+
+        document.querySelectorAll('#filterBar select').forEach(el => {
+          el.addEventListener('change', applyFilters);
+        });
+
+        showToast('Filter siap digunakan!', 'fa-filter');
+      } catch (err) {
+        console.error('Init error:', err);
+        showToast('Gagal memuat data: ' + err.message, 'fa-exclamation-triangle');
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
