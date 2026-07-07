@@ -243,18 +243,6 @@
       background:var(--accent-dim); transform:scale(1.05);
     }
 
-    .detail-main .info-wrap .mature-badge-detail {
-      display:inline-block;
-      margin-top:0.3rem;
-      padding:0.15rem 0.8rem;
-      border-radius:20px;
-      background:rgba(239,68,68,0.15);
-      border:1px solid rgba(239,68,68,0.3);
-      color:#ef4444;
-      font-size:0.7rem;
-      font-weight:600;
-    }
-
     .detail-main .info-wrap .actions {
       display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.8rem;
     }
@@ -709,112 +697,6 @@
     }
 
     /* ============================================================
-       18+ OVERLAY
-       ============================================================ */
-    .overlay-18plus {
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      background:rgba(0,0,0,0.88);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:1.5rem;
-    }
-    .overlay-18plus.active { display:flex; }
-    .overlay-18plus .overlay-box {
-      max-width:480px;
-      width:100%;
-      background:var(--bg-secondary);
-      border:1px solid var(--border-color);
-      border-radius:var(--radius-lg);
-      padding:2rem 1.8rem;
-      text-align:center;
-      box-shadow:var(--shadow);
-      animation:scaleIn 0.35s cubic-bezier(0.32,0.72,0,1);
-    }
-    @keyframes scaleIn {
-      from { opacity:0; transform:scale(0.92) translateY(20px); }
-      to { opacity:1; transform:scale(1) translateY(0); }
-    }
-    .overlay-18plus .overlay-icon {
-      font-size:3rem;
-      color:#ef4444;
-      margin-bottom:0.5rem;
-    }
-    .overlay-18plus .overlay-title {
-      font-size:1.3rem;
-      font-weight:700;
-      margin-bottom:0.3rem;
-    }
-    .overlay-18plus .overlay-desc {
-      font-size:0.9rem;
-      color:var(--fg-secondary);
-      line-height:1.6;
-      margin-bottom:0.5rem;
-    }
-    .overlay-18plus .overlay-warning {
-      background:rgba(239,68,68,0.08);
-      border:1px solid rgba(239,68,68,0.15);
-      border-radius:var(--radius-sm);
-      padding:0.6rem 1rem;
-      font-size:0.78rem;
-      color:#f87171;
-      margin-bottom:1.2rem;
-    }
-    .overlay-18plus .overlay-actions {
-      display:flex;
-      gap:0.6rem;
-      flex-wrap:wrap;
-    }
-    .overlay-18plus .overlay-actions .btn-confirm {
-      flex:1;
-      padding:0.7rem 1.5rem;
-      border-radius:var(--radius-sm);
-      background:#ef4444;
-      color:#fff;
-      font-weight:600;
-      font-size:0.9rem;
-      border:none;
-      cursor:pointer;
-      transition:all var(--transition);
-    }
-    .overlay-18plus .overlay-actions .btn-confirm:hover {
-      background:#dc2626;
-      transform:scale(1.02);
-    }
-    .overlay-18plus .overlay-actions .btn-cancel {
-      padding:0.7rem 1.5rem;
-      border-radius:var(--radius-sm);
-      background:var(--bg-card);
-      border:1px solid var(--border-color);
-      color:var(--fg-secondary);
-      font-weight:600;
-      font-size:0.9rem;
-      cursor:pointer;
-      transition:all var(--transition);
-    }
-    .overlay-18plus .overlay-actions .btn-cancel:hover {
-      border-color:var(--accent);
-      color:var(--fg-primary);
-    }
-    .overlay-18plus .overlay-login-msg {
-      color:var(--fg-secondary);
-      font-size:0.85rem;
-      margin-bottom:1rem;
-    }
-    .overlay-18plus .overlay-login-msg a {
-      color:var(--accent);
-      font-weight:600;
-      text-decoration:underline;
-    }
-    .overlay-18plus .overlay-login-msg a:hover {
-      color:var(--accent-hover);
-    }
-
-    /* ============================================================
        FOOTER
        ============================================================ */
     .footer {
@@ -850,11 +732,6 @@
       .footer-grid h4 { text-align:center; }
       .comment-item .replies { margin-left:0.8rem; padding-left:0.4rem; }
       .reply-form { margin-left:0.8rem; }
-      .overlay-18plus .overlay-box { padding:1.5rem 1.2rem; }
-      .overlay-18plus .overlay-title { font-size:1.1rem; }
-      .overlay-18plus .overlay-actions { flex-direction:column; }
-      .overlay-18plus .overlay-actions .btn-confirm,
-      .overlay-18plus .overlay-actions .btn-cancel { width:100%; }
     }
     @media (max-width:480px) {
       .detail-main .cover-wrap { flex:0 0 100%; max-width:180px; margin:0 auto; }
@@ -963,31 +840,6 @@
   </div>
 
   <!-- ============================================================
-  18+ OVERLAY
-  ============================================================ -->
-  <div class="overlay-18plus" id="overlay18plus">
-    <div class="overlay-box">
-      <div class="overlay-icon"><i class="fas fa-triangle-exclamation"></i></div>
-      <div class="overlay-title">⚠️ Konten Dewasa (18+)</div>
-      <div class="overlay-desc">
-        Manga ini mengandung materi dewasa yang hanya boleh diakses oleh pengguna berusia <strong>18 tahun ke atas</strong>.
-      </div>
-      <div class="overlay-warning">
-        <i class="fas fa-shield-halved" style="margin-right:0.3rem;"></i>
-        Dengan melanjutkan, Anda menyatakan bahwa Anda berusia 18 tahun atau lebih.
-      </div>
-      <div class="overlay-login-msg" id="overlayLoginMsg" style="display:none;">
-        <i class="fas fa-lock" style="margin-right:0.3rem;"></i>
-        Silakan <a href="#" onclick="redirectToLogin()">Login</a> terlebih dahulu untuk mengakses konten dewasa.
-      </div>
-      <div class="overlay-actions">
-        <button class="btn-confirm" id="overlayConfirmBtn">Saya sudah 18+</button>
-        <button class="btn-cancel" id="overlayCancelBtn">Kembali</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
   FOOTER
   ============================================================ -->
   <footer class="footer" aria-label="Footer">
@@ -1038,11 +890,6 @@
     const commentCount = $('commentCount');
     const emptyComment = $('emptyComment');
 
-    const overlay18plus = $('overlay18plus');
-    const overlayConfirmBtn = $('overlayConfirmBtn');
-    const overlayCancelBtn = $('overlayCancelBtn');
-    const overlayLoginMsg = $('overlayLoginMsg');
-
     // ============================================================
     // 🔥 CEK STATUS LOGIN (FIREBASE)
     // ============================================================
@@ -1072,80 +919,6 @@
     let currentManga = null;
     let allChapters = [];
     let currentLang = 'all';
-
-    // ============================================================
-    // 18+ FUNCTIONS
-    // ============================================================
-    function isMatureContent(contentRating) {
-      return contentRating === 'erotica' || contentRating === 'pornographic';
-    }
-
-    function is18plusConfirmed(mangaId) {
-      const key = `confirmed18plus_${mangaId}`;
-      return sessionStorage.getItem(key) === 'true';
-    }
-
-    function set18plusConfirmed(mangaId) {
-      const key = `confirmed18plus_${mangaId}`;
-      sessionStorage.setItem(key, 'true');
-    }
-
-    function redirectToLogin() {
-      const currentUrl = encodeURIComponent(window.location.href);
-      window.location.href = `login.html?return=${currentUrl}`;
-    }
-
-    function checkMatureContent(manga) {
-      const contentRating = manga?.attributes?.contentRating || 'safe';
-      const isMature = isMatureContent(contentRating);
-      if (!isMature) return; // aman, tidak perlu overlay
-
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        // Belum login
-        overlayLoginMsg.style.display = 'block';
-        overlayConfirmBtn.style.display = 'none';
-        overlay18plus.classList.add('active');
-        return;
-      }
-
-      // Sudah login, cek konfirmasi
-      if (is18plusConfirmed(manga.id)) {
-        return; // sudah dikonfirmasi, tampilkan konten
-      }
-
-      // Tampilkan overlay 18+
-      overlayLoginMsg.style.display = 'none';
-      overlayConfirmBtn.style.display = 'block';
-      overlay18plus.classList.add('active');
-    }
-
-    // ============================================================
-    // 18+ OVERLAY EVENTS
-    // ============================================================
-    overlayConfirmBtn.addEventListener('click', function() {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        redirectToLogin();
-        return;
-      }
-      if (currentManga) {
-        set18plusConfirmed(currentManga.id);
-        overlay18plus.classList.remove('active');
-      }
-    });
-
-    overlayCancelBtn.addEventListener('click', function() {
-      overlay18plus.classList.remove('active');
-      window.location.href = 'manga.html';
-    });
-
-    overlay18plus.addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.classList.remove('active');
-        window.location.href = 'manga.html';
-      }
-    });
 
     // ============================================================
     // UTILITY
@@ -1263,9 +1036,6 @@
         });
         currentManga = data.data;
 
-        // Cek 18+ sebelum melanjutkan
-        checkMatureContent(currentManga);
-
         const [idChaps, enChaps] = await Promise.all([
           apiFetch(`/manga/${id}/feed`, {
             'translatedLanguage[]': ['id'],
@@ -1319,8 +1089,6 @@
       const rating = attrs.rating?.bayesianAverage || 0;
       const genres = (m.attributes.tags || []).filter(t => t.attributes?.group === 'genre');
       const coverUrl = getCoverUrl(m);
-      const contentRating = attrs.contentRating || 'safe';
-      const isMature = isMatureContent(contentRating);
       const coverSrc = coverUrl || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
 
       const origin = attrs.originalLanguage || '';
@@ -1333,10 +1101,6 @@
 
       const originHtml = origin ?
         `<span class="origin-tag" onclick="window.location.href='browse.html?origin=${origin}'"><i class="fas fa-flag"></i> ${originLabel}</span>` :
-        '';
-
-      const matureHtml = isMature ?
-        `<div class="mature-badge-detail"><i class="fas fa-lock"></i> Konten Dewasa (18+)</div>` :
         '';
 
       let isBookmarked = false;
@@ -1361,10 +1125,8 @@
             ${year ? `<span><strong>Year:</strong> ${year}</span>` : ''}
             ${rating ? `<span><strong>Rating:</strong> ⭐ ${rating.toFixed(1)}</span>` : ''}
             <span><strong>Chapters:</strong> ${allChapters.length}</span>
-            ${isMature ? `<span style="color:#ef4444;font-weight:600;">🔞 18+</span>` : ''}
           </div>
           ${originHtml}
-          ${matureHtml}
           <div class="genre-tags">${genreHtml || '<span class="tag">No genre</span>'}</div>
           <div class="desc">${desc}</div>
           <div class="actions">
@@ -1418,6 +1180,8 @@
           e.stopPropagation();
           const btn = e.target;
           const chapterId = btn.dataset.id;
+          const lang = btn.dataset.lang;
+          const title = btn.dataset.title;
 
           const readingData = {
             mangaId: currentManga.id,
@@ -1473,6 +1237,7 @@
           photoURL: photoURL,
           text: text,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          // 🔥 TIDAK ada field chapterId → komentar umum
         });
         commentInput.value = '';
         showToast('Komentar berhasil dikirim!', 'success');
@@ -1520,6 +1285,7 @@
           photoURL: photoURL,
           text: text,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          // 🔥 TIDAK ada chapterId → balasan komentar umum
         });
         replyInput.value = '';
         showToast('Balasan berhasil dikirim!', 'success');
@@ -1547,6 +1313,7 @@
         const allComments = [];
         snapshot.forEach(doc => {
           const data = doc.data();
+          // 🔥 Hanya ambil komentar yang TIDAK memiliki chapterId (komentar umum)
           if (!data.chapterId) {
             allComments.push({ id: doc.id, ...data });
           }
@@ -1746,8 +1513,8 @@
     });
 
     detailBack.addEventListener('click', () => {
-      window.location.href = 'manga.html';
-    });
+  window.location.href = 'manga.html';
+});
 
     submitCommentBtn.addEventListener('click', submitComment);
     commentInput.addEventListener('keydown', (e) => {
