@@ -19,7 +19,7 @@
 
   <style>
     /* ============================================================
-       ROOT VARIABLES (Sama dengan manga.html)
+       ROOT VARIABLES (Sama seperti manga.html)
        ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
@@ -398,6 +398,33 @@
       border-color: var(--accent);
       color: var(--fg-primary);
     }
+    /* Tombol toggle 18+ */
+    .filter-bar .btn-mature {
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .filter-bar .btn-mature:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+    }
+    .filter-bar .btn-mature.active {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+    .filter-bar .btn-mature i {
+      font-size: 0.7rem;
+    }
 
     /* ============================================================
        MANGA GRID
@@ -477,6 +504,25 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--fg-secondary);
+    }
+    .badge-18plus {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    /* 18+ badge di card */
+    .manga-card .mature-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.5rem;
+      font-weight: 700;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      z-index: 2;
     }
 
     .manga-card .read-btn {
@@ -607,6 +653,133 @@
     }
 
     /* ============================================================
+       MODAL 18+ (OVERLAY)
+       ============================================================ */
+    .modal-18plus {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-18plus.active {
+      display: flex;
+    }
+    .modal-18plus .modal-box {
+      max-width: 480px;
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.8rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      animation: scaleIn 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    .modal-18plus .modal-icon {
+      font-size: 3rem;
+      color: #ef4444;
+      margin-bottom: 0.5rem;
+    }
+    .modal-18plus .modal-title {
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--fg-primary);
+    }
+    .modal-18plus .modal-desc {
+      font-size: 0.9rem;
+      color: var(--fg-secondary);
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .modal-18plus .modal-warning {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 1rem;
+      font-size: 0.78rem;
+      color: #f87171;
+      margin-bottom: 1.2rem;
+    }
+    .modal-18plus .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .modal-18plus .modal-actions .btn-confirm {
+      flex: 1;
+      padding: 0.7rem 1.5rem;
+      border-radius: var(--radius-sm);
+      background: #ef4444;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      min-width: 120px;
+    }
+    .modal-18plus .modal-actions .btn-confirm:hover {
+      background: #dc2626;
+      transform: scale(1.02);
+    }
+    .modal-18plus .modal-actions .btn-cancel {
+      padding: 0.7rem 1.5rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--fg-secondary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      min-width: 100px;
+    }
+    .modal-18plus .modal-actions .btn-cancel:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+    }
+    .modal-18plus .modal-login-msg {
+      color: var(--fg-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .modal-18plus .modal-login-msg a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .modal-18plus .modal-login-msg a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ============================================================
        FOOTER
        ============================================================ */
     .footer {
@@ -692,6 +865,19 @@
         font-size: 0.7rem;
         min-width: 30px;
       }
+      .modal-18plus .modal-box {
+        padding: 1.5rem 1.2rem;
+      }
+      .modal-18plus .modal-title {
+        font-size: 1.1rem;
+      }
+      .modal-18plus .modal-actions {
+        flex-direction: column;
+      }
+      .modal-18plus .modal-actions .btn-confirm,
+      .modal-18plus .modal-actions .btn-cancel {
+        width: 100%;
+      }
     }
     @media (max-width: 480px) {
       .manga-grid {
@@ -737,6 +923,31 @@
   </div>
 
   <!-- ============================================================
+  MODAL 18+ CONFIRMATION
+  ============================================================ -->
+  <div class="modal-18plus" id="modal18plus">
+    <div class="modal-box">
+      <div class="modal-icon"><i class="fas fa-triangle-exclamation"></i></div>
+      <div class="modal-title">⚠️ Konten Dewasa (18+)</div>
+      <div class="modal-desc">
+        Manga ini mengandung materi dewasa yang hanya boleh diakses oleh pengguna berusia <strong>18 tahun ke atas</strong>.
+      </div>
+      <div class="modal-warning">
+        <i class="fas fa-shield-halved" style="margin-right:0.3rem;"></i>
+        Dengan melanjutkan, Anda menyatakan bahwa Anda berusia 18 tahun atau lebih.
+      </div>
+      <div class="modal-login-msg" id="modalLoginMsg" style="display:none;">
+        <i class="fas fa-lock" style="margin-right:0.3rem;"></i>
+        Silakan <a href="#" onclick="redirectToLogin()">Login</a> terlebih dahulu untuk mengakses konten dewasa.
+      </div>
+      <div class="modal-actions">
+        <button class="btn-confirm" id="modalConfirmBtn">Saya sudah 18+</button>
+        <button class="btn-cancel" id="modalCancelBtn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
   MAIN CONTENT
   ============================================================ -->
   <div class="container" id="mainContent">
@@ -768,6 +979,10 @@
         <option value="followedCount">Populer</option>
         <option value="rating">Rating</option>
       </select>
+      <!-- Tombol Toggle 18+ -->
+      <button class="btn-mature active" id="matureToggle" onclick="toggleMature()">
+        <i class="fas fa-lock"></i> 18+ <span id="matureLabel">Ditampilkan</span>
+      </button>
       <button class="btn-filter" id="applyFilter"><i class="fas fa-filter"></i> Terapkan</button>
       <button class="btn-reset" id="resetFilter"><i class="fas fa-undo"></i> Reset</button>
     </div>
@@ -850,7 +1065,11 @@
       status: '',
       sort: 'latestUploadedChapter',
       isFetching: false,
+      showMature: true, // default true (menampilkan 18+)
     };
+
+    // Untuk modal 18+
+    let pendingMangaId = null;
 
     // ============================================================
     // DOM REFS
@@ -869,6 +1088,12 @@
     const toastContainer = $('toastContainer');
     const authBtn = $('authBtn');
     const authText = $('authText');
+    const modal18plus = $('modal18plus');
+    const modalConfirmBtn = $('modalConfirmBtn');
+    const modalCancelBtn = $('modalCancelBtn');
+    const modalLoginMsg = $('modalLoginMsg');
+    const matureToggle = $('matureToggle');
+    const matureLabel = $('matureLabel');
 
     // ============================================================
     // 🔥 CEK STATUS LOGIN (FIREBASE)
@@ -919,6 +1144,29 @@
       return map[lang] || lang || '';
     }
 
+    function getContentRating(manga) {
+      return manga?.attributes?.contentRating || 'safe';
+    }
+
+    function isMatureContent(contentRating) {
+      return contentRating === 'erotica' || contentRating === 'pornographic';
+    }
+
+    function is18plusConfirmed(mangaId) {
+      const key = `confirmed18plus_${mangaId}`;
+      return sessionStorage.getItem(key) === 'true';
+    }
+
+    function set18plusConfirmed(mangaId) {
+      const key = `confirmed18plus_${mangaId}`;
+      sessionStorage.setItem(key, 'true');
+    }
+
+    function redirectToLogin() {
+      const currentUrl = encodeURIComponent(window.location.href);
+      window.location.href = `login.html?return=${currentUrl}`;
+    }
+
     function showToast(msg, icon = 'fa-check-circle') {
       const toast = document.createElement('div');
       toast.className = 'toast';
@@ -930,6 +1178,82 @@
         setTimeout(() => toast.remove(), 300);
       }, 3500);
     }
+
+    // ============================================================
+    // 18+ HANDLER
+    // ============================================================
+    function handleMatureClick(mangaId) {
+      const user = firebase.auth().currentUser;
+
+      if (!user) {
+        modalLoginMsg.style.display = 'block';
+        modalConfirmBtn.style.display = 'none';
+        modal18plus.classList.add('active');
+        pendingMangaId = mangaId;
+        return;
+      }
+
+      if (is18plusConfirmed(mangaId)) {
+        window.location.href = `detail.html?id=${mangaId}`;
+        return;
+      }
+
+      modalLoginMsg.style.display = 'none';
+      modalConfirmBtn.style.display = 'block';
+      pendingMangaId = mangaId;
+      modal18plus.classList.add('active');
+    }
+
+    // ============================================================
+    // MODAL 18+ EVENT
+    // ============================================================
+    modalConfirmBtn.addEventListener('click', function() {
+      if (!pendingMangaId) {
+        modal18plus.classList.remove('active');
+        return;
+      }
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        redirectToLogin();
+        return;
+      }
+      set18plusConfirmed(pendingMangaId);
+      const targetId = pendingMangaId;
+      pendingMangaId = null;
+      modal18plus.classList.remove('active');
+      window.location.href = `detail.html?id=${targetId}`;
+    });
+
+    modalCancelBtn.addEventListener('click', function() {
+      pendingMangaId = null;
+      modal18plus.classList.remove('active');
+      modalLoginMsg.style.display = 'none';
+      modalConfirmBtn.style.display = 'block';
+    });
+
+    modal18plus.addEventListener('click', function(e) {
+      if (e.target === this) {
+        pendingMangaId = null;
+        modal18plus.classList.remove('active');
+        modalLoginMsg.style.display = 'none';
+        modalConfirmBtn.style.display = 'block';
+      }
+    });
+
+    // ============================================================
+    // TOGGLE 18+
+    // ============================================================
+    window.toggleMature = function() {
+      state.showMature = !state.showMature;
+      matureToggle.classList.toggle('active');
+      matureLabel.textContent = state.showMature ? 'Ditampilkan' : 'Disembunyikan';
+      // Reset ke halaman 1 dan render ulang
+      state.currentPage = 1;
+      fetchMangaList(1).then(() => {
+        renderMangaGrid();
+        renderPagination();
+      });
+    };
 
     // ============================================================
     // API HELPERS
@@ -986,7 +1310,7 @@
           limit: PER_PAGE,
           offset: offset,
           'availableTranslatedLanguage[]': ['id'],
-          'contentRating[]': ['safe', 'suggestive', 'erotica'],
+          'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
           'includes[]': ['cover_art', 'artist', 'author'],
           order: { [state.sort]: 'desc' },
         };
@@ -1016,10 +1340,16 @@
         state.total = data.total || 0;
         state.totalPages = Math.ceil(state.total / PER_PAGE);
 
-        state.mangaList = items;
+        // Filter 18+ jika disembunyikan
+        let filteredItems = items;
+        if (!state.showMature) {
+          filteredItems = items.filter(m => !isMatureContent(getContentRating(m)));
+        }
+
+        state.mangaList = filteredItems;
         state.currentPage = page;
 
-        return items;
+        return filteredItems;
       } catch (err) {
         console.error('fetchMangaList error:', err);
         showToast('Gagal memuat: ' + err.message, 'fa-exclamation-triangle');
@@ -1049,10 +1379,16 @@
         const rating = manga.attributes?.rating?.bayesianAverage || 0;
         const origin = manga.attributes.originalLanguage || '';
         const originLabel = getOriginLabel(origin);
+        const contentRating = getContentRating(manga);
+        const isMature = isMatureContent(contentRating);
 
         const card = document.createElement('div');
         card.className = 'manga-card';
+        card.dataset.mangaId = manga.id;
+        card.dataset.isMature = isMature ? 'true' : 'false';
+
         card.innerHTML = `
+          ${isMature ? `<div class="mature-badge"><i class="fas fa-lock"></i> 18+</div>` : ''}
           <img class="cover" src="${coverSrc}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22%3E%3Crect width=%22200%22 height=%22300%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Cover%3C/text%3E%3C/svg%3E'" />
           <div class="info">
             <h4>${title}</h4>
@@ -1060,17 +1396,36 @@
               <span class="badge ${getStatusBadge(status)}">${getStatusLabel(status)}</span>
               ${rating ? `<span class="badge badge-rating"><i class="fas fa-star"></i> ${rating.toFixed(1)}</span>` : ''}
               ${origin ? `<span class="badge badge-origin">${originLabel}</span>` : ''}
+              ${isMature ? `<span class="badge badge-18plus"><i class="fas fa-lock" style="font-size:0.4rem;margin-right:0.1rem;"></i> 18+</span>` : ''}
             </div>
           </div>
           <button class="read-btn" data-id="${manga.id}">Baca</button>
         `;
-        card.querySelector('.read-btn').addEventListener('click', (e) => {
+
+        // Click handler
+        card.addEventListener('click', function(e) {
+          if (e.target.classList.contains('read-btn')) return;
+          const id = this.dataset.mangaId;
+          const isMature = this.dataset.isMature === 'true';
+          if (isMature) {
+            handleMatureClick(id);
+          } else {
+            window.location.href = `detail.html?id=${id}`;
+          }
+        });
+
+        card.querySelector('.read-btn').addEventListener('click', function(e) {
           e.stopPropagation();
-          window.location.href = `detail.html?id=${manga.id}`;
+          const id = this.dataset.id;
+          const parentCard = this.closest('.manga-card');
+          const isMature = parentCard.dataset.isMature === 'true';
+          if (isMature) {
+            handleMatureClick(id);
+          } else {
+            window.location.href = `detail.html?id=${id}`;
+          }
         });
-        card.addEventListener('click', () => {
-          window.location.href = `detail.html?id=${manga.id}`;
-        });
+
         mangaGrid.appendChild(card);
       });
     }
@@ -1255,6 +1610,10 @@
         state.origin = originFilter.value;
         state.status = statusFilter.value;
         state.sort = sortFilter.value;
+
+        // Set toggle 18+
+        matureToggle.classList.add('active');
+        matureLabel.textContent = 'Ditampilkan';
 
         await fetchMangaList(1);
         renderMangaGrid();
