@@ -416,12 +416,8 @@
       color: #fff;
       box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4);
       border: none;
-      font-size: 1.05rem;
-      padding: 0.9rem 2rem;
-      width: 100%;
-      max-width: 360px;
-      justify-content: center;
-      margin: 0 auto;
+      font-size: 0.95rem;
+      padding: 0.7rem 1.4rem;
     }
     .btn-download:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.02);
@@ -445,12 +441,8 @@
       color: #fff;
       box-shadow: 0 4px 24px rgba(0, 200, 83, 0.4);
       border: none;
-      font-size: 1.05rem;
-      padding: 0.9rem 2rem;
-      width: 100%;
-      max-width: 360px;
-      justify-content: center;
-      margin: 0 auto;
+      font-size: 0.95rem;
+      padding: 0.7rem 1.4rem;
       display: none; /* akan ditampilkan oleh JS jika browser mendukung */
     }
     .btn-install:hover:not(:disabled) {
@@ -1195,9 +1187,8 @@
       }
       .btn-download,
       .btn-install {
-        font-size: 0.95rem;
-        padding: 0.8rem 1.2rem;
-        max-width: 100%;
+        font-size: 0.9rem;
+        padding: 0.7rem 1rem;
       }
 
       .services-grid {
@@ -1378,27 +1369,25 @@
         </a>
       </div>
 
-      <!-- TOMBOL LAINNYA (baris pertama) -->
+      <!-- TOMBOL HERO (baris pertama) -->
       <div class="hero-buttons">
-        <a href="#services" class="btn btn-primary btn-large" id="mainCta"><i class="fas fa-rocket"></i> Mulai Sekarang</a>
+        <a href="#services" class="btn btn-primary btn-large"><i class="fas fa-rocket"></i> Mulai Sekarang</a>
+        <!-- Tombol Download APK (muncul di baris tombol) -->
         <a href="AkinoApp.apk" download class="btn btn-download btn-large btn-download-pulse">
           <i class="fas fa-file-apk"></i> Download APK
+        </a>
         <a href="CarParkingMultiplayer.html" class="btn btn-outline"><i class="fas fa-gamepad"></i> Car Parking</a>
         <a href="SosialMedia.html" class="btn btn-outline"><i class="fas fa-share-nodes"></i> Sosmed</a>
         <a href="designedit.html" class="btn btn-outline"><i class="fas fa-palette"></i> Design</a>
         <a href="manga.html" class="btn btn-outline"><i class="fas fa-book-open"></i> Baca Manga</a>
       </div>
 
-      <!-- TOMBOL DOWNLOAD APK & INSTALL (diletakkan di bawah, terpisah) -->
-      <div style="margin-top: 1.2rem; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;">
-        <!-- Tombol Install (PWA) -->
+      <!-- TOMBOL INSTALL (PWA) - opsional, muncul jika browser support -->
+      <div style="margin-top: 1.2rem; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;">
         <button id="installBtn" class="btn btn-install btn-large">
           <i class="fas fa-download"></i> Install Aplikasi
         </button>
-        <!-- Tombol Download APK -->
-        
-        </a>
-        <span style="font-size:0.7rem; color:var(--muted);">Atau download file APK jika instalasi otomatis tidak tersedia</span>
+        <span style="font-size:0.7rem; color:var(--muted);">Atau install langsung dari browser jika tersedia</span>
       </div>
     </div>
   </section>
@@ -1428,7 +1417,7 @@
     </div>
   </section>
 
-  <!-- ===== DOWNLOAD APK SECTION ===== -->
+  <!-- ===== DOWNLOAD APK SECTION (khusus) ===== -->
   <section class="apk-section" aria-label="Download APK Akino Store">
     <div class="section-label reveal">
       <span>Download</span>
@@ -1436,7 +1425,7 @@
     </div>
     <div class="apk-card reveal">
       <div class="apk-icon"><i class="fas fa-mobile-alt"></i></div>
-      <h3>Akino<span>.apk</span></h3>
+      <h3>AkinoApp<span>.apk</span></h3>
       <p class="apk-desc">
         Nikmati akses cepat ke semua layanan Akino Store langsung dari perangkat Android Anda.
         Download APK resmi dan rasakan kemudahan berbelanja jasa digital kapan saja.
@@ -1449,7 +1438,7 @@
       <a href="AkinoApp.apk" download class="btn btn-download btn-large">
         <i class="fas fa-download"></i> Download APK
       </a>
-      <span class="apk-size">📦 Ukuran: ~25 MB</span>
+      <span class="apk-size">📦 Ukuran: 799kb</span>
     </div>
   </section>
 
