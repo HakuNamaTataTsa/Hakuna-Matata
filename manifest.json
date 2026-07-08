@@ -1,0 +1,22 @@
+{
+  "name": "Akino Store",
+  "short_name": "Akino Store",
+  "description": "Solusi Digital, Game & Baca Manga",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0f0f",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/apk_pgxcmo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/apk_pgxcmo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
