@@ -6,10 +6,28 @@
   <title>Detail Manga – Akino Store</title>
   <meta name="description" content="Detail manga, sinopsis, daftar chapter, dan komentar." />
 
+  <!-- ===== OPEN GRAPH / THUMBNAIL (DEFAULT, AKAN DIUPDATE OLEH JS) ===== -->
+  <meta property="og:site_name" content="Akino Store" />
+  <meta property="og:title" content="Detail Manga - Akino Store" />
+  <meta property="og:description" content="Baca manga, manhwa, dan manhua terjemahan Indonesia. Detail, sinopsis, dan chapter." />
+  <meta property="og:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783480029/web_tumbnail2_dkwek2.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://akinocpm.my.id/detail.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Detail Manga - Akino Store" />
+  <meta name="twitter:description" content="Baca manga, manhwa, dan manhua terjemahan Indonesia." />
+  <meta name="twitter:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783480029/web_tumbnail2_dkwek2.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" type="image/x-icon" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -312,7 +330,8 @@
     }
     .badge-lang.id { background:rgba(59,130,246,0.2); color:#3B82F6; }
     .badge-lang.en { background:rgba(239,68,68,0.2); color:#ef4444; }
-    .badge-lang.other { background:rgba(255,255,255,0.1); color:var(--fg-secondary); }
+    .badge-lang.ja { background:rgba(234,179,8,0.2); color:#eab308; }
+    .badge-lang.zh { background:rgba(34,197,94,0.2); color:#22c55e; }
 
     /* ============================================================
        KOMENTAR + REPLY
@@ -934,6 +953,8 @@
             <button class="tab active" data-lang="all">All</button>
             <button class="tab" data-lang="id">🇮🇩 Indonesia</button>
             <button class="tab" data-lang="en">🇬🇧 English</button>
+            <button class="tab" data-lang="ja">🇯🇵 Jepang</button>
+            <button class="tab" data-lang="zh">🇨🇳 Mandarin</button>
           </div>
           <div class="ch-list" id="chapterList"></div>
         </div>
@@ -1001,6 +1022,7 @@
     // ============================================================
     const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
     const COVER_BASE = 'https://uploads.mangadex.org/covers';
+    const DEFAULT_THUMBNAIL = 'https://res.cloudinary.com/d39mdjct/image/upload/v1783480029/web_tumbnail2_dkwek2.png';
 
     // ============================================================
     // DOM REFS
@@ -1042,7 +1064,6 @@
         authBtn.querySelector('i').className = 'fas fa-user-check';
         commentForm.style.display = 'flex';
         commentLoginPrompt.style.display = 'none';
-        // Jika overlay 18+ aktif karena belum login, tutup dan reload data
         if (overlay18plus.classList.contains('active') && overlayLoginMsg.style.display !== 'none') {
           overlay18plus.classList.remove('active');
           if (mangaId) loadDetail(mangaId);
@@ -1064,6 +1085,7 @@
     let currentManga = null;
     let allChapters = [];
     let currentLang = 'all';
+    let pendingMangaId = null;
 
     // ============================================================
     // UTILITY
@@ -1114,6 +1136,88 @@
     }
 
     // ============================================================
+    // 🔥 UPDATE META TAG (THUMBNAIL DINAMIS)
+    // ============================================================
+    function updateMetaTags(manga) {
+      const title = getTitle(manga.attributes);
+      const desc = manga.attributes.description?.en || manga.attributes.description?.id || 'Baca manga di Akino Store';
+      const cover = getCoverUrl(manga) || DEFAULT_THUMBNAIL;
+
+      // Update og:title
+      let metaTitle = document.querySelector('meta[property="og:title"]');
+      if (!metaTitle) {
+        metaTitle = document.createElement('meta');
+        metaTitle.setAttribute('property', 'og:title');
+        document.head.appendChild(metaTitle);
+      }
+      metaTitle.setAttribute('content', title + ' - Akino Store');
+
+      // Update og:description
+      let metaDesc = document.querySelector('meta[property="og:description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('property', 'og:description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', desc.substring(0, 200));
+
+      // Update og:image
+      let metaImage = document.querySelector('meta[property="og:image"]');
+      if (!metaImage) {
+        metaImage = document.createElement('meta');
+        metaImage.setAttribute('property', 'og:image');
+        document.head.appendChild(metaImage);
+      }
+      metaImage.setAttribute('content', cover);
+
+      // Update og:image:width & height
+      let metaWidth = document.querySelector('meta[property="og:image:width"]');
+      if (!metaWidth) {
+        metaWidth = document.createElement('meta');
+        metaWidth.setAttribute('property', 'og:image:width');
+        document.head.appendChild(metaWidth);
+      }
+      metaWidth.setAttribute('content', '1200');
+
+      let metaHeight = document.querySelector('meta[property="og:image:height"]');
+      if (!metaHeight) {
+        metaHeight = document.createElement('meta');
+        metaHeight.setAttribute('property', 'og:image:height');
+        document.head.appendChild(metaHeight);
+      }
+      metaHeight.setAttribute('content', '630');
+
+      // Update twitter:image
+      let twitterImage = document.querySelector('meta[name="twitter:image"]');
+      if (!twitterImage) {
+        twitterImage = document.createElement('meta');
+        twitterImage.setAttribute('name', 'twitter:image');
+        document.head.appendChild(twitterImage);
+      }
+      twitterImage.setAttribute('content', cover);
+
+      // Update twitter:title
+      let twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (!twitterTitle) {
+        twitterTitle = document.createElement('meta');
+        twitterTitle.setAttribute('name', 'twitter:title');
+        document.head.appendChild(twitterTitle);
+      }
+      twitterTitle.setAttribute('content', title + ' - Akino Store');
+
+      // Update twitter:description
+      let twitterDesc = document.querySelector('meta[name="twitter:description"]');
+      if (!twitterDesc) {
+        twitterDesc = document.createElement('meta');
+        twitterDesc.setAttribute('name', 'twitter:description');
+        document.head.appendChild(twitterDesc);
+      }
+      twitterDesc.setAttribute('content', desc.substring(0, 200));
+
+      console.log('✅ Meta tags updated with:', { title, desc: desc.substring(0, 200), cover });
+    }
+
+    // ============================================================
     // 18+ FUNCTIONS
     // ============================================================
     function isMatureContent(contentRating) {
@@ -1138,30 +1242,26 @@
     function checkMatureContent(manga) {
       const contentRating = manga?.attributes?.contentRating || 'safe';
       const isMature = isMatureContent(contentRating);
-      if (!isMature) return true; // aman, lanjut tampilkan
+      if (!isMature) return true;
 
       const user = firebase.auth().currentUser;
       if (!user) {
-        // Belum login
         overlayLoginMsg.style.display = 'block';
         overlayConfirmBtn.style.display = 'none';
         overlay18plus.classList.add('active');
         return false;
       }
 
-      // Sudah login, cek konfirmasi
       if (is18plusConfirmed(manga.id)) {
-        return true; // sudah dikonfirmasi
+        return true;
       }
 
-      // Tampilkan overlay 18+
       overlayLoginMsg.style.display = 'none';
       overlayConfirmBtn.style.display = 'block';
       overlay18plus.classList.add('active');
       return false;
     }
 
-    // Event overlay 18+
     overlayConfirmBtn.addEventListener('click', function() {
       const user = firebase.auth().currentUser;
       if (!user) {
@@ -1171,7 +1271,6 @@
       if (currentManga) {
         set18plusConfirmed(currentManga.id);
         overlay18plus.classList.remove('active');
-        // Tampilkan konten
         renderDetail();
         applyLanguageFilter(currentLang);
         loadComments(mangaId);
@@ -1260,35 +1359,51 @@
         });
         currentManga = data.data;
 
-        // Cek 18+ dulu
+        // 🔥 UPDATE THUMBNAIL DINAMIS
+        updateMetaTags(currentManga);
+
         if (!checkMatureContent(currentManga)) {
-          // Overlay muncul, hentikan proses render sementara
           loadingSpinner.style.display = 'none';
           return;
         }
 
-        // 🔥 PERBAIKAN UTAMA: Tambahkan contentRating[] agar chapter 18+ muncul
-        const [idChaps, enChaps] = await Promise.all([
+        const [idChaps, enChaps, jaChaps, zhChaps] = await Promise.all([
           apiFetch(`/manga/${id}/feed`, {
             'translatedLanguage[]': ['id'],
-            order: { chapter: 'desc' },
+            order: { chapter:'desc' },
             limit: 200,
             'includes[]': ['scanlation_group'],
-            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'], // 🔥 TAMBAHKAN
+            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
           }),
           apiFetch(`/manga/${id}/feed`, {
             'translatedLanguage[]': ['en'],
-            order: { chapter: 'desc' },
+            order: { chapter:'desc' },
             limit: 200,
             'includes[]': ['scanlation_group'],
-            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'], // 🔥 TAMBAHKAN
+            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
+          }),
+          apiFetch(`/manga/${id}/feed`, {
+            'translatedLanguage[]': ['ja'],
+            order: { chapter:'desc' },
+            limit: 200,
+            'includes[]': ['scanlation_group'],
+            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
+          }),
+          apiFetch(`/manga/${id}/feed`, {
+            'translatedLanguage[]': ['zh'],
+            order: { chapter:'desc' },
+            limit: 200,
+            'includes[]': ['scanlation_group'],
+            'contentRating[]': ['safe', 'suggestive', 'erotica', 'pornographic'],
           })
         ]);
 
         const idData = (idChaps.data || []).map(ch => ({ ...ch, _lang:'id' }));
         const enData = (enChaps.data || []).map(ch => ({ ...ch, _lang:'en' }));
+        const jaData = (jaChaps.data || []).map(ch => ({ ...ch, _lang:'ja' }));
+        const zhData = (zhChaps.data || []).map(ch => ({ ...ch, _lang:'zh' }));
 
-        allChapters = [...idData, ...enData];
+        allChapters = [...idData, ...enData, ...jaData, ...zhData];
         allChapters.sort((a,b) => {
           const numA = parseFloat(a.attributes.chapter) || 0;
           const numB = parseFloat(b.attributes.chapter) || 0;
@@ -1384,6 +1499,8 @@
       let filtered = allChapters;
       if (lang === 'id') filtered = allChapters.filter(ch => ch._lang === 'id');
       else if (lang === 'en') filtered = allChapters.filter(ch => ch._lang === 'en');
+      else if (lang === 'ja') filtered = allChapters.filter(ch => ch._lang === 'ja');
+      else if (lang === 'zh') filtered = allChapters.filter(ch => ch._lang === 'zh');
 
       chapterList.innerHTML = '';
       if (!filtered.length) {
@@ -1397,8 +1514,8 @@
         const chTitle = chAttrs.title || `Chapter ${chNum}`;
         const uploaded = chAttrs.publishAt || chAttrs.createdAt;
         const group = ch.relationships.find(r => r.type === 'scanlation_group')?.attributes?.name || 'Unknown';
-        const langLabel = ch._lang === 'id' ? '🇮🇩 ID' : '🇬🇧 EN';
-        const langClass = ch._lang === 'id' ? 'badge-lang id' : 'badge-lang en';
+        const langLabel = ch._lang === 'id' ? '🇮🇩 ID' : ch._lang === 'en' ? '🇬🇧 EN' : ch._lang === 'ja' ? '🇯🇵 JP' : '🇨🇳 CN';
+        const langClass = `badge-lang ${ch._lang}`;
 
         const div = document.createElement('div');
         div.className = 'ch-item';
@@ -1414,7 +1531,6 @@
           e.stopPropagation();
           const btn = e.target;
           const chapterId = btn.dataset.id;
-          const lang = btn.dataset.lang;
           const title = btn.dataset.title;
 
           const readingData = {
