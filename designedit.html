@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
+  <!-- ===== PWA ===== -->
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#3B82F6" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<!-- Icon untuk iOS / Safari -->
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+
   <!-- PRIMARY META -->
   <title>Design / Edit Foto - Akino Store</title>
   <meta name="description" content="Jasa desain logo, edit foto, poster, social media content. File mentah PSD/CDR/EPS lengkap. Harga mulai Rp 10.000. Konsultasi gratis.">
@@ -1337,6 +1349,17 @@
 
     loadInitialMessages();
   </script>
+
+  <!-- Install PWA Service Worker -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('✅ SW registered'))
+        .catch(err => console.log('❌ SW failed:', err));
+    });
+  }
+</script>
 
 </body>
 </html>
