@@ -67,7 +67,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* ===== ROOT VARIABLES (DARK MODE DEFAULT) ===== */
+    /* ================================================================
+       ROOT VARIABLES (DARK MODE DEFAULT)
+       ================================================================ */
     :root {
       --bg: #07070d;
       --bg-card: rgba(255, 255, 255, 0.04);
@@ -100,7 +102,9 @@
       --nav-scrolled: rgba(245, 245, 250, 0.95);
     }
 
-    /* ===== RESET & BASE ===== */
+    /* ================================================================
+       RESET & BASE
+       ================================================================ */
     * {
       margin: 0;
       padding: 0;
@@ -119,7 +123,9 @@
       transition: background var(--transition), color var(--transition);
     }
 
-    /* ===== NAVBAR ===== */
+    /* ================================================================
+       NAVBAR
+       ================================================================ */
     .navbar {
       position: fixed;
       top: 0;
@@ -269,7 +275,9 @@
       }
     }
 
-    /* ===== HERO ===== */
+    /* ================================================================
+       HERO
+       ================================================================ */
     .hero {
       position: relative;
       display: flex;
@@ -410,7 +418,7 @@
       transform: translateY(-2px);
     }
 
-    /* ===== TOMBOL DOWNLOAD APK (UNGGUL) ===== */
+    /* ===== TOMBOL DOWNLOAD APK ===== */
     .btn-download {
       background: linear-gradient(135deg, #7C3AED, #6D28D9);
       color: #fff;
@@ -430,9 +438,15 @@
       animation: pulseGlow 2s infinite;
     }
     @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
-      70% { box-shadow: 0 0 0 12px rgba(124, 58, 237, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(124, 58, 237, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+      }
     }
 
     /* ===== TOMBOL INSTALL (PWA) ===== */
@@ -443,7 +457,8 @@
       border: none;
       font-size: 0.95rem;
       padding: 0.7rem 1.4rem;
-      display: none; /* akan ditampilkan oleh JS jika browser mendukung */
+      display: none;
+      /* akan ditampilkan oleh JS jika browser mendukung */;
     }
     .btn-install:hover:not(:disabled) {
       transform: translateY(-3px) scale(1.02);
@@ -453,7 +468,9 @@
       color: #fff;
     }
 
-    /* ===== SERVICES SECTION ===== */
+    /* ================================================================
+       SERVICES SECTION
+       ================================================================ */
     .services-section {
       max-width: 1100px;
       margin: 1rem auto 3rem;
@@ -537,7 +554,9 @@
       line-height: 1.6;
     }
 
-    /* ===== APK DOWNLOAD SECTION ===== */
+    /* ================================================================
+       APK DOWNLOAD SECTION (khusus)
+       ================================================================ */
     .apk-section {
       max-width: 1100px;
       margin: 2rem auto 3rem;
@@ -618,7 +637,9 @@
       font-size: 0.7rem;
     }
 
-    /* ===== PROMO BANNER ===== */
+    /* ================================================================
+       PROMO BANNER
+       ================================================================ */
     .promo-banner {
       position: relative;
       z-index: 2;
@@ -681,7 +702,9 @@
       transform: translateX(5px);
     }
 
-    /* ===== TESTIMONIALS ===== */
+    /* ================================================================
+       TESTIMONIALS
+       ================================================================ */
     .testimonials-section {
       max-width: 1100px;
       margin: 3rem auto;
@@ -741,8 +764,16 @@
     .testimonial-card cite::before {
       content: "— ";
     }
+    @keyframes cardFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    /* ===== SOCIAL SHOWCASE ===== */
+    /* ================================================================
+       SOCIAL SHOWCASE
+       ================================================================ */
     .social-showcase {
       position: relative;
       z-index: 2;
@@ -778,12 +809,6 @@
     }
     .showcase-card:nth-child(2) {
       animation-delay: 0.2s;
-    }
-    @keyframes cardFadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
     .showcase-card::before {
       content: '';
@@ -884,7 +909,9 @@
       box-shadow: 0 4px 20px rgba(225, 48, 108, 0.35);
     }
 
-    /* ===== TRUST BADGES ===== */
+    /* ================================================================
+       TRUST BADGES
+       ================================================================ */
     .features-mini {
       position: relative;
       z-index: 2;
@@ -928,7 +955,9 @@
       color: rgba(255, 221, 87, 0.5);
     }
 
-    /* ===== SOCIAL ROW ===== */
+    /* ================================================================
+       SOCIAL ROW
+       ================================================================ */
     .social-row {
       position: relative;
       z-index: 2;
@@ -958,7 +987,9 @@
       transform: translateY(-3px);
     }
 
-    /* ===== FOOTER ===== */
+    /* ================================================================
+       FOOTER
+       ================================================================ */
     .footer {
       position: relative;
       z-index: 2;
@@ -1009,7 +1040,9 @@
       color: var(--muted);
     }
 
-    /* ===== FLOATING CHAT ===== */
+    /* ================================================================
+       FLOATING CHAT
+       ================================================================ */
     .chat-float {
       position: fixed;
       bottom: 1.5rem;
@@ -1069,7 +1102,9 @@
       transform: scale(0.95);
     }
 
-    /* ===== BACK TO TOP ===== */
+    /* ================================================================
+       BACK TO TOP
+       ================================================================ */
     .back-to-top {
       position: fixed;
       bottom: 1.5rem;
@@ -1104,7 +1139,9 @@
       transform: translateY(-2px);
     }
 
-    /* ===== ANIMATIONS ===== */
+    /* ================================================================
+       ANIMATIONS
+       ================================================================ */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -1114,7 +1151,9 @@
       }
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ================================================================
+       RESPONSIVE
+       ================================================================ */
     @media (max-width: 768px) {
       .navbar {
         padding: 0.6rem 1rem;
@@ -1314,7 +1353,9 @@
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- ================================================================
+  NAVBAR
+  ================================================================ -->
   <nav class="navbar" id="navbar" aria-label="Navigasi utama">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <div class="nav-actions">
@@ -1337,7 +1378,9 @@
     </ul>
   </nav>
 
-  <!-- ===== HERO ===== -->
+  <!-- ================================================================
+  HERO
+  ================================================================ -->
   <section class="hero" aria-label="Hero section">
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <div class="hero-content">
@@ -1372,27 +1415,29 @@
       <!-- TOMBOL HERO (baris pertama) -->
       <div class="hero-buttons">
         <a href="#services" class="btn btn-primary btn-large"><i class="fas fa-rocket"></i> Mulai Sekarang</a>
-        <!-- Tombol Download APK (muncul di baris tombol) -->
+
+        <!-- ===== TOMBOL DOWNLOAD APK (PASTI MUNCUL) ===== -->
         <a href="AkinoApp.apk" download class="btn btn-download btn-large btn-download-pulse">
           <i class="fas fa-file-apk"></i> Download APK
         </a>
+
         <a href="CarParkingMultiplayer.html" class="btn btn-outline"><i class="fas fa-gamepad"></i> Car Parking</a>
         <a href="SosialMedia.html" class="btn btn-outline"><i class="fas fa-share-nodes"></i> Sosmed</a>
         <a href="designedit.html" class="btn btn-outline"><i class="fas fa-palette"></i> Design</a>
         <a href="manga.html" class="btn btn-outline"><i class="fas fa-book-open"></i> Baca Manga</a>
       </div>
 
-      <!-- TOMBOL INSTALL (PWA) - opsional, muncul jika browser support -->
-      <div style="margin-top: 1.2rem; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;">
-        <button id="installBtn" class="btn btn-install btn-large">
-          <i class="fas fa-download"></i> Install Aplikasi
-        </button>
+      <!-- Tombol Install PWA (opsional) -->
+      <div style="margin-top:1.2rem; width:100%; display:flex; flex-direction:column; align-items:center; gap:0.6rem;">
+        <button id="installBtn" class="btn btn-install btn-large"><i class="fas fa-download"></i> Install Aplikasi</button>
         <span style="font-size:0.7rem; color:var(--muted);">Atau install langsung dari browser jika tersedia</span>
       </div>
     </div>
   </section>
 
-  <!-- ===== LAYANAN KAMI ===== -->
+  <!-- ================================================================
+  LAYANAN KAMI
+  ================================================================ -->
   <section class="services-section" id="services" aria-label="Layanan kami">
     <div class="section-label reveal">
       <span>Layanan</span>
@@ -1417,7 +1462,9 @@
     </div>
   </section>
 
-  <!-- ===== DOWNLOAD APK SECTION (khusus) ===== -->
+  <!-- ================================================================
+  DOWNLOAD APK SECTION (khusus)
+  ================================================================ -->
   <section class="apk-section" aria-label="Download APK Akino Store">
     <div class="section-label reveal">
       <span>Download</span>
@@ -1425,7 +1472,7 @@
     </div>
     <div class="apk-card reveal">
       <div class="apk-icon"><i class="fas fa-mobile-alt"></i></div>
-      <h3>AkinoApp<span>.apk</span></h3>
+      <h3>Akino<span>.apk</span></h3>
       <p class="apk-desc">
         Nikmati akses cepat ke semua layanan Akino Store langsung dari perangkat Android Anda.
         Download APK resmi dan rasakan kemudahan berbelanja jasa digital kapan saja.
@@ -1438,11 +1485,13 @@
       <a href="AkinoApp.apk" download class="btn btn-download btn-large">
         <i class="fas fa-download"></i> Download APK
       </a>
-      <span class="apk-size">📦 Ukuran: 799kb</span>
+      <span class="apk-size">📦 Ukuran: ~25 MB</span>
     </div>
   </section>
 
-  <!-- ===== TESTIMONI ===== -->
+  <!-- ================================================================
+  TESTIMONI
+  ================================================================ -->
   <section class="testimonials-section" aria-label="Testimoni pelanggan">
     <div class="section-label reveal">
       <span>Testimoni</span>
@@ -1467,7 +1516,9 @@
     </div>
   </section>
 
-  <!-- ===== SOCIAL SHOWCASE ===== -->
+  <!-- ================================================================
+  SOSIAL MEDIA SHOWCASE
+  ================================================================ -->
   <section class="social-showcase" aria-label="Ikuti sosial media">
     <div class="section-label reveal">
       <span>Sosial Media</span>
@@ -1489,7 +1540,9 @@
     </div>
   </section>
 
-  <!-- ===== TRUST BADGES ===== -->
+  <!-- ================================================================
+  TRUST BADGES
+  ================================================================ -->
   <div class="features-mini">
     <div class="features-mini-grid">
       <div class="fm-item"><i class="fas fa-rocket"></i> Proses Cepat</div>
@@ -1498,7 +1551,9 @@
     </div>
   </div>
 
-  <!-- ===== SOCIAL ROW ===== -->
+  <!-- ================================================================
+  SOCIAL ROW
+  ================================================================ -->
   <div class="social-row">
     <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -1506,7 +1561,9 @@
     <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- ================================================================
+  FOOTER
+  ================================================================ -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div>
@@ -1540,7 +1597,9 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
-  <!-- ===== FLOATING CHAT ===== -->
+  <!-- ================================================================
+  FLOATING CHAT
+  ================================================================ -->
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
     <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -1548,34 +1607,44 @@
     </a>
   </div>
 
-  <!-- ===== BACK TO TOP ===== -->
+  <!-- ================================================================
+  BACK TO TOP
+  ================================================================ -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- ====================================================== -->
-  <!-- ===== SCRIPTS ===== -->
-  <!-- ====================================================== -->
-
+  <!-- ================================================================
+  SCRIPTS
+  ================================================================ -->
   <script>
     // ─── 1. NAVBAR SCROLL ───
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', function() {
+      var navbar = document.getElementById('navbar');
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
     });
 
     // ─── 2. MOBILE MENU ───
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    menuToggle.addEventListener('click', () => {
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', function() {
       navLinks.classList.toggle('active');
-      const icon = menuToggle.querySelector('i');
-      icon.className = navLinks.classList.contains('active') ? 'fas fa-xmark' : 'fas fa-bars';
+      var icon = menuToggle.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.className = 'fas fa-xmark';
+      } else {
+        icon.className = 'fas fa-bars';
+      }
     });
 
     // ─── 3. DROPDOWN MOBILE ───
-    const dropdownService = document.getElementById('dropdownService');
-    const dropdownToggle = document.getElementById('dropdownToggle');
-    dropdownToggle.addEventListener('click', (e) => {
+    var dropdownService = document.getElementById('dropdownService');
+    var dropdownToggle = document.getElementById('dropdownToggle');
+    dropdownToggle.addEventListener('click', function(e) {
       if (window.innerWidth <= 768) {
         e.preventDefault();
         dropdownService.classList.toggle('active');
@@ -1583,76 +1652,85 @@
     });
 
     // ─── 4. CLOSE MENU ON LINK CLICK ───
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
+    var links = navLinks.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
         if (window.innerWidth <= 768) {
           navLinks.classList.remove('active');
           menuToggle.querySelector('i').className = 'fas fa-bars';
         }
       });
-    });
+    }
 
     // ─── 5. BACK TO TOP ───
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      backToTop.classList.toggle('show', window.scrollY > 400);
+    var backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
     });
-    backToTop.addEventListener('click', () => {
+    backToTop.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // ─── 6. SCROLL REVEAL ───
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    var revealEls = document.querySelectorAll('.reveal');
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           revealObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-    revealEls.forEach(el => revealObs.observe(el));
+    for (var j = 0; j < revealEls.length; j++) {
+      revealObs.observe(revealEls[j]);
+    }
 
     // ─── 7. THEME TOGGLE (DARK / LIGHT) ───
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const currentTheme = localStorage.getItem('theme') || 'dark';
+    var themeToggle = document.getElementById('themeToggle');
+    var themeIcon = themeToggle.querySelector('i');
+    var currentTheme = localStorage.getItem('theme') || 'dark';
     if (currentTheme === 'light') {
       document.body.classList.add('light-theme');
       themeIcon.className = 'fas fa-sun';
     }
-    themeToggle.addEventListener('click', () => {
+    themeToggle.addEventListener('click', function() {
       document.body.classList.toggle('light-theme');
-      const isLight = document.body.classList.contains('light-theme');
+      var isLight = document.body.classList.contains('light-theme');
       themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
     // ─── 8. MICRO-INTERACTION: BUTTON LOADING ───
-    document.querySelectorAll('.btn-primary, .btn-download, .btn-install').forEach(btn => {
-      btn.addEventListener('click', function(e) {
+    var allBtns = document.querySelectorAll('.btn-primary, .btn-download, .btn-install');
+    for (var k = 0; k < allBtns.length; k++) {
+      allBtns[k].addEventListener('click', function(e) {
         if (this.getAttribute('href') === '#services') return;
-        if (this.hasAttribute('download')) return; // biarkan download berjalan normal
-        if (this.id === 'installBtn') return; // install button handled separately
+        if (this.hasAttribute('download')) return;
+        if (this.id === 'installBtn') return;
         if (!this.dataset.loading) {
           this.dataset.loading = 'true';
-          const original = this.innerHTML;
+          var original = this.innerHTML;
           this.disabled = true;
           this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-          setTimeout(() => {
-            this.innerHTML = original;
-            this.disabled = false;
-            this.dataset.loading = 'false';
+          var self = this;
+          setTimeout(function() {
+            self.innerHTML = original;
+            self.disabled = false;
+            self.dataset.loading = 'false';
           }, 800);
         }
       });
-    });
+    }
 
     // ─── 9. HERO CANVAS PARTICLE ───
-    const canvas = document.getElementById('heroCanvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouse = { x: -1000, y: -1000 };
+    var canvas = document.getElementById('heroCanvas');
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var mouse = { x: -1000, y: -1000 };
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -1661,62 +1739,68 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', function(e) {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
-    document.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
+    document.addEventListener('touchmove', function(e) {
+      var touch = e.touches[0];
       mouse.x = touch.clientX;
       mouse.y = touch.clientY;
     }, { passive: true });
 
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
+    function Particle() {
+      this.reset = function() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 0.5;
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.4 + 0.1;
-      }
-      update() {
+      };
+      this.reset();
+      this.update = function() {
         this.x += this.speedX;
         this.y += this.speedY;
-        const dx = mouse.x - this.x,
-          dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        var dx = mouse.x - this.x;
+        var dy = mouse.y - this.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 150) {
           this.x -= dx * 0.012;
           this.y -= dy * 0.012;
         }
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-      }
-      draw() {
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      };
+      this.draw = function() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,221,87,${this.opacity})`;
+        ctx.fillStyle = 'rgba(255,221,87,' + this.opacity + ')';
         ctx.fill();
-      }
+      };
     }
 
-    for (let i = 0; i < 70; i++) particles.push(new Particle());
+    for (var p = 0; p < 70; p++) {
+      particles.push(new Particle());
+    }
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update();
-        p.draw(); });
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      for (var a = 0; a < particles.length; a++) {
+        particles[a].update();
+        particles[a].draw();
+      }
+      for (var b = 0; b < particles.length; b++) {
+        for (var c = b + 1; c < particles.length; c++) {
+          var dx = particles[b].x - particles[c].x;
+          var dy = particles[b].y - particles[c].y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 120) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(255,221,87,${0.05 * (1 - dist / 120)})`;
+            ctx.moveTo(particles[b].x, particles[b].y);
+            ctx.lineTo(particles[c].x, particles[c].y);
+            ctx.strokeStyle = 'rgba(255,221,87,' + (0.05 * (1 - dist / 120)) + ')';
             ctx.stroke();
           }
         }
@@ -1726,43 +1810,45 @@
     animateParticles();
 
     // ─── 10. PWA INSTALL BUTTON ───
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
+    var deferredPrompt;
+    var installBtn = document.getElementById('installBtn');
 
-    window.addEventListener('beforeinstallprompt', (e) => {
+    window.addEventListener('beforeinstallprompt', function(e) {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.style.display = 'flex'; // tampilkan tombol install
+      installBtn.style.display = 'flex';
     });
 
-    installBtn.addEventListener('click', async () => {
+    installBtn.addEventListener('click', async function() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
+        var result = await deferredPrompt.userChoice;
         if (result.outcome === 'accepted') {
           console.log('User accepted install');
         } else {
           console.log('User dismissed install');
         }
         deferredPrompt = null;
-        installBtn.style.display = 'none'; // sembunyikan setelah diproses
+        installBtn.style.display = 'none';
       } else {
-        // Fallback: jika tidak ada prompt, arahkan ke download APK
         window.location.href = 'AkinoApp.apk';
       }
     });
 
-    // Sembunyikan tombol install jika sudah terinstall atau tidak support
-    window.addEventListener('appinstalled', () => {
+    window.addEventListener('appinstalled', function() {
       installBtn.style.display = 'none';
     });
 
     // ─── 11. SERVICE WORKER REGISTRATION ───
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
+      window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('SW registered:', reg))
-          .catch(err => console.log('SW registration failed:', err));
+          .then(function(reg) {
+            console.log('SW registered:', reg);
+          })
+          .catch(function(err) {
+            console.log('SW registration failed:', err);
+          });
       });
     }
   </script>
