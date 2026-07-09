@@ -2,7 +2,6 @@
 // firebase-init.js
 // ============================================================
 
-// 🔥 KONFIGURASI FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
   authDomain: "akinowedding-73271.firebaseapp.com",
@@ -12,20 +11,17 @@ const firebaseConfig = {
   appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
 };
 
-// Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// 🔥 KONFIGURASI CLOUDINARY
 const CLOUDINARY_CLOUD_NAME = 'qdbqjpcw';
 const CLOUDINARY_API_KEY = '778937647787552';
 const CLOUDINARY_UPLOAD_PRESET = 'manga1234';
 
 // ============================================================
-// FUNGSI AUTHENTICATION
+// AUTH
 // ============================================================
-
 async function registerWithEmail(email, password, name) {
   const userCredential = await auth.createUserWithEmailAndPassword(email, password);
   const user = userCredential.user;
@@ -70,14 +66,11 @@ function getCurrentUser() {
 }
 
 // ============================================================
-// FUNGSI FIRESTORE (Profil & Bookmark)
+// FIRESTORE (Profil & Bookmark)
 // ============================================================
-
 async function getUserProfile(uid) {
   const doc = await db.collection('users').doc(uid).get();
-  if (doc.exists) {
-    return { id: doc.id, ...doc.data() };
-  }
+  if (doc.exists) return { id: doc.id, ...doc.data() };
   return null;
 }
 
@@ -91,7 +84,7 @@ async function addBookmark(uid, mangaId) {
     const bookmarks = doc.data().bookmarks || [];
     if (!bookmarks.includes(mangaId)) {
       bookmarks.push(mangaId);
-      await db.collection('users').doc(uid).update({ bookmarks: bookmarks });
+      await db.collection('users').doc(uid).update({ bookmarks });
     }
   }
 }
@@ -106,17 +99,18 @@ async function removeBookmark(uid, mangaId) {
 }
 
 // ============================================================
-// 🔥 FUNGSI READING HISTORY (BARU)
+// 🔥 READING HISTORY (FIX)
 // ============================================================
 
 /**
- * Simpan riwayat baca ke Firestore
- * @param {string} uid - User ID
- * @param {object} data - { mangaId, mangaTitle, coverUrl, chapterId, chapterNum }
+ * Simpan riwayat baca
  */
 async function saveReadingHistory(uid, data) {
   const { mangaId, mangaTitle, coverUrl, chapterId, chapterNum } = data;
-  if (!uid || !mangaId) return;
+  if (!uid || !mangaId) {
+    console.warn('saveReadingHistory: uid atau mangaId kosong');
+    return;
+  }
   try {
     await db.collection('users').doc(uid).collection('readingHistory').doc(mangaId).set({
       mangaId: mangaId,
@@ -126,13 +120,14 @@ async function saveReadingHistory(uid, data) {
       lastChapterNum: String(chapterNum || '0'),
       lastReadAt: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
+    console.log('✅ History saved for', mangaId);
   } catch (e) {
-    console.error('Save history error:', e);
+    console.error('❌ Save history error:', e);
   }
 }
 
 /**
- * Ambil riwayat baca user (terurut dari terbaru)
+ * Ambil riwayat baca (terurut dari terbaru)
  */
 async function getReadingHistory(uid) {
   if (!uid) return [];
@@ -145,16 +140,19 @@ async function getReadingHistory(uid) {
     snapshot.forEach(doc => {
       history.push({ id: doc.id, ...doc.data() });
     });
+    console.log('📖 History loaded:', history.length);
     return history;
   } catch (e) {
-    console.error('Get history error:', e);
+    console.error('❌ Get history error:', e);
+    if (e.code === 'failed-precondition') {
+      console.warn('⚠️ Mungkin perlu membuat index di Firestore. Cek link di console.');
+    }
     return [];
   }
 }
 
 /**
- * Ambil riwayat baca dalam bentuk Map (mangaId -> lastChapterNum)
- * Berguna untuk pengecekan notifikasi chapter baru di halaman utama
+ * Ambil riwayat baca dalam bentuk Map (mangaId -> { lastChapterNum, lastReadAt })
  */
 async function getReadingHistoryMap(uid) {
   const history = await getReadingHistory(uid);
@@ -169,9 +167,8 @@ async function getReadingHistoryMap(uid) {
 }
 
 // ============================================================
-// FUNGSI CLOUDINARY (Upload foto profil)
+// CLOUDINARY
 // ============================================================
-
 async function uploadToCloudinary(file) {
   const formData = new FormData();
   formData.append('file', file);
@@ -180,10 +177,7 @@ async function uploadToCloudinary(file) {
 
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-    {
-      method: 'POST',
-      body: formData,
-    }
+    { method: 'POST', body: formData }
   );
 
   if (!response.ok) {
@@ -196,9 +190,8 @@ async function uploadToCloudinary(file) {
 }
 
 // ============================================================
-// SESSION (localStorage)
+// SESSION
 // ============================================================
-
 function saveSession(user) {
   localStorage.setItem('currentUser', JSON.stringify({
     uid: user.uid,
@@ -213,4 +206,4 @@ function getSession() {
 
 function clearSession() {
   localStorage.removeItem('currentUser');
-}s
+}

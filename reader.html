@@ -30,7 +30,9 @@
   <script src="firebase-init.js"></script>
 
   <style>
-    /* ===== ROOT VARIABLES ===== */
+    /* ============================================================
+       ROOT VARIABLES
+       ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
       --bg-secondary: #1a1a1a;
@@ -488,15 +490,12 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .comment-section h3 i {
-      color: var(--accent);
-    }
+    .comment-section h3 i { color: var(--accent); }
     .comment-section .comment-count {
       font-size: 0.8rem;
       font-weight: 400;
       color: var(--fg-secondary);
     }
-
     .comment-form {
       display: flex;
       gap: 0.6rem;
@@ -516,12 +515,8 @@
       transition: border var(--transition);
       font-family: var(--font);
     }
-    .comment-form input:focus {
-      border-color: var(--accent);
-    }
-    .comment-form input::placeholder {
-      color: var(--fg-muted);
-    }
+    .comment-form input:focus { border-color: var(--accent); }
+    .comment-form input::placeholder { color: var(--fg-muted); }
     .comment-form .btn-submit-comment {
       padding: 0.6rem 1.2rem;
       border-radius: var(--radius-sm);
@@ -546,7 +541,6 @@
       cursor: not-allowed;
       transform: none;
     }
-
     .reply-form {
       display: none;
       margin-top: 0.5rem;
@@ -554,9 +548,7 @@
       gap: 0.6rem;
       flex-wrap: wrap;
     }
-    .reply-form.open {
-      display: flex;
-    }
+    .reply-form.open { display: flex; }
     .reply-form input {
       flex: 1;
       min-width: 160px;
@@ -570,9 +562,7 @@
       transition: border var(--transition);
       font-family: var(--font);
     }
-    .reply-form input:focus {
-      border-color: var(--accent);
-    }
+    .reply-form input:focus { border-color: var(--accent); }
     .reply-form .btn-reply-submit {
       padding: 0.4rem 1rem;
       border-radius: var(--radius-sm);
@@ -588,9 +578,7 @@
       gap: 0.3rem;
       white-space: nowrap;
     }
-    .reply-form .btn-reply-submit:hover {
-      background: var(--accent-hover);
-    }
+    .reply-form .btn-reply-submit:hover { background: var(--accent-hover); }
     .reply-form .btn-reply-cancel {
       padding: 0.4rem 0.8rem;
       border-radius: var(--radius-sm);
@@ -606,7 +594,6 @@
       border-color: var(--accent);
       color: var(--fg-primary);
     }
-
     .comment-list {
       display: flex;
       flex-direction: column;
@@ -617,7 +604,6 @@
     }
     .comment-list::-webkit-scrollbar { width: 4px; }
     .comment-list::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-
     .comment-item {
       padding: 0.6rem 0.8rem;
       background: var(--bg-card);
@@ -625,9 +611,7 @@
       border-radius: var(--radius-sm);
       transition: border var(--transition);
     }
-    .comment-item:hover {
-      border-color: var(--accent-dim);
-    }
+    .comment-item:hover { border-color: var(--accent-dim); }
     .comment-item .comment-header {
       display: flex;
       justify-content: space-between;
@@ -693,12 +677,8 @@
       padding: 0.1rem 0.2rem;
       font-family: var(--font);
     }
-    .comment-item .comment-actions button:hover {
-      color: var(--accent);
-    }
-    .comment-item .comment-actions .delete-btn:hover {
-      color: #ef4444;
-    }
+    .comment-item .comment-actions button:hover { color: var(--accent); }
+    .comment-item .comment-actions .delete-btn:hover { color: #ef4444; }
 
     .comment-item .replies {
       margin-left: 2.2rem;
@@ -778,12 +758,8 @@
       padding: 0.1rem 0.2rem;
       font-family: var(--font);
     }
-    .comment-item .replies .reply-item .reply-actions button:hover {
-      color: var(--accent);
-    }
-    .comment-item .replies .reply-item .reply-actions .delete-btn:hover {
-      color: #ef4444;
-    }
+    .comment-item .replies .reply-item .reply-actions button:hover { color: var(--accent); }
+    .comment-item .replies .reply-item .reply-actions .delete-btn:hover { color: #ef4444; }
 
     .comment-login-prompt {
       text-align: center;
@@ -799,10 +775,7 @@
       font-weight: 600;
       text-decoration: underline;
     }
-    .comment-login-prompt a:hover {
-      color: var(--accent-hover);
-    }
-
+    .comment-login-prompt a:hover { color: var(--accent-hover); }
     .empty-comment {
       text-align: center;
       padding: 1.5rem 0;
@@ -815,7 +788,6 @@
       margin-bottom: 0.3rem;
       color: var(--accent-dim);
     }
-
     .comment-error {
       text-align: center;
       padding: 1rem;
@@ -1042,7 +1014,7 @@
     // ================================================================
     let currentChapterId = null;
     let currentMangaId = null;
-    let allChapters = []; // [{id, title, chapter, lang}]
+    let allChapters = [];
     let pageUrls = [];
     let currentMode = 'scroll';
     let currentPageIndex = 0;
@@ -1050,6 +1022,8 @@
     let currentLang = null;
     let currentChapterNum = 0;
     let currentMangaTitle = 'Manga';
+    let currentMangaCover = '';
+    let _isLoadingChapter = false; // 🔥 Flag mencegah rekursi
 
     // ================================================================
     // UTILITY
@@ -1073,7 +1047,39 @@
     }
 
     // ================================================================
-    // KOMENTAR (sama seperti sebelumnya)
+    // 🔥 SAVE READING HISTORY
+    // ================================================================
+    function saveReadingHistory() {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.log('⏭️ Tidak ada user, skip save history');
+        return;
+      }
+      if (!currentMangaId || !currentChapterId) {
+        console.log('⏭️ Belum ada mangaId atau chapterId, skip');
+        return;
+      }
+
+      const data = {
+        mangaId: currentMangaId,
+        mangaTitle: currentMangaTitle || 'Manga',
+        coverUrl: currentMangaCover || '',
+        chapterId: currentChapterId,
+        chapterNum: String(currentChapterNum || '0')
+      };
+
+      console.log('📝 Menyimpan riwayat:', data);
+      if (typeof saveReadingHistory === 'function') {
+        saveReadingHistory(user.uid, data)
+          .then(() => console.log('✅ History tersimpan'))
+          .catch(err => console.error('❌ Gagal simpan history:', err));
+      } else {
+        console.error('❌ Fungsi saveReadingHistory tidak ditemukan di firebase-init.js');
+      }
+    }
+
+    // ================================================================
+    // KOMENTAR (ringkas)
     // ================================================================
     async function loadComments(mangaId, chapterId) {
       try {
@@ -1293,33 +1299,6 @@
     }
 
     // ================================================================
-    // 🔥 SAVE READING HISTORY (BARU)
-    // ================================================================
-    async function saveReadingHistory() {
-      const user = firebase.auth().currentUser;
-      if (!user) return;
-      if (!currentMangaId || !currentChapterId) return;
-
-      try {
-        // Ambil cover dari data yang ada
-        const readingData = JSON.parse(localStorage.getItem('currentReading') || '{}');
-        const mangaData = readingData.chapters?.find(c => c.id === currentChapterId);
-        const mangaTitle = currentMangaTitle || readingData.mangaTitle || 'Manga';
-        const coverUrl = readingData.coverUrl || '';
-
-        await saveReadingHistory(user.uid, {
-          mangaId: currentMangaId,
-          mangaTitle: mangaTitle,
-          coverUrl: coverUrl,
-          chapterId: currentChapterId,
-          chapterNum: String(currentChapterNum || '0')
-        });
-      } catch (e) {
-        console.error('Save history error:', e);
-      }
-    }
-
-    // ================================================================
     // API
     // ================================================================
     async function apiFetch(endpoint, params = {}) {
@@ -1433,6 +1412,7 @@
         readerImages._nextBtn = nextBtn;
 
       } else {
+        // SCROLL mode
         readerImages.className = 'reader-images scroll';
         pageUrls.forEach(url => {
           const img = document.createElement('img');
@@ -1462,7 +1442,8 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // 🔥 Simpan riwayat baca setelah render
+
+      // 🔥 Simpan history
       saveReadingHistory();
     }
 
@@ -1528,7 +1509,11 @@
 
         currentPageIndex = 0;
         renderImages(currentMode);
+
+        // 🔥 Set value select tanpa trigger change
+        chapterSelect.removeEventListener('change', chapterSelectHandler);
         chapterSelect.value = chapterId;
+        chapterSelect.addEventListener('change', chapterSelectHandler);
 
         const chapterData = allChapters.find(c => c.id === chapterId);
         if (chapterData) {
@@ -1554,16 +1539,37 @@
         console.error('loadChapter error:', err);
         loadingSpinner.innerHTML = `<p style="color:var(--fg-secondary);">Gagal memuat chapter: ${err.message}</p>`;
         showToast('Gagal memuat chapter', 'fa-exclamation-triangle');
+        _isLoadingChapter = false;
       }
     }
 
+    // ================================================================
+    // GO TO CHAPTER (dengan flag)
+    // ================================================================
     function goToChapter(chapterId) {
-      if (chapterId === currentChapterId) return;
+      if (chapterId === currentChapterId || _isLoadingChapter) return;
+      _isLoadingChapter = true;
       currentChapterId = chapterId;
       const url = new URL(window.location);
       url.searchParams.set('chapter', chapterId);
       window.history.pushState({}, '', url);
-      loadChapter(chapterId);
+
+      // Nonaktifkan sementara listener
+      chapterSelect.removeEventListener('change', chapterSelectHandler);
+      chapterSelect.value = chapterId;
+      chapterSelect.addEventListener('change', chapterSelectHandler);
+
+      loadChapter(chapterId).finally(() => {
+        _isLoadingChapter = false;
+      });
+    }
+
+    // ================================================================
+    // CHAPTER SELECT HANDLER
+    // ================================================================
+    function chapterSelectHandler(e) {
+      if (_isLoadingChapter) return;
+      goToChapter(e.target.value);
     }
 
     // ================================================================
@@ -1785,20 +1791,23 @@
       }
 
       try {
-        const readingData = JSON.parse(localStorage.getItem('currentReading'));
+        const readingData = JSON.parse(localStorage.getItem('currentReading') || '{}');
         if (readingData && readingData.chapters && readingData.chapters.length > 0) {
           allChapters = readingData.chapters;
           currentMangaId = readingData.mangaId || null;
           currentMangaTitle = readingData.mangaTitle || 'Manga';
+          currentMangaCover = readingData.coverUrl || '';
         } else {
           allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
           currentMangaId = null;
           currentMangaTitle = 'Manga';
+          currentMangaCover = '';
         }
       } catch {
         allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
         currentMangaId = null;
         currentMangaTitle = 'Manga';
+        currentMangaCover = '';
       }
 
       allChapters.sort((a, b) => {
@@ -1807,6 +1816,8 @@
         return numA - numB;
       });
 
+      // Hapus listener lama
+      chapterSelect.removeEventListener('change', chapterSelectHandler);
       chapterSelect.innerHTML = '';
       allChapters.forEach((ch, idx) => {
         const opt = document.createElement('option');
@@ -1817,8 +1828,7 @@
         if (ch.id === chapterId) opt.selected = true;
         chapterSelect.appendChild(opt);
       });
-
-      chapterSelect.addEventListener('change', (e) => goToChapter(e.target.value));
+      chapterSelect.addEventListener('change', chapterSelectHandler);
 
       currentChapterId = chapterId;
       await loadChapter(chapterId);
