@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
 
-  <!-- ===== OPEN GRAPH / THUMBNAIL (DEFAULT, AKAN DIUPDATE OLEH JS) ===== -->
+  <!-- ===== OPEN GRAPH / THUMBNAIL (AKAN DIUPDATE OLEH JS) ===== -->
   <meta property="og:site_name" content="Akino Store" />
   <meta property="og:title" content="Detail Manga - Akino Store" />
   <meta property="og:description" content="Baca manga, manhwa, dan manhua terjemahan Indonesia. Detail, sinopsis, dan chapter." />
@@ -66,6 +66,7 @@
       --border-color: rgba(255, 255, 255, 0.06);
       --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       --radius: 12px;
+      --radius-lg: 16px;
       --radius-sm: 8px;
       --font: 'Inter', sans-serif;
       --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -154,23 +155,15 @@
       border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
     }
     .nav-actions .auth-btn {
-      padding:0.4rem 1rem;
-      border-radius:var(--radius-sm);
-      font-size:0.8rem;
-      font-weight:600;
-      color:#fff;
-      background:var(--accent);
-      border:none;
+      padding:0.4rem 1rem; border-radius:var(--radius-sm);
+      font-size:0.8rem; font-weight:600; color:#fff;
+      background:var(--accent); border:none;
       transition:all var(--transition);
-      display:inline-flex;
-      align-items:center;
-      gap:0.4rem;
-      text-decoration:none;
-      font-family:var(--font);
+      display:inline-flex; align-items:center; gap:0.4rem;
+      text-decoration:none; font-family:var(--font);
     }
     .nav-actions .auth-btn:hover {
-      background:var(--accent-hover);
-      transform:scale(1.02);
+      background:var(--accent-hover); transform:scale(1.02);
     }
     .nav-actions .auth-btn i { font-size:0.8rem; }
 
@@ -342,6 +335,74 @@
     }
     .badge-lang.id { background:rgba(59,130,246,0.2); color:#3B82F6; }
     .badge-lang.en { background:rgba(239,68,68,0.2); color:#ef4444; }
+
+    /* ============================================================
+       REKOMENDASI (Recommended)
+       ============================================================ */
+    .recommendations {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+    .recommendations h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .recommendations h3 i {
+      color: var(--accent);
+    }
+    .recommendations .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.8rem;
+    }
+    .recommendations .rec-item {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    .recommendations .rec-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      background: var(--bg-card-hover);
+    }
+    .recommendations .rec-item img {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      background: var(--bg-secondary);
+    }
+    .recommendations .rec-item .rec-info {
+      padding: 0.4rem 0.5rem 0.6rem;
+    }
+    .recommendations .rec-item .rec-info h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .recommendations .rec-item .rec-info .rec-meta {
+      font-size: 0.6rem;
+      color: var(--fg-secondary);
+      margin-top: 0.1rem;
+    }
+    .recommendations .rec-empty {
+      text-align: center;
+      color: var(--fg-secondary);
+      font-size: 0.85rem;
+      padding: 1rem 0;
+    }
 
     /* ============================================================
        KOMENTAR + REPLY
@@ -870,6 +931,9 @@
       .overlay-18plus .overlay-actions { flex-direction:column; }
       .overlay-18plus .overlay-actions .btn-confirm,
       .overlay-18plus .overlay-actions .btn-cancel { width:100%; }
+      .recommendations .rec-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
     }
     @media (max-width:480px) {
       .detail-main .cover-wrap { flex:0 0 100%; max-width:180px; margin:0 auto; }
@@ -881,6 +945,9 @@
       .reply-form input { width:100%; }
       .reply-form .btn-reply-submit { width:100%; justify-content:center; }
       .comment-item .comment-header { flex-direction:column; align-items:flex-start; }
+      .recommendations .rec-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -968,6 +1035,14 @@
         </div>
 
         <!-- ============================================================
+        REKOMENDASI (Recommended) – campuran manga/manhwa/manhua
+        ============================================================ -->
+        <div class="recommendations" id="recommendationsSection">
+          <h3><i class="fas fa-thumbs-up"></i> Rekomendasi Serupa</h3>
+          <div class="rec-grid" id="recGrid"></div>
+        </div>
+
+        <!-- ============================================================
         KOMENTAR + REPLY
         ============================================================ -->
         <div class="comment-section" id="commentSection">
@@ -976,7 +1051,6 @@
             <span class="comment-count" id="commentCount">(0)</span>
           </h3>
 
-          <!-- Form komentar utama -->
           <div id="commentFormWrapper">
             <div class="comment-form" id="commentForm">
               <input type="text" id="commentInput" placeholder="Tulis komentar..." maxlength="500" />
@@ -990,7 +1064,6 @@
             </div>
           </div>
 
-          <!-- Daftar komentar -->
           <div class="comment-list" id="commentList">
             <div class="empty-comment" id="emptyComment">
               <i class="fas fa-comment-slash"></i>
@@ -1045,6 +1118,7 @@
     const toastContainer = $('toastContainer');
     const authBtn = $('authBtn');
     const authText = $('authText');
+    const recGrid = $('recGrid');
 
     const commentList = $('commentList');
     const commentInput = $('commentInput');
@@ -1054,14 +1128,18 @@
     const commentCount = $('commentCount');
     const emptyComment = $('emptyComment');
 
-    // Overlay 18+
     const overlay18plus = $('overlay18plus');
     const overlayConfirmBtn = $('overlayConfirmBtn');
     const overlayCancelBtn = $('overlayCancelBtn');
     const overlayLoginMsg = $('overlayLoginMsg');
 
     // ============================================================
-    // 🔥 CEK STATUS LOGIN (FIREBASE)
+    // 🔥 STATE 18+ – SINKRON DENGAN manga.html (pakai localStorage)
+    // ============================================================
+    let showMature = localStorage.getItem('showMature') === 'true';
+
+    // ============================================================
+    // CEK STATUS LOGIN (FIREBASE)
     // ============================================================
     let currentUser = null;
     firebase.auth().onAuthStateChanged((user) => {
@@ -1076,6 +1154,13 @@
           overlay18plus.classList.remove('active');
           if (mangaId) loadDetail(mangaId);
         }
+        const stored = localStorage.getItem('showMature') === 'true';
+        if (stored !== showMature) {
+          showMature = stored;
+          if (currentManga && detailContent.style.display !== 'none') {
+            loadRecommendations(currentManga);
+          }
+        }
       } else {
         currentUser = null;
         authText.textContent = 'Login';
@@ -1083,6 +1168,13 @@
         authBtn.querySelector('i').className = 'fas fa-user';
         commentForm.style.display = 'none';
         commentLoginPrompt.style.display = 'block';
+        const stored = localStorage.getItem('showMature') === 'true';
+        if (stored !== showMature) {
+          showMature = stored;
+          if (currentManga && detailContent.style.display !== 'none') {
+            loadRecommendations(currentManga);
+          }
+        }
       }
     });
 
@@ -1131,7 +1223,7 @@
       return d.toLocaleDateString('id-ID', { year:'numeric', month:'short', day:'numeric' });
     }
 
-    function showToast(msg, icon='fa-check-circle') {
+    function showToast(msg, icon = 'fa-check-circle') {
       const toast = document.createElement('div');
       toast.className = 'toast';
       toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
@@ -1144,14 +1236,13 @@
     }
 
     // ============================================================
-    // 🔥 UPDATE META TAG (THUMBNAIL DINAMIS)
+    // UPDATE META TAG (THUMBNAIL DINAMIS)
     // ============================================================
     function updateMetaTags(manga) {
       const title = getTitle(manga.attributes);
       const desc = manga.attributes.description?.en || manga.attributes.description?.id || 'Baca manga di Akino Store';
       const cover = getCoverUrl(manga) || DEFAULT_THUMBNAIL;
 
-      // Update og:title
       let metaTitle = document.querySelector('meta[property="og:title"]');
       if (!metaTitle) {
         metaTitle = document.createElement('meta');
@@ -1160,7 +1251,6 @@
       }
       metaTitle.setAttribute('content', title + ' - Akino Store');
 
-      // Update og:description
       let metaDesc = document.querySelector('meta[property="og:description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -1169,7 +1259,6 @@
       }
       metaDesc.setAttribute('content', desc.substring(0, 200));
 
-      // Update og:image
       let metaImage = document.querySelector('meta[property="og:image"]');
       if (!metaImage) {
         metaImage = document.createElement('meta');
@@ -1178,7 +1267,6 @@
       }
       metaImage.setAttribute('content', cover);
 
-      // Update og:image:width & height
       let metaWidth = document.querySelector('meta[property="og:image:width"]');
       if (!metaWidth) {
         metaWidth = document.createElement('meta');
@@ -1195,7 +1283,6 @@
       }
       metaHeight.setAttribute('content', '630');
 
-      // Update twitter:image
       let twitterImage = document.querySelector('meta[name="twitter:image"]');
       if (!twitterImage) {
         twitterImage = document.createElement('meta');
@@ -1204,7 +1291,6 @@
       }
       twitterImage.setAttribute('content', cover);
 
-      // Update twitter:title
       let twitterTitle = document.querySelector('meta[name="twitter:title"]');
       if (!twitterTitle) {
         twitterTitle = document.createElement('meta');
@@ -1213,7 +1299,6 @@
       }
       twitterTitle.setAttribute('content', title + ' - Akino Store');
 
-      // Update twitter:description
       let twitterDesc = document.querySelector('meta[name="twitter:description"]');
       if (!twitterDesc) {
         twitterDesc = document.createElement('meta');
@@ -1221,8 +1306,6 @@
         document.head.appendChild(twitterDesc);
       }
       twitterDesc.setAttribute('content', desc.substring(0, 200));
-
-      console.log('✅ Meta tags updated with:', { title, desc: desc.substring(0, 200), cover });
     }
 
     // ============================================================
@@ -1284,6 +1367,7 @@
         loadComments(mangaId);
         loadingSpinner.style.display = 'none';
         detailContent.style.display = 'block';
+        loadRecommendations(currentManga);
       }
     });
 
@@ -1300,7 +1384,7 @@
     });
 
     // ============================================================
-    // 🔥 BOOKMARK DENGAN FIRESTORE
+    // BOOKMARK
     // ============================================================
     async function toggleBookmark(mangaId) {
       const user = firebase.auth().currentUser;
@@ -1327,6 +1411,29 @@
         console.error('Bookmark error:', err);
         showToast('Gagal update bookmark: ' + err.message, 'fa-exclamation-triangle');
       }
+    }
+
+    async function getUserProfile(uid) {
+      try {
+        const doc = await db.collection('users').doc(uid).get();
+        return doc.exists ? doc.data() : null;
+      } catch { return null; }
+    }
+
+    async function addBookmark(uid, mangaId) {
+      const userData = await getUserProfile(uid) || {};
+      const bookmarks = userData.bookmarks || [];
+      if (!bookmarks.includes(mangaId)) {
+        bookmarks.push(mangaId);
+        await db.collection('users').doc(uid).set({ bookmarks }, { merge: true });
+      }
+    }
+
+    async function removeBookmark(uid, mangaId) {
+      const userData = await getUserProfile(uid) || {};
+      let bookmarks = userData.bookmarks || [];
+      bookmarks = bookmarks.filter(id => id !== mangaId);
+      await db.collection('users').doc(uid).set({ bookmarks }, { merge: true });
     }
 
     // ============================================================
@@ -1358,7 +1465,7 @@
     }
 
     // ============================================================
-    // FETCH DETAIL & CHAPTERS (HANYA ID & EN)
+    // LOAD DETAIL & CHAPTERS
     // ============================================================
     async function loadDetail(id) {
       try {
@@ -1367,7 +1474,6 @@
         });
         currentManga = data.data;
 
-        // 🔥 UPDATE THUMBNAIL DINAMIS
         updateMetaTags(currentManga);
 
         if (!checkMatureContent(currentManga)) {
@@ -1375,8 +1481,7 @@
           return;
         }
 
-        // 🔥 HANYA AMBIL BAHASA INDONESIA & INGGRIS
-        // 🔥 TAMBAHKAN contentRating[] AGAR CHAPTER 18+ MUNCUL
+        // Ambil chapter hanya untuk bahasa Indonesia & Inggris, dengan semua contentRating
         const [idChaps, enChaps] = await Promise.all([
           apiFetch(`/manga/${id}/feed`, {
             'translatedLanguage[]': ['id'],
@@ -1407,6 +1512,8 @@
         renderDetail();
         applyLanguageFilter('all');
         await loadComments(id);
+
+        await loadRecommendations(currentManga);
 
         loadingSpinner.style.display = 'none';
         detailContent.style.display = 'block';
@@ -1486,7 +1593,7 @@
     }
 
     // ============================================================
-    // RENDER CHAPTERS (HANYA ID & EN)
+    // RENDER CHAPTERS
     // ============================================================
     function applyLanguageFilter(lang) {
       currentLang = lang;
@@ -1541,7 +1648,85 @@
     }
 
     // ============================================================
-    // 🔥 KOMENTAR + REPLY (tanpa chapterId → komentar umum)
+    // REKOMENDASI (Recommended) – CAMPURAN MANGA/MANHWA/MANHUA
+    // ============================================================
+    async function loadRecommendations(manga) {
+      if (!manga) return;
+      try {
+        const tags = manga.attributes.tags || [];
+        const genreTags = tags.filter(t => t.attributes?.group === 'genre');
+        const genreIds = genreTags.map(t => t.id);
+        if (genreIds.length === 0) {
+          recGrid.innerHTML = `<div class="rec-empty">Tidak ada genre untuk rekomendasi.</div>`;
+          return;
+        }
+
+        // 🔥 Tentukan contentRating berdasarkan showMature (sama seperti manga.html)
+        let contentRating = ['safe', 'suggestive'];
+        if (showMature) {
+          contentRating = ['safe', 'suggestive', 'erotica', 'pornographic'];
+        }
+
+        // 🔥 GUNAKAN includedTagsMode: 'OR' dan limit 20 untuk hasil lebih beragam
+        const params = {
+          limit: 20,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art'],
+          order: { followedCount: 'desc' },
+          'includedTags[]': genreIds,
+          'includedTagsMode': 'OR', // <<< KUNCI: agar genre tidak harus semua cocok
+          'contentRating[]': contentRating,
+        };
+        const data = await apiFetch('/manga', params);
+        let items = data.data || [];
+        items = items.filter(item => item.id !== manga.id);
+        const shuffled = items.sort(() => Math.random() - 0.5);
+        const recItems = shuffled.slice(0, 6);
+
+        recGrid.innerHTML = '';
+        if (recItems.length === 0) {
+          recGrid.innerHTML = `<div class="rec-empty">Belum ada rekomendasi untuk genre ini.</div>`;
+          return;
+        }
+
+        recItems.forEach(item => {
+          const title = getTitle(item.attributes);
+          const cover = getCoverUrl(item);
+          const coverSrc = cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
+          const isMature = isMatureContent(item.attributes?.contentRating || 'safe');
+          const origin = item.attributes?.originalLanguage || '';
+          const originEmoji = origin === 'ja' ? '🇯🇵' : origin === 'ko' ? '🇰🇷' : origin === 'zh' ? '🇨🇳' : '';
+
+          const div = document.createElement('div');
+          div.className = 'rec-item';
+          div.innerHTML = `
+            <img src="${coverSrc}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22%3E%3Crect width=%22200%22 height=%22300%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Cover%3C/text%3E%3C/svg%3E'" />
+            <div class="rec-info">
+              <h4>${title}</h4>
+              <div class="rec-meta">${originEmoji} ${isMature ? '🔞 18+' : ''} ${getStatusLabel(item.attributes.status)}</div>
+            </div>
+          `;
+          div.addEventListener('click', () => {
+            if (isMature) {
+              pendingMangaId = item.id;
+              overlayLoginMsg.style.display = 'none';
+              overlayConfirmBtn.style.display = 'block';
+              overlay18plus.classList.add('active');
+            } else {
+              window.location.href = `detail.html?id=${item.id}`;
+            }
+          });
+          recGrid.appendChild(div);
+        });
+      } catch (err) {
+        console.error('Load recommendations error:', err);
+        recGrid.innerHTML = `<div class="rec-empty">Gagal memuat rekomendasi.</div>`;
+      }
+    }
+
+    // ============================================================
+    // KOMENTAR + REPLY
     // ============================================================
     async function submitComment() {
       const user = firebase.auth().currentUser;
@@ -1643,8 +1828,6 @@
           .orderBy('createdAt', 'desc')
           .get();
 
-        console.log('📦 Jumlah komentar ditemukan:', snapshot.size);
-
         const allComments = [];
         snapshot.forEach(doc => {
           const data = doc.data();
@@ -1652,8 +1835,6 @@
             allComments.push({ id: doc.id, ...data });
           }
         });
-
-        console.log('📝 Komentar umum (tanpa chapterId):', allComments.length);
 
         const parentComments = allComments.filter(c => c.parentId === null || c.parentId === undefined);
         const replyComments = allComments.filter(c => c.parentId !== null && c.parentId !== undefined);
@@ -1774,7 +1955,6 @@
           </div>
         `;
 
-        // Toggle reply form
         div.querySelector('.reply-toggle').addEventListener('click', (e) => {
           const parentId = e.target.closest('.reply-toggle').dataset.id;
           const form = document.getElementById(`replyForm_${parentId}`);
@@ -1782,7 +1962,6 @@
           if (form.classList.contains('open')) form.querySelector('input').focus();
         });
 
-        // Cancel reply
         div.querySelector('.btn-reply-cancel')?.addEventListener('click', (e) => {
           const parentId = e.target.dataset.parent;
           const form = document.getElementById(`replyForm_${parentId}`);
@@ -1790,7 +1969,6 @@
           form.querySelector('input').value = '';
         });
 
-        // Submit reply
         div.querySelector('.btn-reply-submit')?.addEventListener('click', (e) => {
           const parentId = e.target.dataset.parent;
           const form = document.getElementById(`replyForm_${parentId}`);
@@ -1799,7 +1977,6 @@
           submitReply(parentId, input, btn);
         });
 
-        // Enter key on reply input
         div.querySelector('.reply-form input')?.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
@@ -1811,7 +1988,6 @@
           }
         });
 
-        // Delete comment/reply
         div.querySelectorAll('.delete-btn').forEach(btn => {
           btn.addEventListener('click', async (e) => {
             e.stopPropagation();

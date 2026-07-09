@@ -7,16 +7,16 @@
   <meta name="description" content="Cari dan filter manga, manhwa, manhua berdasarkan genre, origin, status, dan lainnya." />
 
   <!-- ===== PWA ===== -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#3B82F6" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<!-- Icon untuk iOS / Safari -->
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <!-- Icon untuk iOS / Safari -->
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -336,13 +336,85 @@
     }
 
     /* ============================================================
+       SEARCH BAR (BARU)
+       ============================================================ */
+    .search-bar {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .search-bar .search-input-wrap {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      transition: border var(--transition);
+      overflow: hidden;
+    }
+    .search-bar .search-input-wrap:focus-within {
+      border-color: var(--accent);
+    }
+    .search-bar .search-input-wrap input {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--fg-primary);
+      font-size: 0.9rem;
+      font-family: var(--font);
+    }
+    .search-bar .search-input-wrap input::placeholder {
+      color: var(--fg-muted);
+    }
+    .search-bar .search-input-wrap .search-icon {
+      padding: 0.5rem 0.8rem;
+      color: var(--fg-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-bar .btn-search {
+      padding: 0.5rem 1.2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .search-bar .btn-search:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+    .search-bar .btn-reset-search {
+      padding: 0.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--fg-secondary);
+      font-size: 0.85rem;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .search-bar .btn-reset-search:hover {
+      border-color: var(--accent);
+      color: var(--fg-primary);
+    }
+
+    /* ============================================================
        FILTER BAR
        ============================================================ */
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 0.8rem;
-      margin: 1rem 0 1.5rem;
+      margin: 0.5rem 0 1.5rem;
       align-items: center;
     }
     .filter-bar select, .filter-bar input {
@@ -721,6 +793,8 @@
       .nav-menu { display:none; }
       .hamburger { display:flex; }
       .nav-actions .auth-btn span { display:none; }
+      .search-bar .search-input-wrap { min-width:100%; }
+      .search-bar .btn-search, .search-bar .btn-reset-search { flex:1; justify-content:center; }
       .filter-bar select, .filter-bar input { min-width:100%; flex:1 1 100%; }
       .manga-grid { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:0.8rem; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:1.5rem; text-align:center; }
@@ -804,12 +878,25 @@
   <div class="container" id="mainContent">
     <div class="browse-header">
       <h1><i class="fas fa-search"></i> Jelajahi Manga</h1>
-      <div class="sub">Filter berdasarkan genre, origin, status, dan lainnya.</div>
+      <div class="sub">Cari, filter, dan temukan manga favoritmu.</div>
     </div>
 
     <!-- TOMBOL KEMBALI -->
     <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Manga</a>
 
+    <!-- ============================================================
+    SEARCH BAR (BARU)
+    ============================================================ -->
+    <div class="search-bar" id="searchBar">
+      <div class="search-input-wrap">
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+        <input type="text" id="searchInput" placeholder="Cari judul manga..." />
+      </div>
+      <button class="btn-search" id="searchBtn"><i class="fas fa-search"></i> Cari</button>
+      <button class="btn-reset-search" id="resetSearchBtn"><i class="fas fa-times"></i> Reset</button>
+    </div>
+
+    <!-- FILTER BAR -->
     <div class="filter-bar" id="filterBar">
       <select id="genreFilter"><option value="">Semua Genre</option></select>
       <select id="originFilter">
@@ -887,12 +974,12 @@
       origin: '',
       status: '',
       sort: 'latestUploadedChapter',
+      searchQuery: '',
       isFetching: false,
     };
 
-    // 🔥 18+ STATE - DEFAULT OFF ()
-    let showMature = false;
-    let pendingMangaId = null;
+    // 🔥 18+ STATE – sinkron dengan localStorage
+    let showMature = localStorage.getItem('showMature') === 'true';
 
     // ============================================================
     // DOM REFS
@@ -916,6 +1003,11 @@
     const modalCancelBtn = $('modalCancelBtn');
     const modalLoginMsg = $('modalLoginMsg');
 
+    // 🔥 ELEMEN SEARCH (BARU)
+    const searchInput = $('searchInput');
+    const searchBtn = $('searchBtn');
+    const resetSearchBtn = $('resetSearchBtn');
+
     // 🔥 ELEMEN TOGGLE 18+
     const matureToggleBtn = $('matureToggleBtn');
     const matureToggleLabel = $('matureToggleLabel');
@@ -929,32 +1021,43 @@
         authBtn.href = 'profile.html';
         authBtn.querySelector('i').className = 'fas fa-user-check';
 
-        // 🔥 USER LOGIN - aktifkan tombol toggle 18+
         matureToggleBtn.disabled = false;
         matureToggleBtn.title = 'Klik untuk menampilkan atau menyembunyikan konten 18+';
-        if (!showMature) {
-          matureToggleBtn.classList.remove('active');
-          matureToggleLabel.textContent = '18+ ';
+        // Sinkronkan state dari localStorage
+        const stored = localStorage.getItem('showMature') === 'true';
+        if (stored !== showMature) {
+          showMature = stored;
+          updateMatureUI();
         }
-        // Reload data jika perlu
         if (state.mangaList.length === 0) {
           fetchMangaList(1).then(() => { renderMangaGrid(); renderPagination(); });
         }
-
       } else {
         authText.textContent = 'Login';
         authBtn.href = 'login.html';
         authBtn.querySelector('i').className = 'fas fa-user';
 
-        // 🔥 USER LOGOUT - nonaktifkan toggle, set 18+ OFF
         showMature = false;
+        localStorage.setItem('showMature', 'false');
         matureToggleBtn.disabled = true;
         matureToggleBtn.classList.remove('active');
         matureToggleLabel.textContent = '18+ ';
-        // Reload data (sembunyikan 18+)
         fetchMangaList(1).then(() => { renderMangaGrid(); renderPagination(); });
       }
     });
+
+    // ============================================================
+    // UI 18+
+    // ============================================================
+    function updateMatureUI() {
+      if (showMature) {
+        matureToggleBtn.classList.add('active');
+        matureToggleLabel.textContent = '18+ ';
+      } else {
+        matureToggleBtn.classList.remove('active');
+        matureToggleLabel.textContent = '18+ ';
+      }
+    }
 
     // ============================================================
     // UTILITY
@@ -1041,9 +1144,8 @@
       modal18plus.classList.add('active');
     }
 
-    // ============================================================
-    // MODAL 18+ EVENT
-    // ============================================================
+    let pendingMangaId = null;
+
     modalConfirmBtn.addEventListener('click', function() {
       if (!pendingMangaId) { modal18plus.classList.remove('active'); return; }
       const user = firebase.auth().currentUser;
@@ -1082,13 +1184,8 @@
         return;
       }
       showMature = !showMature;
-      if (showMature) {
-        matureToggleBtn.classList.add('active');
-        matureToggleLabel.textContent = '18+ ';
-      } else {
-        matureToggleBtn.classList.remove('active');
-        matureToggleLabel.textContent = '18+ ';
-      }
+      localStorage.setItem('showMature', String(showMature));
+      updateMatureUI();
       // Reset ke halaman 1 dan fetch ulang
       state.currentPage = 1;
       fetchMangaList(1).then(() => {
@@ -1103,18 +1200,24 @@
     async function apiFetch(endpoint, params = {}) {
       const url = new URL(WORKER_URL + endpoint);
       Object.keys(params).forEach(key => {
-        if (Array.isArray(params[key])) { params[key].forEach(v => url.searchParams.append(key, v)); }
-        else if (typeof params[key] === 'object' && params[key] !== null) {
+        if (Array.isArray(params[key])) {
+          params[key].forEach(v => url.searchParams.append(key, v));
+        } else if (typeof params[key] === 'object' && params[key] !== null) {
           if (key === 'order') {
             Object.keys(params[key]).forEach(k => url.searchParams.append(`order[${k}]`, params[key][k]));
-          } else { url.searchParams.append(key, JSON.stringify(params[key])); }
+          } else {
+            url.searchParams.append(key, JSON.stringify(params[key]));
+          }
         } else if (params[key] !== undefined && params[key] !== '') {
           url.searchParams.append(key, params[key]);
         }
       });
       console.log('📡 Fetching:', url.toString());
       const resp = await fetch(url);
-      if (!resp.ok) { const text = await resp.text(); throw new Error(`HTTP ${resp.status}: ${text.substring(0,150)}`); }
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text.substring(0,150)}`);
+      }
       return resp.json();
     }
 
@@ -1122,12 +1225,17 @@
     // FETCH GENRES
     // ============================================================
     async function fetchGenres() {
-      try { const data = await apiFetch('/manga/tag'); return data.data || []; }
-      catch (err) { console.error(err); return []; }
+      try {
+        const data = await apiFetch('/manga/tag');
+        return data.data || [];
+      } catch (err) {
+        console.error(err);
+        return [];
+      }
     }
 
     // ============================================================
-    // FETCH MANGA LIST (dengan halaman)
+    // FETCH MANGA LIST (dengan halaman + search)
     // ============================================================
     async function fetchMangaList(page = 1) {
       if (state.isFetching) return;
@@ -1141,11 +1249,17 @@
           'includes[]': ['cover_art', 'artist', 'author'],
           order: { [state.sort]: 'desc' },
         };
-        // 🔥 Tentukan contentRating berdasarkan showMature
+
+        // 🔥 Tentukan contentRating
         if (showMature) {
           params['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
         } else {
           params['contentRating[]'] = ['safe', 'suggestive'];
+        }
+
+        // Search query
+        if (state.searchQuery.trim()) {
+          params.title = state.searchQuery.trim();
         }
 
         if (state.genre) {
@@ -1244,7 +1358,10 @@
       prevPage.disabled = current <= 1;
       nextPage.disabled = current >= total;
       pageNumbers.innerHTML = '';
-      if (total === 0) { pageNumbers.innerHTML = '<span style="color:var(--fg-muted);font-size:0.8rem;">Tidak ada halaman</span>'; return; }
+      if (total === 0) {
+        pageNumbers.innerHTML = '<span style="color:var(--fg-muted);font-size:0.8rem;">Tidak ada halaman</span>';
+        return;
+      }
       let start = Math.max(1, current - 3);
       let end = Math.min(total, current + 3);
       if (end - start < 6) {
@@ -1300,23 +1417,18 @@
     }
 
     // ============================================================
-    // APPLY FILTER
+    // APPLY FILTERS & SEARCH
     // ============================================================
     async function applyFilters() {
       state.genre = genreFilter.value;
       state.origin = originFilter.value;
       state.status = statusFilter.value;
       state.sort = sortFilter.value;
+      state.searchQuery = searchInput.value.trim();
       await fetchMangaList(1);
       renderMangaGrid();
       renderPagination();
-      const params = new URLSearchParams();
-      if (state.genre) params.set('genre', state.genre);
-      if (state.origin) params.set('origin', state.origin);
-      if (state.status) params.set('status', state.status);
-      if (state.sort && state.sort !== 'latestUploadedChapter') params.set('sort', state.sort);
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      window.history.replaceState({}, '', newUrl);
+      updateURL();
     }
 
     function resetFilters() {
@@ -1324,7 +1436,20 @@
       originFilter.value = '';
       statusFilter.value = '';
       sortFilter.value = 'latestUploadedChapter';
+      searchInput.value = '';
+      state.searchQuery = '';
       applyFilters();
+    }
+
+    function updateURL() {
+      const params = new URLSearchParams();
+      if (state.searchQuery) params.set('q', state.searchQuery);
+      if (state.genre) params.set('genre', state.genre);
+      if (state.origin) params.set('origin', state.origin);
+      if (state.status) params.set('status', state.status);
+      if (state.sort && state.sort !== 'latestUploadedChapter') params.set('sort', state.sort);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', newUrl);
     }
 
     // ============================================================
@@ -1371,15 +1496,37 @@
     });
 
     // ============================================================
+    // EVENT SEARCH
+    // ============================================================
+    searchBtn.addEventListener('click', applyFilters);
+    resetSearchBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      state.searchQuery = '';
+      applyFilters();
+    });
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyFilters();
+      }
+    });
+
+    // ============================================================
     // INIT
     // ============================================================
     async function init() {
       try {
         const params = new URLSearchParams(window.location.search);
+        const searchParam = params.get('q');
         const genreParam = params.get('genre');
         const originParam = params.get('origin');
         const statusParam = params.get('status');
         const sortParam = params.get('sort');
+
+        if (searchParam) {
+          searchInput.value = searchParam;
+          state.searchQuery = searchParam;
+        }
 
         const genres = await fetchGenres();
         genreFilter.innerHTML = '<option value="">Semua Genre</option>';
@@ -1401,7 +1548,7 @@
         state.status = statusFilter.value;
         state.sort = sortFilter.value;
 
-        // 🔥 Default toggle 18+ OFF ()
+        // 🔥 Default toggle 18+ disable dulu
         matureToggleBtn.disabled = true;
         matureToggleLabel.textContent = '18+ ';
 
@@ -1415,7 +1562,7 @@
           el.addEventListener('change', applyFilters);
         });
 
-        showToast('Filter siap digunakan!', 'fa-filter');
+        showToast('Filter dan pencarian siap digunakan!', 'fa-filter');
       } catch (err) {
         console.error('Init error:', err);
         showToast('Gagal memuat data: ' + err.message, 'fa-exclamation-triangle');
@@ -1426,14 +1573,14 @@
   </script>
 
   <!-- Install PWA Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ SW registered'))
-        .catch(err => console.log('❌ SW failed:', err));
-    });
-  }
-</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

@@ -18,8 +18,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 // 🔥 KONFIGURASI CLOUDINARY
-// CLOUD_NAME: cek di https://cloudinary.com/console (contoh: "demos", "mycloud123")
-const CLOUDINARY_CLOUD_NAME = 'qdbqjpcw'; // ⚠️ GANTI DENGAN CLOUD NAME KAMU
+const CLOUDINARY_CLOUD_NAME = 'qdbqjpcw';
 const CLOUDINARY_API_KEY = '778937647787552';
 const CLOUDINARY_UPLOAD_PRESET = 'manga1234';
 
@@ -27,11 +26,9 @@ const CLOUDINARY_UPLOAD_PRESET = 'manga1234';
 // FUNGSI AUTHENTICATION
 // ============================================================
 
-// Registrasi user baru
 async function registerWithEmail(email, password, name) {
   const userCredential = await auth.createUserWithEmailAndPassword(email, password);
   const user = userCredential.user;
-  
   await db.collection('users').doc(user.uid).set({
     name: name,
     email: email,
@@ -39,23 +36,18 @@ async function registerWithEmail(email, password, name) {
     bookmarks: [],
     createdAt: new Date().toISOString()
   });
-  
   return user;
 }
 
-// Login dengan email & password
 async function loginWithEmail(email, password) {
   const userCredential = await auth.signInWithEmailAndPassword(email, password);
   return userCredential.user;
 }
 
-// Login dengan Google
 async function loginWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   const userCredential = await auth.signInWithPopup(provider);
   const user = userCredential.user;
-  
-  // Cek apakah user sudah ada di Firestore, jika belum buat
   const doc = await db.collection('users').doc(user.uid).get();
   if (!doc.exists) {
     await db.collection('users').doc(user.uid).set({
@@ -66,16 +58,13 @@ async function loginWithGoogle() {
       createdAt: new Date().toISOString()
     });
   }
-  
   return user;
 }
 
-// Logout
 async function logoutUser() {
   await auth.signOut();
 }
 
-// Ambil user saat ini
 function getCurrentUser() {
   return auth.currentUser;
 }
@@ -114,6 +103,69 @@ async function removeBookmark(uid, mangaId) {
     const updated = bookmarks.filter(b => b !== mangaId);
     await db.collection('users').doc(uid).update({ bookmarks: updated });
   }
+}
+
+// ============================================================
+// 🔥 FUNGSI READING HISTORY (BARU)
+// ============================================================
+
+/**
+ * Simpan riwayat baca ke Firestore
+ * @param {string} uid - User ID
+ * @param {object} data - { mangaId, mangaTitle, coverUrl, chapterId, chapterNum }
+ */
+async function saveReadingHistory(uid, data) {
+  const { mangaId, mangaTitle, coverUrl, chapterId, chapterNum } = data;
+  if (!uid || !mangaId) return;
+  try {
+    await db.collection('users').doc(uid).collection('readingHistory').doc(mangaId).set({
+      mangaId: mangaId,
+      mangaTitle: mangaTitle || 'Untitled',
+      coverUrl: coverUrl || '',
+      lastChapterId: chapterId || '',
+      lastChapterNum: String(chapterNum || '0'),
+      lastReadAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+  } catch (e) {
+    console.error('Save history error:', e);
+  }
+}
+
+/**
+ * Ambil riwayat baca user (terurut dari terbaru)
+ */
+async function getReadingHistory(uid) {
+  if (!uid) return [];
+  try {
+    const snapshot = await db.collection('users').doc(uid).collection('readingHistory')
+      .orderBy('lastReadAt', 'desc')
+      .limit(50)
+      .get();
+    const history = [];
+    snapshot.forEach(doc => {
+      history.push({ id: doc.id, ...doc.data() });
+    });
+    return history;
+  } catch (e) {
+    console.error('Get history error:', e);
+    return [];
+  }
+}
+
+/**
+ * Ambil riwayat baca dalam bentuk Map (mangaId -> lastChapterNum)
+ * Berguna untuk pengecekan notifikasi chapter baru di halaman utama
+ */
+async function getReadingHistoryMap(uid) {
+  const history = await getReadingHistory(uid);
+  const map = {};
+  history.forEach(item => {
+    map[item.mangaId] = {
+      lastChapterNum: item.lastChapterNum || '0',
+      lastReadAt: item.lastReadAt
+    };
+  });
+  return map;
 }
 
 // ============================================================
@@ -161,4 +213,4 @@ function getSession() {
 
 function clearSession() {
   localStorage.removeItem('currentUser');
-}
+}s

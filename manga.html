@@ -7,16 +7,16 @@
   <meta name="description" content="Baca manga, manhwa, dan manhua terjemahan Indonesia. Ribuan judul gratis dengan bookmark dan komentar." />
 
   <!-- ===== PWA ===== -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#3B82F6" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<!-- Icon untuk iOS / Safari -->
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <!-- Icon untuk iOS / Safari -->
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
 
   <!-- ===== OPEN GRAPH / THUMBNAIL ===== -->
   <meta property="og:site_name" content="Akino Store" />
@@ -49,7 +49,7 @@
 
   <style>
     /* ============================================================
-       ROOT VARIABLES (SAMA SEPERTI VERSI SEBELUMNYA)
+       ROOT VARIABLES
        ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
@@ -107,7 +107,7 @@
     ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
     /* ============================================================
-       NAVBAR (SAMA PERSIS)
+       NAVBAR
        ============================================================ */
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:1000;
@@ -183,7 +183,6 @@
     }
     .nav-actions .auth-btn i { font-size:0.7rem; }
 
-    /* 🔥 TOMBOL TOGGLE 18+ */
     .mature-toggle-btn {
       padding:0.3rem 0.8rem;
       border-radius:var(--radius-sm);
@@ -382,6 +381,66 @@
     }
 
     /* ============================================================
+       AD BANNER (seperti MangaDex)
+       ============================================================ */
+    .ad-banner {
+      background:var(--bg-card);
+      border:2px dashed var(--border-color);
+      border-radius:var(--radius);
+      padding:1.2rem 1.5rem;
+      margin-bottom:1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:0.8rem;
+      transition:all var(--transition);
+    }
+    .ad-banner:hover {
+      border-color:var(--accent);
+      background:var(--bg-card-hover);
+    }
+    .ad-banner .ad-content {
+      display:flex;
+      align-items:center;
+      gap:0.8rem;
+    }
+    .ad-banner .ad-content i {
+      font-size:2rem;
+      color:var(--accent);
+      opacity:0.6;
+    }
+    .ad-banner .ad-content .ad-text {
+      font-size:0.85rem;
+      color:var(--fg-secondary);
+    }
+    .ad-banner .ad-content .ad-text strong {
+      color:var(--fg-primary);
+      display:block;
+      font-size:1rem;
+    }
+    .ad-banner .ad-btn {
+      padding:0.4rem 1.2rem;
+      border-radius:var(--radius-sm);
+      background:var(--accent);
+      color:#fff;
+      font-weight:600;
+      font-size:0.8rem;
+      transition:all var(--transition);
+      white-space:nowrap;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:0.4rem;
+    }
+    .ad-banner .ad-btn:hover {
+      background:var(--accent-hover);
+      transform:scale(1.02);
+    }
+
+    /* ============================================================
        SECTION HEADER
        ============================================================ */
     .section-header {
@@ -401,6 +460,15 @@
       flex-shrink:0;
     }
     .section-header h2 i { color:var(--accent); }
+    .section-header .update-badge {
+      font-size:0.6rem;
+      color:var(--fg-muted);
+      background:var(--bg-card);
+      padding:0.2rem 0.6rem;
+      border-radius:20px;
+      border:1px solid var(--border-color);
+      white-space:nowrap;
+    }
 
     /* ============================================================
        MANGA GRID
@@ -495,8 +563,6 @@
       cursor:pointer;
     }
     .manga-card:hover .read-btn { opacity:1; transform:translateY(0); }
-
-    /* 18+ BADGE */
     .manga-card .mature-badge {
       position:absolute;
       top:6px;
@@ -511,7 +577,6 @@
       text-transform:uppercase;
       z-index:2;
     }
-
     .badge-ongoing { background:rgba(239,68,68,0.2); color:#ef4444; }
     .badge-completed { background:rgba(34,197,94,0.2); color:#22c55e; }
     .badge-hiatus { background:rgba(234,179,8,0.2); color:#eab308; }
@@ -519,9 +584,6 @@
     .badge-origin { background:var(--bg-card); border:1px solid var(--border-color); color:var(--fg-secondary); }
     .badge-18plus { background:rgba(239,68,68,0.2); color:#ef4444; }
 
-    /* ============================================================
-       TOMBOL "LIHAT LAINNYA"
-       ============================================================ */
     .section-footer {
       display:flex;
       justify-content:center;
@@ -547,9 +609,7 @@
       color:var(--fg-primary);
       background:var(--accent-dim);
     }
-    .section-footer .view-all i {
-      font-size:0.65rem;
-    }
+    .section-footer .view-all i { font-size:0.65rem; }
 
     /* ============================================================
        LATEST UPDATE LIST
@@ -697,6 +757,47 @@
       font-size:0.6rem;
       color:var(--fg-secondary);
     }
+    /* Iklan sidebar dengan gaya lebih mencolok */
+    .sidebar .widget-ad {
+      background:var(--bg-card);
+      border:2px dashed var(--border-color);
+      border-radius:var(--radius);
+      padding:1.2rem 1rem;
+      text-align:center;
+      transition:all var(--transition);
+    }
+    .sidebar .widget-ad:hover {
+      border-color:var(--accent);
+      background:var(--bg-card-hover);
+    }
+    .sidebar .widget-ad i {
+      font-size:2rem;
+      color:var(--accent);
+      opacity:0.5;
+      display:block;
+      margin-bottom:0.3rem;
+    }
+    .sidebar .widget-ad p {
+      font-size:0.7rem;
+      color:var(--fg-secondary);
+      margin:0.3rem 0;
+    }
+    .sidebar .widget-ad .ad-btn-small {
+      display:inline-block;
+      padding:0.3rem 1rem;
+      border-radius:var(--radius-sm);
+      background:var(--accent);
+      color:#fff;
+      font-weight:600;
+      font-size:0.7rem;
+      transition:all var(--transition);
+      text-decoration:none;
+      margin-top:0.3rem;
+    }
+    .sidebar .widget-ad .ad-btn-small:hover {
+      background:var(--accent-hover);
+      transform:scale(1.02);
+    }
 
     /* ============================================================
        TOAST
@@ -828,7 +929,7 @@
     @keyframes spin { to { transform:rotate(360deg); } }
 
     /* ============================================================
-       MODAL 18+ (OVERLAY)
+       MODAL 18+
        ============================================================ */
     .modal-18plus {
       position:fixed;
@@ -943,6 +1044,114 @@
     }
 
     /* ============================================================
+       FLOATING SCROLL TO TOP
+       ============================================================ */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 16px;
+      z-index: 999;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+    .scroll-top-btn.visible {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    .scroll-top-btn:hover {
+      background: var(--accent-hover);
+      transform: scale(1.05);
+    }
+    @media (max-width: 768px) {
+      .scroll-top-btn {
+        bottom: 80px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* ============================================================
+       BOTTOM NAV (Mobile)
+       ============================================================ */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 998;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border-color);
+      display: none;
+      justify-content: space-around;
+      align-items: center;
+      padding: 6px 0 env(safe-area-inset-bottom, 6px);
+      height: 60px;
+    }
+    .bottom-nav .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      background: none;
+      border: none;
+      color: var(--fg-secondary);
+      font-size: 0.55rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      transition: color 0.3s;
+      cursor: pointer;
+      font-family: var(--font);
+      position: relative;
+    }
+    .bottom-nav .nav-item i {
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+    .bottom-nav .nav-item:hover,
+    .bottom-nav .nav-item.active {
+      color: var(--accent);
+    }
+    .bottom-nav .nav-item.active i {
+      transform: translateY(-2px);
+    }
+    .bottom-nav .nav-item .badge-dot {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    @media (max-width: 768px) {
+      .bottom-nav {
+        display: flex;
+      }
+      body {
+        padding-bottom: 70px;
+      }
+    }
+
+    /* ============================================================
        RESPONSIVE
        ============================================================ */
     @media (max-width: 1200px) {
@@ -982,6 +1191,16 @@
       .hero-slider .dots { bottom:8px; gap:4px; }
       .hero-slider .dots span { width:6px; height:6px; }
       .hero-slider .dots span.active { width:14px; }
+
+      .ad-banner {
+        flex-direction:column;
+        text-align:center;
+        padding:1rem;
+      }
+      .ad-banner .ad-content {
+        flex-direction:column;
+        text-align:center;
+      }
 
       .section-header h2 { font-size:0.9rem; }
 
@@ -1060,7 +1279,6 @@
       <div class="nav-actions">
         <button class="search-toggle" id="searchToggle"><i class="fas fa-search"></i><span>Search</span></button>
         <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <!-- 🔥 TOMBOL TOGGLE 18+ -->
         <button class="mature-toggle-btn" id="matureToggleBtn" onclick="toggleMature()" disabled>
           <i class="fas fa-lock"></i> <span id="matureToggleLabel">18+ </span>
         </button>
@@ -1095,7 +1313,7 @@
   </div>
 
   <!-- ============================================================
-  MODAL 18+ CONFIRMATION
+  MODAL 18+
   ============================================================ -->
   <div class="modal-18plus" id="modal18plus">
     <div class="modal-box">
@@ -1130,6 +1348,22 @@
       <div class="dots" id="heroDots"></div>
     </section>
 
+    <!-- ============================================================
+    AD BANNER – seperti MangaDex (di bawah hero)
+    ============================================================ -->
+    <div class="ad-banner">
+      <div class="ad-content">
+        <i class="fas fa-ad"></i>
+        <div class="ad-text">
+          <strong>Pasang Iklan di sini</strong>
+          <span>Jangkau ribuan pembaca manga setiap hari. Hubungi kami untuk harga sewa.</span>
+        </div>
+      </div>
+      <a href="https://wa.me/6289687163314" target="_blank" class="ad-btn">
+        <i class="fab fa-whatsapp"></i> Hubungi Kami
+      </a>
+    </div>
+
     <!-- LAYOUT 2 KOLOM -->
     <div class="layout-two-col">
 
@@ -1140,10 +1374,11 @@
         <section id="trending">
           <div class="section-header">
             <h2>🔥 Trending Today</h2>
+            <span class="update-badge" id="trendingUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="trendingGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?sort=rating" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1151,6 +1386,7 @@
         <section id="latest" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>📰 Latest Update</h2>
+            <span class="update-badge" id="latestUpdate">Memuat...</span>
           </div>
           <div class="latest-list" id="latestList"></div>
           <div class="section-footer">
@@ -1162,6 +1398,7 @@
         <section id="popular" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>⭐ Popular This Week</h2>
+            <span class="update-badge" id="popularUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="popularGrid"></div>
           <div class="section-footer">
@@ -1173,10 +1410,11 @@
         <section id="completed" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>✅ Completed</h2>
+            <span class="update-badge" id="completedUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="completedGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?status=completed" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?status=completed&sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1184,10 +1422,11 @@
         <section id="ongoing" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>🔄 Ongoing</h2>
+            <span class="update-badge" id="ongoingUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="ongoingGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?status=ongoing" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?status=ongoing&sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1195,10 +1434,11 @@
         <section id="manga-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇯🇵 Manga</h2>
+            <span class="update-badge" id="mangaOriginUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="mangaOriginGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?origin=ja" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?origin=ja&sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1206,10 +1446,11 @@
         <section id="manhwa-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇰🇷 Manhwa</h2>
+            <span class="update-badge" id="manhwaOriginUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="manhwaOriginGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?origin=ko" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?origin=ko&sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1217,10 +1458,11 @@
         <section id="manhua-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇨🇳 Manhua</h2>
+            <span class="update-badge" id="manhuaOriginUpdate">Memuat...</span>
           </div>
           <div class="manga-grid" id="manhuaOriginGrid"></div>
           <div class="section-footer">
-            <a href="browse.html?origin=zh" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
+            <a href="browse.html?origin=zh&sort=latestUploadedChapter" class="view-all">Lihat Lainnya <i class="fas fa-arrow-right"></i></a>
           </div>
         </section>
 
@@ -1258,9 +1500,16 @@
           <h4><i class="fas fa-random"></i> Random</h4>
           <div id="randomList"></div>
         </div>
-        <div class="widget" style="text-align:center;padding:1.5rem 1rem;background:var(--bg-card);border:1px dashed var(--border-color);">
-          <i class="fas fa-ad" style="font-size:1.5rem;color:var(--fg-muted);"></i>
-          <p style="font-size:0.65rem;color:var(--fg-muted);margin-top:0.3rem;">Advertisement</p>
+        <!-- ============================================================
+        SIDEBAR AD – seperti MangaDex
+        ============================================================ -->
+        <div class="widget-ad">
+          <i class="fas fa-ad"></i>
+          <p><strong>Pasang Iklan Anda</strong></p>
+          <p style="font-size:0.65rem;color:var(--fg-muted);">Tampilkan iklan Anda di sini dan jangkau pembaca manga setia.</p>
+          <a href="https://wa.me/6289687163314" target="_blank" class="ad-btn-small">
+            <i class="fab fa-whatsapp"></i> Hubungi
+          </a>
         </div>
       </aside>
 
@@ -1271,6 +1520,35 @@
   TOAST CONTAINER
   ============================================================ -->
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ============================================================
+  FLOATING SCROLL TO TOP BUTTON
+  ============================================================ -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ============================================================
+  BOTTOM NAV (Mobile)
+  ============================================================ -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" data-target="hero">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-target="trending">
+      <i class="fas fa-fire"></i>
+      <span>Trending</span>
+    </button>
+    <button class="nav-item" data-target="latest">
+      <i class="fas fa-newspaper"></i>
+      <span>Latest</span>
+    </button>
+    <button class="nav-item" data-target="popular">
+      <i class="fas fa-star"></i>
+      <span>Popular</span>
+    </button>
+  </nav>
 
   <!-- ============================================================
   FOOTER
@@ -1295,23 +1573,31 @@
     // ============================================================
     const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
     const COVER_BASE = 'https://uploads.mangadex.org/covers';
-
-    const state = {
-      mangaList: [],
-      total: 0,
-      offset: 0,
-      limit: 24,
-      isFetching: false,
-      hasMore: true,
-    };
+    const AUTO_UPDATE_INTERVAL = 300000; // 5 menit
 
     let currentUserBookmarks = [];
     let heroInterval = null;
     let heroIndex = 0;
     let pendingMangaId = null;
-
-    // 🔥 18+ STATE - DEFAULT OFF ()
     let showMature = false;
+    let autoUpdateTimer = null;
+
+    const sectionData = {
+      trending: [],
+      latest: [],
+      popular: [],
+      completed: [],
+      ongoing: [],
+      mangaOrigin: [],
+      manhwaOrigin: [],
+      manhuaOrigin: [],
+      topRating: [],
+      mostViewed: [],
+      newest: [],
+      random: []
+    };
+
+    let lastUpdate = null;
 
     const $ = id => document.getElementById(id);
     const heroSlides = $('heroSlides');
@@ -1346,10 +1632,18 @@
     const modalConfirmBtn = $('modalConfirmBtn');
     const modalCancelBtn = $('modalCancelBtn');
     const modalLoginMsg = $('modalLoginMsg');
-
-    // 🔥 ELEMEN TOGGLE 18+
     const matureToggleBtn = $('matureToggleBtn');
     const matureToggleLabel = $('matureToggleLabel');
+    const scrollTopBtn = $('scrollTopBtn');
+
+    const trendingUpdate = $('trendingUpdate');
+    const latestUpdate = $('latestUpdate');
+    const popularUpdate = $('popularUpdate');
+    const completedUpdate = $('completedUpdate');
+    const ongoingUpdate = $('ongoingUpdate');
+    const mangaOriginUpdate = $('mangaOriginUpdate');
+    const manhwaOriginUpdate = $('manhwaOriginUpdate');
+    const manhuaOriginUpdate = $('manhuaOriginUpdate');
 
     // ============================================================
     // FIREBASE AUTH & BOOKMARK
@@ -1363,35 +1657,23 @@
           const userData = await getUserProfile(user.uid);
           currentUserBookmarks = userData?.bookmarks || [];
         } catch (e) { currentUserBookmarks = []; }
-
-        // 🔥 USER LOGIN - aktifkan tombol toggle 18+
         matureToggleBtn.disabled = false;
         matureToggleBtn.title = 'Klik untuk menampilkan atau menyembunyikan konten 18+';
         if (!showMature) {
           matureToggleBtn.classList.remove('active');
           matureToggleLabel.textContent = '18+ ';
         }
-        // Reload data jika perlu
-        if (state.mangaList.length === 0) {
-          init();
-        }
-
+        if (!lastUpdate) fetchAllSections();
       } else {
         authText.textContent = 'Login';
         authBtn.href = 'login.html';
         authBtn.querySelector('i').className = 'fas fa-user';
         currentUserBookmarks = [];
-
-        // 🔥 USER LOGOUT - nonaktifkan toggle, set 18+ OFF
         showMature = false;
         matureToggleBtn.disabled = true;
         matureToggleBtn.classList.remove('active');
         matureToggleLabel.textContent = '18+ ';
-        // Reload data (sembunyikan 18+)
-        state.mangaList = [];
-        state.offset = 0;
-        state.hasMore = true;
-        init();
+        if (!lastUpdate) fetchAllSections();
       }
     });
 
@@ -1423,12 +1705,6 @@
       return map[status] || status || 'Unknown';
     }
 
-    function formatDate(dateStr) {
-      if (!dateStr) return 'Unknown';
-      const d = new Date(dateStr);
-      return d.toLocaleDateString('id-ID', { year:'numeric', month:'short', day:'numeric' });
-    }
-
     function timeAgo(dateStr) {
       if (!dateStr) return 'Unknown';
       const now = new Date();
@@ -1438,7 +1714,7 @@
       if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
       if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
       if (diff < 604800) return `${Math.floor(diff/86400)}d ago`;
-      return formatDate(dateStr);
+      return new Date(dateStr).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
     }
 
     function showToast(message, icon='fa-check-circle') {
@@ -1450,41 +1726,115 @@
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(50px)';
         setTimeout(() => toast.remove(), 300);
-      }, 3000);
+      }, 4000);
     }
 
     function isBookmarked(mangaId) {
       return currentUserBookmarks.includes(mangaId);
     }
 
-    async function toggleBookmark(mangaId) {
+    function getContentRating(manga) {
+      return manga?.attributes?.contentRating || 'safe';
+    }
+
+    function isMatureContent(contentRating) {
+      return contentRating === 'erotica' || contentRating === 'pornographic';
+    }
+
+    function getLastChapter(manga) {
+      const ch = manga.attributes?.latestUploadedChapter;
+      if (ch && ch !== 'null' && ch !== 'undefined' && ch.trim() !== '') return ch;
+      const last = manga.attributes?.lastChapter;
+      if (last) return last;
+      return 'N/A';
+    }
+
+    // ============================================================
+    // 18+ HANDLING
+    // ============================================================
+    function is18plusConfirmed(mangaId) {
+      const key = `confirmed18plus_${mangaId}`;
+      return sessionStorage.getItem(key) === 'true';
+    }
+
+    function set18plusConfirmed(mangaId) {
+      const key = `confirmed18plus_${mangaId}`;
+      sessionStorage.setItem(key, 'true');
+    }
+
+    function redirectToLogin() {
+      const currentUrl = encodeURIComponent(window.location.href);
+      window.location.href = `login.html?return=${currentUrl}`;
+    }
+
+    function toggleMature() {
       const user = firebase.auth().currentUser;
       if (!user) {
-        showToast('Silakan login terlebih dahulu!', 'fa-exclamation-circle');
+        showToast('Silakan login terlebih dahulu untuk mengakses konten 18+!', 'fa-exclamation-circle');
         setTimeout(() => window.location.href = 'login.html', 1500);
         return;
       }
-      try {
-        const userData = await getUserProfile(user.uid);
-        const bookmarks = userData?.bookmarks || [];
-        const isBookmarked = bookmarks.includes(mangaId);
-        if (isBookmarked) {
-          await removeBookmark(user.uid, mangaId);
-          showToast('Bookmark dihapus!', 'fa-bookmark');
-          currentUserBookmarks = currentUserBookmarks.filter(id => id !== mangaId);
-        } else {
-          await addBookmark(user.uid, mangaId);
-          showToast('Bookmark ditambahkan!', 'fa-check-circle');
-          currentUserBookmarks.push(mangaId);
-        }
-        const heroItems = state.mangaList.slice(0, 5);
-        renderHeroSlider(heroItems);
-      } catch (err) {
-        console.error('Bookmark error:', err);
-        showToast('Gagal update bookmark: ' + err.message, 'fa-exclamation-triangle');
+      showMature = !showMature;
+      if (showMature) {
+        matureToggleBtn.classList.add('active');
+        matureToggleLabel.textContent = '18+ ';
+      } else {
+        matureToggleBtn.classList.remove('active');
+        matureToggleLabel.textContent = '18+ ';
       }
+      lastUpdate = null;
+      fetchAllSections();
     }
 
+    function handleMatureClick(mangaId) {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        modalLoginMsg.style.display = 'block';
+        modalConfirmBtn.style.display = 'none';
+        modal18plus.classList.add('active');
+        pendingMangaId = mangaId;
+        return;
+      }
+      if (is18plusConfirmed(mangaId)) {
+        window.location.href = `detail.html?id=${mangaId}`;
+        return;
+      }
+      modalLoginMsg.style.display = 'none';
+      modalConfirmBtn.style.display = 'block';
+      pendingMangaId = mangaId;
+      modal18plus.classList.add('active');
+    }
+
+    modalConfirmBtn.addEventListener('click', function() {
+      if (!pendingMangaId) { modal18plus.classList.remove('active'); return; }
+      const user = firebase.auth().currentUser;
+      if (!user) { redirectToLogin(); return; }
+      set18plusConfirmed(pendingMangaId);
+      const targetId = pendingMangaId;
+      pendingMangaId = null;
+      modal18plus.classList.remove('active');
+      window.location.href = `detail.html?id=${targetId}`;
+    });
+
+    modalCancelBtn.addEventListener('click', function() {
+      pendingMangaId = null;
+      modal18plus.classList.remove('active');
+      modalLoginMsg.style.display = 'none';
+      modalConfirmBtn.style.display = 'block';
+    });
+
+    modal18plus.addEventListener('click', function(e) {
+      if (e.target === this) {
+        pendingMangaId = null;
+        modal18plus.classList.remove('active');
+        modalLoginMsg.style.display = 'none';
+        modalConfirmBtn.style.display = 'block';
+      }
+    });
+
+    // ============================================================
+    // BOOKMARK FUNCTIONS
+    // ============================================================
     async function getUserProfile(uid) {
       try {
         const doc = await db.collection('users').doc(uid).get();
@@ -1508,54 +1858,32 @@
       await db.collection('users').doc(uid).set({ bookmarks }, { merge: true });
     }
 
-    // ============================================================
-    // 18+ CONTENT HANDLING
-    // ============================================================
-    function isMatureContent(contentRating) {
-      return contentRating === 'erotica' || contentRating === 'pornographic';
-    }
-
-    function getContentRating(manga) {
-      return manga?.attributes?.contentRating || 'safe';
-    }
-
-    function is18plusConfirmed(mangaId) {
-      const key = `confirmed18plus_${mangaId}`;
-      return sessionStorage.getItem(key) === 'true';
-    }
-
-    function set18plusConfirmed(mangaId) {
-      const key = `confirmed18plus_${mangaId}`;
-      sessionStorage.setItem(key, 'true');
-    }
-
-    function redirectToLogin() {
-      const currentUrl = encodeURIComponent(window.location.href);
-      window.location.href = `login.html?return=${currentUrl}`;
-    }
-
-    // 🔥 TOGGLE 18+ (hanya jika login)
-    function toggleMature() {
+    async function toggleBookmark(mangaId) {
       const user = firebase.auth().currentUser;
       if (!user) {
-        showToast('Silakan login terlebih dahulu untuk mengakses konten 18+!', 'fa-exclamation-circle');
+        showToast('Silakan login terlebih dahulu!', 'fa-exclamation-circle');
         setTimeout(() => window.location.href = 'login.html', 1500);
         return;
       }
-      showMature = !showMature;
-      // Update UI toggle
-      if (showMature) {
-        matureToggleBtn.classList.add('active');
-        matureToggleLabel.textContent = '18+ ';
-      } else {
-        matureToggleBtn.classList.remove('active');
-        matureToggleLabel.textContent = '18+ ';
+      try {
+        const userData = await getUserProfile(user.uid);
+        const bookmarks = userData?.bookmarks || [];
+        const isBookmarked = bookmarks.includes(mangaId);
+        if (isBookmarked) {
+          await removeBookmark(user.uid, mangaId);
+          showToast('Bookmark dihapus!', 'fa-bookmark');
+          currentUserBookmarks = currentUserBookmarks.filter(id => id !== mangaId);
+        } else {
+          await addBookmark(user.uid, mangaId);
+          showToast('Bookmark ditambahkan!', 'fa-check-circle');
+          currentUserBookmarks.push(mangaId);
+        }
+        const heroItems = sectionData.trending.slice(0, 5);
+        renderHeroSlider(heroItems);
+      } catch (err) {
+        console.error('Bookmark error:', err);
+        showToast('Gagal update bookmark: ' + err.message, 'fa-exclamation-triangle');
       }
-      // Reset dan reload data
-      state.mangaList = [];
-      state.offset = 0;
-      state.hasMore = true;
-      init();
     }
 
     // ============================================================
@@ -1584,83 +1912,188 @@
       return resp.json();
     }
 
-    // ============================================================
-    // FETCH MANGA DATA
-    // ============================================================
-    async function fetchMangaData(params = {}) {
-      const defaultParams = {
-        limit: 24,
-        offset: 0,
-        'availableTranslatedLanguage[]': ['id'],
-        'includes[]': ['cover_art', 'artist', 'author'],
-        order: { latestUploadedChapter: 'desc' }
-      };
-      // 🔥 Tentukan contentRating berdasarkan showMature
-      if (showMature) {
-        defaultParams['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
-      } else {
-        defaultParams['contentRating[]'] = ['safe', 'suggestive'];
+    function getContentRatingParams() {
+      return showMature ? ['safe', 'suggestive', 'erotica', 'pornographic'] : ['safe', 'suggestive'];
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-      const finalParams = { ...defaultParams, ...params };
-      if (finalParams.originalLanguage) {
-        finalParams['originalLanguage[]'] = [finalParams.originalLanguage];
-        delete finalParams.originalLanguage;
-      }
-      const data = await apiFetch('/manga', finalParams);
-      return data.data || [];
+      return arr;
     }
 
     // ============================================================
-    // FETCH MANGA LIST (UNTUK INFINITE SCROLL)
+    // FETCH ALL SECTIONS – DENGAN URUTAN YANG BENAR
     // ============================================================
-    async function fetchMangaList(params = {}, append = false) {
-      if (state.isFetching) return;
-      state.isFetching = true;
+    async function fetchAllSections() {
+      const startTime = performance.now();
+      console.log('🔄 Fetching all sections...');
+      showSkeletons();
+
+      const contentRating = getContentRatingParams();
+
       try {
-        const finalParams = { ...params, offset: state.offset, limit: state.limit };
-        if (finalParams.originalLanguage) {
-          finalParams['originalLanguage[]'] = [finalParams.originalLanguage];
-          delete finalParams.originalLanguage;
-        }
-        if (!finalParams.order) {
-          finalParams.order = { latestUploadedChapter: 'desc' };
-        }
-        if (!finalParams['availableTranslatedLanguage[]']) {
-          finalParams['availableTranslatedLanguage[]'] = ['id'];
-        }
-        // 🔥 Tentukan contentRating berdasarkan showMature
-        if (showMature) {
-          finalParams['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
-        } else {
-          finalParams['contentRating[]'] = ['safe', 'suggestive'];
-        }
-        if (!finalParams['includes[]']) {
-          finalParams['includes[]'] = ['cover_art', 'artist', 'author'];
+        // 1. Ambil data utama (30 item) dengan order latestUploadedChapter
+        const mainParams = {
+          limit: 30,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art', 'artist', 'author', 'scanlation_group'],
+          order: { latestUploadedChapter: 'desc' },
+          'contentRating[]': contentRating,
+        };
+        const mainData = await apiFetch('/manga', mainParams);
+        let allItems = mainData.data || [];
+
+        // 2. Urutkan ulang berdasarkan updatedAt (atau createdAt) – fallback yang aman
+        allItems = allItems.sort((a, b) => {
+          const dateA = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const dateB = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return dateB - dateA;
+        });
+
+        // 3. Trending = 12 teratas (diacak sedikit)
+        const trendingRaw = allItems.slice(0, 12);
+        sectionData.trending = shuffleArray([...trendingRaw]);
+
+        // 4. Latest = 15 teratas (tanpa diacak)
+        sectionData.latest = allItems.slice(0, 15);
+
+        // 5. Popular (followedCount)
+        const popularParams = {
+          limit: 10,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art', 'artist', 'author'],
+          order: { followedCount: 'desc' },
+          'contentRating[]': contentRating,
+        };
+        const popularData = await apiFetch('/manga', popularParams);
+        sectionData.popular = popularData.data || [];
+
+        // 6. Completed
+        const completedParams = {
+          limit: 8,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art', 'artist', 'author'],
+          order: { latestUploadedChapter: 'desc' },
+          'status[]': ['completed'],
+          'contentRating[]': contentRating,
+        };
+        const completedData = await apiFetch('/manga', completedParams);
+        let completedItems = completedData.data || [];
+        completedItems = completedItems.sort((a, b) => {
+          const da = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const db = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return db - da;
+        });
+        sectionData.completed = completedItems;
+
+        // 7. Ongoing
+        const ongoingParams = {
+          limit: 8,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art', 'artist', 'author'],
+          order: { latestUploadedChapter: 'desc' },
+          'status[]': ['ongoing'],
+          'contentRating[]': contentRating,
+        };
+        const ongoingData = await apiFetch('/manga', ongoingParams);
+        let ongoingItems = ongoingData.data || [];
+        ongoingItems = ongoingItems.sort((a, b) => {
+          const da = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const db = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return db - da;
+        });
+        sectionData.ongoing = ongoingItems;
+
+        // 8. Origin sections
+        const originPromises = ['ja', 'ko', 'zh'].map(lang => {
+          return apiFetch('/manga', {
+            limit: 8,
+            offset: 0,
+            'availableTranslatedLanguage[]': ['id'],
+            'includes[]': ['cover_art', 'artist', 'author'],
+            order: { latestUploadedChapter: 'desc' },
+            'originalLanguage[]': [lang],
+            'contentRating[]': contentRating,
+          });
+        });
+        const originResults = await Promise.all(originPromises);
+        sectionData.mangaOrigin = (originResults[0].data || []).sort((a,b) => {
+          const da = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const db = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return db - da;
+        });
+        sectionData.manhwaOrigin = (originResults[1].data || []).sort((a,b) => {
+          const da = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const db = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return db - da;
+        });
+        sectionData.manhuaOrigin = (originResults[2].data || []).sort((a,b) => {
+          const da = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
+          const db = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
+          return db - da;
+        });
+
+        // 9. Top Rating
+        const ratingParams = {
+          limit: 5,
+          offset: 0,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art'],
+          order: { rating: 'desc' },
+          'contentRating[]': contentRating,
+        };
+        const ratingData = await apiFetch('/manga', ratingParams);
+        sectionData.topRating = ratingData.data || [];
+
+        // 10. Most Viewed, Newest, Random (dari allItems)
+        sectionData.mostViewed = allItems.slice(0, 5);
+        sectionData.newest = allItems.slice(0, 5);
+        sectionData.random = shuffleArray([...allItems]).slice(0, 5);
+
+        // 11. Render semua
+        renderAllSections();
+
+        lastUpdate = new Date();
+        updateBadges(lastUpdate);
+
+        const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+        console.log(`✅ All sections updated in ${elapsed}s`);
+
+        if (!autoUpdateTimer) {
+          autoUpdateTimer = setInterval(fetchAllSections, AUTO_UPDATE_INTERVAL);
         }
 
-        const data = await apiFetch('/manga', finalParams);
-        const items = data.data || [];
-        state.total = data.total || 0;
-        if (append) {
-          state.mangaList = [...state.mangaList, ...items];
-        } else {
-          state.mangaList = items;
-        }
-        state.hasMore = state.mangaList.length < state.total;
-        state.offset += items.length;
-        return items;
+        const heroItems = sectionData.trending.slice(0, 5);
+        renderHeroSlider(heroItems);
+        setupInfiniteScroll();
+
       } catch (err) {
-        console.error('fetchMangaList error:', err);
-        showToast('Failed to load manga: ' + err.message, 'fa-exclamation-triangle');
-        return [];
-      } finally {
-        state.isFetching = false;
+        console.error('fetchAllSections error:', err);
+        showToast('Gagal memuat data: ' + err.message, 'fa-exclamation-triangle');
       }
     }
 
     // ============================================================
-    // RENDER FUNCTIONS
+    // SKELETON
     // ============================================================
+    function showSkeletons() {
+      renderSkeleton('trendingGrid', 12);
+      renderSkeleton('popularGrid', 10);
+      renderSkeleton('completedGrid', 8);
+      renderSkeleton('ongoingGrid', 8);
+      renderSkeleton('mangaOriginGrid', 8);
+      renderSkeleton('manhwaOriginGrid', 8);
+      renderSkeleton('manhuaOriginGrid', 8);
+      latestList.innerHTML = '<div class="latest-item"><div class="detail" style="padding:0.5rem 0;"><div style="height:16px;background:var(--bg-card);border-radius:4px;width:60%;margin-bottom:4px;"></div><div style="height:12px;background:var(--bg-card);border-radius:4px;width:40%;"></div></div></div>'.repeat(5);
+    }
+
     function renderSkeleton(gridId, count = 12) {
       const grid = document.getElementById(gridId);
       if (!grid) return;
@@ -1680,22 +2113,37 @@
       }
     }
 
+    // ============================================================
+    // RENDER ALL SECTIONS
+    // ============================================================
+    function renderAllSections() {
+      renderMangaGrid('trendingGrid', sectionData.trending, false);
+      renderLatestList(sectionData.latest);
+      renderMangaGrid('popularGrid', sectionData.popular, true);
+      renderMangaGrid('completedGrid', sectionData.completed, false);
+      renderMangaGrid('ongoingGrid', sectionData.ongoing, false);
+      renderMangaGrid('mangaOriginGrid', sectionData.mangaOrigin, false);
+      renderMangaGrid('manhwaOriginGrid', sectionData.manhwaOrigin, false);
+      renderMangaGrid('manhuaOriginGrid', sectionData.manhuaOrigin, false);
+
+      renderSidebarWidget('topRatingList', sectionData.topRating, 'Rating');
+      renderSidebarWidget('mostViewedList', sectionData.mostViewed, 'Views');
+      renderSidebarWidget('newestList', sectionData.newest, 'New');
+      renderSidebarWidget('randomList', sectionData.random, 'Random');
+      renderGenreGrid();
+    }
+
+    // ============================================================
+    // RENDER MANGA GRID
+    // ============================================================
     function renderMangaGrid(gridId, items, showRank = false, append = false) {
       const grid = document.getElementById(gridId);
       if (!grid) return;
-      
-      if (!append) {
-        grid.className = 'manga-grid';
-        grid.innerHTML = '';
-      }
-
+      if (!append) { grid.className = 'manga-grid'; grid.innerHTML = ''; }
       if (!items || items.length === 0) {
-        if (!append) {
-          grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--fg-secondary);padding:1.5rem 0;font-size:0.8rem;">Tidak ada manga.</p>`;
-        }
+        if (!append) grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--fg-secondary);padding:1.5rem 0;font-size:0.8rem;">Tidak ada manga.</p>`;
         return;
       }
-
       const fragment = document.createDocumentFragment();
       items.forEach((manga, idx) => {
         const title = getTitle(manga.attributes);
@@ -1706,15 +2154,19 @@
         const contentRating = getContentRating(manga);
         const isMature = isMatureContent(contentRating);
         const coverSrc = cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
-        
+        const latestChapter = getLastChapter(manga);
+
         const card = document.createElement('div');
         card.className = 'manga-card';
         card.dataset.mangaId = manga.id;
         card.dataset.contentRating = contentRating;
         card.dataset.isMature = isMature ? 'true' : 'false';
-        
+
+        let rankHtml = '';
+        if (showRank && idx < 3) rankHtml = `<div class="rank">#${idx+1}</div>`;
+
         card.innerHTML = `
-          ${showRank && idx < 3 ? `<div class="rank">#${idx+1}</div>` : ''}
+          ${rankHtml}
           ${isMature ? `<div class="mature-badge"><i class="fas fa-lock"></i> 18+</div>` : ''}
           <img class="cover" src="${coverSrc}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 300%22%3E%3Crect width=%22200%22 height=%22300%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Cover%3C/text%3E%3C/svg%3E'" />
           <div class="info">
@@ -1722,101 +2174,34 @@
             <div class="meta">
               <span class="badge ${getStatusBadge(status)}">${getStatusLabel(status)}</span>
               ${rating ? `<span class="badge badge-rating"><i class="fas fa-star rating-star"></i> ${rating.toFixed(1)}</span>` : ''}
-              ${year ? `<span>${year}</span>` : ''}
+              <span>Ch. ${latestChapter}</span>
               ${isMature ? `<span class="badge badge-18plus"><i class="fas fa-lock" style="font-size:0.4rem;margin-right:0.1rem;"></i> 18+</span>` : ''}
             </div>
           </div>
           <button class="read-btn" data-id="${manga.id}">Baca</button>
         `;
-        
+
         card.addEventListener('click', function(e) {
           if (e.target.classList.contains('read-btn')) return;
           const id = this.dataset.mangaId;
           const isMature = this.dataset.isMature === 'true';
-          if (isMature) {
-            handleMatureClick(id);
-          } else {
-            window.location.href = `detail.html?id=${id}`;
-          }
+          if (isMature) handleMatureClick(id);
+          else window.location.href = `detail.html?id=${id}`;
         });
-        
+
         card.querySelector('.read-btn').addEventListener('click', function(e) {
           e.stopPropagation();
           const id = this.dataset.id;
           const parentCard = this.closest('.manga-card');
           const isMature = parentCard.dataset.isMature === 'true';
-          if (isMature) {
-            handleMatureClick(id);
-          } else {
-            window.location.href = `detail.html?id=${id}`;
-          }
+          if (isMature) handleMatureClick(id);
+          else window.location.href = `detail.html?id=${id}`;
         });
-        
+
         fragment.appendChild(card);
       });
       grid.appendChild(fragment);
     }
-
-    // ============================================================
-    // HANDLE MATURE CONTENT CLICK
-    // ============================================================
-    function handleMatureClick(mangaId) {
-      const user = firebase.auth().currentUser;
-      
-      if (!user) {
-        modalLoginMsg.style.display = 'block';
-        modalConfirmBtn.style.display = 'none';
-        modal18plus.classList.add('active');
-        pendingMangaId = mangaId;
-        return;
-      }
-      
-      if (is18plusConfirmed(mangaId)) {
-        window.location.href = `detail.html?id=${mangaId}`;
-        return;
-      }
-      
-      modalLoginMsg.style.display = 'none';
-      modalConfirmBtn.style.display = 'block';
-      pendingMangaId = mangaId;
-      modal18plus.classList.add('active');
-    }
-
-    // ============================================================
-    // MODAL 18+ EVENT
-    // ============================================================
-    modalConfirmBtn.addEventListener('click', function() {
-      if (!pendingMangaId) {
-        modal18plus.classList.remove('active');
-        return;
-      }
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        redirectToLogin();
-        return;
-      }
-      set18plusConfirmed(pendingMangaId);
-      const targetId = pendingMangaId;
-      pendingMangaId = null;
-      modal18plus.classList.remove('active');
-      window.location.href = `detail.html?id=${targetId}`;
-    });
-
-    modalCancelBtn.addEventListener('click', function() {
-      pendingMangaId = null;
-      modal18plus.classList.remove('active');
-      modalLoginMsg.style.display = 'none';
-      modalConfirmBtn.style.display = 'block';
-    });
-
-    modal18plus.addEventListener('click', function(e) {
-      if (e.target === this) {
-        pendingMangaId = null;
-        modal18plus.classList.remove('active');
-        modalLoginMsg.style.display = 'none';
-        modalConfirmBtn.style.display = 'block';
-      }
-    });
 
     // ============================================================
     // RENDER LATEST LIST
@@ -1824,19 +2209,22 @@
     function renderLatestList(items) {
       latestList.innerHTML = '';
       if (!items || items.length === 0) {
-        latestList.innerHTML = `<p style="color:var(--fg-secondary);padding:1rem 0;font-size:0.8rem;">No latest updates.</p>`;
+        latestList.innerHTML = `<p style="color:var(--fg-secondary);padding:1rem 0;font-size:0.8rem;">Tidak ada update terbaru.</p>`;
         return;
       }
-      items.slice(0, 10).forEach(manga => {
+      items.forEach(manga => {
         const title = getTitle(manga.attributes);
         const cover = getCoverUrl(manga);
         const coverSrc = cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%23555" font-size="14"%3ENo%20Cover%3C/text%3E%3C/svg%3E';
-        const status = manga.attributes.status || 'unknown';
-        const rating = manga.attributes?.rating?.bayesianAverage || 0;
-        const latestChapter = manga.attributes?.latestUploadedChapter || 'N/A';
-        const updatedAt = manga.attributes?.updatedAt || manga.attributes?.createdAt;
         const isMature = isMatureContent(getContentRating(manga));
-        
+        const latestChapter = getLastChapter(manga);
+        const updatedAt = manga.attributes?.updatedAt || manga.attributes?.createdAt;
+        const origin = manga.attributes.originalLanguage || '';
+        const originLabel = origin === 'ja' ? '🇯🇵' : origin === 'ko' ? '🇰🇷' : origin === 'zh' ? '🇨🇳' : '';
+
+        const groupRel = manga.relationships?.find(r => r.type === 'scanlation_group');
+        const groupName = groupRel?.attributes?.name || 'No Group';
+
         const item = document.createElement('div');
         item.className = 'latest-item';
         item.innerHTML = `
@@ -1844,47 +2232,19 @@
           <div class="detail">
             <h4>${title} ${isMature ? '🔞' : ''}</h4>
             <div class="meta">
-              <span class="badge ${getStatusBadge(status)}">${getStatusLabel(status)}</span>
-              ${rating ? `<span><i class="fas fa-star rating-star"></i> ${rating.toFixed(1)}</span>` : ''}
               <span>Ch. ${latestChapter}</span>
+              <span>${groupName}</span>
+              ${originLabel ? `<span>${originLabel}</span>` : ''}
               ${isMature ? `<span class="badge badge-18plus" style="font-size:0.5rem;">18+</span>` : ''}
             </div>
             <div class="update-time">${updatedAt ? timeAgo(updatedAt) : 'Recently'}</div>
           </div>
         `;
         item.addEventListener('click', function() {
-          if (isMature) {
-            handleMatureClick(manga.id);
-          } else {
-            window.location.href = `detail.html?id=${manga.id}`;
-          }
+          if (isMature) handleMatureClick(manga.id);
+          else window.location.href = `detail.html?id=${manga.id}`;
         });
         latestList.appendChild(item);
-      });
-    }
-
-    // ============================================================
-    // RENDER GENRE GRID
-    // ============================================================
-    function renderGenreGrid(genres) {
-      genreGrid.innerHTML = '';
-      const icons = {
-        'action':'fa-fist-raised','adventure':'fa-compass','comedy':'fa-laugh','drama':'fa-theater-masks',
-        'fantasy':'fa-hat-wizard','romance':'fa-heart','school':'fa-school','slice of life':'fa-coffee',
-        'martial arts':'fa-fist-raised','magic':'fa-magic','supernatural':'fa-ghost','isekai':'fa-globe',
-        'historical':'fa-landmark','horror':'fa-skull','sci-fi':'fa-rocket','sports':'fa-basketball-ball',
-        'mecha':'fa-robot','psychological':'fa-brain','mystery':'fa-search'
-      };
-      const genreList = genres.length ? genres : Object.keys(icons);
-      genreList.slice(0, 16).forEach(name => {
-        const div = document.createElement('div');
-        div.className = 'genre-item';
-        const icon = icons[name.toLowerCase()] || 'fa-tag';
-        div.innerHTML = `<i class="fas ${icon}"></i><span>${name}</span>`;
-        div.addEventListener('click', () => {
-          window.location.href = `browse.html?genre=${encodeURIComponent(name)}`;
-        });
-        genreGrid.appendChild(div);
       });
     }
 
@@ -1914,13 +2274,37 @@
         `;
         div.addEventListener('click', () => {
           const isMature = isMatureContent(getContentRating(manga));
-          if (isMature) {
-            handleMatureClick(manga.id);
-          } else {
-            window.location.href = `detail.html?id=${manga.id}`;
-          }
+          if (isMature) handleMatureClick(manga.id);
+          else window.location.href = `detail.html?id=${manga.id}`;
         });
         el.appendChild(div);
+      });
+    }
+
+    // ============================================================
+    // RENDER GENRE GRID
+    // ============================================================
+    function renderGenreGrid() {
+      const genreNames = ['Action','Adventure','Comedy','Drama','Fantasy','Romance','School','Slice of Life',
+        'Martial Arts','Magic','Supernatural','Isekai','Historical','Horror','Sci-Fi','Sports','Mecha',
+        'Psychological','Mystery'];
+      const icons = {
+        'action':'fa-fist-raised','adventure':'fa-compass','comedy':'fa-laugh','drama':'fa-theater-masks',
+        'fantasy':'fa-hat-wizard','romance':'fa-heart','school':'fa-school','slice of life':'fa-coffee',
+        'martial arts':'fa-fist-raised','magic':'fa-magic','supernatural':'fa-ghost','isekai':'fa-globe',
+        'historical':'fa-landmark','horror':'fa-skull','sci-fi':'fa-rocket','sports':'fa-basketball-ball',
+        'mecha':'fa-robot','psychological':'fa-brain','mystery':'fa-search'
+      };
+      genreGrid.innerHTML = '';
+      genreNames.slice(0, 16).forEach(name => {
+        const div = document.createElement('div');
+        div.className = 'genre-item';
+        const icon = icons[name.toLowerCase()] || 'fa-tag';
+        div.innerHTML = `<i class="fas ${icon}"></i><span>${name}</span>`;
+        div.addEventListener('click', () => {
+          window.location.href = `browse.html?genre=${encodeURIComponent(name)}`;
+        });
+        genreGrid.appendChild(div);
       });
     }
 
@@ -1943,9 +2327,11 @@
         const rating = manga.attributes?.rating?.bayesianAverage || 0;
         const genreTags = (manga.attributes.tags || []).filter(t => t.attributes?.group === 'genre').slice(0, 3);
         const isMature = isMatureContent(getContentRating(manga));
+        const lastChapter = getLastChapter(manga);
         const slide = document.createElement('div');
         slide.className = 'slide';
-        if (cover) { slide.style.backgroundImage = `url(${cover})`; } else { slide.style.background = 'var(--bg-card)'; }
+        if (cover) slide.style.backgroundImage = `url(${cover})`;
+        else slide.style.background = 'var(--bg-card)';
         slide.innerHTML = `
           <div class="content">
             <span class="badge">${getStatusLabel(status)} ${isMature ? '🔞 18+' : ''}</span>
@@ -1954,6 +2340,7 @@
             <div class="meta">
               ${genreTags.map(g => `<span>${g.attributes.name.en || '?'}</span>`).join('')}
               ${rating ? `<span><i class="fas fa-star rating-star"></i> ${rating.toFixed(1)}</span>` : ''}
+              <span>Ch. ${lastChapter}</span>
               ${isMature ? `<span style="color:#ef4444;font-weight:600;">🔞 18+</span>` : ''}
             </div>
             <div class="actions">
@@ -1968,11 +2355,8 @@
         slide.querySelector('.btn-read').addEventListener('click', (e) => {
           e.stopPropagation();
           const id = manga.id;
-          if (isMature) {
-            handleMatureClick(id);
-          } else {
-            window.location.href = `detail.html?id=${id}`;
-          }
+          if (isMature) handleMatureClick(id);
+          else window.location.href = `detail.html?id=${id}`;
         });
         slide.querySelector('.btn-bookmark').addEventListener('click', (e) => {
           e.stopPropagation();
@@ -2010,8 +2394,84 @@
     }
 
     // ============================================================
+    // UPDATE BADGES
+    // ============================================================
+    function updateBadges(time) {
+      const formatted = time.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+      const badgeText = `🔄 ${formatted}`;
+      [trendingUpdate, latestUpdate, popularUpdate, completedUpdate, ongoingUpdate,
+       mangaOriginUpdate, manhwaOriginUpdate, manhuaOriginUpdate].forEach(el => {
+        if (el) el.textContent = badgeText;
+      });
+    }
+
+    // ============================================================
+    // INFINITE SCROLL
+    // ============================================================
+    let infiniteObserver = null;
+    let infiniteOffset = 24;
+    let infiniteTotal = 0;
+    let infiniteHasMore = true;
+    let infiniteIsFetching = false;
+
+    function setupInfiniteScroll() {
+      if (infiniteObserver) infiniteObserver.disconnect();
+      infiniteObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && infiniteHasMore && !infiniteIsFetching) {
+          loadMoreManga();
+        }
+      }, { threshold: 0.1 });
+      infiniteObserver.observe(infiniteTrigger);
+      infiniteOffset = 24;
+      infiniteTotal = 0;
+      infiniteHasMore = true;
+      infiniteIsFetching = false;
+      infiniteTrigger.innerHTML = '<div class="spinner"></div><span>Load more...</span>';
+    }
+
+    async function loadMoreManga() {
+      if (infiniteIsFetching || !infiniteHasMore) return;
+      infiniteIsFetching = true;
+      infiniteTrigger.classList.add('loading');
+      try {
+        const contentRating = getContentRatingParams();
+        const params = {
+          limit: 24,
+          offset: infiniteOffset,
+          'availableTranslatedLanguage[]': ['id'],
+          'includes[]': ['cover_art', 'artist', 'author'],
+          order: { latestUploadedChapter: 'desc' },
+          'contentRating[]': contentRating,
+        };
+        const data = await apiFetch('/manga', params);
+        const items = data.data || [];
+        infiniteTotal = data.total || 0;
+        if (items.length > 0) {
+          renderMangaGrid('trendingGrid', items, false, true);
+          infiniteOffset += items.length;
+        }
+        infiniteHasMore = infiniteOffset < infiniteTotal;
+        if (!infiniteHasMore) {
+          infiniteTrigger.innerHTML = '<span>Tidak ada lagi.</span>';
+          if (infiniteObserver) {
+            infiniteObserver.disconnect();
+            infiniteObserver = null;
+          }
+        }
+      } catch (err) {
+        console.error('Load more error:', err);
+        showToast('Gagal memuat lebih banyak', 'fa-exclamation-triangle');
+      } finally {
+        infiniteIsFetching = false;
+        infiniteTrigger.classList.remove('loading');
+      }
+    }
+
+    // ============================================================
     // SEARCH
     // ============================================================
+    let searchTimeout;
+
     async function doSearch() {
       const query = searchInput.value.trim();
       if (!query) {
@@ -2024,12 +2484,8 @@
           limit: 10,
           'availableTranslatedLanguage[]': ['id'],
           'includes[]': ['cover_art'],
+          'contentRating[]': getContentRatingParams(),
         };
-        if (showMature) {
-          params['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
-        } else {
-          params['contentRating[]'] = ['safe', 'suggestive'];
-        }
         const data = await apiFetch('/manga', params);
         const items = data.data || [];
         searchResults.innerHTML = '';
@@ -2053,11 +2509,8 @@
           `;
           div.addEventListener('click', () => {
             searchOverlay.classList.remove('open');
-            if (isMature) {
-              handleMatureClick(manga.id);
-            } else {
-              window.location.href = `detail.html?id=${manga.id}`;
-            }
+            if (isMature) handleMatureClick(manga.id);
+            else window.location.href = `detail.html?id=${manga.id}`;
           });
           searchResults.appendChild(div);
         });
@@ -2068,122 +2521,59 @@
     }
 
     // ============================================================
-    // INFINITE SCROLL
+    // SCROLL TO TOP BUTTON
     // ============================================================
-    let infiniteObserver = null;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-    function setupInfiniteScroll() {
-      if (infiniteObserver) infiniteObserver.disconnect();
-      infiniteObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && state.hasMore && !state.isFetching) {
-          loadMoreManga();
+    // ============================================================
+    // BOTTOM NAVIGATION (Mobile)
+    // ============================================================
+    const bottomNavItems = document.querySelectorAll('.bottom-nav .nav-item');
+    bottomNavItems.forEach(item => {
+      item.addEventListener('click', () => {
+        bottomNavItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const targetId = item.dataset.target;
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          const offset = 70;
+          const top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
         }
-      }, { threshold: 0.1 });
-      infiniteObserver.observe(infiniteTrigger);
-    }
+      });
+    });
 
-    async function loadMoreManga() {
-      if (state.isFetching || !state.hasMore) return;
-      infiniteTrigger.classList.add('loading');
-      const items = await fetchMangaList({}, true);
-      infiniteTrigger.classList.remove('loading');
-      if (items && items.length > 0) {
-        renderMangaGrid('trendingGrid', items, false, true);
-      }
-      if (!state.hasMore) {
-        infiniteTrigger.innerHTML = '<span>Tidak ada lagi.</span>';
-        if (infiniteObserver) {
-          infiniteObserver.disconnect();
-          infiniteObserver = null;
-        }
-      }
-    }
-
-    // ============================================================
-    // FETCH ORIGIN SECTIONS
-    // ============================================================
-    async function loadOriginSections() {
-      try {
-        const mangaItems = await fetchMangaData({ originalLanguage: 'ja', limit: 8, order: { latestUploadedChapter: 'desc' } });
-        renderMangaGrid('mangaOriginGrid', mangaItems, false);
-        const manhwaItems = await fetchMangaData({ originalLanguage: 'ko', limit: 8, order: { latestUploadedChapter: 'desc' } });
-        renderMangaGrid('manhwaOriginGrid', manhwaItems, false);
-        const manhuaItems = await fetchMangaData({ originalLanguage: 'zh', limit: 8, order: { latestUploadedChapter: 'desc' } });
-        renderMangaGrid('manhuaOriginGrid', manhuaItems, false);
-      } catch (err) {
-        console.error('loadOriginSections error:', err);
-        showToast('Gagal memuat section origin: ' + err.message, 'fa-exclamation-triangle');
-      }
-    }
-
-    // ============================================================
-    // INIT
-    // ============================================================
-    async function init() {
-      console.log('🚀 Manga App Starting... (18+ =', showMature ? 'ON' : 'OFF', ')');
-      renderSkeleton('trendingGrid', 12);
-      renderSkeleton('mangaOriginGrid', 8);
-      renderSkeleton('manhwaOriginGrid', 8);
-      renderSkeleton('manhuaOriginGrid', 8);
-      renderSkeleton('popularGrid', 10);
-      renderSkeleton('completedGrid', 8);
-      renderSkeleton('ongoingGrid', 8);
-
-      try {
-        const initialParams = {
-          limit: 24,
-          offset: 0,
-          'availableTranslatedLanguage[]': ['id'],
-          'includes[]': ['cover_art', 'artist', 'author'],
-          order: { latestUploadedChapter: 'desc' },
-        };
-        if (showMature) {
-          initialParams['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
-        } else {
-          initialParams['contentRating[]'] = ['safe', 'suggestive'];
-        }
-        const initialData = await apiFetch('/manga', initialParams);
-        const allItems = initialData.data || [];
-        state.total = initialData.total || 0;
-        state.mangaList = allItems;
-        state.offset = allItems.length;
-        state.hasMore = allItems.length < state.total;
-
-        const shuffled = [...allItems].sort(() => Math.random() - 0.5);
-        const trending = shuffled.slice(0, 12);
-        const popular = shuffled.slice(0, 10);
-        const completed = allItems.filter(m => m.attributes.status === 'completed').slice(0, 8);
-        const ongoing = allItems.filter(m => m.attributes.status === 'ongoing').slice(0, 8);
-        const latest = allItems.slice(0, 10);
-        const heroItems = allItems.slice(0, 5);
-
-        renderHeroSlider(heroItems);
-        renderMangaGrid('trendingGrid', trending, false);
-        renderLatestList(latest);
-        renderMangaGrid('popularGrid', popular, true);
-        renderMangaGrid('completedGrid', completed, false);
-        renderMangaGrid('ongoingGrid', ongoing, false);
-
-        await loadOriginSections();
-
-        const genreNames = ['Action','Adventure','Comedy','Drama','Fantasy','Romance','School','Slice of Life',
-          'Martial Arts','Magic','Supernatural','Isekai','Historical','Horror','Sci-Fi','Sports','Mecha',
-          'Psychological','Mystery'];
-        renderGenreGrid(genreNames);
-
-        const randomItems = [...allItems].sort(() => Math.random() - 0.5);
-        renderSidebarWidget('topRatingList', allItems.sort((a,b) => (b.attributes?.rating?.bayesianAverage||0) - (a.attributes?.rating?.bayesianAverage||0)), 'Rating');
-        renderSidebarWidget('mostViewedList', allItems, 'Views');
-        renderSidebarWidget('newestList', allItems, 'New');
-        renderSidebarWidget('randomList', randomItems, 'Random');
-
-        setupInfiniteScroll();
-        console.log('✅ Initialization complete');
-      } catch (err) {
-        console.error('Init error:', err);
-        showToast('Error loading data: ' + err.message, 'fa-exclamation-triangle');
-      }
-    }
+    // Update active nav item saat scroll
+    let navScrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(navScrollTimeout);
+      navScrollTimeout = setTimeout(() => {
+        const sections = ['hero', 'trending', 'latest', 'popular'];
+        let activeId = 'hero';
+        sections.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= 100) {
+              activeId = id;
+            }
+          }
+        });
+        bottomNavItems.forEach(item => {
+          item.classList.toggle('active', item.dataset.target === activeId);
+        });
+      }, 100);
+    });
 
     // ============================================================
     // EVENT BINDINGS
@@ -2220,7 +2610,10 @@
     searchOverlay.addEventListener('click', (e) => {
       if (e.target === searchOverlay) searchOverlay.classList.remove('open');
     });
-    searchInput.addEventListener('input', doSearch);
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(doSearch, 400);
+    });
 
     document.querySelectorAll('#bookmarkLink, #bookmarkLinkMobile').forEach(el => {
       el.addEventListener('click', (e) => {
@@ -2237,23 +2630,22 @@
       navbar.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    // 🔥 Inisialisasi toggle button (default disabled)
     matureToggleBtn.disabled = true;
     matureToggleLabel.textContent = '18+ ';
 
-    init();
-    console.log('📚 Manga App Ready with 18+ Toggle (default OFF)');
+    fetchAllSections();
+    console.log('📚 Manga App Ready with Auto-Update every 5 min');
   </script>
 
   <!-- Install PWA Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ SW registered'))
-        .catch(err => console.log('❌ SW failed:', err));
-    });
-  }
-</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

@@ -7,16 +7,16 @@
   <meta name="description" content="Baca chapter manga dengan nyaman." />
 
   <!-- ===== PWA ===== -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#3B82F6" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<!-- Icon untuk iOS / Safari -->
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <!-- Icon untuk iOS / Safari -->
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -258,7 +258,7 @@
       opacity:0.4; cursor:not-allowed; transform:none;
     }
 
-    /* ===== READER IMAGES - PAGE (tanpa label next/prev) ===== */
+    /* ===== READER IMAGES - PAGE ===== */
     .reader-images.page {
       display:flex; flex-direction:column; align-items:center; gap:0.4rem;
       padding-bottom:2rem;
@@ -275,7 +275,6 @@
       user-select:none;
       -webkit-user-select:none;
     }
-    /* Area klik kiri/kanan gambar (tanpa teks) */
     .reader-images.page .click-area {
       position:absolute;
       inset:0;
@@ -355,8 +354,6 @@
     .full-view .full-content .full-images img {
       max-width:100%; height:auto; object-fit:contain;
     }
-
-    /* Full View - Click Area untuk next/prev */
     .full-view .full-click-area {
       position:absolute;
       inset:0;
@@ -389,7 +386,6 @@
     .full-view .full-click-area .half:hover .hint {
       opacity:1;
     }
-
     .full-view .full-content .full-nav {
       position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
       display:flex; gap:0.8rem; align-items:center;
@@ -1009,7 +1005,6 @@
     const authBtn = $('authBtn');
     const authText = $('authText');
 
-    // Komentar
     const commentList = $('commentList');
     const commentInput = $('commentInput');
     const submitCommentBtn = $('submitCommentBtn');
@@ -1019,7 +1014,7 @@
     const emptyComment = $('emptyComment');
 
     // ================================================================
-    // 🔥 CEK STATUS LOGIN (FIREBASE)
+    // CEK STATUS LOGIN (FIREBASE)
     // ================================================================
     let currentUser = null;
     firebase.auth().onAuthStateChanged((user) => {
@@ -1054,6 +1049,7 @@
     let isFullView = false;
     let currentLang = null;
     let currentChapterNum = 0;
+    let currentMangaTitle = 'Manga';
 
     // ================================================================
     // UTILITY
@@ -1076,38 +1072,22 @@
       return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    function getUserDisplayName(user) {
-      if (!user) return 'User';
-      return user.displayName || user.email || 'User';
-    }
-
     // ================================================================
-    // 🔥 KOMENTAR – FIRESTORE (dengan chapterId)
+    // KOMENTAR (sama seperti sebelumnya)
     // ================================================================
-    const COMMENTS_COLLECTION = 'comments';
-
     async function loadComments(mangaId, chapterId) {
       try {
-        const snapshot = await db.collection(COMMENTS_COLLECTION)
+        const snapshot = await db.collection('comments')
           .where('mangaId', '==', mangaId)
           .where('chapterId', '==', chapterId)
           .orderBy('createdAt', 'desc')
           .get();
-
         const allComments = [];
         snapshot.forEach(doc => {
           allComments.push({ id: doc.id, ...doc.data() });
         });
-
         const parentComments = allComments.filter(c => c.parentId === null || c.parentId === undefined);
         const replyComments = allComments.filter(c => c.parentId !== null && c.parentId !== undefined);
-
         const commentMap = {};
         parentComments.forEach(c => { commentMap[c.id] = { ...c, replies: [] }; });
         replyComments.forEach(r => {
@@ -1115,7 +1095,6 @@
             commentMap[r.parentId].replies.push(r);
           }
         });
-
         Object.keys(commentMap).forEach(key => {
           commentMap[key].replies.sort((a, b) => {
             const aTime = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(0);
@@ -1123,21 +1102,15 @@
             return aTime - bTime;
           });
         });
-
         const sortedParents = Object.values(commentMap).sort((a, b) => {
           const aTime = a.createdAt?.toDate ? a.createdAt.toDate() : new Date(0);
           const bTime = b.createdAt?.toDate ? b.createdAt.toDate() : new Date(0);
           return bTime - aTime;
         });
-
         renderCommentsWithReplies(sortedParents);
       } catch (err) {
-        console.error('❌ Load comments error:', err);
-        commentList.innerHTML = `
-          <div class="comment-error">
-            <i class="fas fa-exclamation-triangle"></i> Gagal memuat komentar: ${err.message}
-          </div>
-        `;
+        console.error('Load comments error:', err);
+        commentList.innerHTML = `<div class="comment-error">Gagal memuat komentar.</div>`;
         commentCount.textContent = '(0)';
       }
     }
@@ -1145,48 +1118,27 @@
     function renderCommentsWithReplies(comments) {
       commentList.innerHTML = '';
       commentCount.textContent = `(${comments.length})`;
-
       if (comments.length === 0) {
-        commentList.innerHTML = `
-          <div class="empty-comment">
-            <i class="fas fa-comment-slash"></i>
-            Belum ada komentar. Jadilah yang pertama!
-          </div>
-        `;
+        commentList.innerHTML = `<div class="empty-comment"><i class="fas fa-comment-slash"></i> Belum ada komentar.</div>`;
         return;
       }
-
       const user = firebase.auth().currentUser;
-
       comments.forEach(comment => {
         const div = document.createElement('div');
         div.className = 'comment-item';
-
         const isOwner = user && comment.uid === user.uid;
         const time = comment.createdAt?.toDate ? formatDate(comment.createdAt.toDate()) : 'Baru saja';
-
-        let avatarHtml = '';
-        if (comment.photoURL) {
-          avatarHtml = `<img src="${comment.photoURL}" alt="Avatar" class="avatar" />`;
-        } else {
-          avatarHtml = `<div class="avatar-placeholder"><i class="fas fa-user"></i></div>`;
-        }
-
+        let avatarHtml = comment.photoURL ? `<img src="${comment.photoURL}" alt="Avatar" class="avatar" />` : `<div class="avatar-placeholder"><i class="fas fa-user"></i></div>`;
         div.innerHTML = `
           <div class="comment-header">
-            <span class="comment-name">
-              ${avatarHtml}
-              <span>${comment.name || 'Anonymous'}</span>
-            </span>
+            <span class="comment-name">${avatarHtml}<span>${comment.name || 'Anonymous'}</span></span>
             <div style="display:flex;align-items:center;gap:0.5rem;">
               <span class="comment-time">${time}</span>
-              ${isOwner ? `<button class="delete-btn" data-id="${comment.id}" title="Hapus komentar" style="background:none;border:none;color:var(--fg-muted);cursor:pointer;font-size:0.7rem;"><i class="fas fa-trash-alt"></i></button>` : ''}
+              ${isOwner ? `<button class="delete-btn" data-id="${comment.id}" style="background:none;border:none;color:var(--fg-muted);cursor:pointer;font-size:0.7rem;"><i class="fas fa-trash-alt"></i></button>` : ''}
             </div>
           </div>
           <div class="comment-text">${comment.text}</div>
-          <div class="comment-actions">
-            <button class="reply-toggle" data-id="${comment.id}"><i class="fas fa-reply"></i> Balas</button>
-          </div>
+          <div class="comment-actions"><button class="reply-toggle" data-id="${comment.id}"><i class="fas fa-reply"></i> Balas</button></div>
           <div class="reply-form" id="replyForm_${comment.id}">
             <input type="text" placeholder="Tulis balasan..." maxlength="500" />
             <button class="btn-reply-submit" data-parent="${comment.id}"><i class="fas fa-reply"></i> Kirim Balasan</button>
@@ -1196,48 +1148,32 @@
             ${comment.replies.map(reply => {
               const isReplyOwner = user && reply.uid === user.uid;
               const replyTime = reply.createdAt?.toDate ? formatDate(reply.createdAt.toDate()) : 'Baru saja';
-              let replyAvatar = '';
-              if (reply.photoURL) {
-                replyAvatar = `<img src="${reply.photoURL}" alt="Avatar" class="avatar" />`;
-              } else {
-                replyAvatar = `<div class="avatar-placeholder"><i class="fas fa-user"></i></div>`;
-              }
-              return `
-                <div class="reply-item" data-id="${reply.id}">
-                  <div class="reply-header">
-                    <span class="reply-name">
-                      ${replyAvatar}
-                      <span>${reply.name || 'Anonymous'}</span>
-                    </span>
-                    <div style="display:flex;align-items:center;gap:0.5rem;">
-                      <span class="reply-time">${replyTime}</span>
-                      ${isReplyOwner ? `<button class="delete-btn" data-id="${reply.id}" title="Hapus balasan" style="background:none;border:none;color:var(--fg-muted);cursor:pointer;font-size:0.6rem;"><i class="fas fa-trash-alt"></i></button>` : ''}
-                    </div>
+              let replyAvatar = reply.photoURL ? `<img src="${reply.photoURL}" alt="Avatar" class="avatar" />` : `<div class="avatar-placeholder"><i class="fas fa-user"></i></div>`;
+              return `<div class="reply-item" data-id="${reply.id}">
+                <div class="reply-header">
+                  <span class="reply-name">${replyAvatar}<span>${reply.name || 'Anonymous'}</span></span>
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <span class="reply-time">${replyTime}</span>
+                    ${isReplyOwner ? `<button class="delete-btn" data-id="${reply.id}" style="background:none;border:none;color:var(--fg-muted);cursor:pointer;font-size:0.6rem;"><i class="fas fa-trash-alt"></i></button>` : ''}
                   </div>
-                  <div class="reply-text">${reply.text}</div>
                 </div>
-              `;
+                <div class="reply-text">${reply.text}</div>
+              </div>`;
             }).join('')}
           </div>
         `;
-
-        // Toggle reply form
         div.querySelector('.reply-toggle').addEventListener('click', (e) => {
           const parentId = e.target.closest('.reply-toggle').dataset.id;
           const form = document.getElementById(`replyForm_${parentId}`);
           form.classList.toggle('open');
           if (form.classList.contains('open')) form.querySelector('input').focus();
         });
-
-        // Cancel reply
         div.querySelector('.btn-reply-cancel')?.addEventListener('click', (e) => {
           const parentId = e.target.dataset.parent;
           const form = document.getElementById(`replyForm_${parentId}`);
           form.classList.remove('open');
           form.querySelector('input').value = '';
         });
-
-        // Submit reply
         div.querySelector('.btn-reply-submit')?.addEventListener('click', (e) => {
           const parentId = e.target.dataset.parent;
           const form = document.getElementById(`replyForm_${parentId}`);
@@ -1245,8 +1181,6 @@
           const btn = e.target;
           submitReply(parentId, input, btn);
         });
-
-        // Enter key on reply input
         div.querySelector('.reply-form input')?.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
@@ -1257,27 +1191,89 @@
             submitReply(parentId, input, btn);
           }
         });
-
-        // Delete comment/reply
         div.querySelectorAll('.delete-btn').forEach(btn => {
           btn.addEventListener('click', async (e) => {
             e.stopPropagation();
             const id = e.target.closest('.delete-btn').dataset.id;
             if (confirm('Hapus komentar/balasan ini?')) {
               try {
-                await db.collection(COMMENTS_COLLECTION).doc(id).delete();
+                await db.collection('comments').doc(id).delete();
                 showToast('Komentar/balasan dihapus.', 'info');
                 if (currentMangaId && currentChapterId) loadComments(currentMangaId, currentChapterId);
-              } catch (err) {
-                console.error('Delete error:', err);
-                showToast('Gagal hapus.', 'error');
-              }
+              } catch (err) { showToast('Gagal hapus.', 'error'); }
             }
           });
         });
-
         commentList.appendChild(div);
       });
+    }
+
+    async function submitComment() {
+      const user = firebase.auth().currentUser;
+      if (!user) { showToast('Silakan login!', 'fa-exclamation-circle'); return; }
+      const text = commentInput.value.trim();
+      if (!text) return;
+      let name = 'User', photoURL = '';
+      try {
+        const userData = await getUserProfile(user.uid);
+        name = userData?.name || user.displayName || 'User';
+        photoURL = userData?.photoURL || user.photoURL || '';
+      } catch (e) {}
+      submitCommentBtn.disabled = true;
+      submitCommentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      try {
+        await db.collection('comments').add({
+          mangaId: currentMangaId,
+          chapterId: currentChapterId,
+          parentId: null,
+          uid: user.uid,
+          name: name,
+          photoURL: photoURL,
+          text: text,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        commentInput.value = '';
+        showToast('Komentar terkirim!', 'success');
+        await loadComments(currentMangaId, currentChapterId);
+      } catch (err) { showToast('Gagal kirim', 'error'); }
+      finally {
+        submitCommentBtn.disabled = false;
+        submitCommentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim';
+      }
+    }
+
+    async function submitReply(parentId, replyInput, replyBtn) {
+      const user = firebase.auth().currentUser;
+      if (!user) { showToast('Silakan login!', 'fa-exclamation-circle'); return; }
+      const text = replyInput.value.trim();
+      if (!text) return;
+      let name = 'User', photoURL = '';
+      try {
+        const userData = await getUserProfile(user.uid);
+        name = userData?.name || user.displayName || 'User';
+        photoURL = userData?.photoURL || user.photoURL || '';
+      } catch (e) {}
+      replyBtn.disabled = true;
+      replyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      try {
+        await db.collection('comments').add({
+          mangaId: currentMangaId,
+          chapterId: currentChapterId,
+          parentId: parentId,
+          uid: user.uid,
+          name: name,
+          photoURL: photoURL,
+          text: text,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        replyInput.value = '';
+        showToast('Balasan terkirim!', 'success');
+        await loadComments(currentMangaId, currentChapterId);
+      } catch (err) { showToast('Gagal kirim', 'error'); }
+      finally {
+        replyBtn.disabled = false;
+        replyBtn.innerHTML = '<i class="fas fa-reply"></i> Kirim Balasan';
+      }
     }
 
     async function renderComments() {
@@ -1289,133 +1285,42 @@
       await loadComments(currentMangaId, currentChapterId);
     }
 
-    // Kirim komentar utama (dengan chapterId)
-    async function submitComment() {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        showToast('Silakan login terlebih dahulu!', 'fa-exclamation-circle');
-        return;
-      }
-
-      const text = commentInput.value.trim();
-      if (!text) return;
-
-      let name = 'User';
-      let photoURL = '';
-      try {
-        const userData = await getUserProfile(user.uid);
-        name = userData?.name || user.displayName || 'User';
-        photoURL = userData?.photoURL || user.photoURL || '';
-      } catch (e) {
-        name = user.displayName || 'User';
-        photoURL = user.photoURL || '';
-      }
-
-      submitCommentBtn.disabled = true;
-      submitCommentBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-
-      try {
-        await db.collection(COMMENTS_COLLECTION).add({
-          mangaId: currentMangaId,
-          chapterId: currentChapterId,
-          parentId: null,
-          uid: user.uid,
-          name: name,
-          photoURL: photoURL,
-          text: text,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        commentInput.value = '';
-        showToast('Komentar berhasil dikirim!', 'success');
-        await renderComments();
-      } catch (err) {
-        console.error('Submit comment error:', err);
-        showToast('Gagal mengirim komentar: ' + err.message, 'fa-exclamation-triangle');
-      } finally {
-        submitCommentBtn.disabled = false;
-        submitCommentBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim';
-      }
-    }
-
-    // Kirim balasan (dengan chapterId)
-    async function submitReply(parentId, replyInput, replyBtn) {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        showToast('Silakan login terlebih dahulu!', 'fa-exclamation-circle');
-        return;
-      }
-
-      const text = replyInput.value.trim();
-      if (!text) return;
-
-      let name = 'User';
-      let photoURL = '';
-      try {
-        const userData = await getUserProfile(user.uid);
-        name = userData?.name || user.displayName || 'User';
-        photoURL = userData?.photoURL || user.photoURL || '';
-      } catch (e) {
-        name = user.displayName || 'User';
-        photoURL = user.photoURL || '';
-      }
-
-      replyBtn.disabled = true;
-      replyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-
-      try {
-        await db.collection(COMMENTS_COLLECTION).add({
-          mangaId: currentMangaId,
-          chapterId: currentChapterId,
-          parentId: parentId,
-          uid: user.uid,
-          name: name,
-          photoURL: photoURL,
-          text: text,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        replyInput.value = '';
-        showToast('Balasan berhasil dikirim!', 'success');
-        await renderComments();
-      } catch (err) {
-        console.error('Submit reply error:', err);
-        showToast('Gagal mengirim balasan: ' + err.message, 'fa-exclamation-triangle');
-      } finally {
-        replyBtn.disabled = false;
-        replyBtn.innerHTML = '<i class="fas fa-reply"></i> Kirim Balasan';
-      }
-    }
-
-    // ================================================================
-    // 🔥 BOOKMARK (opsional)
-    // ================================================================
     async function getUserProfile(uid) {
       try {
         const doc = await db.collection('users').doc(uid).get();
         return doc.exists ? doc.data() : null;
-      } catch (e) {
-        console.error('getUserProfile error:', e);
-        return null;
-      }
-    }
-
-    async function addBookmark(uid, mangaId) {
-      const userData = await getUserProfile(uid) || {};
-      const bookmarks = userData.bookmarks || [];
-      if (!bookmarks.includes(mangaId)) {
-        bookmarks.push(mangaId);
-        await db.collection('users').doc(uid).set({ bookmarks }, { merge: true });
-      }
-    }
-
-    async function removeBookmark(uid, mangaId) {
-      const userData = await getUserProfile(uid) || {};
-      let bookmarks = userData.bookmarks || [];
-      bookmarks = bookmarks.filter(id => id !== mangaId);
-      await db.collection('users').doc(uid).set({ bookmarks }, { merge: true });
+      } catch { return null; }
     }
 
     // ================================================================
-    // API – MANGA SCRAPPER
+    // 🔥 SAVE READING HISTORY (BARU)
+    // ================================================================
+    async function saveReadingHistory() {
+      const user = firebase.auth().currentUser;
+      if (!user) return;
+      if (!currentMangaId || !currentChapterId) return;
+
+      try {
+        // Ambil cover dari data yang ada
+        const readingData = JSON.parse(localStorage.getItem('currentReading') || '{}');
+        const mangaData = readingData.chapters?.find(c => c.id === currentChapterId);
+        const mangaTitle = currentMangaTitle || readingData.mangaTitle || 'Manga';
+        const coverUrl = readingData.coverUrl || '';
+
+        await saveReadingHistory(user.uid, {
+          mangaId: currentMangaId,
+          mangaTitle: mangaTitle,
+          coverUrl: coverUrl,
+          chapterId: currentChapterId,
+          chapterNum: String(currentChapterNum || '0')
+        });
+      } catch (e) {
+        console.error('Save history error:', e);
+      }
+    }
+
+    // ================================================================
+    // API
     // ================================================================
     async function apiFetch(endpoint, params = {}) {
       const url = new URL(WORKER_URL + endpoint);
@@ -1441,7 +1346,7 @@
     }
 
     // ================================================================
-    // ⭐ FUNGSI NAVIGASI CHAPTER (berdasarkan nomor chapter)
+    // NAVIGASI CHAPTER
     // ================================================================
     function findNextChapter(currentId, lang) {
       const current = allChapters.find(c => c.id === currentId);
@@ -1470,47 +1375,34 @@
     }
 
     // ================================================================
-    // RENDER GAMBAR
+    // RENDER IMAGES
     // ================================================================
     function renderImages(mode) {
       const isPage = (mode === 'page');
       readerImages.innerHTML = '';
-
       const nextChapter = findNextChapter(currentChapterId, currentLang);
 
       if (isPage) {
         readerImages.className = 'reader-images page';
         const wrapper = document.createElement('div');
         wrapper.className = 'page-wrapper';
-
         const img = document.createElement('img');
         img.src = pageUrls[currentPageIndex] || '';
         img.alt = `Halaman ${currentPageIndex + 1}`;
         img.onerror = function() {
-          this.src =
-            'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
+          this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
         };
-
-        // 🔥 CLICK AREA (kiri/kanan) tanpa teks
         const clickArea = document.createElement('div');
         clickArea.className = 'click-area';
         const leftHalf = document.createElement('div');
         leftHalf.className = 'half left';
-        leftHalf.addEventListener('click', (e) => {
-          e.stopPropagation();
-          goPage(-1);
-        });
+        leftHalf.addEventListener('click', (e) => { e.stopPropagation(); goPage(-1); });
         const rightHalf = document.createElement('div');
         rightHalf.className = 'half right';
-        rightHalf.addEventListener('click', (e) => {
-          e.stopPropagation();
-          goPage(1);
-        });
-
+        rightHalf.addEventListener('click', (e) => { e.stopPropagation(); goPage(1); });
         clickArea.appendChild(leftHalf);
         clickArea.appendChild(rightHalf);
 
-        // Footer (page info + next chapter)
         const footer = document.createElement('div');
         footer.className = 'page-footer';
         const pageInfo = document.createElement('span');
@@ -1541,7 +1433,6 @@
         readerImages._nextBtn = nextBtn;
 
       } else {
-        // SCROLL MODE
         readerImages.className = 'reader-images scroll';
         pageUrls.forEach(url => {
           const img = document.createElement('img');
@@ -1549,12 +1440,10 @@
           img.alt = 'Halaman';
           img.loading = 'lazy';
           img.onerror = function() {
-            this.src =
-              'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
+            this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3EGagal%20load%3C/text%3E%3C/svg%3E';
           };
           readerImages.appendChild(img);
         });
-
         const scrollFooter = document.createElement('div');
         scrollFooter.className = 'scroll-footer';
         const nextBtn = document.createElement('button');
@@ -1573,6 +1462,8 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 🔥 Simpan riwayat baca setelah render
+      saveReadingHistory();
     }
 
     function updatePageFooter() {
@@ -1624,8 +1515,7 @@
         const pages = serverData.chapter.data || [];
 
         if (!pages.length) {
-          readerImages.innerHTML =
-            `<p style="color:var(--fg-secondary);text-align:center;padding:2rem 0;">Chapter ini tidak memiliki halaman.</p>`;
+          readerImages.innerHTML = `<p style="color:var(--fg-secondary);text-align:center;padding:2rem 0;">Chapter ini tidak memiliki halaman.</p>`;
           loadingSpinner.style.display = 'none';
           readerContent.style.display = 'block';
           return;
@@ -1662,8 +1552,7 @@
 
       } catch (err) {
         console.error('loadChapter error:', err);
-        loadingSpinner.innerHTML =
-          `<p style="color:var(--fg-secondary);">Gagal memuat chapter: ${err.message}</p>`;
+        loadingSpinner.innerHTML = `<p style="color:var(--fg-secondary);">Gagal memuat chapter: ${err.message}</p>`;
         showToast('Gagal memuat chapter', 'fa-exclamation-triangle');
       }
     }
@@ -1707,11 +1596,9 @@
       fv.id = 'fullView';
       const content = document.createElement('div');
       content.className = 'full-content';
-
       const nextChapter = findNextChapter(currentChapterId, currentLang);
       let currentImgIndex = currentPageIndex;
 
-      // 🔥 FULL VIEW CLICK AREA (kiri/kanan)
       const clickArea = document.createElement('div');
       clickArea.className = 'full-click-area';
       const leftHalf = document.createElement('div');
@@ -1748,7 +1635,6 @@
         img.src = pageUrls[currentImgIndex] || '';
         img.alt = `Halaman ${currentImgIndex + 1}`;
       }
-
       function updateFullViewInfo() {
         const info = content.querySelector('.full-info');
         if (info) info.textContent = `${currentImgIndex + 1} / ${pageUrls.length}`;
@@ -1757,7 +1643,6 @@
         if (nextBtn) {
           nextBtn.style.display = isLast ? 'inline-flex' : 'none';
         }
-        // Update prev/next button status
         const prevBtn = content.querySelector('.full-nav button:first-child');
         const nextPageBtn = content.querySelector('.full-nav button:last-child');
         if (prevBtn) prevBtn.disabled = currentImgIndex === 0;
@@ -1771,11 +1656,7 @@
       prevBtn.disabled = currentImgIndex === 0;
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (currentImgIndex > 0) {
-          currentImgIndex--;
-          updateFullViewImage();
-          updateFullViewInfo();
-        }
+        if (currentImgIndex > 0) { currentImgIndex--; updateFullViewImage(); updateFullViewInfo(); }
       });
       const info = document.createElement('span');
       info.className = 'full-info';
@@ -1785,11 +1666,7 @@
       nextPageBtn.disabled = currentImgIndex === pageUrls.length - 1;
       nextPageBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (currentImgIndex < pageUrls.length - 1) {
-          currentImgIndex++;
-          updateFullViewImage();
-          updateFullViewInfo();
-        }
+        if (currentImgIndex < pageUrls.length - 1) { currentImgIndex++; updateFullViewImage(); updateFullViewInfo(); }
       });
 
       const nextChapterBtn = document.createElement('button');
@@ -1836,7 +1713,6 @@
     }
 
     fullToggleBtn.addEventListener('click', toggleFullView);
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullView(); }
       if (e.key === 'Escape' && isFullView) toggleFullView();
@@ -1850,7 +1726,6 @@
     (function() {
       const navbar = document.getElementById('navbar');
       window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
-
       const hamburger = document.getElementById('hamburger');
       const mobileMenu = document.getElementById('mobileMenu');
       hamburger.addEventListener('click', () => {
@@ -1863,7 +1738,6 @@
           mobileMenu.classList.remove('open');
         });
       });
-
       const themeToggle = document.getElementById('themeToggle');
       const icon = themeToggle.querySelector('i');
       const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -1915,13 +1789,16 @@
         if (readingData && readingData.chapters && readingData.chapters.length > 0) {
           allChapters = readingData.chapters;
           currentMangaId = readingData.mangaId || null;
+          currentMangaTitle = readingData.mangaTitle || 'Manga';
         } else {
           allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
           currentMangaId = null;
+          currentMangaTitle = 'Manga';
         }
       } catch {
         allChapters = [{ id: chapterId, title: 'Chapter', chapter: '?', lang: 'id' }];
         currentMangaId = null;
+        currentMangaTitle = 'Manga';
       }
 
       allChapters.sort((a, b) => {
@@ -1951,14 +1828,14 @@
   </script>
 
   <!-- Install PWA Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ SW registered'))
-        .catch(err => console.log('❌ SW failed:', err));
-    });
-  }
-</script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>
