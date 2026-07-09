@@ -145,6 +145,47 @@
     }
     .section-title i { color: #3B82F6; }
 
+    .bookmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.8rem;
+    }
+    .bookmark-item {
+      background: #1f1f1f;
+      border-radius: 8px;
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .bookmark-item:hover { border-color:#3B82F6; transform:translateY(-3px); }
+    .bookmark-item img {
+      width:100%;
+      aspect-ratio:2/3;
+      object-fit:cover;
+      border-radius:4px;
+      background:#2a2a2a;
+    }
+    .bookmark-item .title {
+      font-size:0.7rem;
+      margin-top:0.3rem;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .bookmark-item .remove-btn {
+      margin-top:0.3rem;
+      background:none;
+      border:none;
+      color:#6b6b6b;
+      font-size:0.7rem;
+      cursor:pointer;
+      transition:color 0.3s;
+    }
+    .bookmark-item .remove-btn:hover { color:#ef4444; }
+
     /* 🔥 HISTORY LIST */
     .history-list {
       display: flex;
@@ -190,47 +231,6 @@
       font-size: 0.6rem;
       color: #6b6b6b;
     }
-
-    .bookmark-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 0.8rem;
-    }
-    .bookmark-item {
-      background: #1f1f1f;
-      border-radius: 8px;
-      padding: 0.5rem;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .bookmark-item:hover { border-color:#3B82F6; transform:translateY(-3px); }
-    .bookmark-item img {
-      width:100%;
-      aspect-ratio:2/3;
-      object-fit:cover;
-      border-radius:4px;
-      background:#2a2a2a;
-    }
-    .bookmark-item .title {
-      font-size:0.7rem;
-      margin-top:0.3rem;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-    .bookmark-item .remove-btn {
-      margin-top:0.3rem;
-      background:none;
-      border:none;
-      color:#6b6b6b;
-      font-size:0.7rem;
-      cursor:pointer;
-      transition:color 0.3s;
-    }
-    .bookmark-item .remove-btn:hover { color:#ef4444; }
 
     .edit-form {
       display: none;
@@ -494,13 +494,12 @@
     }
 
     // ============================================================
-    // 🔥 LOAD READING HISTORY (FIX)
+    // 🔥 LOAD READING HISTORY
     // ============================================================
     async function loadReadingHistory(uid) {
       const container = document.getElementById('historyList');
       container.innerHTML = '';
       try {
-        console.log('📖 Memuat riwayat baca untuk user:', uid);
         const history = await getReadingHistory(uid);
         document.getElementById('historyCount').textContent = history.length;
 
@@ -536,9 +535,8 @@
         });
 
       } catch (err) {
-        console.error('❌ Load history error:', err);
-        container.innerHTML = `<p style="color:#a0a0a0;">Gagal memuat riwayat baca: ${err.message}</p>`;
-        showToast('Gagal memuat riwayat baca', 'error');
+        console.error('Load history error:', err);
+        container.innerHTML = `<p style="color:#a0a0a0;">Gagal memuat riwayat baca.</p>`;
       }
     }
 

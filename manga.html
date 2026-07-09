@@ -49,7 +49,7 @@
 
   <style>
     /* ============================================================
-       ROOT VARIABLES (SAMA SEPERTI SEBELUMNYA)
+       ROOT VARIABLES
        ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
@@ -107,7 +107,7 @@
     ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
     /* ============================================================
-       NAVBAR (SAMA PERSIS)
+       NAVBAR
        ============================================================ */
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:1000;
@@ -757,6 +757,7 @@
       font-size:0.6rem;
       color:var(--fg-secondary);
     }
+    /* Iklan sidebar dengan gaya lebih mencolok */
     .sidebar .widget-ad {
       background:var(--bg-card);
       border:2px dashed var(--border-color);
@@ -2133,7 +2134,7 @@
     }
 
     // ============================================================
-    // RENDER MANGA GRID (tanpa badge NEW)
+    // RENDER MANGA GRID
     // ============================================================
     function renderMangaGrid(gridId, items, showRank = false, append = false) {
       const grid = document.getElementById(gridId);
@@ -2203,7 +2204,7 @@
     }
 
     // ============================================================
-    // RENDER LATEST LIST (tanpa badge NEW)
+    // RENDER LATEST LIST
     // ============================================================
     function renderLatestList(items) {
       latestList.innerHTML = '';
@@ -2633,7 +2634,7 @@
     matureToggleLabel.textContent = '18+ ';
 
     fetchAllSections();
-    console.log('📚 Manga App Ready with Auto-Update every 5 min & Reading History');
+    console.log('📚 Manga App Ready with Auto-Update every 5 min');
   </script>
 
   <!-- Install PWA Service Worker -->
