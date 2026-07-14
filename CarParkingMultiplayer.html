@@ -4,33 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-  <!-- ===== PWA ===== -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#3B82F6" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<!-- Icon untuk iOS / Safari -->
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
   
-  <!-- PRIMARY META -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3B82F6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+
+ 
   <title>Car Parking Multiplayer - Akino Store</title>
-  <meta name="description" content="Layanan lengkap untuk Car Parking Multiplayer: Tune Up, Glitch, Coin, Premium Car, Sirine, dan lainnya. Harga mulai 3rb, proses cepat via WhatsApp.">
+  <meta name="description" content="Layanan lengkap Car Parking Multiplayer: Tune Up, Glitch, Coin, Premium Car, Sirine, dan lainnya. Harga mulai 3rb, proses cepat via WhatsApp.">
   <meta name="keywords" content="Car Parking Multiplayer, CPM, tune up, glitch, coin, uang, premium car, sirine, livery, jasa CPM, Akino Store">
   <link rel="canonical" href="https://akinocpm.my.id/CarParkingMultiplayer.html">
   <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
 
-  <!-- OG / SOCIAL -->
+  
   <meta property="og:title" content="Car Parking Multiplayer - Akino Store">
   <meta property="og:description" content="Layanan lengkap CPM: Tune Up, Glitch, Coin, Premium Car, Sirine, dan lainnya. Harga bersahabat, proses cepat.">
   <meta property="og:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783480029/web_tumbnail2_dkwek2.png">
   <meta property="og:type" content="product">
   <meta property="og:url" content="https://akinocpm.my.id/CarParkingMultiplayer.html">
 
-  <!-- SCHEMA MARKUP (Product) -->
+  
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -48,19 +46,20 @@
     }
   </script>
 
-  <!-- FONTS & ICONS -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* ===== ROOT VARIABLES (DARK DEFAULT) ===== */
+    
     :root {
       --bg: #07070d;
       --bg-card: rgba(255,255,255,0.04);
       --bg-card-hover: rgba(255,255,255,0.08);
       --fg: #f0f0f5;
-      --muted: #7a7a90;
+      --muted: #a0a0b8;
+      --muted-dim: #6a6a82;
       --accent: #FFDD57;
       --accent-dim: rgba(255,221,87,0.15);
       --border: rgba(255,255,255,0.07);
@@ -69,25 +68,30 @@
       --font-display: 'Space Grotesk', sans-serif;
       --font-body: 'DM Sans', sans-serif;
       --shadow-card: 0 8px 32px rgba(0,0,0,0.3);
+      --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.5);
       --nav-bg: rgba(7,7,13,0.6);
       --nav-scrolled: rgba(7,7,13,0.92);
       --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --touch-size: 48px;
+      --glow-opacity: 0.06;
     }
 
-    /* ===== LIGHT THEME ===== */
     body.light-theme {
       --bg: #f5f5fa;
       --bg-card: rgba(0,0,0,0.04);
       --bg-card-hover: rgba(0,0,0,0.08);
       --fg: #1a1a24;
       --muted: #5a5a70;
+      --muted-dim: #3a3a4a;
       --border: rgba(0,0,0,0.08);
       --shadow-card: 0 8px 32px rgba(0,0,0,0.08);
+      --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.12);
       --nav-bg: rgba(245,245,250,0.7);
       --nav-scrolled: rgba(245,245,250,0.95);
+      --glow-opacity: 0.08;
     }
 
-    /* ===== RESET & BASE ===== */
+    
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
@@ -97,63 +101,80 @@
       overflow-x:hidden;
       min-height:100vh;
       transition: background var(--transition), color var(--transition);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* ===== AMBIENT GLOWS ===== */
+    
     .ambient-glows { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
     .ambient-glows .glow {
-      position:absolute; border-radius:50%; filter:blur(120px); opacity:0.06;
-      transition: background 0.3s;
+      position:absolute; border-radius:50%; filter:blur(120px);
+      opacity: var(--glow-opacity);
+      transition: opacity 0.3s;
     }
-    .ambient-glows .glow-1 { width:600px; height:600px; top:-150px; left:-100px; background:#FFDD57; animation:glowFloat1 12s ease-in-out infinite; }
-    .ambient-glows .glow-2 { width:500px; height:500px; bottom:-100px; right:-80px; background:#FFA726; animation:glowFloat2 15s ease-in-out infinite; }
-    .ambient-glows .glow-3 { width:400px; height:400px; top:50%; left:50%; transform:translate(-50%,-50%); background:#FFDD57; animation:glowFloat3 18s ease-in-out infinite; }
-    @keyframes glowFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,60px)} }
-    @keyframes glowFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-80px)} }
-    @keyframes glowFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.3)} }
+    .ambient-glows .glow-1 { width:500px; height:500px; top:-150px; left:-100px; background:#FFDD57; animation:glowFloat1 12s ease-in-out infinite; }
+    .ambient-glows .glow-2 { width:400px; height:400px; bottom:-100px; right:-80px; background:#FFA726; animation:glowFloat2 15s ease-in-out infinite; }
+    .ambient-glows .glow-3 { width:300px; height:300px; top:50%; left:50%; transform:translate(-50%,-50%); background:#FFDD57; animation:glowFloat3 18s ease-in-out infinite; }
+    @keyframes glowFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
+    @keyframes glowFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,-60px)} }
+    @keyframes glowFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.2)} }
 
-    /* ===== NAVBAR ===== */
+    
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:100;
       display:flex; justify-content:space-between; align-items:center;
-      padding:0.8rem 2rem;
+      padding:0.5rem 1rem;
       background:var(--nav-bg);
       backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid var(--border);
       transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+      min-height: var(--touch-size);
     }
-    .navbar.scrolled { background:var(--nav-scrolled); box-shadow:0 4px 30px rgba(0,0,0,0.2); }
+    .navbar.scrolled { background:var(--nav-scrolled); box-shadow:0 2px 20px rgba(0,0,0,0.2); }
     .nav-brand {
-      font-family:var(--font-display); font-size:1.3rem; font-weight:700;
+      font-family:var(--font-display); font-size:1.1rem; font-weight:700;
       color:var(--accent); text-decoration:none; letter-spacing:-0.3px;
-      display:flex; align-items:center; gap:0.4rem;
+      display:flex; align-items:center; gap:0.3rem;
     }
-    .nav-brand i { font-size:1rem; opacity:0.7; }
-    .nav-actions { display:flex; align-items:center; gap:0.5rem; }
+    .nav-brand i { font-size:0.9rem; opacity:0.7; }
+    .nav-actions { display:flex; align-items:center; gap:0.3rem; }
     .theme-toggle {
       background:var(--bg-card); border:1px solid var(--border);
-      color:var(--muted); width:36px; height:36px;
+      color:var(--muted); width:var(--touch-size); height:var(--touch-size);
       border-radius:var(--radius-sm); cursor:pointer;
       display:flex; align-items:center; justify-content:center;
       font-size:0.9rem; transition:all 0.25s ease;
     }
     .theme-toggle:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); }
+    .theme-toggle:active { transform:scale(0.92); }
     .menu-toggle {
-      display:none; background:var(--bg-card); border:1px solid var(--border);
+      display:flex; background:var(--bg-card); border:1px solid var(--border);
       color:var(--fg); font-size:1.2rem; cursor:pointer;
-      width:40px; height:40px; border-radius:var(--radius-sm);
+      width:var(--touch-size); height:var(--touch-size);
+      border-radius:var(--radius-sm);
       align-items:center; justify-content:center;
       transition:all 0.25s;
     }
-    .menu-toggle:hover { border-color:rgba(255,255,255,0.15); }
+    .menu-toggle:active { transform:scale(0.92); }
     .nav-links {
-      list-style:none; display:flex; gap:0.2rem; align-items:center;
+      list-style:none; display:none; flex-direction:column;
+      position:absolute; top:100%; left:0; right:0;
+      background:rgba(7,7,13,0.97);
+      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
+      padding:0.5rem 0;
+      gap:0.1rem;
     }
+    body.light-theme .nav-links { background:rgba(245,245,250,0.98); }
+    .nav-links.active { display:flex; }
     .nav-links a {
       color:var(--muted); text-decoration:none;
-      padding:0.4rem 0.9rem; border-radius:var(--radius-sm);
-      font-size:0.85rem; font-weight:500;
-      transition:all 0.25s ease;
+      padding:0.6rem 1rem;
+      font-size:0.9rem; font-weight:500;
+      transition:all 0.2s ease;
+      display:block;
+      min-height:var(--touch-size);
+      display:flex;
+      align-items:center;
     }
     .nav-links a:hover, .nav-links a.active {
       color:var(--fg); background:var(--bg-card);
@@ -161,58 +182,56 @@
     .nav-links a.active { color:var(--accent); background:var(--accent-dim); }
     .dropdown { position:relative; }
     .dropdown-menu {
-      display:none; position:absolute; top:calc(100% + 6px); left:50%;
-      transform:translateX(-50%);
+      display:none;
       background:rgba(15,15,25,0.96); backdrop-filter:blur(20px);
       -webkit-backdrop-filter:blur(20px);
       border:1px solid var(--border); border-radius:12px;
-      min-width:220px; padding:0.4rem;
+      padding:0.3rem;
       box-shadow:0 24px 64px rgba(0,0,0,0.5);
-      animation:fadeDown 0.25s ease;
+      margin:0.2rem 0.5rem;
     }
     body.light-theme .dropdown-menu { background:rgba(245,245,250,0.98); }
-    .dropdown:hover .dropdown-menu { display:block; }
+    .dropdown.active .dropdown-menu { display:block; }
     .dropdown-menu a {
-      display:block; padding:0.5rem 0.9rem; border-radius:8px;
-      font-size:0.82rem; white-space:nowrap;
+      display:block; padding:0.6rem 0.9rem; border-radius:8px;
+      font-size:0.85rem;
       color:var(--muted); transition:all 0.2s;
+      min-height:var(--touch-size);
+      display:flex;
+      align-items:center;
     }
     .dropdown-menu a:hover { background:var(--accent-dim); color:var(--accent); }
-    @keyframes fadeDown { from{opacity:0; transform:translateX(-50%) translateY(-6px)} to{opacity:1; transform:translateX(-50%) translateY(0)} }
 
-    /* ===== BREADCRUMB ===== */
+    
     .breadcrumb {
-      max-width:1100px; margin:5rem auto 0.5rem; padding:0 1.5rem;
-      font-size:0.7rem; color:var(--muted);
+      max-width:1100px;
+      margin: 4.5rem auto 0.5rem;
+      padding:0 1rem;
+      font-size:0.7rem;
+      color:var(--muted-dim);
     }
-    .breadcrumb a { color:var(--muted); text-decoration:none; transition:color 0.2s; }
+    .breadcrumb a { color:var(--muted-dim); text-decoration:none; transition:color 0.2s; }
     .breadcrumb a:hover { color:var(--accent); }
     .breadcrumb span { color:var(--fg); }
 
-    /* ===== PAGE HERO ===== */
+    
     .page-hero {
-      padding:0.5rem 1.5rem 2rem;
-      text-align:center; position:relative;
-    }
-    .page-hero::after {
-      content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-      width:120px; height:2px;
-      background:linear-gradient(90deg, transparent, var(--accent-dim), var(--accent), var(--accent-dim), transparent);
-      border-radius:2px;
+      padding:0.5rem 1rem 1.5rem;
+      text-align:center;
     }
     .page-hero h1 {
       font-family:var(--font-display);
-      font-size:clamp(1.8rem, 5vw, 2.8rem);
-      font-weight:700; letter-spacing:-1px; margin-bottom:0.2rem;
+      font-size:clamp(1.6rem, 6vw, 2.6rem);
+      font-weight:700; letter-spacing:-0.5px; margin-bottom:0.2rem;
     }
     .page-hero h1 .accent { color:var(--accent); }
     .page-hero p {
-      color:var(--muted); font-size:0.95rem;
-      max-width:520px; margin:0 auto; line-height:1.6;
+      color:var(--muted); font-size:0.9rem;
+      max-width:480px; margin:0 auto; line-height:1.6;
     }
 
-    /* ===== SLIDER ===== */
-    .slider-wrap { max-width:900px; margin:0.5rem auto; padding:0 1.5rem; }
+    
+    .slider-wrap { max-width:900px; margin:0.5rem auto; padding:0 1rem; }
     .slider {
       position:relative; overflow:hidden; border-radius:var(--radius);
       border:1px solid var(--border); background:#0a0a12;
@@ -221,137 +240,203 @@
     .slide { min-width:100%; }
     .slide img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
     .slider-dots {
-      display:flex; justify-content:center; gap:0.5rem; margin-top:0.8rem;
+      display:flex; justify-content:center; gap:0.6rem; margin-top:0.8rem;
     }
     .slider-dots span {
-      width:8px; height:8px; border-radius:50%; background:var(--border);
+      width:12px; height:12px; border-radius:50%; background:var(--border);
       cursor:pointer; transition:all 0.3s;
+      min-width:12px;
     }
-    .slider-dots span.active { background:var(--accent); width:24px; border-radius:4px; }
+    .slider-dots span.active { background:var(--accent); width:32px; border-radius:8px; }
 
-
-
-    /* ===== PROMO BANNER ===== */
+    
     .promo-banner {
-      max-width:900px; margin:0.5rem auto 1.5rem;
-      padding:0.8rem 1.5rem;
+      max-width:900px; margin:0.5rem auto 1rem;
+      padding:0.7rem 1rem;
       background:linear-gradient(145deg, rgba(251,146,60,0.12), rgba(251,146,60,0.04));
       border:1px solid rgba(251,146,60,0.3);
       border-radius:var(--radius);
       display:flex; align-items:center; justify-content:space-between;
-      flex-wrap:wrap; gap:0.8rem;
+      flex-wrap:wrap; gap:0.5rem;
       animation:pulseGlow 3s ease-in-out infinite;
     }
     @keyframes pulseGlow { 0%,100%{box-shadow:0 0 20px rgba(251,146,60,0.05)} 50%{box-shadow:0 0 40px rgba(251,146,60,0.15)} }
-    .promo-banner .promo-icon { font-size:1.8rem; color:#fb923c; animation:pulse 1.5s infinite; }
-    .promo-banner .promo-text { flex:1; font-size:0.9rem; color:var(--fg); }
+    .promo-banner .promo-icon { font-size:1.4rem; color:#fb923c; }
+    .promo-banner .promo-text { flex:1; font-size:0.8rem; color:var(--fg); }
     .promo-banner .promo-text strong { color:#fb923c; font-weight:700; }
     .promo-banner .promo-timer {
-      font-family:var(--font-display); font-size:0.85rem; font-weight:600;
+      font-family:var(--font-display); font-size:0.75rem; font-weight:600;
       color:#fb923c; background:rgba(251,146,60,0.12);
-      padding:0.3rem 0.9rem; border-radius:50px;
+      padding:0.2rem 0.7rem; border-radius:50px;
       border:1px solid rgba(251,146,60,0.2); white-space:nowrap;
     }
 
-    /* ===== TOOLBAR ===== */
+    
     .toolbar {
-      max-width:1100px; margin:0 auto 1.5rem; padding:0 1.5rem;
-      display:flex; flex-wrap:wrap; gap:0.8rem;
-      align-items:center; justify-content:center;
+      max-width:1100px;
+      margin:0 auto 1rem;
+      padding:0 1rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.4rem 0.6rem;
+      align-items:center;
+      justify-content:center;
     }
-    .toolbar .filter-group { display:flex; flex-wrap:wrap; gap:0.4rem; align-items:center; }
-    .toolbar .filter-group label { font-size:0.7rem; color:var(--muted); font-weight:500; margin-right:0.2rem; }
+    .toolbar .filter-group {
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.3rem;
+      align-items:center;
+    }
+    .toolbar .filter-group label {
+      font-size:0.7rem;
+      color:var(--muted-dim);
+      font-weight:500;
+      white-space:nowrap;
+      margin-right:0.2rem;
+    }
     .filter-btn {
-      padding:0.25rem 0.8rem; border-radius:50px;
-      background:var(--bg-card); border:1px solid var(--border);
-      color:var(--muted); font-family:var(--font-body); font-size:0.7rem;
-      font-weight:500; cursor:pointer; transition:all .25s; white-space:nowrap;
+      padding:0.25rem 0.7rem;
+      border-radius:50px;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-family:var(--font-body);
+      font-size:0.65rem;
+      font-weight:500;
+      cursor:pointer;
+      transition:all .2s;
+      white-space:nowrap;
+      min-height:30px;
+      display:flex;
+      align-items:center;
     }
-    .filter-btn:hover { color:var(--fg); border-color:rgba(255,255,255,.15); }
-    .filter-btn.active { background:var(--accent); color:#0a0a0f; border-color:var(--accent); }
+    .filter-btn:active { transform:scale(0.94); }
+    .filter-btn.active {
+      background:var(--accent);
+      color:#0a0a0f;
+      border-color:var(--accent);
+    }
     .sort-select {
-      padding:0.3rem 1.8rem 0.3rem 0.8rem;
-      background:var(--bg-card); border:1px solid var(--border);
-      border-radius:50px; color:var(--fg);
-      font-family:var(--font-body); font-size:0.7rem;
-      outline:none; cursor:pointer; transition:border-color .2s;
-      appearance:none; -webkit-appearance:none;
+      padding:0.25rem 1.6rem 0.25rem 0.7rem;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:50px;
+      color:var(--fg);
+      font-family:var(--font-body);
+      font-size:0.65rem;
+      outline:none;
+      cursor:pointer;
+      transition:border-color .2s;
+      appearance:none;
+      -webkit-appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6a82' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 0.7rem center;
+      background-repeat:no-repeat;
+      background-position:right 0.6rem center;
+      min-height:30px;
     }
     .sort-select:focus { border-color:var(--accent); }
     .sort-select option { background:#0e0e18; color:var(--fg); }
     body.light-theme .sort-select option { background:#f5f5fa; }
 
-    /* ===== SERVICES ===== */
-    .services-section { max-width:1100px; margin:0 auto 2rem; padding:0 1.5rem; }
+    
+    .services-section { max-width:1100px; margin:0 auto 2rem; padding:0 1rem; }
     .section-title {
-      font-family:var(--font-display); font-size:1.4rem; font-weight:600;
-      text-align:center; margin-bottom:1.5rem; letter-spacing:-0.3px;
+      font-family:var(--font-display); font-size:1.3rem; font-weight:600;
+      text-align:center; margin-bottom:1.2rem; letter-spacing:-0.3px;
     }
     .services-grid {
-      display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
-      gap:1.25rem;
+      display:grid; grid-template-columns:1fr; gap:1.2rem;
     }
+    @media (min-width:480px) {
+      .services-grid { grid-template-columns:repeat(2, 1fr); }
+    }
+    @media (min-width:768px) {
+      .services-grid { grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1.25rem; }
+    }
+
+    
     .service-card {
       background:var(--bg-card); border:1px solid var(--border);
       border-radius:var(--radius); overflow:hidden;
-      transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-      position:relative; animation:fadeUp 0.5s ease both;
+      transition:all 0.3s ease;
+      position:relative;
+      animation:fadeUp 0.5s ease both;
     }
-    @keyframes fadeUp { from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:translateY(0)} }
-    .service-card:hover {
-      border-color:rgba(255,221,87,0.25);
-      transform:translateY(-5px);
-      box-shadow:var(--shadow-card);
+    @keyframes fadeUp { from{opacity:0; transform:translateY(20px)} to{opacity:1; transform:translateY(0)} }
+    .service-card:active { transform:scale(0.98); }
+    @media (hover:hover) {
+      .service-card:hover {
+        border-color:rgba(255,221,87,0.25);
+        transform:translateY(-6px);
+        box-shadow:var(--shadow-card-hover);
+      }
     }
     .service-card img {
-      width:100%; height:160px; object-fit:cover;
+      width:100%; height:150px; object-fit:cover;
       border-bottom:1px solid var(--border);
       display:block; background:#0a0a12;
     }
-    .service-card .card-body { padding:1.1rem 1.1rem 1.25rem; }
+    .service-card .card-body { padding:1rem; }
     .service-card h3 {
-      font-family:var(--font-display); font-size:0.95rem; font-weight:600;
-      margin-bottom:0.3rem; line-height:1.3;
+      font-family:var(--font-display); font-size:1rem;
+      font-weight:600; margin-bottom:0.2rem; line-height:1.3;
     }
-    .service-card .price { color:var(--accent); font-weight:600; font-size:0.9rem; margin-bottom:0.15rem; }
-    .service-card .price .original { color:var(--muted); text-decoration:line-through; font-weight:400; font-size:0.75rem; margin-right:0.3rem; }
+    .service-card .price {
+      color:var(--accent); font-weight:600; font-size:0.9rem;
+      margin-bottom:0.1rem;
+    }
+    .service-card .price .original {
+      color:var(--muted-dim); text-decoration:line-through;
+      font-weight:400; font-size:0.75rem; margin-right:0.3rem;
+    }
     .service-card .price .discount { color:#fb923c; font-weight:700; }
-    .service-card .price .promo-timer-small { display:block; font-size:0.6rem; color:#fb923c; font-weight:600; margin-top:0.1rem; }
-    .service-card .note { color:#f87171; font-size:0.75rem; margin-bottom:0.5rem; }
-    .service-card .desc { color:var(--muted); font-size:0.8rem; line-height:1.5; margin-bottom:0.7rem; }
+    .service-card .price .promo-timer-small {
+      display:block; font-size:0.6rem; color:#fb923c; font-weight:600;
+      margin-top:0.1rem;
+    }
+    .service-card .note {
+      color:#f87171; font-size:0.75rem; margin-bottom:0.4rem;
+    }
+    .service-card .desc {
+      color:var(--muted); font-size:0.8rem; line-height:1.5;
+      margin-bottom:0.5rem;
+    }
+    .service-card .desc .highlight {
+      color:var(--accent); font-weight:500;
+    }
     .service-card .badge-category {
       display:inline-block; font-size:0.55rem; font-weight:600;
       padding:0.1rem 0.5rem; border-radius:50px;
       background:var(--accent-dim); color:var(--accent);
-      margin-bottom:0.4rem; letter-spacing:0.3px;
+      margin-bottom:0.3rem; letter-spacing:0.3px;
     }
-    .service-card.promo { border-color:rgba(251,146,60,0.4); background:rgba(251,146,60,0.04); }
-    .service-card.promo:hover { border-color:#fb923c; box-shadow:0 16px 48px rgba(251,146,60,0.12); }
+    .service-card.promo {
+      border-color:rgba(251,146,60,0.4);
+      background:rgba(251,146,60,0.04);
+    }
     .service-card .promo-badge {
       position:absolute; top:10px; right:10px;
       background:#fb923c; color:#0a0a0f; font-size:0.6rem; font-weight:700;
-      padding:0.15rem 0.6rem; border-radius:50px; letter-spacing:0.5px;
+      padding:0.15rem 0.6rem; border-radius:50px;
       display:flex; align-items:center; gap:0.2rem; z-index:2;
     }
-    .service-card .promo-badge i { font-size:0.5rem; }
 
     .btn-order {
       display:inline-flex; align-items:center; gap:.4rem;
-      padding:0.5rem 1.2rem; border-radius:10px;
+      padding:0.6rem 1.1rem; border-radius:10px;
       background:var(--accent-dim); color:var(--accent);
       border:1px solid rgba(255,221,87,0.2);
-      font-family:var(--font-body); font-size:0.8rem; font-weight:600;
-      text-decoration:none; transition:all .3s ease; cursor:pointer;
-      margin-top:0.3rem;
+      font-family:var(--font-body); font-size:0.85rem;
+      font-weight:600; text-decoration:none; transition:all .25s ease;
+      cursor:pointer; margin-top:0.3rem; min-height:44px;
+      justify-content:center;
     }
+    .btn-order:active { transform:scale(0.94); }
     .btn-order:hover {
       background:var(--accent); color:#0a0a0f;
       box-shadow:0 4px 20px rgba(255,221,87,.3);
-      transform:translateY(-2px);
     }
-    .btn-order:active { transform:scale(0.96); }
     .btn-order.quick {
       background:rgba(37,211,102,0.12); color:#25D366;
       border-color:rgba(37,211,102,0.2);
@@ -360,88 +445,116 @@
       background:#25D366; color:#fff; border-color:#25D366;
       box-shadow:0 4px 20px rgba(37,211,102,0.3);
     }
+    .btn-order-group {
+      display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.3rem;
+    }
+    .btn-order-group .btn-order { flex:1; min-width:80px; }
+
+    .btn-submit-gradient {
+      background:linear-gradient(145deg, #FFDD57, #f5c842);
+      color:#0a0a0f; border:none;
+      padding:0.7rem 1.5rem; border-radius:12px;
+      font-family:var(--font-body); font-size:0.9rem; font-weight:700;
+      cursor:pointer; transition:all .3s ease;
+      display:inline-flex; align-items:center; gap:.5rem;
+      min-height:48px; justify-content:center;
+      box-shadow:0 4px 16px rgba(255,221,87,0.25);
+    }
+    .btn-submit-gradient:hover {
+      transform:translateY(-2px);
+      box-shadow:0 8px 28px rgba(255,221,87,0.35);
+    }
+    .btn-submit-gradient:active { transform:scale(0.95); }
+
     .empty-state {
       text-align:center; padding:3rem 1rem; color:var(--muted); grid-column:1/-1;
     }
     .empty-state i { font-size:3rem; display:block; margin-bottom:1rem; opacity:0.3; }
-    .empty-state p { font-size:0.9rem; }
 
-    /* ===== GUESTBOOK ===== */
-    .guestbook-section { max-width:700px; margin:3rem auto; padding:0 1.5rem; }
+    
+    .guestbook-section { max-width:700px; margin:2rem auto; padding:0 1rem; }
     .guestbook {
       background:var(--bg-card); border:1px solid var(--border);
-      border-radius:var(--radius); padding:1.5rem 1.25rem;
+      border-radius:var(--radius); padding:1.25rem 1rem;
     }
     .guestbook h2 {
       font-family:var(--font-display); font-size:1.1rem;
-      text-align:center; margin-bottom:1.25rem;
+      text-align:center; margin-bottom:1rem;
     }
-    .guestbook label { display:block; font-size:0.8rem; font-weight:500; color:var(--muted); margin-bottom:0.25rem; }
+    .guestbook label {
+      display:block; font-size:0.8rem; font-weight:500;
+      color:var(--muted); margin-bottom:0.25rem;
+    }
     .guestbook input, .guestbook textarea {
       width:100%; padding:0.65rem 0.9rem;
       background:rgba(255,255,255,.04); border:1px solid var(--border);
       border-radius:10px; color:var(--fg);
-      font-family:var(--font-body); font-size:0.85rem;
+      font-family:var(--font-body); font-size:0.9rem;
       margin-bottom:0.8rem; outline:none; transition:border-color .2s;
+      min-height:44px;
     }
-    .guestbook input:focus, .guestbook textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-dim); }
-    .guestbook textarea { resize:vertical; min-height:70px; }
+    .guestbook input::placeholder,
+    .guestbook textarea::placeholder {
+      color:var(--muted-dim);
+      opacity:0.7;
+    }
+    .guestbook input:focus, .guestbook textarea:focus {
+      border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-dim);
+    }
+    .guestbook textarea { resize:vertical; min-height:80px; }
     .guestbook .btn-submit {
-      padding:0.65rem 1.5rem; background:var(--accent); color:#0a0a0f;
+      padding:0.65rem; background:var(--accent); color:#0a0a0f;
       border:none; border-radius:10px; font-weight:600; cursor:pointer;
       font-family:var(--font-body); transition:all .25s;
       display:inline-flex; align-items:center; gap:.4rem;
       width:100%; justify-content:center;
+      min-height:44px; font-size:0.9rem;
     }
-    .guestbook .btn-submit:hover { box-shadow:0 4px 20px rgba(255,221,87,.3); transform:translateY(-1px); }
-    .guestbook .btn-submit:active { transform:scale(0.97); }
+    .guestbook .btn-submit:active { transform:scale(0.96); }
     .guestbook .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none !important; }
     .messages {
-      margin-top:1.25rem; max-height:350px; overflow-y:auto;
+      margin-top:1rem; max-height:350px; overflow-y:auto;
       scrollbar-width:thin; scrollbar-color:var(--border) transparent;
     }
     .messages::-webkit-scrollbar { width:3px; }
     .messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
     .message {
-      padding:0.85rem 1rem; background:rgba(255,255,255,.02);
+      padding:0.75rem 1rem; background:rgba(255,255,255,.02);
       border:1px solid var(--border); border-radius:10px;
-      margin-bottom:0.65rem; transition:border-color .2s;
+      margin-bottom:0.65rem;
     }
-    .message:hover { border-color:rgba(255,255,255,.08); }
     .message strong { display:block; font-size:0.85rem; margin-bottom:0.2rem; }
     .message p { font-size:0.82rem; color:var(--muted); line-height:1.5; }
-    .message small { font-size:0.68rem; color:rgba(255,255,255,.2); display:block; margin-top:0.2rem; }
+    .message small { font-size:0.65rem; color:var(--muted-dim); display:block; margin-top:0.2rem; }
 
-    /* ===== SOCIAL ROW & FOOTER ===== */
+    
     .social-row {
-      display:flex; justify-content:center; gap:0.8rem; padding:1.5rem 1rem;
+      display:flex; justify-content:center; gap:0.6rem; padding:1rem;
     }
     .social-row a {
-      width:42px; height:42px; border-radius:12px;
+      width:44px; height:44px; border-radius:12px;
       background:var(--bg-card); border:1px solid var(--border);
       display:flex; align-items:center; justify-content:center;
-      color:var(--muted); font-size:0.95rem;
+      color:var(--muted); font-size:0.9rem;
       transition:all .3s; text-decoration:none;
     }
-    .social-row a:hover {
-      color:var(--accent); border-color:var(--accent);
-      background:var(--accent-dim); transform:translateY(-3px);
-    }
+    .social-row a:active { transform:scale(0.92); }
 
     .footer {
-      padding:3rem 1.5rem 1.5rem;
+      padding:2rem 1rem 1rem;
       border-top:1px solid var(--border);
-      margin-top:1rem;
+      margin-top:0.5rem;
     }
     .footer-grid {
-      display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
-      gap:2rem; max-width:1000px; margin:0 auto 2rem;
-      text-align:left;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1.5rem; max-width:1000px; margin:0 auto 1.5rem;
+    }
+    @media (min-width:600px) {
+      .footer-grid { grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); }
     }
     .footer-grid h4 {
       font-family:var(--font-display);
-      font-size:0.85rem; color:var(--fg); margin-bottom:0.8rem;
-      letter-spacing:-0.2px;
+      font-size:0.85rem; color:var(--fg); margin-bottom:0.5rem;
     }
     .footer-grid p, .footer-grid a {
       font-size:0.8rem; color:var(--muted); line-height:1.8;
@@ -451,21 +564,21 @@
     .footer-grid .brand-footer { font-weight:600; color:var(--accent); }
     .footer-bottom {
       max-width:1000px; margin:0 auto;
-      border-top:1px solid var(--border); padding-top:1.5rem;
-      text-align:center; font-size:0.7rem; color:var(--muted);
+      border-top:1px solid var(--border); padding-top:1rem;
+      text-align:center; font-size:0.65rem; color:var(--muted);
     }
 
-    /* ===== FLOATING CHAT ===== */
+    
     .chat-float {
-      position:fixed; bottom:1.5rem; right:1.5rem; z-index:99;
-      display:flex; flex-direction:column; align-items:flex-end; gap:0.6rem;
+      position:fixed; bottom:1.2rem; right:1.2rem; z-index:99;
+      display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;
     }
     .chat-float-label {
       background:rgba(15,15,25,0.92); backdrop-filter:blur(12px);
       -webkit-backdrop-filter:blur(12px);
       border:1px solid var(--border); border-radius:10px;
-      padding:0.5rem 0.9rem;
-      font-size:0.75rem; color:var(--muted); white-space:nowrap;
+      padding:0.4rem 0.8rem;
+      font-size:0.7rem; color:var(--muted); white-space:nowrap;
       opacity:0; transform:translateY(6px) scale(0.95);
       transition:all 0.3s ease; pointer-events:none;
     }
@@ -474,18 +587,18 @@
     .chat-float:hover .chat-float-label { opacity:1; transform:translateY(0) scale(1); }
     .chat-float-btn {
       width:54px; height:54px; border-radius:16px;
-      background:#25D366; border:none; cursor:pointer;
+      background:linear-gradient(145deg, #25D366, #1da851);
+      border:none; cursor:pointer;
       display:flex; align-items:center; justify-content:center;
       color:#fff; font-size:1.5rem;
       box-shadow:0 4px 24px rgba(37,211,102,0.35);
       transition:all 0.3s ease; text-decoration:none;
     }
-    .chat-float-btn:hover { transform:scale(1.08); box-shadow:0 8px 32px rgba(37,211,102,0.45); }
-    .chat-float-btn:active { transform:scale(0.95); }
+    .chat-float-btn:active { transform:scale(0.92); }
 
-    /* ===== BACK TO TOP ===== */
+    
     .back-to-top {
-      position:fixed; bottom:1.5rem; left:1.5rem; z-index:99;
+      position:fixed; bottom:1.2rem; left:1.2rem; z-index:99;
       width:44px; height:44px; border-radius:12px;
       background:var(--bg-card); border:1px solid var(--border);
       color:var(--muted); font-size:0.9rem; cursor:pointer;
@@ -495,73 +608,45 @@
       -webkit-backdrop-filter:blur(12px);
     }
     .back-to-top.show { opacity:1; transform:translateY(0); pointer-events:auto; }
-    .back-to-top:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); transform:translateY(-2px); }
+    .back-to-top:active { transform:scale(0.92); }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width:768px) {
-      .navbar { padding:0.6rem 1rem; }
-      .menu-toggle { display:flex; }
+    
+    @media (min-width:768px) {
+      .navbar { padding:0.8rem 2rem; }
+      .menu-toggle { display:none; }
       .nav-links {
-        display:none; position:absolute; top:100%; left:0; right:0;
-        flex-direction:column; background:rgba(7,7,13,0.97);
-        backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
-        border-bottom:1px solid var(--border);
-        padding:0.8rem; gap:0.1rem;
+        display:flex !important;
+        position:static; flex-direction:row; background:transparent;
+        backdrop-filter:none; border:none; padding:0;
+        gap:0.2rem;
       }
-      body.light-theme .nav-links { background:rgba(245,245,250,0.98); }
-      .nav-links.active { display:flex; }
-      .nav-links a { padding:0.5rem 0.8rem; width:100%; }
+      .nav-links a { padding:0.4rem 0.9rem; font-size:0.85rem; min-height:auto; }
       .dropdown-menu {
-        position:static; transform:none;
-        box-shadow:none; background:rgba(255,255,255,0.03);
-        border:none; min-width:auto; padding:0.2rem 0 0.2rem 1rem;
-        animation:none;
+        position:absolute; top:calc(100% + 6px); left:50%;
+        transform:translateX(-50%);
+        min-width:220px; padding:0.4rem;
+        display:none;
       }
-      .dropdown:hover .dropdown-menu { display:none; }
-      .dropdown.active .dropdown-menu { display:block!important; }
-      .dropdown-menu a { padding:0.4rem 0.8rem; white-space:normal; }
-
-      .breadcrumb { margin-top:4.5rem; padding:0 1rem; }
-      .page-hero { padding:0 1rem 1.5rem; }
-      .page-hero h1 { font-size:clamp(1.5rem, 5vw, 2.2rem); }
-      .page-hero p { font-size:0.88rem; }
-      .slider-wrap { padding:0 1rem; margin:0.5rem auto; }
-      .promo-banner { flex-direction:column; text-align:center; padding:0.8rem 1rem; margin:0.5rem auto 1rem; }
-      .promo-banner .promo-icon { font-size:1.4rem; }
-      .promo-banner .promo-text { font-size:0.8rem; }
-      .promo-banner .promo-timer { font-size:0.75rem; padding:0.2rem 0.7rem; }
-      .toolbar { padding:0 1rem; gap:0.5rem; justify-content:flex-start; }
-      .filter-btn { font-size:0.65rem; padding:0.2rem 0.6rem; }
-      .sort-select { font-size:0.65rem; padding:0.2rem 1.5rem 0.2rem 0.6rem; }
-      .services-section { padding:0 1rem; }
-      .services-grid { grid-template-columns:1fr; gap:1rem; }
-      .service-card img { height:140px; }
-      .service-card .card-body { padding:1rem; }
-      .service-card h3 { font-size:0.9rem; }
-      .service-card .price { font-size:0.85rem; }
-      .btn-order { padding:0.45rem 1rem; font-size:0.78rem; width:100%; justify-content:center; }
-      .guestbook-section { padding:0 1rem; margin:2rem auto; }
-      .guestbook { padding:1.25rem 1rem; }
-      .guestbook input, .guestbook textarea { font-size:0.82rem; padding:0.55rem 0.8rem; }
-      .guestbook .btn-submit { font-size:0.82rem; padding:0.6rem; }
-      .chat-float { bottom:1rem; right:1rem; }
-      .chat-float-btn { width:48px; height:48px; border-radius:14px; font-size:1.3rem; }
-      .back-to-top { bottom:1rem; left:1rem; width:40px; height:40px; font-size:0.8rem; }
-      .footer-grid { grid-template-columns:1fr 1fr; gap:1.5rem; text-align:center; }
-      .footer-grid h4 { text-align:center; }
+      .dropdown:hover .dropdown-menu { display:block; }
+      .dropdown.active .dropdown-menu { display:none; }
+      .dropdown-menu a { min-height:auto; padding:0.5rem 0.9rem; }
+      .page-hero { padding:0.5rem 2rem 2rem; }
+      .breadcrumb { margin-top: 5rem; padding:0 2rem; }
+      .services-grid { gap:1.25rem; }
+      .service-card img { height:160px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== AMBIENT GLOWS ===== -->
+  
   <div class="ambient-glows" aria-hidden="true">
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
     <div class="glow glow-3"></div>
   </div>
 
-  <!-- ===== NAVBAR ===== -->
+  
   <nav class="navbar" id="navbar" aria-label="Navigasi utama">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <div class="nav-actions">
@@ -583,19 +668,19 @@
     </ul>
   </nav>
 
-  <!-- ===== BREADCRUMB ===== -->
+ 
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted);"></i>
+    <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted-dim);"></i>
     <span>Car Parking Multiplayer</span>
   </nav>
 
-  <!-- ===== PAGE HERO ===== -->
+  
   <header class="page-hero">
     <h1>Car Parking <span class="accent">Multiplayer</span></h1>
     <p>Layanan lengkap untuk CPM — tune up, glitch, coin, premium car, sirine, dan lainnya. Harga mulai 3rb, proses cepat via WhatsApp.</p>
   </header>
 
-  <!-- ===== PROMO BANNER ===== -->
+  
   <div class="promo-banner" id="promoBanner" style="display:none">
     <div class="promo-icon"><i class="fas fa-bolt"></i></div>
     <div class="promo-text">
@@ -604,7 +689,7 @@
     <div class="promo-timer" id="promoTimer">⏳ Berakhir dalam 2j 45m</div>
   </div>
 
-  <!-- ===== SLIDER ===== -->
+  
   <div class="slider-wrap" aria-label="Galeri layanan CPM">
     <div class="slider">
       <div class="slides" id="slides">
@@ -618,21 +703,21 @@
     <div class="slider-dots" id="sliderDots" role="tablist"></div>
   </div>
 
-  <!-- ===== TOOLBAR ===== -->
+  
   <div class="toolbar" role="toolbar" aria-label="Filter dan urutan layanan">
     <div class="filter-group">
-      <label><i class="fas fa-tags"></i> Kategori:</label>
+      <label><i class="fas fa-tags"></i></label>
       <button class="filter-btn active" data-category="all" onclick="setCategory('all')" aria-pressed="true">Semua</button>
       <button class="filter-btn" data-category="Tune Up" onclick="setCategory('Tune Up')">Tune Up</button>
       <button class="filter-btn" data-category="Glitch" onclick="setCategory('Glitch')">Glitch</button>
-      <button class="filter-btn" data-category="Coin/Uang" onclick="setCategory('Coin/Uang')">Coin/Uang</button>
+      <button class="filter-btn" data-category="Coin/Uang" onclick="setCategory('Coin/Uang')">Coin</button>
       <button class="filter-btn" data-category="Livery" onclick="setCategory('Livery')">Livery</button>
-      <button class="filter-btn" data-category="Premium Car" onclick="setCategory('Premium Car')">Premium Car</button>
+      <button class="filter-btn" data-category="Premium Car" onclick="setCategory('Premium Car')">Premium</button>
       <button class="filter-btn" data-category="Sirine" onclick="setCategory('Sirine')">Sirine</button>
       <button class="filter-btn" data-category="Lainnya" onclick="setCategory('Lainnya')">Lainnya</button>
     </div>
     <div class="filter-group">
-      <label><i class="fas fa-sort"></i> Urutkan:</label>
+      <label><i class="fas fa-sort"></i></label>
       <select class="sort-select" id="sortSelect" onchange="setSort(this.value)" aria-label="Urutkan layanan">
         <option value="default">Default</option>
         <option value="price-asc">Termurah</option>
@@ -641,7 +726,7 @@
     </div>
   </div>
 
-  <!-- ===== SERVICES ===== -->
+  
   <section class="services-section" aria-label="Daftar layanan Car Parking Multiplayer">
     <h2 class="section-title">Daftar Layanan CPM</h2>
     <div class="services-grid" id="servicesGrid">
@@ -649,7 +734,7 @@
     </div>
   </section>
 
-  <!-- ===== GUESTBOOK ===== -->
+  
   <section class="guestbook-section" aria-label="Kolom komentar">
     <div class="guestbook">
       <h2><i class="fas fa-comments" style="color:var(--accent);margin-right:.5rem"></i>Kolom Komentar</h2>
@@ -664,7 +749,7 @@
     </div>
   </section>
 
-  <!-- ===== SOCIAL ROW ===== -->
+
   <div class="social-row">
     <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
     <a href="https://www.instagram.com/akinostore_?igsh=MWxqbGpham5ocjhyOA==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -672,12 +757,12 @@
     <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
   </div>
 
-  <!-- ===== FOOTER (TELAH DITAMBAHKAN LINK PRIVACY & TERMS) ===== -->
+  
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div>
         <h4 class="brand-footer">Akino Store</h4>
-        <p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p>
+        <p>Jasa digital & game terpercaya sejak 2022.</p>
       </div>
       <div>
         <h4>Layanan</h4>
@@ -706,7 +791,6 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
-  <!-- ===== FLOATING CHAT ===== -->
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
     <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -714,17 +798,15 @@
     </a>
   </div>
 
-  <!-- ===== BACK TO TOP ===== -->
+ 
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- ============================================================ -->
-  <!-- ===== SCRIPTS ===== -->
-  <!-- ============================================================ -->
+  
 
   <script>
-    // ===== NAVBAR =====
+  
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
@@ -755,7 +837,7 @@
       });
     });
 
-    // ===== THEME TOGGLE =====
+   
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
     const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -770,7 +852,7 @@
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // ===== BACK TO TOP =====
+
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       backToTop.classList.toggle('show', window.scrollY > 400);
@@ -779,7 +861,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ===== SLIDER =====
+  
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
     let slideIndex = 0;
@@ -801,7 +883,6 @@
       }
       goSlide(0);
       let slideInterval = setInterval(() => goSlide((slideIndex + 1) % totalSlides), 4000);
-      // Pause on hover
       const sliderWrap = document.querySelector('.slider-wrap');
       sliderWrap.addEventListener('mouseenter', () => clearInterval(slideInterval));
       sliderWrap.addEventListener('mouseleave', () => {
@@ -810,9 +891,7 @@
     }
   </script>
 
-  <!-- ============================================================ -->
-  <!-- ===== MAIN SCRIPT (MODULE) ===== -->
-  <!-- ============================================================ -->
+ 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
     import {
@@ -833,26 +912,24 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // ================================================================
-    // 2. LAYANAN CPM
-    // ================================================================
+  
     const DEFAULT_SERVICES = [
-      { name: "Custom ID", price: "Rp 5.000", image: "Screenshot_20260619-210721.png", desc: "Ganti ID mobil sesuai keinginan", note: "", kategori: "Lainnya" },
-      { name: "Tune Up", price: "Rp 3.000", image: "20240911_122112_0000.png", desc: "Upgrade performa mobil", note: "", kategori: "Tune Up" },
-      { name: "Tune Up Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122314_0000.png", desc: "Tune up dengan suara asli", note: "", kategori: "Tune Up" },
-      { name: "FFA / Ghoib", price: "Rp 3.000", image: "20240911_122413_0000.png", desc: "Mobil FFA / Ghoib", note: "", kategori: "Tune Up" },
-      { name: "FFA / Ghoib Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122501_0000.png", desc: "FFA dengan suara asli", note: "", kategori: "Tune Up" },
-      { name: "Glitch", price: "Rp 3.000", image: "20240911_122520_0000.png", desc: "Efek glitch pada mobil", note: "", kategori: "Glitch" },
-      { name: "Glitch Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122545_0000.png", desc: "Glitch dengan suara asli", note: "", kategori: "Glitch" },
+      { name: "Tune Up", price: "Rp 3.000", image: "20240911_122112_0000.png", desc: "Kecepatan seperti standard tapi lebih kencang. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "Tune Up Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122314_0000.png", desc: "Tune up dengan suara asli + performa. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib", price: "Rp 3.000", image: "20240911_122413_0000.png", desc: "Bisa jalan auto (jalan biasa) jika gas ditinggal, dan saat balap berubah menjadi glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122501_0000.png", desc: "FFA dengan suara asli + performa glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "Glitch", price: "Rp 3.000", image: "20240911_122520_0000.png", desc: "Mode cepat (manual) untuk balapan. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
+      { name: "Glitch Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122545_0000.png", desc: "Glitch dengan suara asli + performa maksimal. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
       { name: "Chrome / Bakar Body / Velg", price: "Rp 3.000", image: "20240911_122655_0000.png", desc: "Cat chrome atau bakar pada body/velg", note: "", kategori: "Lainnya" },
       { name: "Custom Spoiler / Trondol", price: "Rp 3.000", image: "20240911_122743_0000.png", desc: "Pasang spoiler custom", note: "", kategori: "Lainnya" },
       { name: "Alis Nyala / Kaliper", price: "Rp 3.000", image: "20240911_122808_0000.png", desc: "Alis nyala atau kaliper", note: "", kategori: "Lainnya" },
-      { name: "Unlock Sirine", price: "Rp 5.000", image: "sirine.png", desc: "Buka kunci sirine", note: "", kategori: "Sirine" },
+      { name: "Custom ID", price: "Rp 5.000", image: "Screenshot_20260619-210721.png", desc: "Ganti ID mobil sesuai keinginan", note: "", kategori: "Lainnya" },
+      { name: "Unlock Sirine", price: "Rp 5.000", image: "sirine.png", desc: "Buka kunci semua sirine", note: "", kategori: "Sirine" },
       { name: "Unlock Paid / Premium Car", price: "Rp 5.000", image: "Error.png", desc: "Buka mobil premium berbayar", note: "", kategori: "Premium Car" },
       { name: "Unlock Premium Car + Sirine", price: "Rp 8.000", image: "Error.png", desc: "Buka premium car + sirine", note: "", kategori: "Premium Car" },
-      { name: "Isi 30.000 Coin", price: "Rp 5.000", image: "20240911_122850_0000.png", desc: "Isi 30.000 coin", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
+      { name: "Isi Koin Bebas Request", price: "Rp 5.000", image: "20240911_122850_0000.png", desc: "Isi koin sesuai request (maks 500.000).", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
       { name: "Isi 50.000.000 Uang", price: "Rp 4.000", image: "20240911_122850_0000.png", desc: "Isi 50 juta uang", note: "", kategori: "Coin/Uang" },
-      { name: "Bundle 50M Uang + 30K Coin", price: "Rp 8.000", image: "20240911_122850_0000.png", desc: "Paket hemat uang + coin", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
+      { name: "Bundle Uang + Koin (bebas req koin)", price: "Rp 8.000", image: "20240911_122850_0000.png", desc: "Paket hemat uang + koin (request jumlah koin).", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
       { name: "Joki Akun Ke King", price: "Rp 0", image: "Error.png", desc: "Bonus isi uang + koin (akun baru/lama)", note: "Wajib pilih metode login akun", kategori: "Lainnya" },
       { name: "Request Livery Mobil", price: "Rp 20.000 — Rp 50.000", image: "20240911_123629_0000.png", desc: "Desain livery sesuai request", note: "Tergantung tingkat kesulitan", kategori: "Livery" },
       { name: "Stock Mobil Murah", price: "Lihat Stock", image: "20240911_125134_0000.png", desc: "Pilih sendiri mobil dari stok", note: "", kategori: "Lainnya", isSpecial: true }
@@ -879,6 +956,16 @@
       currentSort = sort;
       renderServices(allServices, promoItems);
     };
+
+    function formatCountdown(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      if (h > 0) return `${h}j ${m}m ${s}s`;
+      if (m > 0) return `${m}m ${s}s`;
+      return `${s}s`;
+    }
 
     function renderServices(services, promos = []) {
       const grid = document.getElementById('servicesGrid');
@@ -990,7 +1077,7 @@
           btnHtml = `<a href="stockmobil.html" class="btn-order" style="margin-top:0.5rem;"><i class="fas fa-car"></i> Lihat Stock</a>`;
         } else {
           btnHtml = `
-            <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.3rem;">
+            <div class="btn-order-group">
               <a href="order.html?service=${encodeURIComponent(service.name)}" class="btn-order"><i class="fas fa-cart-plus"></i> Pesan</a>
               <a href="${waLink}" target="_blank" rel="noopener" class="btn-order quick"><i class="fab fa-whatsapp"></i> Cepat</a>
             </div>
@@ -1020,7 +1107,7 @@
       });
     }
 
-    // Load services
+
     onSnapshot(query(collection(db, SERVICES_COLLECTION)), (snapshot) => {
       if (snapshot.empty) {
         allServices = DEFAULT_SERVICES;
@@ -1039,7 +1126,7 @@
       renderServices(allServices, promoItems);
     });
 
-    // Promo listener
+
     const promoDocRef = doc(db, 'promos', 'active');
     docOnSnapshot(promoDocRef, (docSnap) => {
       if (docSnap.exists()) {
@@ -1056,9 +1143,6 @@
       renderServices(allServices, []);
     });
 
-    // ================================================================
-    // 3. GUESTBOOK
-    // ================================================================
     const form = document.getElementById('messageForm');
     const messagesDiv = document.getElementById('messages');
     const submitBtn = document.getElementById('submitBtn');
@@ -1066,7 +1150,6 @@
     let loading = false;
     let isSubmitting = false;
 
-    // Sanitasi sederhana
     function sanitize(text) {
       const div = document.createElement('div');
       div.textContent = text;
@@ -1167,16 +1250,15 @@
     loadInitialMessages();
   </script>
 
-  <!-- Install PWA Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ SW registered'))
-        .catch(err => console.log('❌ SW failed:', err));
-    });
-  }
-</script>
-  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(() => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+  </script>
+
 </body>
 </html>
