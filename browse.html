@@ -2,72 +2,64 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Jelajahi Manga – Akino Store</title>
   <meta name="description" content="Cari dan filter manga, manhwa, manhua berdasarkan genre, origin, status, dan lainnya." />
-
-  <!-- ===== PWA ===== -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#3B82F6" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-  <!-- Icon untuk iOS / Safari -->
   <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
-
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js"></script>
-
   <style>
-    /* ============================================================
-       ROOT VARIABLES (Sama seperti manga.html)
-       ============================================================ */
     :root {
-      --bg-primary: #0f0f0f;
-      --bg-secondary: #1a1a1a;
-      --bg-card: #1f1f1f;
-      --bg-card-hover: #2a2a2a;
-      --bg-glass: rgba(31, 31, 31, 0.7);
-      --fg-primary: #f0f0f0;
-      --fg-secondary: #a0a0a0;
-      --fg-muted: #6b6b6b;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a26;
+      --bg-card-hover: #242433;
+      --bg-glass: rgba(18,18,26,0.85);
+      --fg-primary: #f0f0f5;
+      --fg-secondary: #a0a0b0;
+      --fg-muted: #6a6a80;
       --accent: #3B82F6;
       --accent-hover: #2563eb;
-      --accent-dim: rgba(59, 130, 246, 0.15);
-      --border-color: rgba(255, 255, 255, 0.06);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      --radius: 12px;
-      --radius-sm: 8px;
+      --accent-dim: rgba(59,130,246,0.12);
+      --accent-glow: rgba(59,130,246,0.2);
+      --border-color: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --shadow: 0 8px 40px rgba(0,0,0,0.5);
+      --shadow-hover: 0 16px 56px rgba(0,0,0,0.6);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --radius-lg: 20px;
       --font: 'Inter', sans-serif;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
       --navbar-height: 68px;
     }
-
     body.light-theme {
-      --bg-primary: #f5f5f8;
+      --bg-primary: #f0f0f5;
       --bg-secondary: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #f0f0f5;
-      --bg-glass: rgba(255, 255, 255, 0.7);
-      --fg-primary: #121212;
-      --fg-secondary: #555555;
-      --fg-muted: #888888;
-      --border-color: rgba(0, 0, 0, 0.06);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --bg-glass: rgba(255,255,255,0.85);
+      --fg-primary: #12121a;
+      --fg-secondary: #555568;
+      --fg-muted: #88889e;
+      --border-color: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.12);
+      --shadow: 0 8px 40px rgba(0,0,0,0.08);
+      --shadow-hover: 0 16px 56px rgba(0,0,0,0.12);
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
@@ -78,607 +70,420 @@
       padding-top: var(--navbar-height);
       min-height: 100vh;
       overflow-x: hidden;
+      line-height:1.6;
     }
     a { text-decoration:none; color:inherit; }
     img { display:block; max-width:100%; }
     button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
-    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:var(--bg-secondary); }
-    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
+    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:4px; }
 
-    /* ============================================================
-       NAVBAR (sama seperti manga.html)
-       ============================================================ */
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: var(--bg-glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-color);
-      height: var(--navbar-height);
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:var(--bg-glass);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border-color);
+      height:var(--navbar-height);
       transition: background var(--transition), box-shadow var(--transition);
     }
-    .navbar.scrolled {
-      background: var(--bg-glass);
-      box-shadow: var(--shadow);
-    }
+    .navbar.scrolled { box-shadow:var(--shadow); }
     .navbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
-      gap: 1rem;
+      display:flex; align-items:center; justify-content:space-between;
+      height:100%; max-width:1400px; margin:0 auto; padding:0 16px; gap:0.8rem;
     }
     .navbar .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--fg-primary);
-      flex-shrink: 0;
+      display:flex; align-items:center; gap:0.4rem;
+      font-size:1.1rem; font-weight:800; color:var(--fg-primary); flex-shrink:0;
+      letter-spacing:-0.3px;
     }
-    .navbar .logo i { color: var(--accent); font-size: 1.1rem; }
-    .navbar .logo span { color: var(--accent); }
-
+    .navbar .logo i { color:var(--accent); font-size:1rem; }
+    .navbar .logo span { color:var(--accent); }
     .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-      list-style: none;
-      flex: 1;
-      justify-content: center;
-      flex-wrap: wrap;
+      display:flex; align-items:center; gap:0.2rem; list-style:none;
+      flex:1; justify-content:center; flex-wrap:wrap;
     }
     .nav-menu a {
-      padding: 0.4rem 0.8rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--fg-secondary);
-      transition: all var(--transition);
-      white-space: nowrap;
+      padding:0.3rem 0.6rem; border-radius:var(--radius-sm);
+      font-size:0.75rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); white-space:nowrap;
     }
     .nav-menu a:hover, .nav-menu a.active {
-      color: var(--fg-primary);
-      background: var(--bg-card);
+      color:var(--fg-primary); background:var(--bg-card);
     }
-    .nav-menu a.active { color: var(--accent); background: var(--accent-dim); }
-
+    .nav-menu a.active { color:var(--accent); background:var(--accent-dim); }
     .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
+      display:flex; align-items:center; gap:0.4rem; flex-shrink:0;
     }
     .nav-actions .theme-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--fg-secondary);
-      transition: all var(--transition);
-      font-size: 0.9rem;
+      width:34px; height:34px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); transition:all var(--transition); font-size:0.8rem;
     }
     .nav-actions .theme-btn:hover {
-      border-color: var(--accent);
-      color: var(--fg-primary);
-      background: var(--accent-dim);
+      border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
     }
-
     .nav-actions .auth-btn {
-      padding: 0.4rem 1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--accent);
-      border: none;
-      transition: all var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      text-decoration: none;
-      font-family: var(--font);
+      padding:0.3rem 0.8rem; border-radius:var(--radius-sm);
+      font-size:0.75rem; font-weight:600; color:#fff;
+      background:var(--accent); border:none;
+      transition:all var(--transition);
+      display:inline-flex; align-items:center; gap:0.3rem;
+      text-decoration:none; font-family:var(--font);
+      box-shadow:0 2px 12px rgba(59,130,246,0.2);
     }
     .nav-actions .auth-btn:hover {
-      background: var(--accent-hover);
-      transform: scale(1.02);
+      background:var(--accent-hover); transform:scale(1.02);
+      box-shadow:0 4px 20px rgba(59,130,246,0.3);
     }
-    .nav-actions .auth-btn i { font-size: 0.8rem; }
-
-    /* 🔥 TOMBOL TOGGLE 18+ */
+    .nav-actions .auth-btn i { font-size:0.7rem; }
     .mature-toggle-btn {
-      padding: 0.4rem 1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 600;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--fg-secondary);
-      transition: all var(--transition);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      white-space: nowrap;
+      padding:0.3rem 0.8rem;
+      border-radius:var(--radius-sm);
+      font-size:0.7rem;
+      font-weight:600;
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      color:var(--fg-secondary);
+      transition:all var(--transition);
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:0.3rem;
+      white-space:nowrap;
     }
     .mature-toggle-btn:hover {
-      border-color: var(--accent);
-      color: var(--fg-primary);
+      border-color:var(--accent);
+      color:var(--fg-primary);
+      background:var(--accent-dim);
     }
     .mature-toggle-btn.active {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: #ef4444;
-      color: #ef4444;
+      background:rgba(239,68,68,0.12);
+      border-color:#ef4444;
+      color:#ef4444;
     }
     .mature-toggle-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none !important;
+      opacity:0.4;
+      cursor:not-allowed;
+      transform:none !important;
     }
-    .mature-toggle-btn i { font-size: 0.75rem; }
-
+    .mature-toggle-btn i { font-size:0.65rem; }
     .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      padding: 4px;
-      cursor: pointer;
+      display:none; flex-direction:column; gap:4px;
+      background:none; border:none; padding:4px; cursor:pointer;
     }
     .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--fg-primary);
-      border-radius: 2px;
-      transition: all var(--transition);
+      display:block; width:22px; height:2px;
+      background:var(--fg-primary); border-radius:2px; transition:all var(--transition);
     }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
-
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
     .mobile-menu {
-      display: none;
-      position: fixed;
-      top: var(--navbar-height);
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--bg-primary);
-      padding: 1.5rem;
-      overflow-y: auto;
-      z-index: 999;
-      border-top: 1px solid var(--border-color);
-      flex-direction: column;
-      gap: 0.5rem;
+      display:none; position:fixed; top:var(--navbar-height); left:0; right:0; bottom:0;
+      background:var(--bg-primary); padding:1.5rem; overflow-y:auto; z-index:999;
+      border-top:1px solid var(--border-color); flex-direction:column; gap:0.5rem;
     }
-    .mobile-menu.open { display: flex; }
+    .mobile-menu.open { display:flex; }
     .mobile-menu a {
-      padding: 0.8rem 1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--fg-secondary);
-      transition: all var(--transition);
-      border-bottom: 1px solid var(--border-color);
+      padding:0.8rem 1rem; border-radius:var(--radius-sm);
+      font-size:0.95rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); border-bottom:1px solid var(--border-color);
     }
     .mobile-menu a:hover, .mobile-menu a.active {
-      color: var(--fg-primary);
-      background: var(--bg-card);
+      color:var(--fg-primary); background:var(--bg-card);
     }
-    .mobile-menu a.active { color: var(--accent); background: var(--accent-dim); }
+    .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
 
-    /* ============================================================
-       CONTAINER
-       ============================================================ */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+    .container { max-width:1400px; margin:0 auto; padding:0 16px; }
 
-    /* ============================================================
-       BROWSE HEADER
-       ============================================================ */
     .browse-header {
-      padding: 1rem 0 1.5rem;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1.5rem;
+      padding:0.8rem 0 1.2rem;
+      border-bottom:1px solid var(--border-color);
+      margin-bottom:1.2rem;
+      position:relative;
+    }
+    .browse-header::after {
+      content:''; position:absolute; bottom:-1px; left:0; width:60px;
+      height:2px; background:linear-gradient(90deg, var(--accent), transparent);
+      border-radius:2px;
     }
     .browse-header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-size:1.6rem; font-weight:700; display:flex; align-items:center; gap:0.5rem;
+      letter-spacing:-0.5px;
     }
-    .browse-header h1 i { color: var(--accent); }
-    .browse-header .sub {
-      color: var(--fg-secondary);
-      font-size: 0.9rem;
-      margin-top: 0.2rem;
-    }
+    .browse-header h1 i { color:var(--accent); background:var(--accent-dim); padding:0.3rem; border-radius:var(--radius-sm); font-size:1.2rem; }
+    .browse-header .sub { color:var(--fg-secondary); font-size:0.85rem; margin-top:0.1rem; }
 
-    /* ===== TOMBOL KEMBALI ===== */
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 1rem;
-      border-radius: var(--radius-sm);
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--fg-secondary);
-      font-size: 0.8rem;
-      transition: all var(--transition);
-      cursor: pointer;
-      margin-bottom: 1rem;
-      text-decoration: none;
+      display:inline-flex; align-items:center; gap:0.4rem;
+      padding:0.3rem 1rem; border-radius:var(--radius-sm);
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); font-size:0.78rem;
+      transition:all var(--transition); cursor:pointer;
+      margin-bottom:0.8rem; text-decoration:none;
     }
     .back-link:hover {
-      border-color: var(--accent);
-      color: var(--fg-primary);
-      background: var(--accent-dim);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
+    .back-link i { font-size:0.7rem; }
 
-    /* ============================================================
-       SEARCH BAR (BARU)
-       ============================================================ */
     .search-bar {
-      display: flex;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
+      display:flex; gap:0.6rem; margin-bottom:0.8rem;
+      flex-wrap:wrap; align-items:center;
     }
     .search-bar .search-input-wrap {
-      flex: 1;
-      min-width: 200px;
-      display: flex;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      transition: border var(--transition);
-      overflow: hidden;
+      flex:1; min-width:200px; display:flex;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      transition:all var(--transition);
+      overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
     }
     .search-bar .search-input-wrap:focus-within {
-      border-color: var(--accent);
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px var(--accent-dim);
     }
     .search-bar .search-input-wrap input {
-      flex: 1;
-      padding: 0.5rem 1rem;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--fg-primary);
-      font-size: 0.9rem;
-      font-family: var(--font);
+      flex:1; padding:0.5rem 0.8rem;
+      background:transparent; border:none; outline:none;
+      color:var(--fg-primary); font-size:0.9rem; font-family:var(--font);
     }
-    .search-bar .search-input-wrap input::placeholder {
-      color: var(--fg-muted);
-    }
+    .search-bar .search-input-wrap input::placeholder { color:var(--fg-muted); }
     .search-bar .search-input-wrap .search-icon {
-      padding: 0.5rem 0.8rem;
-      color: var(--fg-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding:0.5rem 0.6rem 0.5rem 0.8rem;
+      color:var(--fg-muted); display:flex; align-items:center; justify-content:center;
     }
     .search-bar .btn-search {
-      padding: 0.5rem 1.2rem;
-      background: var(--accent);
-      color: #fff;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all var(--transition);
-      white-space: nowrap;
+      padding:0.5rem 1.2rem;
+      background:linear-gradient(145deg, var(--accent), var(--accent-hover));
+      color:#fff; border-radius:var(--radius-sm);
+      font-weight:600; font-size:0.85rem;
+      transition:all var(--transition);
+      white-space:nowrap;
+      box-shadow:0 2px 12px rgba(59,130,246,0.2);
     }
     .search-bar .btn-search:hover {
-      background: var(--accent-hover);
-      transform: scale(1.02);
+      transform:scale(1.02);
+      box-shadow:0 4px 20px rgba(59,130,246,0.3);
     }
     .search-bar .btn-reset-search {
-      padding: 0.5rem 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: var(--fg-secondary);
-      font-size: 0.85rem;
-      transition: all var(--transition);
-      white-space: nowrap;
+      padding:0.5rem 1rem;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-secondary); font-size:0.85rem;
+      transition:all var(--transition);
+      white-space:nowrap;
     }
     .search-bar .btn-reset-search:hover {
-      border-color: var(--accent);
-      color: var(--fg-primary);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
 
-    /* ============================================================
-       FILTER BAR
-       ============================================================ */
     .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin: 0.5rem 0 1.5rem;
-      align-items: center;
+      display:flex; flex-wrap:wrap; gap:0.6rem;
+      margin:0.2rem 0 1.2rem;
+      align-items:center;
+      background:var(--bg-card);
+      padding:0.6rem 0.8rem;
+      border-radius:var(--radius-sm);
+      border:1px solid var(--border-color);
+      backdrop-filter:blur(8px);
     }
-    .filter-bar select, .filter-bar input {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--fg-primary);
-      padding: 0.4rem 0.8rem;
-      border-radius: var(--radius-sm);
-      font-family: var(--font);
-      font-size: 0.85rem;
-      outline: none;
-      transition: border var(--transition);
-      min-width: 140px;
+    .filter-bar select {
+      background:var(--bg-secondary); border:1px solid var(--border-color);
+      color:var(--fg-primary); padding:0.35rem 0.7rem;
+      border-radius:var(--radius-sm);
+      font-family:var(--font); font-size:0.8rem;
+      outline:none; transition:all var(--transition);
+      min-width:120px; cursor:pointer;
+      -webkit-appearance:none; appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a6a82' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 0.7rem center;
+      padding-right:1.8rem;
     }
-    .filter-bar select:focus, .filter-bar input:focus { border-color: var(--accent); }
-    .filter-bar select option {
-      background: var(--bg-primary);
-      color: var(--fg-primary);
-    }
+    .filter-bar select:focus { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-dim); }
+    .filter-bar select option { background:var(--bg-primary); color:var(--fg-primary); }
     .filter-bar .btn-filter {
-      padding: 0.4rem 1.5rem;
-      background: var(--accent);
-      color: #fff;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all var(--transition);
+      padding:0.35rem 1.2rem;
+      background:var(--accent); color:#fff;
+      border-radius:var(--radius-sm);
+      font-weight:600; font-size:0.8rem;
+      transition:all var(--transition);
+      box-shadow:0 2px 8px rgba(59,130,246,0.15);
     }
     .filter-bar .btn-filter:hover {
-      background: var(--accent-hover);
-      transform: scale(1.02);
+      background:var(--accent-hover); transform:scale(1.02);
     }
     .filter-bar .btn-reset {
-      padding: 0.4rem 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: var(--fg-secondary);
-      font-size: 0.85rem;
-      transition: all var(--transition);
+      padding:0.35rem 1rem;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-secondary); font-size:0.8rem;
+      transition:all var(--transition);
     }
     .filter-bar .btn-reset:hover {
-      border-color: var(--accent);
-      color: var(--fg-primary);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
 
-    /* ============================================================
-       MANGA GRID
-       ============================================================ */
     .manga-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 2rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
+      gap:1.2rem;
+      margin-bottom:1.5rem;
     }
     .manga-card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: all var(--transition);
-      border: 1px solid var(--border-color);
-      position: relative;
-      cursor: pointer;
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      overflow:hidden;
+      transition:all var(--transition);
+      border:1px solid var(--border-color);
+      position:relative;
+      cursor:pointer;
+      box-shadow:0 2px 12px rgba(0,0,0,0.1);
     }
     .manga-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-      box-shadow: var(--shadow);
-      background: var(--bg-card-hover);
+      transform:translateY(-6px);
+      border-color:var(--accent);
+      box-shadow:var(--shadow-hover);
+      background:var(--bg-card-hover);
     }
     .manga-card .cover {
-      width: 100%;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      background: var(--bg-secondary);
-      transition: transform 0.4s ease;
+      width:100%; aspect-ratio:2/3; object-fit:cover;
+      background:var(--bg-secondary);
+      transition:transform 0.5s ease;
     }
-    .manga-card:hover .cover { transform: scale(1.03); }
+    .manga-card:hover .cover { transform:scale(1.04); }
     .manga-card .info {
-      padding: 0.6rem 0.7rem 0.8rem;
+      padding:0.6rem 0.7rem 0.8rem;
     }
     .manga-card .info h4 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      line-height: 1.3;
-      margin-bottom: 0.2rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      font-size:0.85rem; font-weight:600;
+      line-height:1.3; margin-bottom:0.2rem;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+      overflow:hidden;
     }
     .manga-card .info .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem 0.6rem;
-      font-size: 0.65rem;
-      color: var(--fg-secondary);
-      margin-top: 0.2rem;
+      display:flex; flex-wrap:wrap; gap:0.25rem 0.5rem;
+      font-size:0.6rem; color:var(--fg-secondary);
+      margin-top:0.15rem;
     }
-    .manga-card .info .meta .badge { font-size: 0.55rem; }
-    .badge-ongoing { background: rgba(239,68,68,0.2); color: #ef4444; }
-    .badge-completed { background: rgba(34,197,94,0.2); color: #22c55e; }
-    .badge-hiatus { background: rgba(234,179,8,0.2); color: #eab308; }
-    .badge-rating { background: rgba(59,130,246,0.15); color: var(--accent); }
-    .badge-origin { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--fg-secondary); }
-    .badge-18plus { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .manga-card .info .meta .badge { font-size:0.5rem; padding:0.05rem 0.4rem; border-radius:10px; }
+    .badge-ongoing { background:rgba(239,68,68,0.2); color:#ef4444; }
+    .badge-completed { background:rgba(34,197,94,0.2); color:#22c55e; }
+    .badge-hiatus { background:rgba(234,179,8,0.2); color:#eab308; }
+    .badge-rating { background:rgba(59,130,246,0.15); color:var(--accent); }
+    .badge-origin { background:var(--bg-card); border:1px solid var(--border-color); color:var(--fg-secondary); }
+    .badge-18plus { background:rgba(239,68,68,0.2); color:#ef4444; }
     .manga-card .mature-badge {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      background: #ef4444;
-      color: #fff;
-      font-size: 0.5rem;
-      font-weight: 700;
-      padding: 0.1rem 0.35rem;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      z-index: 2;
+      position:absolute; top:6px; right:6px;
+      background:#ef4444; color:#fff;
+      font-size:0.5rem; font-weight:700;
+      padding:0.1rem 0.35rem; border-radius:4px;
+      letter-spacing:0.5px; text-transform:uppercase;
+      z-index:2; box-shadow:0 2px 8px rgba(239,68,68,0.3);
     }
-
     .manga-card .read-btn {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.5rem;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      text-align: center;
-      font-size: 0.75rem;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all var(--transition);
-      border: none;
-      cursor: pointer;
+      position:absolute; bottom:0; left:0; right:0;
+      padding:0.4rem;
+      background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+      color:#fff; text-align:center;
+      font-size:0.7rem; font-weight:600;
+      opacity:0; transform:translateY(10px);
+      transition:all var(--transition);
+      border:none; cursor:pointer;
+      letter-spacing:0.3px;
     }
-    .manga-card:hover .read-btn { opacity: 1; transform: translateY(0); }
+    .manga-card:hover .read-btn { opacity:1; transform:translateY(0); }
 
-    /* ============================================================
-       PAGINATION
-       ============================================================ */
     .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      padding: 1rem 0 2rem;
+      display:flex; justify-content:center; align-items:center;
+      gap:0.4rem; flex-wrap:wrap;
+      padding:0.8rem 0 2rem;
     }
     .pagination button {
-      padding: 0.4rem 1rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      color: var(--fg-secondary);
-      font-size: 0.85rem;
-      transition: all var(--transition);
-      cursor: pointer;
-      font-family: var(--font);
-      min-width: 44px;
+      padding:0.35rem 0.9rem;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-secondary); font-size:0.8rem;
+      transition:all var(--transition);
+      cursor:pointer; font-family:var(--font);
+      min-width:40px; display:inline-flex; align-items:center; gap:0.3rem;
+      justify-content:center;
     }
     .pagination button:hover:not(:disabled) {
-      border-color: var(--accent);
-      color: var(--fg-primary);
-      background: var(--accent-dim);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
-    .pagination button:disabled { opacity: 0.3; cursor: not-allowed; }
+    .pagination button:disabled { opacity:0.25; cursor:not-allowed; }
     .pagination .page-info {
-      font-size: 0.85rem;
-      color: var(--fg-secondary);
-      padding: 0 0.5rem;
+      font-size:0.8rem; color:var(--fg-secondary);
+      padding:0 0.4rem;
     }
     .pagination .page-numbers {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
+      display:flex; gap:0.25rem; flex-wrap:wrap;
     }
     .pagination .page-numbers .page-num {
-      padding: 0.4rem 0.8rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--fg-secondary);
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      transition: all var(--transition);
-      cursor: pointer;
-      min-width: 36px;
-      text-align: center;
+      padding:0.35rem 0.7rem;
+      border-radius:var(--radius-sm);
+      font-size:0.78rem; font-weight:500;
+      color:var(--fg-secondary);
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      transition:all var(--transition);
+      cursor:pointer;
+      min-width:34px; text-align:center;
     }
     .pagination .page-numbers .page-num:hover:not(.active) {
-      border-color: var(--accent);
-      color: var(--fg-primary);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
     .pagination .page-numbers .page-num.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
+      background:var(--accent); color:#fff;
+      border-color:var(--accent);
+      box-shadow:0 2px 12px rgba(59,130,246,0.2);
     }
 
-    /* ============================================================
-       TOAST
-       ============================================================ */
     .toast-container {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      position:fixed; bottom:24px; right:24px;
+      z-index:9999; display:flex; flex-direction:column; gap:0.5rem;
+      max-width:90%;
     }
     .toast {
-      padding: 0.8rem 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      animation: slideInToast 0.3s ease;
-      font-size: 0.85rem;
+      padding:0.7rem 1.4rem; background:var(--bg-card);
+      border:1px solid var(--border-color); border-radius:var(--radius);
+      box-shadow:var(--shadow-hover); backdrop-filter:blur(16px);
+      display:flex; align-items:center; gap:0.6rem;
+      animation:slideInToast 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      font-size:0.8rem; border-left:3px solid var(--accent);
     }
-    .toast i { color: var(--accent); }
+    .toast i { color:var(--accent); }
     @keyframes slideInToast {
-      from { opacity:0; transform:translateX(50px); }
-      to { opacity:1; transform:translateX(0); }
+      from { opacity:0; transform:translateX(60px) scale(0.9); }
+      to { opacity:1; transform:translateX(0) scale(1); }
     }
 
-    /* ============================================================
-       MODAL 18+ (OVERLAY)
-       ============================================================ */
     .modal-18plus {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      animation: fadeIn 0.3s ease;
+      position:fixed; inset:0; z-index:9999;
+      background:rgba(0,0,0,0.88);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      display:none; align-items:center; justify-content:center;
+      padding:1.5rem; animation:fadeIn 0.3s ease;
     }
-    .modal-18plus.active { display: flex; }
+    .modal-18plus.active { display:flex; }
     .modal-18plus .modal-box {
-      max-width: 480px;
-      width: 100%;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 2rem 1.8rem;
-      text-align: center;
-      box-shadow: var(--shadow);
-      animation: scaleIn 0.35s cubic-bezier(0.32,0.72,0,1);
+      max-width:480px; width:100%;
+      background:var(--bg-secondary); border:1px solid var(--border-color);
+      border-radius:var(--radius-lg); padding:2rem 1.8rem;
+      text-align:center; box-shadow:var(--shadow-hover);
+      animation:scaleIn 0.35s cubic-bezier(0.32,0.72,0,1);
     }
     @keyframes scaleIn {
-      from { opacity:0; transform:scale(0.92) translateY(20px); }
+      from { opacity:0; transform:scale(0.94) translateY(20px); }
       to { opacity:1; transform:scale(1) translateY(0); }
     }
     @keyframes fadeIn {
@@ -687,135 +492,110 @@
     }
     .modal-18plus .modal-icon { font-size:3rem; color:#ef4444; margin-bottom:0.5rem; }
     .modal-18plus .modal-title {
-      font-family: var(--font);
-      font-size:1.3rem;
-      font-weight:700;
-      margin-bottom:0.3rem;
-      color:var(--fg-primary);
+      font-size:1.3rem; font-weight:700;
+      margin-bottom:0.3rem; color:var(--fg-primary);
     }
     .modal-18plus .modal-desc {
-      font-size:0.9rem;
-      color:var(--fg-secondary);
-      line-height:1.6;
-      margin-bottom:0.5rem;
+      font-size:0.9rem; color:var(--fg-secondary);
+      line-height:1.6; margin-bottom:0.5rem;
     }
     .modal-18plus .modal-warning {
-      background: rgba(239,68,68,0.08);
-      border: 1px solid rgba(239,68,68,0.15);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 1rem;
-      font-size: 0.78rem;
-      color: #f87171;
-      margin-bottom: 1.2rem;
+      background:rgba(239,68,68,0.08);
+      border:1px solid rgba(239,68,68,0.15);
+      border-radius:var(--radius-sm);
+      padding:0.6rem 1rem;
+      font-size:0.78rem; color:#f87171;
+      margin-bottom:1.2rem;
     }
     .modal-18plus .modal-actions {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
+      display:flex; gap:0.6rem; flex-wrap:wrap;
     }
     .modal-18plus .modal-actions .btn-confirm {
-      flex:1;
-      padding:0.7rem 1.5rem;
+      flex:1; padding:0.7rem 1.5rem;
       border-radius:var(--radius-sm);
-      background:#ef4444;
-      color:#fff;
-      font-weight:600;
-      font-size:0.9rem;
-      border:none;
-      cursor:pointer;
+      background:#ef4444; color:#fff;
+      font-weight:600; font-size:0.9rem;
+      border:none; cursor:pointer;
       transition:all var(--transition);
-      min-width:120px;
+      min-width:120px; box-shadow:0 2px 12px rgba(239,68,68,0.2);
     }
     .modal-18plus .modal-actions .btn-confirm:hover { background:#dc2626; transform:scale(1.02); }
     .modal-18plus .modal-actions .btn-cancel {
       padding:0.7rem 1.5rem;
       border-radius:var(--radius-sm);
-      background:var(--bg-card);
-      border:1px solid var(--border-color);
-      color:var(--fg-secondary);
-      font-weight:600;
-      font-size:0.9rem;
-      cursor:pointer;
-      transition:all var(--transition);
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); font-weight:600; font-size:0.9rem;
+      cursor:pointer; transition:all var(--transition);
       min-width:100px;
     }
     .modal-18plus .modal-actions .btn-cancel:hover {
-      border-color:var(--accent);
-      color:var(--fg-primary);
+      border-color:var(--accent); color:var(--fg-primary);
+      background:var(--accent-dim);
     }
     .modal-18plus .modal-login-msg {
-      color:var(--fg-secondary);
-      font-size:0.85rem;
+      color:var(--fg-secondary); font-size:0.85rem;
       margin-bottom:1rem;
     }
     .modal-18plus .modal-login-msg a {
-      color:var(--accent);
-      font-weight:600;
-      text-decoration:underline;
+      color:var(--accent); font-weight:600; text-decoration:underline;
     }
     .modal-18plus .modal-login-msg a:hover { color:var(--accent-hover); }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     .footer {
-      padding: 3rem 1.5rem 1.5rem;
-      border-top: 1px solid var(--border-color);
-      margin-top: 3rem;
+      padding:2.5rem 1.5rem 1.5rem;
+      border-top:1px solid var(--border-color);
+      margin-top:2rem;
     }
     .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 2rem;
-      max-width: 1000px;
-      margin: 0 auto 2rem;
-      text-align: left;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:1.5rem; max-width:1000px; margin:0 auto 1.5rem;
+      text-align:left;
     }
-    .footer-grid h4 { font-size:0.85rem; color:var(--fg-primary); margin-bottom:0.8rem; }
-    .footer-grid p, .footer-grid a { font-size:0.8rem; color:var(--fg-secondary); line-height:1.8; }
+    .footer-grid h4 { font-size:0.8rem; color:var(--fg-primary); margin-bottom:0.6rem; letter-spacing:-0.2px; }
+    .footer-grid p, .footer-grid a { font-size:0.75rem; color:var(--fg-secondary); line-height:1.8; }
     .footer-grid a { display:block; transition:color 0.2s; }
     .footer-grid a:hover { color:var(--accent); }
     .footer-grid .brand-footer { font-weight:600; color:var(--accent); }
     .footer-bottom {
       max-width:1000px; margin:0 auto;
       border-top:1px solid var(--border-color);
-      padding-top:1.5rem;
-      text-align:center;
-      font-size:0.7rem;
-      color:var(--fg-muted);
+      padding-top:1rem;
+      text-align:center; font-size:0.65rem; color:var(--fg-muted);
     }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
-    @media (max-width: 768px) {
-      :root { --navbar-height:60px; }
+    @media (max-width:768px) {
+      :root { --navbar-height:56px; }
       .nav-menu { display:none; }
       .hamburger { display:flex; }
       .nav-actions .auth-btn span { display:none; }
+      .navbar-inner { padding:0 12px; }
+      .container { padding:0 12px; }
+      .browse-header h1 { font-size:1.3rem; }
+      .browse-header .sub { font-size:0.78rem; }
       .search-bar .search-input-wrap { min-width:100%; }
-      .search-bar .btn-search, .search-bar .btn-reset-search { flex:1; justify-content:center; }
-      .filter-bar select, .filter-bar input { min-width:100%; flex:1 1 100%; }
-      .manga-grid { grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:0.8rem; }
-      .footer-grid { grid-template-columns:1fr 1fr; gap:1.5rem; text-align:center; }
+      .search-bar .btn-search, .search-bar .btn-reset-search { flex:1; justify-content:center; font-size:0.78rem; }
+      .filter-bar { padding:0.4rem 0.6rem; gap:0.4rem; }
+      .filter-bar select { min-width:100%; flex:1 1 100%; font-size:0.75rem; padding:0.3rem 0.6rem; }
+      .filter-bar .btn-filter, .filter-bar .btn-reset { flex:1; justify-content:center; font-size:0.75rem; padding:0.3rem 0.6rem; }
+      .manga-grid { grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:0.8rem; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:1rem; text-align:center; }
       .footer-grid h4 { text-align:center; }
-      .pagination .page-numbers .page-num { padding:0.3rem 0.6rem; font-size:0.7rem; min-width:30px; }
+      .pagination .page-numbers .page-num { padding:0.25rem 0.5rem; font-size:0.7rem; min-width:30px; }
+      .pagination button { font-size:0.7rem; padding:0.25rem 0.6rem; min-width:34px; }
       .modal-18plus .modal-box { padding:1.5rem 1.2rem; }
       .modal-18plus .modal-title { font-size:1.1rem; }
       .modal-18plus .modal-actions { flex-direction:column; }
       .modal-18plus .modal-actions .btn-confirm, .modal-18plus .modal-actions .btn-cancel { width:100%; }
     }
-    @media (max-width: 480px) {
-      .manga-grid { grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
-      .browse-header h1 { font-size:1.4rem; }
+    @media (max-width:480px) {
+      .manga-grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
+      .browse-header h1 { font-size:1.1rem; }
+      .search-bar .btn-search, .search-bar .btn-reset-search { font-size:0.7rem; padding:0.3rem 0.6rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ============================================================
-  NAVBAR
-  ============================================================ -->
   <nav class="navbar" id="navbar">
     <div class="navbar-inner">
       <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
@@ -827,7 +607,6 @@
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
-        <!-- 🔥 TOMBOL TOGGLE 18+ -->
         <button class="mature-toggle-btn" id="matureToggleBtn" onclick="toggleMature()" disabled>
           <i class="fas fa-lock"></i> <span id="matureToggleLabel">18+ </span>
         </button>
@@ -839,7 +618,6 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
@@ -847,9 +625,6 @@
     <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
   </div>
 
-  <!-- ============================================================
-  MODAL 18+ CONFIRMATION
-  ============================================================ -->
   <div class="modal-18plus" id="modal18plus">
     <div class="modal-box">
       <div class="modal-icon"><i class="fas fa-triangle-exclamation"></i></div>
@@ -872,21 +647,14 @@
     </div>
   </div>
 
-  <!-- ============================================================
-  MAIN CONTENT
-  ============================================================ -->
   <div class="container" id="mainContent">
     <div class="browse-header">
       <h1><i class="fas fa-search"></i> Jelajahi Manga</h1>
       <div class="sub">Cari, filter, dan temukan manga favoritmu.</div>
     </div>
 
-    <!-- TOMBOL KEMBALI -->
     <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Manga</a>
 
-    <!-- ============================================================
-    SEARCH BAR (BARU)
-    ============================================================ -->
     <div class="search-bar" id="searchBar">
       <div class="search-input-wrap">
         <span class="search-icon"><i class="fas fa-search"></i></span>
@@ -896,7 +664,6 @@
       <button class="btn-reset-search" id="resetSearchBtn"><i class="fas fa-times"></i> Reset</button>
     </div>
 
-    <!-- FILTER BAR -->
     <div class="filter-bar" id="filterBar">
       <select id="genreFilter"><option value="">Semua Genre</option></select>
       <select id="originFilter">
@@ -921,10 +688,8 @@
       <button class="btn-reset" id="resetFilter"><i class="fas fa-undo"></i> Reset</button>
     </div>
 
-    <!-- Manga Grid -->
     <div class="manga-grid" id="mangaGrid"></div>
 
-    <!-- Pagination -->
     <div class="pagination" id="pagination">
       <button id="prevPage" disabled><i class="fas fa-chevron-left"></i> Prev</button>
       <div class="page-numbers" id="pageNumbers"></div>
@@ -932,12 +697,9 @@
     </div>
   </div>
 
-  <!-- ============================================================
-  FOOTER
-  ============================================================ -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
-      <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital & game terpercaya sejak 2022. Solusi untuk kebutuhan game, sosial media, dan design Anda.</p></div>
+      <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital & game terpercaya sejak 2022.</p></div>
       <div><h4>Layanan</h4><a href="CarParkingMultiplayer.html">Car Parking</a><a href="SosialMedia.html">Sosial Media</a><a href="designedit.html">Design / Edit</a></div>
       <div><h4>Tentang</h4><a href="about.html">About Us</a><a href="https://wa.me/6289687163314" target="_blank">Contact</a><a href="stockmobil.html">Stock Mobil</a></div>
       <div><h4>Legal</h4><a href="privacy.html">Kebijakan Privasi</a><a href="terms.html">Syarat &amp; Ketentuan</a></div>
@@ -946,25 +708,13 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
-  <!-- ============================================================
-  TOAST CONTAINER
-  ============================================================ -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- ============================================================
-  SCRIPTS
-  ============================================================ -->
   <script>
-    // ============================================================
-    // CONFIG
-    // ============================================================
     const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
     const COVER_BASE = 'https://uploads.mangadex.org/covers';
     const PER_PAGE = 24;
 
-    // ============================================================
-    // STATE
-    // ============================================================
     const state = {
       mangaList: [],
       total: 0,
@@ -978,12 +728,8 @@
       isFetching: false,
     };
 
-    // 🔥 18+ STATE – sinkron dengan localStorage
     let showMature = localStorage.getItem('showMature') === 'true';
 
-    // ============================================================
-    // DOM REFS
-    // ============================================================
     const $ = id => document.getElementById(id);
     const mangaGrid = $('mangaGrid');
     const genreFilter = $('genreFilter');
@@ -1002,28 +748,19 @@
     const modalConfirmBtn = $('modalConfirmBtn');
     const modalCancelBtn = $('modalCancelBtn');
     const modalLoginMsg = $('modalLoginMsg');
-
-    // 🔥 ELEMEN SEARCH (BARU)
     const searchInput = $('searchInput');
     const searchBtn = $('searchBtn');
     const resetSearchBtn = $('resetSearchBtn');
-
-    // 🔥 ELEMEN TOGGLE 18+
     const matureToggleBtn = $('matureToggleBtn');
     const matureToggleLabel = $('matureToggleLabel');
 
-    // ============================================================
-    // 🔥 CEK STATUS LOGIN (FIREBASE)
-    // ============================================================
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         authText.textContent = 'Profil';
         authBtn.href = 'profile.html';
         authBtn.querySelector('i').className = 'fas fa-user-check';
-
         matureToggleBtn.disabled = false;
         matureToggleBtn.title = 'Klik untuk menampilkan atau menyembunyikan konten 18+';
-        // Sinkronkan state dari localStorage
         const stored = localStorage.getItem('showMature') === 'true';
         if (stored !== showMature) {
           showMature = stored;
@@ -1036,7 +773,6 @@
         authText.textContent = 'Login';
         authBtn.href = 'login.html';
         authBtn.querySelector('i').className = 'fas fa-user';
-
         showMature = false;
         localStorage.setItem('showMature', 'false');
         matureToggleBtn.disabled = true;
@@ -1046,9 +782,6 @@
       }
     });
 
-    // ============================================================
-    // UI 18+
-    // ============================================================
     function updateMatureUI() {
       if (showMature) {
         matureToggleBtn.classList.add('active');
@@ -1059,9 +792,6 @@
       }
     }
 
-    // ============================================================
-    // UTILITY
-    // ============================================================
     function getTitle(attrs) {
       if (!attrs || !attrs.title) return 'Untitled';
       const t = attrs.title;
@@ -1117,14 +847,11 @@
       toastContainer.appendChild(toast);
       setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateX(50px)';
+        toast.style.transform = 'translateX(50px) scale(0.9)';
         setTimeout(() => toast.remove(), 300);
       }, 3500);
     }
 
-    // ============================================================
-    // 18+ HANDLER
-    // ============================================================
     function handleMatureClick(mangaId) {
       const user = firebase.auth().currentUser;
       if (!user) {
@@ -1173,9 +900,6 @@
       }
     });
 
-    // ============================================================
-    // TOGGLE 18+
-    // ============================================================
     function toggleMature() {
       const user = firebase.auth().currentUser;
       if (!user) {
@@ -1186,7 +910,6 @@
       showMature = !showMature;
       localStorage.setItem('showMature', String(showMature));
       updateMatureUI();
-      // Reset ke halaman 1 dan fetch ulang
       state.currentPage = 1;
       fetchMangaList(1).then(() => {
         renderMangaGrid();
@@ -1194,9 +917,6 @@
       });
     }
 
-    // ============================================================
-    // API HELPERS
-    // ============================================================
     async function apiFetch(endpoint, params = {}) {
       const url = new URL(WORKER_URL + endpoint);
       Object.keys(params).forEach(key => {
@@ -1212,7 +932,6 @@
           url.searchParams.append(key, params[key]);
         }
       });
-      console.log('📡 Fetching:', url.toString());
       const resp = await fetch(url);
       if (!resp.ok) {
         const text = await resp.text();
@@ -1221,9 +940,6 @@
       return resp.json();
     }
 
-    // ============================================================
-    // FETCH GENRES
-    // ============================================================
     async function fetchGenres() {
       try {
         const data = await apiFetch('/manga/tag');
@@ -1234,9 +950,6 @@
       }
     }
 
-    // ============================================================
-    // FETCH MANGA LIST (dengan halaman + search)
-    // ============================================================
     async function fetchMangaList(page = 1) {
       if (state.isFetching) return;
       state.isFetching = true;
@@ -1249,19 +962,14 @@
           'includes[]': ['cover_art', 'artist', 'author'],
           order: { [state.sort]: 'desc' },
         };
-
-        // 🔥 Tentukan contentRating
         if (showMature) {
           params['contentRating[]'] = ['safe', 'suggestive', 'erotica', 'pornographic'];
         } else {
           params['contentRating[]'] = ['safe', 'suggestive'];
         }
-
-        // Search query
         if (state.searchQuery.trim()) {
           params.title = state.searchQuery.trim();
         }
-
         if (state.genre) {
           const allGenres = await fetchGenres();
           const found = allGenres.find(g =>
@@ -1276,7 +984,6 @@
         if (state.status) {
           params['status[]'] = [state.status];
         }
-
         const data = await apiFetch('/manga', params);
         const items = data.data || [];
         state.total = data.total || 0;
@@ -1293,13 +1000,10 @@
       }
     }
 
-    // ============================================================
-    // RENDER MANGA GRID
-    // ============================================================
     function renderMangaGrid() {
       mangaGrid.innerHTML = '';
       if (!state.mangaList.length) {
-        mangaGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--fg-secondary);padding:2rem 0;">Tidak ada manga ditemukan.</p>`;
+        mangaGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--fg-secondary);padding:2.5rem 0;font-size:0.9rem;">Tidak ada manga ditemukan.</p>`;
         return;
       }
       state.mangaList.forEach(manga => {
@@ -1349,9 +1053,6 @@
       });
     }
 
-    // ============================================================
-    // RENDER PAGINATION
-    // ============================================================
     function renderPagination() {
       const total = state.totalPages;
       const current = state.currentPage;
@@ -1405,9 +1106,6 @@
       }
     }
 
-    // ============================================================
-    // GO TO PAGE
-    // ============================================================
     async function goToPage(page) {
       if (page === state.currentPage || page < 1 || page > state.totalPages) return;
       await fetchMangaList(page);
@@ -1416,9 +1114,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ============================================================
-    // APPLY FILTERS & SEARCH
-    // ============================================================
     async function applyFilters() {
       state.genre = genreFilter.value;
       state.origin = originFilter.value;
@@ -1452,9 +1147,6 @@
       window.history.replaceState({}, '', newUrl);
     }
 
-    // ============================================================
-    // NAVBAR & THEME
-    // ============================================================
     (function navbar() {
       const navbar = document.getElementById('navbar');
       window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
@@ -1485,9 +1177,6 @@
       });
     })();
 
-    // ============================================================
-    // PAGINATION EVENT
-    // ============================================================
     prevPage.addEventListener('click', () => {
       if (state.currentPage > 1) goToPage(state.currentPage - 1);
     });
@@ -1495,9 +1184,6 @@
       if (state.currentPage < state.totalPages) goToPage(state.currentPage + 1);
     });
 
-    // ============================================================
-    // EVENT SEARCH
-    // ============================================================
     searchBtn.addEventListener('click', applyFilters);
     resetSearchBtn.addEventListener('click', function() {
       searchInput.value = '';
@@ -1511,9 +1197,6 @@
       }
     });
 
-    // ============================================================
-    // INIT
-    // ============================================================
     async function init() {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -1548,7 +1231,6 @@
         state.status = statusFilter.value;
         state.sort = sortFilter.value;
 
-        // 🔥 Default toggle 18+ disable dulu
         matureToggleBtn.disabled = true;
         matureToggleLabel.textContent = '18+ ';
 
@@ -1572,7 +1254,6 @@
     init();
   </script>
 
-  <!-- Install PWA Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

@@ -5,20 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Manga – Akino Store</title>
   <meta name="description" content="Baca manga, manhwa, dan manhua terjemahan Indonesia. Ribuan judul gratis dengan bookmark dan komentar." />
-
-  <!-- ===== PWA ===== -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#3B82F6" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-  <!-- Icon untuk iOS / Safari -->
   <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-
-  <!-- ===== OPEN GRAPH / THUMBNAIL ===== -->
   <meta property="og:site_name" content="Akino Store" />
   <meta property="og:title" content="Baca Manga, Manhwa, Manhua - Akino Store" />
   <meta property="og:description" content="Ribuan judul manga, manhwa, dan manhua terjemahan Indonesia & Inggris. Baca gratis, bookmark, dan komentar." />
@@ -27,65 +21,53 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://akinocpm.my.id/manga.html" />
-
-  <!-- ===== TWITTER CARD ===== -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Baca Manga, Manhwa, Manhua - Akino Store" />
   <meta name="twitter:description" content="Ribuan judul manga, manhwa, dan manhua terjemahan Indonesia & Inggris. Baca gratis, bookmark, dan komentar." />
   <meta name="twitter:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783480029/web_tumbnail2_dkwek2.png" />
-
-  <!-- ===== FAVICON ===== -->
   <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js"></script>
-
   <style>
-    /* ============================================================
-       ROOT VARIABLES
-       ============================================================ */
     :root {
       --bg-primary: #0f0f0f;
-      --bg-secondary: #1a1a1a;
-      --bg-card: #1f1f1f;
-      --bg-card-hover: #2a2a2a;
-      --bg-glass: rgba(31, 31, 31, 0.7);
+      --bg-secondary: #181818;
+      --bg-card: #1e1e1e;
+      --bg-card-hover: #282828;
+      --bg-glass: rgba(24,24,24,0.85);
       --fg-primary: #f0f0f0;
       --fg-secondary: #a0a0a0;
       --fg-muted: #6b6b6b;
       --accent: #3B82F6;
       --accent-hover: #2563eb;
-      --accent-dim: rgba(59, 130, 246, 0.15);
-      --border-color: rgba(255, 255, 255, 0.06);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --accent-dim: rgba(59,130,246,0.15);
+      --border-color: rgba(255,255,255,0.06);
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
       --radius: 12px;
       --radius-lg: 16px;
       --radius-sm: 8px;
       --font: 'Inter', sans-serif;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
       --navbar-height: 68px;
     }
-
     body.light-theme {
       --bg-primary: #f5f5f8;
       --bg-secondary: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #f0f0f5;
-      --bg-glass: rgba(255, 255, 255, 0.7);
+      --bg-glass: rgba(255,255,255,0.85);
       --fg-primary: #121212;
       --fg-secondary: #555555;
       --fg-muted: #888888;
-      --border-color: rgba(0, 0, 0, 0.06);
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --border-color: rgba(0,0,0,0.06);
+      --shadow: 0 8px 32px rgba(0,0,0,0.08);
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; overflow-x:hidden; }
     body {
@@ -97,18 +79,15 @@
       min-height: 100vh;
       overflow-x: hidden;
       max-width: 100vw;
+      line-height: 1.6;
     }
     a { text-decoration:none; color:inherit; }
     img { display:block; max-width:100%; height:auto; }
     button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
-
     ::-webkit-scrollbar { width:6px; height:6px; }
     ::-webkit-scrollbar-track { background:var(--bg-secondary); }
     ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
-    /* ============================================================
-       NAVBAR
-       ============================================================ */
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:1000;
       background:var(--bg-glass);
@@ -118,7 +97,7 @@
       height:var(--navbar-height);
       transition: background var(--transition), box-shadow var(--transition);
     }
-    .navbar.scrolled { background:var(--bg-glass); box-shadow:var(--shadow); }
+    .navbar.scrolled { box-shadow:var(--shadow); }
     .navbar-inner {
       display:flex; align-items:center; justify-content:space-between;
       height:100%; max-width:1400px; margin:0 auto; padding:0 16px; gap:0.8rem;
@@ -241,9 +220,6 @@
     }
     .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
 
-    /* ============================================================
-       SEARCH OVERLAY
-       ============================================================ */
     .search-overlay {
       position:fixed; top:0; left:0; right:0; bottom:0; z-index:2000;
       background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
@@ -293,9 +269,6 @@
     }
     .search-overlay .close-search:hover { color:var(--fg-primary); }
 
-    /* ============================================================
-       CONTAINER
-       ============================================================ */
     .container {
       max-width:1400px;
       margin:0 auto;
@@ -303,13 +276,11 @@
       overflow-x:hidden;
     }
 
-    /* ============================================================
-       HERO SLIDER
-       ============================================================ */
     .hero-slider {
       position:relative; width:100%; height:440px;
       border-radius:var(--radius-lg); overflow:hidden;
       margin-bottom:1.5rem; background:var(--bg-secondary);
+      box-shadow:var(--shadow);
     }
     .hero-slider .slides {
       display:flex; width:100%; height:100%;
@@ -322,7 +293,7 @@
     }
     .hero-slider .slide::before {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 70%);
+      background:linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%);
       z-index:1;
     }
     .hero-slider .slide .content {
@@ -332,15 +303,18 @@
       background:var(--accent); color:#fff; padding:0.15rem 0.7rem;
       border-radius:20px; font-size:0.65rem; font-weight:600;
       margin-bottom:0.4rem; display:inline-block;
+      text-transform:uppercase; letter-spacing:0.3px;
     }
     .hero-slider .slide .content h2 {
       font-size:2rem; font-weight:800; margin-bottom:0.4rem; line-height:1.2;
+      text-shadow:0 2px 8px rgba(0,0,0,0.3);
     }
     .hero-slider .slide .content .sinopsis {
-      font-size:0.85rem; opacity:0.8; line-height:1.5;
+      font-size:0.85rem; opacity:0.9; line-height:1.5;
       margin-bottom:0.6rem;
       display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
       overflow:hidden;
+      text-shadow:0 1px 4px rgba(0,0,0,0.2);
     }
     .hero-slider .slide .content .meta {
       display:flex; gap:0.6rem; flex-wrap:wrap;
@@ -354,18 +328,21 @@
       border:none; border-radius:var(--radius-sm);
       color:#fff; font-weight:600; font-size:0.8rem;
       transition:all var(--transition);
+      box-shadow:0 4px 12px rgba(59,130,246,0.3);
     }
     .hero-slider .slide .content .actions .btn-read:hover {
       background:var(--accent-hover); transform:scale(1.03);
+      box-shadow:0 6px 20px rgba(59,130,246,0.4);
     }
     .hero-slider .slide .content .actions .btn-bookmark {
-      padding:0.4rem 1rem; background:rgba(255,255,255,0.1);
-      border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm);
+      padding:0.4rem 1rem; background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius-sm);
       color:#fff; font-weight:500; font-size:0.8rem;
       transition:all var(--transition);
+      backdrop-filter:blur(4px);
     }
     .hero-slider .slide .content .actions .btn-bookmark:hover {
-      background:rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.18);
     }
     .hero-slider .dots {
       position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
@@ -373,16 +350,14 @@
     }
     .hero-slider .dots span {
       width:8px; height:8px; border-radius:50%;
-      background:rgba(255,255,255,0.3); cursor:pointer;
+      background:rgba(255,255,255,0.35); cursor:pointer;
       transition:all var(--transition);
+      box-shadow:0 0 8px rgba(0,0,0,0.2);
     }
     .hero-slider .dots span.active {
       background:var(--accent); width:20px; border-radius:4px;
     }
 
-    /* ============================================================
-       AD BANNER (seperti MangaDex)
-       ============================================================ */
     .ad-banner {
       background:var(--bg-card);
       border:2px dashed var(--border-color);
@@ -434,15 +409,13 @@
       display:inline-flex;
       align-items:center;
       gap:0.4rem;
+      box-shadow:0 2px 8px rgba(59,130,246,0.2);
     }
     .ad-banner .ad-btn:hover {
       background:var(--accent-hover);
       transform:scale(1.02);
     }
 
-    /* ============================================================
-       SECTION HEADER
-       ============================================================ */
     .section-header {
       display:flex;
       align-items:center;
@@ -470,9 +443,6 @@
       white-space:nowrap;
     }
 
-    /* ============================================================
-       MANGA GRID
-       ============================================================ */
     .manga-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
@@ -611,9 +581,6 @@
     }
     .section-footer .view-all i { font-size:0.65rem; }
 
-    /* ============================================================
-       LATEST UPDATE LIST
-       ============================================================ */
     .latest-list {
       display:flex;
       flex-direction:column;
@@ -674,9 +641,6 @@
       margin-top:0.1rem;
     }
 
-    /* ============================================================
-       GENRE GRID
-       ============================================================ */
     .genre-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
@@ -703,9 +667,6 @@
     .genre-item i { font-size:1.2rem; color:var(--accent); }
     .genre-item span { font-size:0.65rem; font-weight:500; }
 
-    /* ============================================================
-       LAYOUT 2 KOLOM
-       ============================================================ */
     .layout-two-col {
       display:grid;
       grid-template-columns:1fr 280px;
@@ -757,7 +718,6 @@
       font-size:0.6rem;
       color:var(--fg-secondary);
     }
-    /* Iklan sidebar dengan gaya lebih mencolok */
     .sidebar .widget-ad {
       background:var(--bg-card);
       border:2px dashed var(--border-color);
@@ -799,9 +759,6 @@
       transform:scale(1.02);
     }
 
-    /* ============================================================
-       TOAST
-       ============================================================ */
     .toast-container {
       position:fixed;
       bottom:20px;
@@ -830,9 +787,6 @@
       to { opacity:1; transform:translateX(0); }
     }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     .footer {
       padding:2rem 1rem 1rem;
       border-top:1px solid var(--border-color);
@@ -869,9 +823,6 @@
       color:var(--fg-muted);
     }
 
-    /* ============================================================
-       SKELETON
-       ============================================================ */
     .skeleton-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(160px,1fr));
@@ -904,9 +855,6 @@
       100% { background-position:200% 0; }
     }
 
-    /* ============================================================
-       INFINITE SCROLL TRIGGER
-       ============================================================ */
     .infinite-trigger {
       height:36px;
       display:flex;
@@ -928,9 +876,6 @@
     .infinite-trigger.loading span { display:none; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
-    /* ============================================================
-       MODAL 18+
-       ============================================================ */
     .modal-18plus {
       position:fixed;
       inset:0;
@@ -1043,9 +988,6 @@
       color:var(--accent-hover);
     }
 
-    /* ============================================================
-       FLOATING SCROLL TO TOP
-       ============================================================ */
     .scroll-top-btn {
       position: fixed;
       bottom: 80px;
@@ -1087,9 +1029,6 @@
       }
     }
 
-    /* ============================================================
-       BOTTOM NAV (Mobile)
-       ============================================================ */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1151,9 +1090,6 @@
       }
     }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
     @media (max-width: 1200px) {
       .layout-two-col { grid-template-columns:1fr 240px; }
       .manga-grid { grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); }
@@ -1261,9 +1197,6 @@
 </head>
 <body>
 
-  <!-- ============================================================
-  NAVBAR
-  ============================================================ -->
   <nav class="navbar" id="navbar">
     <div class="navbar-inner">
       <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
@@ -1290,7 +1223,6 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="#hero" class="active">Home</a>
     <a href="#popular">Popular</a>
@@ -1301,9 +1233,6 @@
     <a href="#" id="bookmarkLinkMobile">Bookmark</a>
   </div>
 
-  <!-- ============================================================
-  SEARCH OVERLAY
-  ============================================================ -->
   <div class="search-overlay" id="searchOverlay">
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Cari manga..." autofocus />
@@ -1312,9 +1241,6 @@
     <span class="close-search" id="closeSearch">&times;</span>
   </div>
 
-  <!-- ============================================================
-  MODAL 18+
-  ============================================================ -->
   <div class="modal-18plus" id="modal18plus">
     <div class="modal-box">
       <div class="modal-icon"><i class="fas fa-triangle-exclamation"></i></div>
@@ -1337,20 +1263,13 @@
     </div>
   </div>
 
-  <!-- ============================================================
-  MAIN CONTENT
-  ============================================================ -->
   <div class="container" id="mainContent">
 
-    <!-- HERO SLIDER -->
     <section class="hero-slider" id="hero">
       <div class="slides" id="heroSlides"></div>
       <div class="dots" id="heroDots"></div>
     </section>
 
-    <!-- ============================================================
-    AD BANNER – seperti MangaDex (di bawah hero)
-    ============================================================ -->
     <div class="ad-banner">
       <div class="ad-content">
         <i class="fas fa-ad"></i>
@@ -1364,13 +1283,10 @@
       </a>
     </div>
 
-    <!-- LAYOUT 2 KOLOM -->
     <div class="layout-two-col">
 
-      <!-- KIRI: CONTENT -->
       <div class="main-col">
 
-        <!-- SECTION 1: TRENDING -->
         <section id="trending">
           <div class="section-header">
             <h2>🔥 Trending Today</h2>
@@ -1382,7 +1298,6 @@
           </div>
         </section>
 
-        <!-- SECTION 2: LATEST UPDATE -->
         <section id="latest" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>📰 Latest Update</h2>
@@ -1394,7 +1309,6 @@
           </div>
         </section>
 
-        <!-- SECTION 3: POPULAR -->
         <section id="popular" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>⭐ Popular This Week</h2>
@@ -1406,7 +1320,6 @@
           </div>
         </section>
 
-        <!-- SECTION 4: COMPLETED -->
         <section id="completed" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>✅ Completed</h2>
@@ -1418,7 +1331,6 @@
           </div>
         </section>
 
-        <!-- SECTION 5: ONGOING -->
         <section id="ongoing" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>🔄 Ongoing</h2>
@@ -1430,7 +1342,6 @@
           </div>
         </section>
 
-        <!-- SECTION 6: MANGA (Japan) -->
         <section id="manga-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇯🇵 Manga</h2>
@@ -1442,7 +1353,6 @@
           </div>
         </section>
 
-        <!-- SECTION 7: MANHWA (Korea) -->
         <section id="manhwa-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇰🇷 Manhwa</h2>
@@ -1454,7 +1364,6 @@
           </div>
         </section>
 
-        <!-- SECTION 8: MANHUA (China) -->
         <section id="manhua-origin" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2><i class="fas fa-flag" style="color:var(--accent);"></i> 🇨🇳 Manhua</h2>
@@ -1466,7 +1375,6 @@
           </div>
         </section>
 
-        <!-- SECTION 9: GENRE -->
         <section id="genres" style="margin-top:1.5rem;">
           <div class="section-header">
             <h2>🏷️ Genre</h2>
@@ -1474,7 +1382,6 @@
           <div class="genre-grid" id="genreGrid"></div>
         </section>
 
-        <!-- Infinite Scroll Trigger -->
         <div class="infinite-trigger" id="infiniteTrigger">
           <div class="spinner"></div>
           <span>Load more...</span>
@@ -1482,7 +1389,6 @@
 
       </div>
 
-      <!-- KANAN: SIDEBAR -->
       <aside class="sidebar" id="sidebar">
         <div class="widget">
           <h4><i class="fas fa-star"></i> Top Rating</h4>
@@ -1500,9 +1406,6 @@
           <h4><i class="fas fa-random"></i> Random</h4>
           <div id="randomList"></div>
         </div>
-        <!-- ============================================================
-        SIDEBAR AD – seperti MangaDex
-        ============================================================ -->
         <div class="widget-ad">
           <i class="fas fa-ad"></i>
           <p><strong>Pasang Iklan Anda</strong></p>
@@ -1516,21 +1419,12 @@
     </div>
   </div>
 
-  <!-- ============================================================
-  TOAST CONTAINER
-  ============================================================ -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- ============================================================
-  FLOATING SCROLL TO TOP BUTTON
-  ============================================================ -->
   <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- ============================================================
-  BOTTOM NAV (Mobile)
-  ============================================================ -->
   <nav class="bottom-nav" id="bottomNav">
     <button class="nav-item active" data-target="hero">
       <i class="fas fa-home"></i>
@@ -1550,9 +1444,6 @@
     </button>
   </nav>
 
-  <!-- ============================================================
-  FOOTER
-  ============================================================ -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital & game terpercaya sejak 2022.</p></div>
@@ -1564,16 +1455,10 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
-  <!-- ============================================================
-  SCRIPTS
-  ============================================================ -->
   <script>
-    // ============================================================
-    // KONFIGURASI & STATE
-    // ============================================================
     const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
     const COVER_BASE = 'https://uploads.mangadex.org/covers';
-    const AUTO_UPDATE_INTERVAL = 300000; // 5 menit
+    const AUTO_UPDATE_INTERVAL = 300000;
 
     let currentUserBookmarks = [];
     let heroInterval = null;
@@ -1645,9 +1530,6 @@
     const manhwaOriginUpdate = $('manhwaOriginUpdate');
     const manhuaOriginUpdate = $('manhuaOriginUpdate');
 
-    // ============================================================
-    // FIREBASE AUTH & BOOKMARK
-    // ============================================================
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         authText.textContent = 'Profil';
@@ -1677,9 +1559,6 @@
       }
     });
 
-    // ============================================================
-    // UTILITY FUNCTIONS
-    // ============================================================
     function getTitle(attrs) {
       if (!attrs || !attrs.title) return 'Untitled';
       const t = attrs.title;
@@ -1749,9 +1628,6 @@
       return 'N/A';
     }
 
-    // ============================================================
-    // 18+ HANDLING
-    // ============================================================
     function is18plusConfirmed(mangaId) {
       const key = `confirmed18plus_${mangaId}`;
       return sessionStorage.getItem(key) === 'true';
@@ -1832,9 +1708,6 @@
       }
     });
 
-    // ============================================================
-    // BOOKMARK FUNCTIONS
-    // ============================================================
     async function getUserProfile(uid) {
       try {
         const doc = await db.collection('users').doc(uid).get();
@@ -1886,9 +1759,6 @@
       }
     }
 
-    // ============================================================
-    // API HELPER
-    // ============================================================
     async function apiFetch(endpoint, params = {}) {
       const url = new URL(WORKER_URL + endpoint);
       Object.keys(params).forEach(key => {
@@ -1924,9 +1794,6 @@
       return arr;
     }
 
-    // ============================================================
-    // FETCH ALL SECTIONS – DENGAN URUTAN YANG BENAR
-    // ============================================================
     async function fetchAllSections() {
       const startTime = performance.now();
       console.log('🔄 Fetching all sections...');
@@ -1935,7 +1802,6 @@
       const contentRating = getContentRatingParams();
 
       try {
-        // 1. Ambil data utama (30 item) dengan order latestUploadedChapter
         const mainParams = {
           limit: 30,
           offset: 0,
@@ -1947,21 +1813,17 @@
         const mainData = await apiFetch('/manga', mainParams);
         let allItems = mainData.data || [];
 
-        // 2. Urutkan ulang berdasarkan updatedAt (atau createdAt) – fallback yang aman
         allItems = allItems.sort((a, b) => {
           const dateA = new Date(a.attributes?.updatedAt || a.attributes?.createdAt || 0);
           const dateB = new Date(b.attributes?.updatedAt || b.attributes?.createdAt || 0);
           return dateB - dateA;
         });
 
-        // 3. Trending = 12 teratas (diacak sedikit)
         const trendingRaw = allItems.slice(0, 12);
         sectionData.trending = shuffleArray([...trendingRaw]);
 
-        // 4. Latest = 15 teratas (tanpa diacak)
         sectionData.latest = allItems.slice(0, 15);
 
-        // 5. Popular (followedCount)
         const popularParams = {
           limit: 10,
           offset: 0,
@@ -1973,7 +1835,6 @@
         const popularData = await apiFetch('/manga', popularParams);
         sectionData.popular = popularData.data || [];
 
-        // 6. Completed
         const completedParams = {
           limit: 8,
           offset: 0,
@@ -1992,7 +1853,6 @@
         });
         sectionData.completed = completedItems;
 
-        // 7. Ongoing
         const ongoingParams = {
           limit: 8,
           offset: 0,
@@ -2011,7 +1871,6 @@
         });
         sectionData.ongoing = ongoingItems;
 
-        // 8. Origin sections
         const originPromises = ['ja', 'ko', 'zh'].map(lang => {
           return apiFetch('/manga', {
             limit: 8,
@@ -2040,7 +1899,6 @@
           return db - da;
         });
 
-        // 9. Top Rating
         const ratingParams = {
           limit: 5,
           offset: 0,
@@ -2052,12 +1910,10 @@
         const ratingData = await apiFetch('/manga', ratingParams);
         sectionData.topRating = ratingData.data || [];
 
-        // 10. Most Viewed, Newest, Random (dari allItems)
         sectionData.mostViewed = allItems.slice(0, 5);
         sectionData.newest = allItems.slice(0, 5);
         sectionData.random = shuffleArray([...allItems]).slice(0, 5);
 
-        // 11. Render semua
         renderAllSections();
 
         lastUpdate = new Date();
@@ -2080,9 +1936,6 @@
       }
     }
 
-    // ============================================================
-    // SKELETON
-    // ============================================================
     function showSkeletons() {
       renderSkeleton('trendingGrid', 12);
       renderSkeleton('popularGrid', 10);
@@ -2113,9 +1966,6 @@
       }
     }
 
-    // ============================================================
-    // RENDER ALL SECTIONS
-    // ============================================================
     function renderAllSections() {
       renderMangaGrid('trendingGrid', sectionData.trending, false);
       renderLatestList(sectionData.latest);
@@ -2133,9 +1983,6 @@
       renderGenreGrid();
     }
 
-    // ============================================================
-    // RENDER MANGA GRID
-    // ============================================================
     function renderMangaGrid(gridId, items, showRank = false, append = false) {
       const grid = document.getElementById(gridId);
       if (!grid) return;
@@ -2203,9 +2050,6 @@
       grid.appendChild(fragment);
     }
 
-    // ============================================================
-    // RENDER LATEST LIST
-    // ============================================================
     function renderLatestList(items) {
       latestList.innerHTML = '';
       if (!items || items.length === 0) {
@@ -2248,9 +2092,6 @@
       });
     }
 
-    // ============================================================
-    // RENDER SIDEBAR WIDGET
-    // ============================================================
     function renderSidebarWidget(widgetId, items, label = '') {
       const el = document.getElementById(widgetId);
       if (!el) return;
@@ -2281,9 +2122,6 @@
       });
     }
 
-    // ============================================================
-    // RENDER GENRE GRID
-    // ============================================================
     function renderGenreGrid() {
       const genreNames = ['Action','Adventure','Comedy','Drama','Fantasy','Romance','School','Slice of Life',
         'Martial Arts','Magic','Supernatural','Isekai','Historical','Horror','Sci-Fi','Sports','Mecha',
@@ -2308,9 +2146,6 @@
       });
     }
 
-    // ============================================================
-    // HERO SLIDER
-    // ============================================================
     function renderHeroSlider(items) {
       heroSlides.innerHTML = '';
       heroDots.innerHTML = '';
@@ -2393,9 +2228,6 @@
       }, 5000);
     }
 
-    // ============================================================
-    // UPDATE BADGES
-    // ============================================================
     function updateBadges(time) {
       const formatted = time.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
       const badgeText = `🔄 ${formatted}`;
@@ -2405,9 +2237,6 @@
       });
     }
 
-    // ============================================================
-    // INFINITE SCROLL
-    // ============================================================
     let infiniteObserver = null;
     let infiniteOffset = 24;
     let infiniteTotal = 0;
@@ -2467,9 +2296,6 @@
       }
     }
 
-    // ============================================================
-    // SEARCH
-    // ============================================================
     let searchTimeout;
 
     async function doSearch() {
@@ -2520,9 +2346,6 @@
       }
     }
 
-    // ============================================================
-    // SCROLL TO TOP BUTTON
-    // ============================================================
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
         scrollTopBtn.classList.add('visible');
@@ -2534,9 +2357,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ============================================================
-    // BOTTOM NAVIGATION (Mobile)
-    // ============================================================
     const bottomNavItems = document.querySelectorAll('.bottom-nav .nav-item');
     bottomNavItems.forEach(item => {
       item.addEventListener('click', () => {
@@ -2553,7 +2373,6 @@
       });
     });
 
-    // Update active nav item saat scroll
     let navScrollTimeout;
     window.addEventListener('scroll', () => {
       clearTimeout(navScrollTimeout);
@@ -2575,9 +2394,6 @@
       }, 100);
     });
 
-    // ============================================================
-    // EVENT BINDINGS
-    // ============================================================
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light-theme');
       const isLight = document.body.classList.contains('light-theme');
@@ -2637,7 +2453,6 @@
     console.log('📚 Manga App Ready with Auto-Update every 5 min');
   </script>
 
-  <!-- Install PWA Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

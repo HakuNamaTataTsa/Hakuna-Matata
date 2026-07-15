@@ -13,21 +13,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
-
-    <!-- ===== PWA ===== -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#3B82F6" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-<!-- Icon untuk iOS / Safari -->
-<link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
     <style>
-        /* ===== RESET & VARIABLES (sama seperti sebelumnya) ===== */
         *,
         *::before,
         *::after {
@@ -61,7 +55,6 @@
             --toast-bg: rgba(12, 12, 24, 0.92);
             --scrollbar-thumb: rgba(255, 255, 255, 0.12);
         }
-
         [data-theme="light"] {
             --bg-primary: #f5f5fa;
             --bg-secondary: #ededf2;
@@ -79,10 +72,6 @@
             --scrollbar-thumb: rgba(0, 0, 0, 0.12);
             --toast-bg: rgba(240, 240, 248, 0.96);
         }
-
-        /* ===== semua gaya dasar (navbar, hero, stats, dll) SAMA SEPERTI SEBELUMNYA ===== */
-        /* Saya singkat agar kode tidak terlalu panjang, tapi tetap fungsional */
-
         html {
             scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
@@ -128,7 +117,6 @@
             background: none;
             color: inherit;
         }
-
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -143,8 +131,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* ===== NAVBAR ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -310,8 +296,6 @@
             background: var(--accent-dim);
             color: var(--accent);
         }
-
-        /* ===== BREADCRUMB ===== */
         .breadcrumb {
             max-width: 1000px;
             margin: 5rem auto 0.5rem;
@@ -330,8 +314,6 @@
         .breadcrumb span {
             color: var(--fg);
         }
-
-        /* ===== HERO ===== */
         .page-hero {
             padding: 1rem 1rem 1.5rem;
             text-align: center;
@@ -393,8 +375,6 @@
             border: 1px solid rgba(255, 216, 102, 0.15);
             margin-bottom: 0.8rem;
         }
-
-        /* ===== STATS BAR (singkat) ===== */
         .stats-bar {
             max-width: 700px;
             margin: 0.5rem auto 1.5rem;
@@ -438,8 +418,6 @@
         .stats-item .stat-number.hot {
             color: #ff6b6b;
         }
-
-        /* ===== INFO BAR ===== */
         .info-bar {
             max-width: 600px;
             margin: 0 auto 1.5rem;
@@ -487,8 +465,6 @@
             color: var(--accent);
             font-weight: 600;
         }
-
-        /* ===== LIMITED BANNER (singkat) ===== */
         .limited-banner {
             position: relative;
             background: linear-gradient(145deg, rgba(255, 216, 102, 0.08), rgba(255, 216, 102, 0.02), rgba(255, 180, 0, 0.05));
@@ -685,8 +661,6 @@
             margin-bottom: 0.5rem;
             opacity: 0.3;
         }
-
-        /* ===== FLASH SALE SECTION (singkat) ===== */
         .flash-section {
             margin-bottom: 2rem;
             background: rgba(251, 146, 60, 0.06);
@@ -867,8 +841,6 @@
             pointer-events: none;
             border: 1px solid rgba(251, 146, 60, 0.3);
         }
-
-        /* ===== SOLD SECTION (singkat) ===== */
         .sold-section {
             margin-bottom: 2rem;
             background: rgba(248, 113, 113, 0.03);
@@ -1060,8 +1032,6 @@
             text-overflow: ellipsis;
             display: block;
         }
-
-        /* ===== FILTER BAR & RANGE SLIDER (singkat) ===== */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1299,8 +1269,6 @@
         .refresh-btn i {
             font-size: 0.7rem;
         }
-
-        /* ===== SORT TABS ===== */
         .sort-tabs {
             display: flex;
             gap: 0.4rem;
@@ -1337,8 +1305,6 @@
         .sort-btn i {
             font-size: 0.6rem;
         }
-
-        /* ===== PRICE THUMBNAILS (BARU) ===== */
         .price-thumbnails {
             display: flex;
             flex-wrap: wrap;
@@ -1362,7 +1328,7 @@
             font-family: var(--font-display);
             font-weight: 600;
             color: var(--fg-dim);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         .price-thumb:hover {
             border-color: var(--accent);
@@ -1394,8 +1360,6 @@
             font-size: 0.7rem;
             margin-bottom: 0.1rem;
         }
-
-        /* ===== MAIN GRID ===== */
         .ig-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1492,7 +1456,6 @@
             background: #ff6b6b;
             color: #0a0a0f;
         }
-
         .ig-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1579,8 +1542,6 @@
             background: #fb923c;
             color: #fff;
         }
-
-        /* ===== COUNTER ===== */
         .ig-counter {
             text-align: center;
             margin: 0 0 1rem;
@@ -1596,8 +1557,6 @@
             color: var(--accent);
             font-family: var(--font-display);
         }
-
-        /* ===== PAGINATION ===== */
         .pagination-wrapper {
             display: flex;
             flex-direction: column;
@@ -1715,8 +1674,6 @@
         .show-all-btn i {
             font-size: 0.7rem;
         }
-
-        /* ===== GUESTBOOK (singkat) ===== */
         .gb-wrap {
             max-width: 640px;
             margin: 0 auto;
@@ -1840,8 +1797,6 @@
         [data-theme="light"] .gb-msg small {
             color: rgba(0, 0, 0, 0.2);
         }
-
-        /* ===== SOCIAL ROW & FOOTER (singkat) ===== */
         .social-row {
             display: flex;
             justify-content: center;
@@ -1914,8 +1869,6 @@
             font-size: 0.7rem;
             color: var(--muted);
         }
-
-        /* ===== WHATSAPP FLOAT & SCROLL TOP ===== */
         .chat-float {
             position: fixed;
             bottom: 1.25rem;
@@ -2009,8 +1962,6 @@
         .scroll-top-btn:active {
             transform: scale(0.92);
         }
-
-        /* ===== LIGHTBOX (singkat) ===== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -2193,7 +2144,6 @@
             box-shadow: none !important;
             transform: none !important;
         }
-
         @keyframes lbFadeIn {
             from {
                 opacity: 0;
@@ -2212,8 +2162,6 @@
                 transform: scale(1) translateY(0);
             }
         }
-
-        /* ===== TOAST ===== */
         .toast-container {
             position: fixed;
             bottom: 80px;
@@ -2285,8 +2233,6 @@
         [data-theme="light"] .toast {
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .ig-list {
                 grid-template-columns: repeat(2, 1fr);
@@ -2400,7 +2346,6 @@
                 font-size: 1.2rem;
             }
         }
-        /* ===== loader ===== */
         .ig-card-loader {
             position: absolute;
             inset: 0;
@@ -2435,8 +2380,6 @@
     </style>
 </head>
 <body>
-
-    <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
         <div class="nav-right">
@@ -2457,21 +2400,15 @@
             <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
         </ul>
     </nav>
-
-    <!-- ===== BREADCRUMB ===== -->
     <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted);"></i>
         <span>Stock Mobil</span>
     </nav>
-
-    <!-- ===== HERO ===== -->
     <section class="page-hero">
         <div class="hero-badge"><i class="fas fa-fire"></i> Stock Terbatas</div>
         <h1>Stock Mobil <span class="highlight">Murah</span></h1>
         <p>Klik tombol harga di bawah untuk menampilkan mobil dengan harga tersebut.</p>
     </section>
-
-    <!-- ===== STATS BAR ===== -->
     <div class="stats-bar">
         <div class="stats-grid">
             <div class="stats-item">
@@ -2492,8 +2429,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ===== INFO BAR ===== -->
     <div class="info-bar">
         <div class="info-card">
             <div class="info-icon"><i class="fas fa-car"></i></div>
@@ -2503,8 +2438,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ===== LIMITED EDITION ===== -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="limited-banner reveal">
@@ -2522,10 +2455,7 @@
             <div class="secret-grid" id="secretGrid"></div>
         </div>
     </section>
-
     <div class="sec-divider"><hr /></div>
-
-    <!-- ===== FLASH SALE SECTION ===== -->
     <section class="sec" style="padding-top:0.5rem;padding-bottom:0.5rem">
         <div class="container">
             <div class="flash-section" id="flashSection" style="display:none">
@@ -2540,12 +2470,8 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== MAIN STOCK ===== -->
     <section class="sec" style="padding-top:0.5rem">
         <div class="container">
-
-            <!-- SOLD SECTION -->
             <div class="sold-section" id="soldSection" style="display:none">
                 <div class="sold-header">
                     <div class="sold-header-left">
@@ -2558,8 +2484,6 @@
                 </div>
                 <div class="sold-list" id="soldList"></div>
             </div>
-
-            <!-- FILTER BAR -->
             <div class="filter-bar reveal">
                 <div class="filter-group">
                     <label for="priceMin">Harga</label>
@@ -2587,24 +2511,14 @@
                     <button class="refresh-btn" onclick="manualRefresh()"><i class="fas fa-sync"></i> Refresh</button>
                 </div>
             </div>
-
-            <!-- SORT TABS (tetap ada) -->
             <div class="sort-tabs" style="margin-bottom:0.5rem;">
                 <button class="sort-btn active" data-sort="newest" onclick="setSort('newest')"><i class="fas fa-clock"></i> Terbaru</button>
                 <button class="sort-btn" data-sort="price-asc" onclick="setSort('price-asc')"><i class="fas fa-arrow-up-1-9"></i> Termurah</button>
                 <button class="sort-btn" data-sort="price-desc" onclick="setSort('price-desc')"><i class="fas fa-arrow-down-9-1"></i> Termahal</button>
             </div>
-
-            <!-- ===== PRICE THUMBNAILS (BARU) ===== -->
             <div id="priceThumbnails" class="price-thumbnails"></div>
-
-            <!-- COUNTER -->
             <div class="ig-counter reveal" id="igCounter"></div>
-
-            <!-- GRID / LIST -->
             <div class="ig-list" id="igGrid"></div>
-
-            <!-- PAGINATION -->
             <div class="pagination-wrapper" id="paginationWrapper">
                 <div class="pagination" id="pagination" style="display:none">
                     <button class="page-btn" id="prevBtn" onclick="prevPage()"><i class="fas fa-chevron-left"></i> Sebelumnya</button>
@@ -2617,10 +2531,7 @@
             </div>
         </div>
     </section>
-
     <div class="sec-divider"><hr /></div>
-
-    <!-- ===== GUESTBOOK ===== -->
     <section class="sec">
         <div class="gb-wrap reveal">
             <div class="gb">
@@ -2639,15 +2550,12 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== SOCIAL ROW & FOOTER ===== -->
     <div class="social-row">
         <a href="https://www.tiktok.com/@akinolaset_?_t=8pbChkK23O6&_r=1" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.instagram.com/akinostore_/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="https://youtube.com/@akinolaset?si=e4NLLQrgN0R3BPi4" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         <a href="https://wa.me/6289687163314" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
-
     <footer class="footer" aria-label="Footer">
         <div class="footer-grid">
             <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital & game terpercaya sejak 2022.</p></div>
@@ -2658,15 +2566,11 @@
         </div>
         <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
     </footer>
-
-    <!-- ===== WHATSAPP FLOAT & SCROLL TOP ===== -->
     <div class="chat-float">
         <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
         <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
     <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
-
-    <!-- ===== LIGHTBOX ===== -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-backdrop" id="lbBackdrop"></div>
         <div class="lightbox-content" id="lbContent">
@@ -2683,15 +2587,8 @@
         </div>
         <button class="lightbox-close" id="lbClose" aria-label="Tutup"><i class="fas fa-xmark"></i></button>
     </div>
-
-    <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toastContainer"></div>
-
-    <!-- ============================================================ -->
-    <!-- ===== SCRIPTS ===== -->
-    <!-- ============================================================ -->
     <script>
-        // ===== UTILITY =====
         function esc(t) { var d = document.createElement('div');
             d.textContent = t; return d.innerHTML }
 
@@ -2741,8 +2638,6 @@
             iframe.addEventListener('load', function() { loader.classList.add('hidden'); });
             setTimeout(function() { loader.classList.add('hidden'); }, 5000);
         }
-
-        // ===== THEME =====
         var currentTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
         var themeToggle = document.getElementById('themeToggle');
@@ -2754,8 +2649,6 @@
             localStorage.setItem('theme', next);
             themeIcon.className = next === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
         });
-
-        // ===== NAVBAR =====
         window.addEventListener('scroll', function() {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
             var btn = document.getElementById('scrollTopBtn');
@@ -2786,8 +2679,6 @@
         document.getElementById('scrollTopBtn').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // ===== REVEAL =====
         var revObs = new IntersectionObserver(function(entries) {
             entries.forEach(function(e) {
                 if (e.isIntersecting) { e.target.classList.add('visible');
@@ -2795,8 +2686,6 @@
             });
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
-
-        // ===== LIGHTBOX =====
         var lbEl = document.getElementById('lightbox'),
             lbIframe = document.getElementById('lbIframe'),
             lbPrice = document.getElementById('lbPrice'),
@@ -2822,7 +2711,6 @@
             lbOrder.className = 'btn-order-sm';
             lbOrder.style.cssText = '';
             lbShare.style.display = 'inline-flex';
-
             var priceToShow = '',
                 priceForWa = '',
                 waMsg = '';
@@ -2922,8 +2810,6 @@
         lbContent.addEventListener('touchmove', function(e) {
             if (e.touches[0].clientY - lbTouchStartY > 100 && lbContent.scrollTop <= 0) closeLightbox();
         }, { passive: true });
-
-        // ===== SECRET CARS (Firebase) =====
         (function() {
             var script = document.createElement('script');
             script.type = 'module';
@@ -2977,8 +2863,6 @@
             `;
             document.body.appendChild(script);
         })();
-
-        // ===== MAIN STOCK + FLASH + HOT + PRICE THUMBNAILS (Firebase) =====
         (function() {
             var script = document.createElement('script');
             script.type = 'module';
@@ -3007,7 +2891,7 @@
                     currentPage = 0,
                     soldListOpen = true,
                     flashTimer = null,
-                    selectedPrice = null; // <-- filter harga via thumbnail
+                    selectedPrice = null;
 
                 function escLocal(t) { var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
                 function parsePrice(str) { var n=parseInt((str||'').replace(/[^0-9]/g,'')); return isNaN(n)?0:n; }
@@ -3021,11 +2905,11 @@
                     return 'Rp '+discounted.toLocaleString('id-ID');
                 }
                 function getFlashRemaining(p) {
-                    if(!p.discount || !p.flashSaleEnd) return 0;
-                    return Math.max(0, toMs(p.flashSaleEnd)-Date.now());
+                    if(!p.discount) return 0;
+                    var end = p.flashSaleEnd ? toMs(p.flashSaleEnd) : (Date.now() + 24*3600000);
+                    return Math.max(0, end - Date.now());
                 }
 
-                // ---- FILTER ----
                 function getFilteredAvail() {
                     var allAvail = POSTS.filter(p => p.status === 'available');
                     var min = parseInt(document.getElementById('priceMin').value) || 0;
@@ -3060,7 +2944,6 @@
                     return avail;
                 }
 
-                // ---- STATS ----
                 function updateStats() {
                     var total = POSTS.length;
                     var available = POSTS.filter(p => p.status === 'available').length;
@@ -3072,7 +2955,6 @@
                     document.getElementById('statHot').textContent = hot;
                 }
 
-                // ---- FLASH SALE ----
                 function renderFlashSale() {
                     var flashItems = POSTS.filter(p => p.status === 'available' && p.discount === true);
                     var section = document.getElementById('flashSection');
@@ -3104,7 +2986,7 @@
                             '<div class="thumb-overlay"></div>' +
                             '<div class="flash-badge"><i class="fas fa-bolt"></i> FLASH</div>' +
                             '<div class="price-info"><span class="original">'+escLocal(price)+'</span><span class="discount">'+escLocal(discounted)+'</span></div>' +
-                            '<div class="countdown" data-flashend="'+toMs(post.flashSaleEnd)+'">⏳ '+timerText+'</div>' +
+                            '<div class="countdown" data-flashend="'+(post.flashSaleEnd ? toMs(post.flashSaleEnd) : (Date.now()+24*3600000))+'">⏳ '+timerText+'</div>' +
                             '</div>';
                         var iframe = card.querySelector('iframe');
                         addLoaderToCard(card, iframe);
@@ -3134,7 +3016,6 @@
                     }, 1000);
                 }
 
-                // ---- SOLD ----
                 function renderSold() {
                     var now = Date.now();
                     var sold = POSTS.filter(p => p.status === 'sold' && (SOLD_HOURS*3600000 - (now - toMs(p.soldAt))) > 0);
@@ -3156,11 +3037,9 @@
                     });
                 }
 
-                // ---- PRICE THUMBNAILS (BARU) ----
                 function renderPriceThumbnails() {
                     var container = document.getElementById('priceThumbnails');
                     container.innerHTML = '';
-                    // ambil semua harga unik dari POSTS yang available
                     var prices = new Set();
                     POSTS.filter(p => p.status === 'available').forEach(p => {
                         var priceNum = parsePrice(getEP(p));
@@ -3171,7 +3050,6 @@
                         container.innerHTML = '<div style="color:var(--muted);font-size:0.8rem;">Belum ada data harga</div>';
                         return;
                     }
-                    // Tombol "Semua"
                     var allBtn = document.createElement('div');
                     allBtn.className = 'price-thumb' + (selectedPrice === null ? ' active' : '');
                     allBtn.innerHTML = '<div class="thumb-price"><i class="fas fa-th-list"></i> Semua</div><div class="thumb-count">' + POSTS.filter(p => p.status === 'available').length + ' item</div>';
@@ -3200,7 +3078,6 @@
                     });
                 }
 
-                // ---- RENDER MAIN ----
                 function renderAvailable() {
                     var avail = getSortedFiltered();
                     var grid = document.getElementById('igGrid');
@@ -3252,7 +3129,6 @@
                         if(currentView === 'list') card.addEventListener('click', function(e) { if(!e.target.closest('a')) window.openLightbox(post); });
                         grid.appendChild(card);
                     });
-                    // pagination
                     if(!showAll && totalPages > 1){
                         var pag = document.getElementById('pagination');
                         pag.style.display = 'flex';
@@ -3304,7 +3180,7 @@
                 };
                 window.setSort = function(sort){
                     currentSort = sort;
-                    document.querySelectorAll('#sortTabs .sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === sort));
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === sort));
                     currentPage = 0;
                     renderAvailable();
                 };
@@ -3334,7 +3210,6 @@
                 };
                 window.manualRefresh = function(){ renderAvailable(); renderFlashSale(); updateStats(); renderPriceThumbnails(); showToast('🔄 Data diperbarui', 'info'); };
 
-                // ---- RANGE SLIDER ----
                 var rangeMin=document.getElementById('rangeMin'), rangeMax=document.getElementById('rangeMax'), rangeMinLabel=document.getElementById('rangeMinLabel'), rangeMaxLabel=document.getElementById('rangeMaxLabel'), rangeFill=document.getElementById('rangeFill');
                 function updateRangeSlider(){
                     var minVal=parseInt(rangeMin.value), maxVal=parseInt(rangeMax.value);
@@ -3359,7 +3234,6 @@
                     var val=parseInt(this.value)||0, max=parseInt(rangeMax.getAttribute('max'))||1000000; if(val>max) val=max; rangeMax.value=val; updateRangeSlider();
                 });
 
-                // ---- FLASH AUTO CLEANUP ----
                 async function cleanupFlashSale(){
                     var now=Date.now();
                     var toCleanup = POSTS.filter(p => p.discount === true && (p.status !== 'available' || (p.flashSaleEnd && now > toMs(p.flashSaleEnd))));
@@ -3373,7 +3247,6 @@
                 setInterval(cleanupFlashSale, 60000);
                 setTimeout(cleanupFlashSale, 3000);
 
-                // ---- LISTENER ----
                 onSnapshot(query(collection(db, "carStock"), orderBy("addedAt", "desc")), (snap) => {
                     POSTS = [];
                     snap.forEach((d) => POSTS.push({ id: d.id, ...d.data() }));
@@ -3389,13 +3262,10 @@
                 }, (err) => { console.error("Stock listener error:", err); });
 
                 setTimeout(updateRangeSlider, 100);
-                console.log('✅ Stock Mobil loaded with Price Thumbnails');
             `;
             document.body.appendChild(script);
         })();
     </script>
-
-    <!-- ===== GUESTBOOK (Firebase) ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, orderBy, limit, serverTimestamp, onSnapshot, startAfter, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
@@ -3458,16 +3328,14 @@
         }
         loadMessages();
     </script>
-
-    <!-- Install PWA Service Worker -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ SW registered'))
-        .catch(err => console.log('❌ SW failed:', err));
-    });
-  }
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(() => console.log('✅ SW registered'))
+                    .catch(err => console.log('❌ SW failed:', err));
+            });
+        }
+    </script>
 </body>
 </html>
