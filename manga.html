@@ -34,7 +34,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="firebase-init.js"></script>
   <style>
     :root {
       --bg-primary: #0f0f0f;
@@ -2463,5 +2462,28 @@
       });
     }
   </script>
+
+  <script>
+  // 🔥 Force update service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration().then(reg => {
+      if (reg) {
+        reg.update();
+        reg.addEventListener('updatefound', () => {
+          const newSW = reg.installing;
+          newSW.addEventListener('statechange', () => {
+            if (newSW.state === 'installed') {
+              newSW.postMessage('skipWaiting');
+              // Refresh halaman setelah update
+              setTimeout(() => {
+                window.location.reload();
+              }, 800);
+            }
+          });
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
