@@ -8,8 +8,6 @@
   <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#3B82F6" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,9 +16,7 @@
   <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
-
   <style>
-    
     :root {
       --bg: #07070d;
       --bg-card: rgba(255,255,255,0.04);
@@ -43,7 +39,6 @@
       --touch-size: 48px;
       --glow-opacity: 0.06;
     }
-
     body.light-theme {
       --bg: #f5f5fa;
       --bg-card: rgba(0,0,0,0.04);
@@ -58,8 +53,6 @@
       --nav-scrolled: rgba(245,245,250,0.95);
       --glow-opacity: 0.08;
     }
-
-   
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
     body {
@@ -71,8 +64,6 @@
       transition: background var(--transition), color var(--transition);
       -webkit-tap-highlight-color: transparent;
     }
-
-    
     .ambient-glows { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
     .ambient-glows .glow {
       position:absolute; border-radius:50%; filter:blur(120px);
@@ -85,8 +76,6 @@
     @keyframes glowFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,40px)} }
     @keyframes glowFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,-60px)} }
     @keyframes glowFloat3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.2)} }
-
-   
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:100;
       display:flex; justify-content:space-between; align-items:center;
@@ -169,8 +158,6 @@
       align-items:center;
     }
     .dropdown-menu a:hover { background:var(--accent-dim); color:var(--accent); }
-
-  
     .breadcrumb {
       max-width:600px;
       margin: 4.5rem auto 0.5rem;
@@ -181,7 +168,6 @@
     .breadcrumb a { color:var(--muted-dim); text-decoration:none; transition:color 0.2s; }
     .breadcrumb a:hover { color:var(--accent); }
     .breadcrumb span { color:var(--fg); }
-
     .page-hero {
       padding:0.5rem 1rem 1rem;
       text-align:center;
@@ -207,8 +193,6 @@
       font-size:0.8rem;
       font-weight:500;
     }
-
-    
     .form-wrap {
       max-width:560px;
       margin:1rem auto 2rem;
@@ -228,7 +212,6 @@
       border-color:rgba(255,221,87,0.15);
       box-shadow:var(--shadow-card-hover);
     }
-
     .order-form .form-group {
       margin-bottom:1.2rem;
     }
@@ -304,8 +287,6 @@
       gap:0.4rem;
     }
     .order-form .warning-msg i { font-size:0.9rem; }
-
-  
     .note-box {
       background:rgba(255,221,87,0.06);
       border:1px solid rgba(255,221,87,0.15);
@@ -319,8 +300,6 @@
       gap:0.5rem;
     }
     .note-box i { margin-top:2px; font-size:0.9rem; }
-
-  
     .hidden-fields {
       transition: opacity 0.3s ease, max-height 0.3s ease;
       overflow:hidden;
@@ -331,8 +310,6 @@
       max-height:800px;
       opacity:1;
     }
-
-    
     .btn-submit {
       display:inline-flex;
       align-items:center;
@@ -367,8 +344,6 @@
       box-shadow:none !important;
     }
     .btn-submit i { font-size:1rem; }
-
-   
     .footer {
       padding:2rem 1rem 1rem;
       border-top:1px solid var(--border);
@@ -377,8 +352,6 @@
       font-size:0.7rem;
       color:var(--muted);
     }
-
-    
     @media (min-width:768px) {
       .navbar { padding:0.8rem 2rem; }
       .menu-toggle { display:none; }
@@ -402,20 +375,15 @@
       .form-wrap { padding:0 2rem; }
       .order-form { padding:2rem; }
     }
-
-    
     .hidden { display:none !important; }
   </style>
 </head>
 <body>
-
-  
   <div class="ambient-glows" aria-hidden="true">
     <div class="glow glow-1"></div>
     <div class="glow glow-2"></div>
     <div class="glow glow-3"></div>
   </div>
-
   <nav class="navbar" id="navbar" aria-label="Navigasi utama">
     <a href="index.html" class="nav-brand"><i class="fas fa-store"></i> Akino Store</a>
     <div class="nav-actions">
@@ -436,15 +404,11 @@
       <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
     </ul>
   </nav>
-
- 
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted-dim);"></i>
     <a href="CarParkingMultiplayer.html">Car Parking</a> <i class="fas fa-chevron-right" style="font-size:0.5rem;margin:0 0.4rem;color:var(--muted-dim);"></i>
     <span>Order</span>
   </nav>
-
-  
   <header class="page-hero">
     <h1>Order <span class="accent">Layanan</span></h1>
     <p>Isi data dengan benar agar proses berjalan lancar.</p>
@@ -452,19 +416,13 @@
       <i class="fas fa-cube"></i> <span id="serviceLabel">Car Parking Multiplayer</span>
     </div>
   </header>
-
-  
   <div class="form-wrap">
     <div class="order-form">
       <input type="hidden" id="selected-service" value="">
-
-     
       <div id="noteBox" class="note-box hidden">
         <i class="fas fa-info-circle"></i>
         <span>Pastikan Sign Out sebelum proses dilakukan.</span>
       </div>
-
-     
       <div id="loginSection" class="form-group">
         <label for="login-type">Pilih Metode <span class="required">*</span></label>
         <select id="login-type" onchange="toggleFields(this.value)">
@@ -472,7 +430,6 @@
           <option value="Login Akun">Login Akun</option>
           <option value="Lewat Room">Lewat Room</option>
         </select>
-
         <div id="loginFields" class="hidden-fields">
           <div class="form-group" style="margin-top:1rem;">
             <label for="email">Alamat Email <span class="required">*</span></label>
@@ -483,7 +440,6 @@
             <input type="password" id="password" placeholder="Masukkan password">
           </div>
         </div>
-
         <div id="roomField" class="hidden-fields">
           <div class="form-group" style="margin-top:1rem;">
             <label for="room-id">ID Akun <span class="required">*</span></label>
@@ -491,8 +447,6 @@
           </div>
         </div>
       </div>
-
-      
       <div class="form-group">
         <label for="payment">Pembayaran <span class="required">*</span></label>
         <select id="payment">
@@ -500,8 +454,6 @@
           <option value="Qris all pay">Qris All Pay</option>
         </select>
       </div>
-
-      
       <div id="coinFields" class="hidden-fields">
         <div class="form-group">
           <label for="coin-amount">Jumlah Koin yang diinginkan <span class="required">*</span></label>
@@ -512,7 +464,6 @@
           </div>
         </div>
       </div>
-
       <div id="liveryFields" class="hidden-fields">
         <div class="form-group">
           <label for="livery-upload">Upload Foto Livery (Unggah manual di WhatsApp)</label>
@@ -523,32 +474,22 @@
           <input type="file" id="car-photo">
         </div>
       </div>
-
-      
       <div id="stockFields" class="hidden-fields">
         <div class="form-group">
           <label>Link Stock Mobil Murah</label>
           <input type="text" value="https://www.instagram.com/akinostore_" readonly style="opacity:0.6;cursor:default;">
         </div>
       </div>
-
-      
       <button type="button" id="submitBtn" class="btn-submit" disabled onclick="submitOrder()">
         <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
       </button>
     </div>
   </div>
-
-  
   <footer class="footer">&copy; 2022 Akino Store. All rights reserved.</footer>
-
-  
   <script>
-   
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
     });
-
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
@@ -556,7 +497,6 @@
       const icon = menuToggle.querySelector('i');
       icon.className = navLinks.classList.contains('active') ? 'fas fa-xmark' : 'fas fa-bars';
     });
-
     const dropdownService = document.getElementById('dropdownService');
     const dropdownToggle = document.getElementById('dropdownToggle');
     dropdownToggle.addEventListener('click', (e) => {
@@ -565,7 +505,6 @@
         dropdownService.classList.toggle('active');
       }
     });
-
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
@@ -574,8 +513,6 @@
         }
       });
     });
-
-    
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('i');
     const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -589,17 +526,41 @@
       themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
-
-    
     const service = new URLSearchParams(window.location.search).get('service');
     const serviceLabel = document.getElementById('serviceLabel');
     const serviceBadge = document.getElementById('serviceBadge');
     const selectedService = document.getElementById('selected-service');
     const submitBtn = document.getElementById('submitBtn');
-
+    const loginSelect = document.getElementById('login-type');
+    const noteBox = document.getElementById('noteBox');
+    const originalOptions = Array.from(loginSelect.options).map(opt => ({
+      value: opt.value,
+      text: opt.text
+    }));
+    function setLoginOnly() {
+      loginSelect.innerHTML = '';
+      const opt = document.createElement('option');
+      opt.value = 'Login Akun';
+      opt.textContent = 'Login Akun';
+      loginSelect.appendChild(opt);
+      loginSelect.value = 'Login Akun';
+      toggleFields('Login Akun');
+      submitBtn.disabled = false;
+    }
+    function restoreLoginOptions() {
+      loginSelect.innerHTML = '';
+      originalOptions.forEach(o => {
+        const opt = document.createElement('option');
+        opt.value = o.value;
+        opt.textContent = o.text;
+        loginSelect.appendChild(opt);
+      });
+      loginSelect.value = '';
+      toggleFields('');
+      submitBtn.disabled = true;
+    }
     if (service) {
       selectedService.value = service;
-
       const serviceNameMap = {
         "Isi 30.000 Coin": "Isi Koin Bebas Request",
         "Bundle 50M Uang + 30K Coin": "Bundle Uang + Koin (bebas req koin)"
@@ -607,40 +568,30 @@
       const displayName = serviceNameMap[service] || service;
       serviceLabel.textContent = displayName;
       serviceBadge.innerHTML = `<i class="fas fa-cube"></i> ${displayName}`;
-
-     
       const isCoinService = service.includes('Coin') || service.includes('Koin');
       const coinFields = document.getElementById('coinFields');
       if (isCoinService) {
         coinFields.classList.add('visible');
+        setLoginOnly();
       }
-
-   
       if (service === 'Request Livery Mobil') {
         document.getElementById('liveryFields').classList.add('visible');
         document.getElementById('loginSection').classList.add('hidden');
         submitBtn.disabled = false;
       }
-   
       else if (service === 'Stock Mobil Murah' || service.includes('Stock')) {
         document.getElementById('stockFields').classList.add('visible');
         document.getElementById('loginSection').classList.add('hidden');
         submitBtn.disabled = false;
       }
     }
-
-   
     function toggleFields(value) {
-      const noteBox = document.getElementById('noteBox');
       const loginFields = document.getElementById('loginFields');
       const roomField = document.getElementById('roomField');
-
-
       noteBox.classList.add('hidden');
       loginFields.classList.remove('visible');
       roomField.classList.remove('visible');
       submitBtn.disabled = true;
-
       if (value === 'Login Akun') {
         noteBox.classList.remove('hidden');
         loginFields.classList.add('visible');
@@ -650,42 +601,36 @@
         submitBtn.disabled = false;
       }
     }
-
-   
     function submitOrder() {
       const s = document.getElementById('selected-service').value;
       const m = document.getElementById('login-type').value;
       const p = document.getElementById('payment').value;
-
-      if (m === 'Login Akun') {
-        const email = document.getElementById('email').value.trim();
-        const pass = document.getElementById('password').value.trim();
-        if (!email || !pass) {
-          alert('⚠️ Mohon isi Email dan Password terlebih dahulu.');
+      if (!document.getElementById('loginSection').classList.contains('hidden')) {
+        if (m === 'Login Akun') {
+          const email = document.getElementById('email').value.trim();
+          const pass = document.getElementById('password').value.trim();
+          if (!email || !pass) {
+            alert('⚠️ Mohon isi Email dan Password terlebih dahulu.');
+            return;
+          }
+        } else if (m === 'Lewat Room') {
+          const id = document.getElementById('room-id').value.trim();
+          if (!id) {
+            alert('⚠️ Mohon isi ID Akun terlebih dahulu.');
+            return;
+          }
+        } else {
+          alert('⚠️ Silakan pilih metode terlebih dahulu.');
           return;
         }
-      } else if (m === 'Lewat Room') {
-        const id = document.getElementById('room-id').value.trim();
-        if (!id) {
-          alert('⚠️ Mohon isi ID Akun terlebih dahulu.');
-          return;
-        }
-      } else if (!document.getElementById('loginSection').classList.contains('hidden')) {
-       
-        alert('⚠️ Silakan pilih metode terlebih dahulu.');
-        return;
       }
-
       let msg = `Order Layanan: ${s}\nMetode: ${m}\nPembayaran: ${p}`;
-
       if (m === 'Login Akun') {
         msg += `\nEmail: ${document.getElementById('email').value.trim()}`;
         msg += `\nPassword: ${document.getElementById('password').value.trim()}`;
       } else if (m === 'Lewat Room') {
         msg += `\nID Akun: ${document.getElementById('room-id').value.trim()}`;
       }
-
-
       const coinField = document.getElementById('coinFields');
       if (coinField.classList.contains('visible')) {
         const coinAmount = document.getElementById('coin-amount').value;
@@ -693,12 +638,10 @@
           msg += `\nJumlah Koin: ${coinAmount}`;
         }
       }
-
       msg += `\n\nHarap unggah foto/dokumen yang diperlukan secara manual di chat ini.`;
       window.open(`https://api.whatsapp.com/send?phone=6289687163314&text=${encodeURIComponent(msg)}`, '_blank');
     }
   </script>
-
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
