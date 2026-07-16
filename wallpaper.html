@@ -3,563 +3,902 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Download Wallpaper - Akino Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <title>Wallpaper - Akino Store</title>
   <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#3B82F6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    atOptions = {
+      'key' : 'd2897c43e1f08075a75bca6c52d0085b',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
+
+  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
+
+  <script>
+    atOptions = {
+      'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="firebase-init.js"></script>
+  <script src="firebase-init.js?v=4.1"></script>
 
   <style>
+    :root {
+      --bg-primary: #0a0a12;
+      --bg-secondary: #14141e;
+      --bg-card: #1a1a2e;
+      --bg-card-hover: #22223a;
+      --fg-primary: #f0f0f0;
+      --fg-secondary: #a0a0b0;
+      --fg-muted: #6a6a7e;
+      --accent: #3B82F6;
+      --accent-hover: #2563eb;
+      --accent-dim: rgba(59,130,246,0.15);
+      --border-color: rgba(255,255,255,0.06);
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --radius-lg: 20px;
+      --font: 'Inter', sans-serif;
+      --navbar-height: 68px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
     * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; overflow-x:hidden; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a12;
-      color: #f0f0f0;
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--fg-primary);
+      transition: background var(--transition), color var(--transition);
+      padding-top: var(--navbar-height);
       min-height: 100vh;
-      padding-top: 20px;
-      padding-bottom: 80px;
+      overflow-x: hidden;
     }
-    .container { max-width: 1200px; margin:0 auto; padding:0 16px; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; max-width:100%; height:auto; }
+    button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
 
-    /* NAVBAR SIMPLE */
-    .nav-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-    .nav-bar .logo {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .nav-bar .logo span { color: #3B82F6; }
-    .nav-bar .logo i { color: #3B82F6; }
-    .nav-bar .back-link {
-      color: #8a8a9e;
-      text-decoration: none;
-      font-size: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: all 0.3s;
-    }
-    .nav-bar .back-link:hover { color: #fff; border-color: #3B82F6; background: rgba(59,130,246,0.1); }
+    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar-track { background:var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      margin-bottom: 2rem;
+    .navbar {
+      position:fixed; top:0; left:0; right:0; z-index:1000;
+      background:rgba(10,10,18,0.85);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border-color);
+      height:var(--navbar-height);
+      transition: background var(--transition), box-shadow var(--transition);
     }
-    .hero h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    .navbar.scrolled { box-shadow:var(--shadow); }
+    .navbar-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      height:100%; max-width:1400px; margin:0 auto; padding:0 16px; gap:0.8rem;
     }
-    .hero h1 span { color: #3B82F6; }
-    .hero p { color: #8a8a9e; font-size: 0.95rem; margin-top: 0.2rem; }
+    .navbar .logo {
+      display:flex; align-items:center; gap:0.4rem;
+      font-size:1.1rem; font-weight:800; color:var(--fg-primary); flex-shrink:0;
+    }
+    .navbar .logo i { color:var(--accent); font-size:1rem; }
+    .navbar .logo span { color:var(--accent); }
+    .nav-menu {
+      display:flex; align-items:center; gap:0.2rem; list-style:none;
+      flex:1; justify-content:center; flex-wrap:wrap;
+    }
+    .nav-menu a {
+      padding:0.3rem 0.6rem; border-radius:var(--radius-sm);
+      font-size:0.75rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); white-space:nowrap;
+    }
+    .nav-menu a:hover, .nav-menu a.active {
+      color:var(--fg-primary); background:var(--bg-card);
+    }
+    .nav-menu a.active { color:var(--accent); background:var(--accent-dim); }
+    .nav-actions {
+      display:flex; align-items:center; gap:0.4rem; flex-shrink:0;
+    }
+    .nav-actions .theme-btn {
+      width:34px; height:34px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-secondary); transition:all var(--transition); font-size:0.8rem;
+    }
+    .nav-actions .theme-btn:hover {
+      border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
+    }
+    .nav-actions .auth-btn {
+      padding:0.3rem 0.8rem; border-radius:var(--radius-sm);
+      font-size:0.75rem; font-weight:600; color:#fff;
+      background:var(--accent); border:none;
+      transition:all var(--transition);
+      display:inline-flex; align-items:center; gap:0.3rem;
+      text-decoration:none; font-family:var(--font);
+      box-shadow:0 2px 12px rgba(59,130,246,0.2);
+    }
+    .nav-actions .auth-btn:hover {
+      background:var(--accent-hover); transform:scale(1.02);
+      box-shadow:0 4px 20px rgba(59,130,246,0.3);
+    }
+    .nav-actions .auth-btn i { font-size:0.7rem; }
+    .hamburger {
+      display:none; flex-direction:column; gap:4px;
+      background:none; border:none; padding:4px; cursor:pointer;
+    }
+    .hamburger span {
+      display:block; width:22px; height:2px;
+      background:var(--fg-primary); border-radius:2px; transition:all var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(4px,4px); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
+    .mobile-menu {
+      display:none; position:fixed; top:var(--navbar-height); left:0; right:0; bottom:0;
+      background:var(--bg-primary); padding:1.5rem; overflow-y:auto; z-index:999;
+      border-top:1px solid var(--border-color); flex-direction:column; gap:0.5rem;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      padding:0.8rem 1rem; border-radius:var(--radius-sm);
+      font-size:0.95rem; font-weight:500; color:var(--fg-secondary);
+      transition:all var(--transition); border-bottom:1px solid var(--border-color);
+    }
+    .mobile-menu a:hover, .mobile-menu a.active {
+      color:var(--fg-primary); background:var(--bg-card);
+    }
+    .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
 
-    /* FILTER */
+    .container {
+      max-width:1400px; margin:0 auto; padding:0 16px;
+    }
+
+    .wallpaper-hero {
+      padding:1.5rem 0 1rem;
+      text-align:center;
+    }
+    .wallpaper-hero h1 {
+      font-size:clamp(1.6rem, 4vw, 2.4rem);
+      font-weight:800;
+      letter-spacing:-0.5px;
+    }
+    .wallpaper-hero h1 span { color:var(--accent); }
+    .wallpaper-hero p {
+      color:var(--fg-secondary);
+      font-size:0.9rem;
+      margin-top:0.2rem;
+    }
+
+    .ad-top {
+      max-width:728px;
+      margin:0 auto 1.2rem;
+      min-height:90px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      border:1px solid var(--border-color);
+      overflow:hidden;
+      padding:0.2rem;
+    }
+    .ad-top iframe {
+      max-width:100%;
+    }
+
     .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      justify-content: center;
-      margin-bottom: 2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.6rem;
+      align-items:center;
+      margin-bottom:1.5rem;
+      background:var(--bg-card);
+      padding:0.6rem 1rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border-color);
     }
-    .filter-btn {
-      padding: 0.4rem 1.2rem;
-      border-radius: 50px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: #8a8a9e;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-family: inherit;
+    .filter-bar input {
+      flex:1;
+      min-width:150px;
+      padding:0.5rem 0.8rem;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-primary);
+      font-size:0.85rem;
+      outline:none;
+      transition:border var(--transition);
+      font-family:var(--font);
     }
-    .filter-btn:hover { color: #f0f0f0; border-color: rgba(255,255,255,0.1); }
-    .filter-btn.active {
-      background: #3B82F6;
-      color: #fff;
-      border-color: #3B82F6;
-      box-shadow: 0 4px 16px rgba(59,130,246,0.2);
+    .filter-bar input:focus { border-color:var(--accent); }
+    .filter-bar select {
+      padding:0.5rem 0.8rem;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-primary);
+      font-size:0.85rem;
+      outline:none;
+      cursor:pointer;
+      font-family:var(--font);
+      min-width:120px;
+    }
+    .filter-bar select:focus { border-color:var(--accent); }
+    .filter-bar select option {
+      background:var(--bg-primary);
+      color:var(--fg-primary);
+    }
+    .filter-bar .btn-reset {
+      padding:0.5rem 1rem;
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius-sm);
+      color:var(--fg-secondary);
+      font-size:0.8rem;
+      cursor:pointer;
+      transition:all var(--transition);
+      font-family:var(--font);
+    }
+    .filter-bar .btn-reset:hover {
+      border-color:var(--accent);
+      color:var(--fg-primary);
+      background:var(--accent-dim);
     }
 
-    /* GRID ZEDGE STYLE (PORTRAIT) */
     .wallpaper-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 1.2rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+      gap:0.8rem;
+      margin-bottom:1.5rem;
     }
-    .wp-card {
-      background: #14141e;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.04);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      position: relative;
+    .wallpaper-card {
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border-color);
+      transition:all var(--transition);
+      cursor:pointer;
+      position:relative;
     }
-    .wp-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(59,130,246,0.3);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    .wallpaper-card:hover {
+      transform:translateY(-5px);
+      border-color:var(--accent);
+      box-shadow:var(--shadow);
+      background:var(--bg-card-hover);
     }
-    .wp-card .thumb-wrap {
-      width: 100%;
-      aspect-ratio: 9 / 16; /* Portrait seperti Zedge */
-      overflow: hidden;
-      background: #0a0a12;
-      position: relative;
+    .wallpaper-card .thumb-wrap {
+      position:relative;
+      aspect-ratio:9/16;
+      overflow:hidden;
+      background:var(--bg-secondary);
     }
-    .wp-card .thumb-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-      display: block;
-    }
-    .wp-card:hover .thumb-wrap img {
-      transform: scale(1.04);
-    }
-    .wp-card .info {
-      padding: 0.6rem 0.7rem 0.8rem;
-    }
-    .wp-card .info h4 {
-      font-size: 0.8rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-bottom: 0.1rem;
-    }
-    .wp-card .info .meta {
-      font-size: 0.6rem;
-      color: #6a6a7e;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .wp-card .info .meta span { display: flex; align-items: center; gap: 0.2rem; }
-    .wp-card .info .meta i { font-size: 0.5rem; color: #3B82F6; }
-
-    .wp-card .download-btn-overlay {
+    .wallpaper-card .thumb-wrap::after {
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 1rem 0.5rem 0.5rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
       pointer-events: none;
+      border-radius: 0 0 var(--radius) var(--radius);
     }
-    .wp-card:hover .download-btn-overlay {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+    .wallpaper-card .thumb-wrap img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.4s ease;
     }
-    .wp-card .download-btn-overlay .btn-download-sm {
-      padding: 0.3rem 0.8rem;
-      border-radius: 50px;
-      background: #3B82F6;
-      border: none;
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: all 0.3s;
-      font-family: inherit;
-      box-shadow: 0 4px 16px rgba(59,130,246,0.3);
+    .wallpaper-card:hover .thumb-wrap img { transform:scale(1.05); }
+    .wallpaper-card .thumb-wrap .overlay-lock {
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      transition:opacity var(--transition);
+      backdrop-filter:blur(2px);
     }
-    .wp-card .download-btn-overlay .btn-download-sm:hover {
-      background: #2563eb;
-      transform: scale(1.05);
+    .wallpaper-card:hover .thumb-wrap .overlay-lock { opacity:1; }
+    .wallpaper-card .thumb-wrap .overlay-lock i {
+      font-size:2rem;
+      color:#fff;
+      text-shadow:0 2px 12px rgba(0,0,0,0.5);
+    }
+    .wallpaper-card .card-body {
+      padding:0.6rem 0.7rem 0.7rem;
+      position:relative;
+      z-index:1;
+    }
+    .wallpaper-card .card-body h4 {
+      font-size:0.75rem;
+      font-weight:600;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      color:var(--fg-primary);
+    }
+    .wallpaper-card .card-body .meta {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:0.55rem;
+      color:var(--fg-muted);
+      margin-top:0.15rem;
+    }
+    .wallpaper-card .card-body .meta .category {
+      background:var(--accent-dim);
+      color:var(--accent);
+      padding:0.05rem 0.4rem;
+      border-radius:10px;
+    }
+    .wallpaper-card .card-body .download-count i {
+      margin-right:0.2rem;
+      font-size:0.5rem;
     }
 
-    .loading-state { text-align:center; padding: 4rem 0; color: #6a6a7e; }
-    .loading-state i { font-size: 2.5rem; display:block; margin-bottom: 0.5rem; color: #3B82F6; }
+    .wallpaper-card .btn-download-card {
+      display:block;
+      width:100%;
+      padding:0.3rem;
+      margin-top:0.3rem;
+      border-radius:var(--radius-sm);
+      background:var(--accent);
+      color:#0a0a0f;
+      font-weight:600;
+      font-size:0.7rem;
+      transition:all var(--transition);
+      font-family:var(--font);
+      text-align:center;
+      border:none;
+      cursor:pointer;
+    }
+    .wallpaper-card .btn-download-card:hover {
+      background:var(--accent-hover);
+      color:#fff;
+    }
 
-    /* MODAL / LIGHTBOX */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.92);
-      backdrop-filter: blur(20px);
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      flex-direction: column;
+    .layout-two-col {
+      display:grid;
+      grid-template-columns:1fr 300px;
+      gap:1.5rem;
     }
-    .lightbox.active { display: flex; animation: fadeIn .3s ease; }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    .lightbox .close-lb {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      color: #fff;
-      font-size: 1.8rem;
-      cursor: pointer;
-      background: rgba(255,255,255,0.05);
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s;
-      z-index: 10;
+    .sidebar-ad {
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
     }
-    .lightbox .close-lb:hover { background: rgba(255,255,255,0.1); transform: rotate(90deg); }
-    .lightbox .lb-content {
-      max-width: 450px;
-      width: 100%;
-      text-align: center;
+    .sidebar-ad .ad-box {
+      background:var(--bg-card);
+      border:1px solid var(--border-color);
+      border-radius:var(--radius);
+      padding:0.5rem;
+      min-height:250px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
-    .lightbox .lb-content img {
-      width: 100%;
-      aspect-ratio: 9 / 16;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      background: #0a0a12;
+    .sidebar-ad .ad-box iframe {
+      max-width:100%;
     }
-    .lightbox .lb-info {
-      margin-top: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      padding: 0 0.2rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .sidebar-ad .ad-box .ad-label {
+      font-size:0.6rem;
+      color:var(--fg-muted);
+      text-align:center;
+      padding:0.2rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
     }
-    .lightbox .lb-info h3 { font-weight: 600; font-size: 1.1rem; }
-    .lightbox .lb-info .lb-cat { font-size: 0.75rem; color: #8a8a9e; }
-    .lightbox .lb-actions {
-      display: flex;
-      gap: 0.6rem;
-      margin-top: 0.8rem;
-      width: 100%;
-    }
-    .lightbox .lb-actions button {
-      flex: 1;
-      padding: 0.8rem;
-      border-radius: 12px;
-      border: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-family: inherit;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-    }
-    .lightbox .lb-actions .btn-download-main {
-      background: #3B82F6;
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(59,130,246,0.3);
-    }
-    .lightbox .lb-actions .btn-download-main:hover { background: #2563eb; transform: translateY(-2px); }
-    .lightbox .lb-actions .btn-share {
-      background: rgba(255,255,255,0.05);
-      color: #f0f0f0;
-      border: 1px solid rgba(255,255,255,0.06);
-      flex: 0.5;
-    }
-    .lightbox .lb-actions .btn-share:hover { background: rgba(255,255,255,0.1); }
 
-    /* RESPONSIVE */
+    .ad-bottom {
+      max-width:728px;
+      margin:1.2rem auto;
+      min-height:60px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      border:1px solid var(--border-color);
+      overflow:hidden;
+      padding:0.2rem;
+    }
+    .ad-bottom iframe {
+      max-width:100%;
+    }
+
+    .loading-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+      gap:0.8rem;
+    }
+    .skeleton-card {
+      background:var(--bg-card);
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border-color);
+    }
+    .skeleton-card .skeleton-img {
+      aspect-ratio:9/16;
+      background:linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+      background-size:200% 100%;
+      animation:shimmer 1.5s infinite;
+    }
+    .skeleton-card .skeleton-text {
+      padding:0.5rem 0.7rem 0.7rem;
+    }
+    .skeleton-card .skeleton-text .line {
+      height:10px;
+      background:linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+      background-size:200% 100%;
+      animation:shimmer 1.5s infinite;
+      border-radius:4px;
+      margin-bottom:0.3rem;
+    }
+    .skeleton-card .skeleton-text .line.short { width:60%; }
+    @keyframes shimmer {
+      0% { background-position:-200% 0; }
+      100% { background-position:200% 0; }
+    }
+
+    .empty-state {
+      grid-column:1/-1;
+      text-align:center;
+      padding:3rem 1rem;
+      color:var(--fg-muted);
+    }
+    .empty-state i {
+      font-size:3rem;
+      display:block;
+      margin-bottom:0.5rem;
+      opacity:0.3;
+    }
+
+    .footer {
+      padding:2rem 1rem 1rem;
+      border-top:1px solid var(--border-color);
+      margin-top:2rem;
+    }
+    .footer-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:1.5rem;
+      max-width:1000px;
+      margin:0 auto 1.5rem;
+      text-align:left;
+    }
+    .footer-grid h4 { font-size:0.8rem; color:var(--fg-primary); margin-bottom:0.6rem; }
+    .footer-grid p, .footer-grid a { font-size:0.75rem; color:var(--fg-secondary); line-height:1.8; }
+    .footer-grid a { display:block; transition:color 0.2s; }
+    .footer-grid a:hover { color:var(--accent); }
+    .footer-grid .brand-footer { font-weight:600; color:var(--accent); }
+    .footer-bottom {
+      max-width:1000px; margin:0 auto; border-top:1px solid var(--border-color);
+      padding-top:1rem; text-align:center; font-size:0.65rem; color:var(--fg-muted);
+    }
+
+    .chat-float {
+      position:fixed; bottom:1.25rem; right:1.25rem; z-index:99;
+      display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem;
+    }
+    .chat-float-label {
+      background:rgba(12,12,24,0.92); backdrop-filter:blur(12px);
+      border:1px solid var(--border-color); border-radius:var(--radius-sm);
+      padding:0.4rem 0.9rem; font-size:0.72rem; color:var(--fg-secondary);
+      white-space:nowrap; opacity:0; transform:translateY(6px) scale(0.95);
+      transition:all 0.3s ease; pointer-events:none;
+    }
+    .chat-float-label span { color:var(--accent); font-weight:600; }
+    .chat-float:hover .chat-float-label { opacity:1; transform:translateY(0) scale(1); }
+    .chat-float-btn {
+      width:48px; height:48px; border-radius:14px;
+      background:linear-gradient(145deg, #25D366, #1da851);
+      border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:1.4rem;
+      box-shadow:0 4px 24px rgba(37,211,102,0.35);
+      transition:all var(--transition); text-decoration:none;
+    }
+    .chat-float-btn:hover { transform:scale(1.08); box-shadow:0 8px 36px rgba(37,211,102,0.45); }
+
+    .back-to-top {
+      position:fixed; bottom:1.25rem; left:1.25rem; z-index:99;
+      width:44px; height:44px; border-radius:var(--radius-sm);
+      background:var(--bg-card); border:1px solid var(--border-color);
+      color:var(--fg-muted); font-size:0.9rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; transform:translateY(10px); pointer-events:none;
+      transition:all 0.3s ease; backdrop-filter:blur(12px);
+    }
+    .back-to-top.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .back-to-top:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); }
+
+    .toast-container {
+      position:fixed; bottom:24px; right:24px; z-index:9999;
+      display:flex; flex-direction:column; gap:0.5rem;
+      max-width:90%;
+    }
+    .toast {
+      padding:0.7rem 1.4rem;
+      background:rgba(20,20,30,0.92);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:12px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.4);
+      display:flex; align-items:center; gap:0.6rem;
+      animation:slideInToast 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      font-size:0.82rem;
+      border-left:3px solid var(--accent);
+    }
+    .toast i { color:var(--accent); font-size:0.9rem; }
+    .toast.success { border-left-color:#22c55e; }
+    .toast.success i { color:#22c55e; }
+    .toast.error { border-left-color:#ef4444; }
+    .toast.error i { color:#ef4444; }
+    @keyframes slideInToast {
+      from { opacity:0; transform:translateX(50px) scale(0.9); }
+      to { opacity:1; transform:translateX(0) scale(1); }
+    }
+
+    @media (max-width: 1024px) {
+      .layout-two-col { grid-template-columns:1fr; }
+      .sidebar-ad {
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:0.8rem;
+      }
+    }
     @media (max-width: 768px) {
-      .wallpaper-grid { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
-      .wp-card .info h4 { font-size: 0.65rem; }
-      .wp-card .info .meta { font-size: 0.5rem; flex-direction: column; align-items: flex-start; }
-      .wp-card .download-btn-overlay { display: none; } /* hide hover overlay on mobile, use tap */
-      .wp-card:active { transform: scale(0.97); }
+      :root { --navbar-height:56px; }
+      .nav-menu { display:none; }
+      .hamburger { display:flex; }
+      .nav-actions .auth-btn span { display:none; }
+      .container { padding:0 12px; }
+      .wallpaper-grid { grid-template-columns:repeat(2,1fr); gap:0.6rem; }
+      .filter-bar { flex-direction:column; align-items:stretch; gap:0.4rem; }
+      .filter-bar input { min-width:auto; }
+      .sidebar-ad { grid-template-columns:1fr; }
+      .ad-top { min-height:60px; }
+      .ad-bottom { min-height:60px; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:0.8rem; text-align:center; }
+      .footer-grid h4 { text-align:center; }
+      .chat-float { bottom:0.8rem; right:0.8rem; }
+      .chat-float-btn { width:44px; height:44px; font-size:1.2rem; }
+      .back-to-top { bottom:0.8rem; left:0.8rem; width:40px; height:40px; font-size:0.8rem; }
     }
     @media (max-width: 480px) {
-      .wallpaper-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-      .lightbox .lb-content { max-width: 100%; }
-      .lightbox .lb-actions { flex-direction: column; }
-      .lightbox .lb-actions .btn-share { flex: 1; }
-    }
-    @media (min-width: 1024px) {
-      .wallpaper-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+      .wallpaper-grid { grid-template-columns:repeat(3,1fr); gap:0.4rem; }
+      .wallpaper-card .card-body h4 { font-size:0.65rem; }
+      .wallpaper-card .btn-download-card { font-size:0.6rem; padding:0.2rem; }
+      .wallpaper-hero h1 { font-size:1.3rem; }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- NAV -->
-  <nav class="nav-bar">
-    <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
-    <a href="manga.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a>
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="manga.html">Manga</a></li>
+        <li><a href="wallpaper.html" class="active">Wallpaper</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <a href="login.html" class="auth-btn" id="authBtn">
+          <i class="fas fa-user"></i> <span id="authText">Login</span>
+        </a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Download <span>Wallpaper</span></h1>
-    <p>Koleksi wallpaper HD portrait untuk layar HP kamu. Klik gambar untuk memperbesar & download.</p>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="manga.html">Manga</a>
+    <a href="wallpaper.html" class="active">Wallpaper</a>
+    <a href="about.html">About</a>
+    <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
   </div>
 
-  <!-- FILTER -->
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-cat="all">Semua</button>
-    <button class="filter-btn" data-cat="Nature">🌿 Nature</button>
-    <button class="filter-btn" data-cat="Abstract">🎨 Abstract</button>
-    <button class="filter-btn" data-cat="Minimal">⬜ Minimal</button>
-    <button class="filter-btn" data-cat="Dark">🌙 Dark</button>
-    <button class="filter-btn" data-cat="Gradient">🌈 Gradient</button>
-    <button class="filter-btn" data-cat="City">🌆 City</button>
-    <button class="filter-btn" data-cat="Space">🚀 Space</button>
-    <button class="filter-btn" data-cat="Anime">🎌 Anime</button>
-  </div>
+  <div class="container">
+    <div class="wallpaper-hero">
+      <h1>🎨 Download <span>Wallpaper</span> Gratis</h1>
+      <p>Klik tombol download, tunggu iklan sebentar, lalu wallpaper siap kamu simpan.</p>
+    </div>
 
-  <!-- GRID -->
-  <div class="wallpaper-grid" id="wpGrid">
-    <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Memuat wallpaper...</div>
-  </div>
-</div>
+    <div class="ad-top" id="adTop">
+    </div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <button class="close-lb" id="closeLb"><i class="fas fa-times"></i></button>
-  <div class="lb-content">
-    <img id="lbImage" src="" alt="Wallpaper Preview" />
-    <div class="lb-info">
+    <div class="layout-two-col">
+
       <div>
-        <h3 id="lbTitle">Title</h3>
-        <span class="lb-cat" id="lbCategory">Category</span>
+
+        <div class="filter-bar">
+          <input type="text" id="searchInput" placeholder="Cari wallpaper..." />
+          <select id="categoryFilter">
+            <option value="">Semua Kategori</option>
+            <option value="Nature">🌿 Nature</option>
+            <option value="Abstract">🎨 Abstract</option>
+            <option value="Minimal">⬜ Minimal</option>
+            <option value="Dark">🌙 Dark</option>
+            <option value="Gradient">🌈 Gradient</option>
+            <option value="City">🌆 City</option>
+            <option value="Space">🚀 Space</option>
+            <option value="Anime">🎌 Anime</option>
+          </select>
+          <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
+        </div>
+
+        <div class="wallpaper-grid" id="wallpaperGrid">
+        </div>
+
       </div>
-      <span id="lbResolution" style="font-size:0.7rem;color:#6a6a7e;">Resolusi</span>
+
+      <div class="sidebar-ad">
+        <div class="ad-box">
+          <script>
+            atOptions = {
+              'key' : '6b8517f00022d9d8d364fa2d96e155d7',
+              'format' : 'iframe',
+              'height' : 250,
+              'width' : 300,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"></script>
+          <div class="ad-label">— Iklan —</div>
+        </div>
+
+        <div class="ad-box">
+          <script>
+            atOptions = {
+              'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
+              'format' : 'iframe',
+              'height' : 600,
+              'width' : 160,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"></script>
+          <div class="ad-label">— Iklan —</div>
+        </div>
+
+        <div class="ad-box" style="min-height:100px;">
+          <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"></script>
+          <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
+          <div class="ad-label">— Iklan —</div>
+        </div>
+      </div>
+
     </div>
-    <div class="lb-actions">
-      <button class="btn-download-main" id="lbDownloadBtn"><i class="fas fa-download"></i> Download</button>
-      <button class="btn-share" id="lbShareBtn"><i class="fas fa-share-alt"></i></button>
+
+    <div class="ad-bottom" id="adBottom">
     </div>
   </div>
-</div>
 
-<script>
-  const grid = document.getElementById('wpGrid');
-  const lightbox = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImage');
-  const lbTitle = document.getElementById('lbTitle');
-  const lbCategory = document.getElementById('lbCategory');
-  const lbResolution = document.getElementById('lbResolution');
-  const lbDownloadBtn = document.getElementById('lbDownloadBtn');
-  const lbShareBtn = document.getElementById('lbShareBtn');
-  const closeLb = document.getElementById('closeLb');
+  <div class="toast-container" id="toastContainer"></div>
 
-  let allWallpapers = [];
-  let currentItem = null;
+  <div class="chat-float">
+    <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+    <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
 
-  // ===== TOAST =====
-  function showToast(msg, type = 'info') {
-    const container = document.getElementById('toastContainer') || (() => {
-      const d = document.createElement('div');
-      d.id = 'toastContainer';
-      d.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:99999;display:flex;flex-direction:column;gap:0.5rem;max-width:90%;';
-      document.body.appendChild(d);
-      return d;
-    })();
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-      padding:0.7rem 1.4rem; background:rgba(20,20,30,0.92); backdrop-filter:blur(16px);
-      border:1px solid rgba(255,255,255,0.06); border-radius:12px;
-      box-shadow:0 8px 32px rgba(0,0,0,0.4); display:flex; align-items:center; gap:0.6rem;
-      animation:slideInToast 0.35s cubic-bezier(0.34,1.56,0.64,1); font-size:0.82rem;
-      border-left:3px solid ${type === 'success' ? '#22c55e' : type === 'error' ? '#ef4444' : '#3B82F6'};
-      color:#f0f0f0;
-    `;
-    const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
-    toast.innerHTML = `<i class="fas ${icon}" style="color:${type === 'success' ? '#22c55e' : type === 'error' ? '#ef4444' : '#3B82F6'};margin-right:0.2rem;"></i> ${msg}`;
-    container.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(40px) scale(0.9)'; setTimeout(() => toast.remove(), 300); }, 3500);
-  }
+  <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-  // ===== FILTER =====
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      const cat = this.dataset.cat;
-      renderGrid(cat);
+  <footer class="footer" aria-label="Footer">
+    <div class="footer-grid">
+      <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital, game, & baca manga terpercaya sejak 2022.</p></div>
+      <div><h4>Layanan</h4><a href="CarParkingMultiplayer.html">Car Parking</a><a href="SosialMedia.html">Sosial Media</a><a href="designedit.html">Design / Edit</a></div>
+      <div><h4>Tentang</h4><a href="about.html">About Us</a><a href="https://wa.me/6289687163314" target="_blank">Contact</a></div>
+      <div><h4>Legal</h4><a href="privacy.html">Kebijakan Privasi</a><a href="terms.html">Syarat &amp; Ketentuan</a></div>
+    </div>
+    <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.body.classList.add('light-theme');
+      icon.className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('light-theme');
+      const isLight = document.body.classList.contains('light-theme');
+      icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
-  });
 
-  // ===== RENDER GRID =====
-  function renderGrid(category = 'all') {
-    if (!allWallpapers.length) {
-      grid.innerHTML = `<div class="loading-state"><i class="fas fa-image"></i> Belum ada wallpaper.</div>`;
-      return;
-    }
-    const filtered = category === 'all' ? allWallpapers : allWallpapers.filter(w => w.category === category);
-    if (!filtered.length) {
-      grid.innerHTML = `<div class="loading-state"><i class="fas fa-search"></i> Tidak ada wallpaper di kategori ini.</div>`;
-      return;
-    }
-    let html = '';
-    filtered.forEach(wp => {
-      html += `
-        <div class="wp-card" data-id="${wp.id}">
-          <div class="thumb-wrap">
-            <img src="${wp.imageUrl}" alt="${wp.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 350%22%3E%3Crect width=%22200%22 height=%22350%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2214%22%3ENo%20Image%3C/text%3E%3C/svg%3E'" />
+    window.addEventListener('scroll', function() {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+      const btn = document.getElementById('backToTop');
+      if (window.scrollY > 400) btn.classList.add('show');
+      else btn.classList.remove('show');
+    });
+    document.getElementById('backToTop').addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    const authBtn = document.getElementById('authBtn');
+    const authText = document.getElementById('authText');
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        authText.textContent = 'Profil';
+        authBtn.href = 'profile.html';
+        authBtn.querySelector('i').className = 'fas fa-user-check';
+      } else {
+        authText.textContent = 'Login';
+        authBtn.href = 'login.html';
+        authBtn.querySelector('i').className = 'fas fa-user';
+      }
+    });
+
+    const WORKER_URL = 'https://manga-scrapper.akinostore.workers.dev';
+    let wallpapers = [];
+    let filteredWallpapers = [];
+
+    function renderWallpapers(items) {
+      const grid = document.getElementById('wallpaperGrid');
+      if (!items || items.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-image"></i>
+            <p>Belum ada wallpaper tersedia.</p>
           </div>
-          <div class="info">
-            <h4>${wp.title}</h4>
-            <div class="meta">
-              <span><i class="fas fa-tag"></i> ${wp.category}</span>
-              <span><i class="fas fa-download"></i> ${wp.downloads || 0}</span>
+        `;
+        return;
+      }
+      grid.innerHTML = '';
+      items.forEach(function(wp) {
+        const card = document.createElement('div');
+        card.className = 'wallpaper-card';
+        card.dataset.id = wp.id;
+        card.innerHTML = `
+          <div class="thumb-wrap">
+            <img src="${wp.imageUrl}" alt="${wp.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22%3E%3Crect width=%22400%22 height=%22225%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2216%22%3ENo%20Image%3C/text%3E%3C/svg%3E'" />
+            <div class="overlay-lock">
+              <i class="fas fa-lock"></i>
             </div>
           </div>
-          <div class="download-btn-overlay">
-            <button class="btn-download-sm" data-id="${wp.id}"><i class="fas fa-download"></i> Download</button>
+          <div class="card-body">
+            <h4>${wp.title || 'Untitled'}</h4>
+            <div class="meta">
+              <span class="category">${wp.category || 'Uncategorized'}</span>
+              <span class="download-count"><i class="fas fa-download"></i> ${wp.downloads || 0}</span>
+            </div>
+            <button class="btn-download-card" data-id="${wp.id}">
+              <i class="fas fa-download"></i> Download
+            </button>
           </div>
-        </div>
-      `;
-    });
-    grid.innerHTML = html;
-
-    // Event listeners untuk card (klik buka lightbox)
-    grid.querySelectorAll('.wp-card').forEach(card => {
-      card.addEventListener('click', function(e) {
-        if (e.target.closest('.btn-download-sm')) return;
-        const id = this.dataset.id;
-        const item = allWallpapers.find(w => w.id === id);
-        if (item) openLightbox(item);
-      });
-      // Tombol download di overlay
-      card.querySelector('.btn-download-sm')?.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const id = this.dataset.id;
-        const item = allWallpapers.find(w => w.id === id);
-        if (item) triggerDownload(item);
-      });
-    });
-  }
-
-  // ===== LIGHTBOX =====
-  function openLightbox(item) {
-    currentItem = item;
-    lbImg.src = item.imageUrl;
-    lbTitle.textContent = item.title;
-    lbCategory.textContent = item.category;
-    lbResolution.textContent = item.resolution || 'HD';
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  closeLb.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // ===== SHARE =====
-  lbShareBtn.addEventListener('click', function() {
-    if (!currentItem) return;
-    if (navigator.share) {
-      navigator.share({
-        title: currentItem.title,
-        text: `Download wallpaper ${currentItem.title} - Akino Store`,
-        url: currentItem.imageUrl
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(currentItem.imageUrl).then(() => {
-        showToast('Link gambar disalin!', 'success');
-      }).catch(() => {
-        showToast('Gagal menyalin link.', 'error');
+        `;
+        card.querySelector('.btn-download-card').addEventListener('click', function(e) {
+          e.stopPropagation();
+          const id = this.dataset.id;
+          window.location.href = `wallpaper-detail.html?id=${id}`;
+        });
+        card.addEventListener('click', function() {
+          window.location.href = `wallpaper-detail.html?id=${this.dataset.id}`;
+        });
+        grid.appendChild(card);
       });
     }
-  });
 
-  // ===== TRIGGER DOWNLOAD (dengan update counter) =====
-  function triggerDownload(item) {
-    if (!item) return;
-    const link = document.createElement('a');
-    link.href = item.imageUrl;
-    link.download = `${item.title.replace(/\s+/g, '_')}.jpg`;
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Update download counter di Firestore
-    const docRef = db.collection('wallpapers').doc(item.id);
-    docRef.update({
-      downloads: firebase.firestore.FieldValue.increment(1)
-    }).catch(() => {});
-    showToast('Download dimulai!', 'success');
-    closeLightbox();
-  }
-
-  // Tombol download di lightbox
-  lbDownloadBtn.addEventListener('click', function() {
-    if (currentItem) triggerDownload(currentItem);
-  });
-
-  // ===== LOAD FROM FIRESTORE =====
-  firebase.auth().onAuthStateChanged(() => {
-    // Biarkan semua orang bisa lihat wallpaper
-    loadWallpapers();
-  });
-
-  function loadWallpapers() {
-    grid.innerHTML = `<div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Memuat wallpaper...</div>`;
-    db.collection('wallpapers')
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(snap => {
-        if (snap.empty) {
-          grid.innerHTML = `<div class="loading-state"><i class="fas fa-image"></i> Belum ada wallpaper.</div>`;
-          return;
-        }
-        allWallpapers = [];
-        snap.forEach(doc => {
-          allWallpapers.push({ id: doc.id, ...doc.data() });
-        });
-        renderGrid('all');
-      })
-      .catch(err => {
-        console.error(err);
-        grid.innerHTML = `<div class="loading-state"><i class="fas fa-exclamation-triangle"></i> Gagal memuat data.</div>`;
+    function filterWallpapers() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
+      const category = document.getElementById('categoryFilter').value;
+      filteredWallpapers = wallpapers.filter(function(wp) {
+        const matchSearch = wp.title.toLowerCase().includes(search) || (wp.tags && wp.tags.some(t => t.toLowerCase().includes(search)));
+        const matchCategory = !category || wp.category === category;
+        return matchSearch && matchCategory;
       });
-  }
-</script>
+      renderWallpapers(filteredWallpapers);
+    }
 
+    document.getElementById('searchInput').addEventListener('input', filterWallpapers);
+    document.getElementById('categoryFilter').addEventListener('change', filterWallpapers);
+    document.getElementById('resetFilterBtn').addEventListener('click', function() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('categoryFilter').value = '';
+      filterWallpapers();
+    });
+
+    function loadWallpapers() {
+      const grid = document.getElementById('wallpaperGrid');
+      let skeletonHtml = '';
+      for (let i = 0; i < 12; i++) {
+        skeletonHtml += `
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text">
+              <div class="line"></div>
+              <div class="line short"></div>
+            </div>
+          </div>
+        `;
+      }
+      grid.innerHTML = skeletonHtml;
+
+      db.collection('wallpapers')
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then(function(snapshot) {
+          wallpapers = [];
+          snapshot.forEach(function(doc) {
+            wallpapers.push({ id: doc.id, ...doc.data() });
+          });
+          filteredWallpapers = wallpapers;
+          renderWallpapers(filteredWallpapers);
+        })
+        .catch(function(err) {
+          console.error('Error loading wallpapers:', err);
+          grid.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-exclamation-triangle"></i>
+              <p>Gagal memuat wallpaper. Coba refresh.</p>
+            </div>
+          `;
+        });
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js?v=4.1')
+          .then(() => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+
+    loadWallpapers();
+    console.log('🎨 Wallpaper Gallery loaded');
+  </script>
 </body>
 </html>

@@ -17,10 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- ===== ADSTERRA POPUNDER ===== -->
   <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
 
-  <!-- ===== BANNER 728x90 ===== -->
   <script>
     atOptions = {
       'key' : 'd2897c43e1f08075a75bca6c52d0085b',
@@ -32,17 +30,14 @@
   </script>
   <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
 
-  <!-- ===== SOCIAL BAR ===== -->
   <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
 
-  <!-- ===== FIREBASE ===== -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js?v=4.1"></script>
 
   <style>
-    /* Sama seperti wallpaper.html, tambahan untuk detail */
     :root {
       --bg-primary: #0a0a12;
       --bg-secondary: #14141e;
@@ -75,7 +70,6 @@
     img { display:block; max-width:100%; }
     button { cursor:pointer; font-family:var(--font); border:none; background:none; color:inherit; }
 
-    /* ===== NAVBAR (sama seperti wallpaper.html) ===== */
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:1000;
       background:rgba(10,10,18,0.85);
@@ -187,7 +181,9 @@
       padding:0.5rem;
       margin:1rem 0;
       min-height:90px;
-      display:flex; align-items:center; justify-content:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       overflow:hidden;
     }
     .ad-box iframe { max-width:100%; }
@@ -300,11 +296,6 @@
         <p style="color:var(--fg-secondary);margin-top:0.5rem;">Memuat...</p>
       </div>
     </div>
-
-    <!-- ===== AD BANNER 728x90 ===== -->
-    <div class="ad-box" id="adBottom">
-      <div class="ad-label">— Iklan —</div>
-    </div>
   </div>
 
   <footer class="footer" aria-label="Footer">
@@ -341,9 +332,6 @@
       }, 3500);
     }
 
-    // ============================================================
-    // THEME TOGGLE
-    // ============================================================
     const themeToggle = document.getElementById('themeToggle');
     const icon = themeToggle.querySelector('i');
     const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -358,9 +346,6 @@
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // ============================================================
-    // NAVBAR
-    // ============================================================
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', function() {
@@ -374,9 +359,6 @@
       });
     });
 
-    // ============================================================
-    // AUTH
-    // ============================================================
     const authText = document.getElementById('authText');
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -388,9 +370,6 @@
       }
     });
 
-    // ============================================================
-    // LOAD DETAIL
-    // ============================================================
     const params = new URLSearchParams(window.location.search);
     const wallpaperId = params.get('id');
 
@@ -434,9 +413,27 @@
             <div id="countdownStatus" style="text-align:center;margin-top:0.5rem;color:var(--fg-secondary);font-size:0.85rem;display:none;">
               <i class="fas fa-clock"></i> Tunggu <span id="countdownDisplay">10</span> detik...
             </div>
+            <div class="ad-box" id="adBanner">
+              <div class="ad-label">— Iklan —</div>
+            </div>
           `;
 
-          // ===== DOWNLOAD BUTTON =====
+          // ===== LOAD BANNER AD AFTER DETAIL =====
+          const adBanner = document.getElementById('adBanner');
+          adBanner.innerHTML = `
+            <div class="ad-label">— Iklan —</div>
+            <script>
+              atOptions = {
+                'key' : 'd2897c43e1f08075a75bca6c52d0085b',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+              };
+            <\/script>
+            <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"><\/script>
+          `;
+
           const downloadBtn = document.getElementById('downloadBtn');
           const countdownStatus = document.getElementById('countdownStatus');
           const countdownDisplay = document.getElementById('countdownDisplay');
@@ -445,7 +442,7 @@
             if (isDownloading) return;
             isDownloading = true;
 
-            // 🔥 Trigger Popunder Adsterra
+            // ===== TRIGGER POPUNDER =====
             try {
               if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
                 Adsterra.showPopunder();
@@ -470,31 +467,42 @@
                 countdownInterval = null;
                 countdownStatus.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e;"></i> Iklan selesai! Memulai download...';
 
-                // ===== INCREMENT DOWNLOAD COUNT =====
                 db.collection('wallpapers').doc(id).update({
                   downloads: firebase.firestore.FieldValue.increment(1)
                 }).catch(function(err) { console.error('Update download count:', err); });
 
-                // ===== START DOWNLOAD =====
                 setTimeout(function() {
-                  const link = document.createElement('a');
-                  link.href = data.imageUrl;
-                  link.download = data.title ? data.title.replace(/\s+/g, '_') + '.jpg' : 'wallpaper.jpg';
-                  link.target = '_blank';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-
-                  showToast('✅ Wallpaper berhasil diunduh!', 'success');
-                  downloadBtn.innerHTML = '<i class="fas fa-check"></i> Selesai!';
-                  downloadBtn.disabled = false;
-                  isDownloading = false;
-                  countdownStatus.style.display = 'none';
+                  fetch(data.imageUrl)
+                    .then(response => response.blob())
+                    .then(blob => {
+                      const link = document.createElement('a');
+                      const blobUrl = URL.createObjectURL(blob);
+                      link.href = blobUrl;
+                      const ext = blob.type === 'image/png' ? 'png' : 'jpg';
+                      link.download = (data.title ? data.title.replace(/\s+/g, '_') : 'wallpaper') + '.' + ext;
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                      URL.revokeObjectURL(blobUrl);
+                      showToast('✅ Wallpaper berhasil diunduh!', 'success');
+                      downloadBtn.innerHTML = '<i class="fas fa-check"></i> Selesai!';
+                      downloadBtn.disabled = false;
+                      isDownloading = false;
+                      countdownStatus.style.display = 'none';
+                    })
+                    .catch(err => {
+                      console.error('Gagal fetch gambar:', err);
+                      showToast('❌ Gagal mengunduh gambar. Coba buka di tab baru.', 'error');
+                      window.open(data.imageUrl, '_blank');
+                      downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Wallpaper';
+                      downloadBtn.disabled = false;
+                      isDownloading = false;
+                      countdownStatus.style.display = 'none';
+                    });
                 }, 500);
               }
             }, 1000);
           });
-
         })
         .catch(function(err) {
           console.error('Error loading wallpaper:', err);
@@ -519,9 +527,6 @@
       `;
     }
 
-    // ============================================================
-    // SERVICE WORKER
-    // ============================================================
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js?v=4.1')
