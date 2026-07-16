@@ -121,7 +121,7 @@
     <a href="admin.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Admin</a>
 
     <h1>Kelola <span>Wallpaper</span></h1>
-    <p class="sub">Upload wallpaper baru atau hapus wallpaper yang sudah ada.</p>
+    <p class="sub">Upload wallpaper baru atau hapus wallpaper yang sudah ada. <strong>Resolusi otomatis</strong> terdeteksi dari gambar.</p>
 
     <div class="form-card" id="uploadForm">
       <div class="form-group">
@@ -149,13 +149,10 @@
         <label>URL Gambar (Cloudinary)</label>
         <input type="text" id="wpImage" placeholder="https://res.cloudinary.com/..." />
         <div style="font-size:0.7rem;color:#6a6a7e;margin-top:0.2rem;">
-          <i class="fas fa-info-circle"></i> Upload ke Cloudinary dulu, lalu copy URL-nya
+          <i class="fas fa-info-circle"></i> Upload ke Cloudinary dulu, lalu copy URL-nya. Resolusi akan otomatis terdeteksi.
         </div>
       </div>
-      <div class="form-group">
-        <label>Resolusi (opsional)</label>
-        <input type="text" id="wpResolution" placeholder="1920x1080" value="1920x1080" />
-      </div>
+      <!-- Input resolusi dihapus, otomatis terdeteksi -->
       <button class="btn-submit" id="uploadBtn"><i class="fas fa-upload"></i> Upload Wallpaper</button>
     </div>
 
@@ -184,6 +181,20 @@
       }, 3500);
     }
 
+    // ===== FUNGSI DETEKSI RESOLUSI OTOMATIS =====
+    function getImageResolution(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = function() {
+          resolve(`${this.naturalWidth}x${this.naturalHeight}`);
+        };
+        img.onerror = function() {
+          resolve('Auto'); // fallback jika gagal load
+        };
+        img.src = url;
+      });
+    }
+
     // ===== CHECK LOGIN =====
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
@@ -191,17 +202,15 @@
         setTimeout(() => window.location.href = 'login.html', 1500);
         return;
       }
-      // Cek apakah user adalah admin (opsional: cek email tertentu)
       loadWallpapers();
     });
 
     // ===== UPLOAD =====
-    document.getElementById('uploadBtn').addEventListener('click', function() {
+    document.getElementById('uploadBtn').addEventListener('click', async function() {
       const title = document.getElementById('wpTitle').value.trim();
       const category = document.getElementById('wpCategory').value;
       const desc = document.getElementById('wpDesc').value.trim();
       const imageUrl = document.getElementById('wpImage').value.trim();
-      const resolution = document.getElementById('wpResolution').value.trim() || '1920x1080';
 
       if (!title || !imageUrl) {
         showToast('Judul dan URL gambar wajib diisi!', 'error');
@@ -214,6 +223,11 @@
       }
 
       this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendeteksi resolusi...';
+
+      // 🔥 Deteksi resolusi otomatis
+      const resolution = await getImageResolution(imageUrl);
+
       this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
       db.collection('wallpapers').add({
@@ -221,12 +235,12 @@
         category: category,
         description: desc || '',
         imageUrl: imageUrl,
-        resolution: resolution,
+        resolution: resolution, // otomatis dari gambar
         downloads: 0,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(function() {
-        showToast('✅ Wallpaper berhasil diupload!', 'success');
+        showToast(`✅ Wallpaper berhasil diupload! (Resolusi: ${resolution})`, 'success');
         document.getElementById('wpTitle').value = '';
         document.getElementById('wpDesc').value = '';
         document.getElementById('wpImage').value = '';
@@ -261,7 +275,7 @@
                 <img src="${data.imageUrl}" alt="${data.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 60%22%3E%3Crect width=%22100%22 height=%2260%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2212%22%3ENo%20Image%3C/text%3E%3C/svg%3E'" />
                 <div class="info">
                   <h4>${data.title}</h4>
-                  <span>${data.category} • ${data.resolution || '1920x1080'} • ${data.downloads || 0} downloads</span>
+                  <span>${data.category} • ${data.resolution || 'Auto'} • ${data.downloads || 0} downloads</span>
                 </div>
                 <button class="btn-del" data-id="${doc.id}"><i class="fas fa-trash-alt"></i></button>
               </div>
