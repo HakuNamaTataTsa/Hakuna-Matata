@@ -17,15 +17,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- ===== ADSTERRA SCRIPT ===== -->
-  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
+  <!-- ===== ADSTERRA POPUNDER ===== -->
+  <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Inter', sans-serif;
       background: #0a0a12;
@@ -67,24 +63,8 @@
       background: #60a5fa;
       animation: float2 18s ease-in-out infinite;
     }
-    @keyframes float1 {
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(80px, 60px);
-      }
-    }
-    @keyframes float2 {
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(-60px, -80px);
-      }
-    }
+    @keyframes float1 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(80px,60px); } }
+    @keyframes float2 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-60px,-80px); } }
 
     .container {
       position: relative;
@@ -92,20 +72,13 @@
       max-width: 600px;
       width: 100%;
       text-align: center;
-      background: rgba(20, 20, 30, 0.6);
+      background: rgba(20,20,30,0.6);
       backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
       border-radius: 24px;
       padding: 2.5rem 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 16px 64px rgba(0,0,0,0.5);
     }
-    .container:hover {
-      border-color: rgba(59, 130, 246, 0.15);
-      box-shadow: 0 20px 80px rgba(59, 130, 246, 0.05);
-    }
-
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -120,13 +93,7 @@
       border-radius: 6px;
       float: left;
     }
-    .back-link:hover {
-      color: #3B82F6;
-      background: rgba(59, 130, 246, 0.08);
-    }
-    .back-link i {
-      font-size: 0.65rem;
-    }
+    .back-link:hover { color: #3B82F6; background: rgba(59,130,246,0.08); }
 
     .container h1 {
       font-size: 1.8rem;
@@ -147,43 +114,17 @@
       line-height: 1.6;
       margin-bottom: 1.5rem;
     }
-    .container .sub strong {
-      color: #f0f0f0;
-      font-weight: 600;
-    }
+    .container .sub strong { color: #f0f0f0; font-weight: 600; }
 
     .wallpaper-preview {
       width: 100%;
       max-height: 320px;
       object-fit: cover;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255,255,255,0.06);
       margin-bottom: 1.5rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      transition: transform 0.4s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       background: #1a1a2e;
-    }
-    .wallpaper-preview:hover {
-      transform: scale(1.01);
-    }
-
-    .info-row {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-      font-size: 0.75rem;
-      color: #6a6a7e;
-    }
-    .info-row span {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .info-row i {
-      color: #3B82F6;
-      font-size: 0.7rem;
     }
 
     .btn-download {
@@ -198,79 +139,57 @@
       font-size: 1rem;
       border: none;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 24px rgba(59, 130, 246, 0.25);
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 4px 24px rgba(59,130,246,0.25);
       font-family: 'Inter', sans-serif;
       width: 100%;
       justify-content: center;
     }
     .btn-download:hover {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 40px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 8px 40px rgba(59,130,246,0.35);
     }
-    .btn-download:active {
-      transform: scale(0.97);
-    }
+    .btn-download:active { transform: scale(0.97); }
     .btn-download:disabled {
       opacity: 0.4;
       cursor: not-allowed;
       transform: none !important;
       box-shadow: none !important;
     }
-    .btn-download i {
-      font-size: 1rem;
-    }
 
-    /* ===== CUSTOM OVERLAY ===== */
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0,0,0,0.8);
       backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .overlay.active {
-      display: flex;
-      animation: fadeInOverlay 0.35s ease;
-    }
+    .overlay.active { display: flex; animation: fadeInOverlay 0.35s ease; }
     @keyframes fadeInOverlay {
-      from {
-        opacity: 0;
-        transform: scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity:0; transform:scale(0.96); }
+      to { opacity:1; transform:scale(1); }
     }
 
     .overlay-box {
-      max-width: 520px;
+      max-width: 480px;
       width: 100%;
-      background: rgba(20, 20, 30, 0.95);
+      background: rgba(20,20,30,0.95);
       backdrop-filter: blur(24px);
       border-radius: 24px;
       padding: 2rem 1.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
       text-align: center;
       position: relative;
-      animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: slideUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
     }
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity:0; transform:translateY(30px) scale(0.95); }
+      to { opacity:1; transform:translateY(0) scale(1); }
     }
 
     .overlay-box .close-overlay {
@@ -290,10 +209,7 @@
       align-items: center;
       justify-content: center;
     }
-    .overlay-box .close-overlay:hover {
-      color: #f0f0f0;
-      background: rgba(255, 255, 255, 0.06);
-    }
+    .overlay-box .close-overlay:hover { color: #f0f0f0; background: rgba(255,255,255,0.06); }
 
     .overlay-box .icon-top {
       font-size: 2.5rem;
@@ -312,46 +228,6 @@
       line-height: 1.5;
     }
 
-    /* ===== AD CONTAINER (tempat iklan in-page push - diisi oleh Adsterra) ===== */
-    .ad-container {
-      width: 100%;
-      min-height: 100px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 14px;
-      border: 1px dashed rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      position: relative;
-    }
-    .ad-container .ad-loading {
-      color: #4a4a5e;
-      font-size: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .ad-container .ad-loading i {
-      font-size: 1.2rem;
-      color: #3B82F6;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0%,
-      100% {
-        opacity: 0.4;
-        transform: scale(0.95);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.05);
-      }
-    }
-
-    /* ===== COUNTDOWN ===== */
     .countdown-wrapper {
       display: flex;
       align-items: center;
@@ -363,8 +239,8 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: rgba(59, 130, 246, 0.08);
-      border: 2px solid rgba(59, 130, 246, 0.15);
+      background: rgba(59,130,246,0.08);
+      border: 2px solid rgba(59,130,246,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -376,7 +252,7 @@
     }
     .countdown-circle.done {
       border-color: #22c55e;
-      background: rgba(34, 197, 94, 0.08);
+      background: rgba(34,197,94,0.08);
       color: #22c55e;
     }
     .countdown-label {
@@ -398,11 +274,11 @@
       font-size: 0.95rem;
       border: none;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
       width: 100%;
       justify-content: center;
       font-family: 'Inter', sans-serif;
-      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+      box-shadow: 0 4px 20px rgba(34,197,94,0.15);
     }
     .btn-download-overlay:disabled {
       opacity: 0.3;
@@ -412,13 +288,9 @@
     }
     .btn-download-overlay:hover:not(:disabled) {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 32px rgba(34, 197, 94, 0.3);
-    }
-    .btn-download-overlay:active:not(:disabled) {
-      transform: scale(0.97);
+      box-shadow: 0 8px 32px rgba(34,197,94,0.3);
     }
 
-    /* ===== TOAST ===== */
     .toast-container {
       position: fixed;
       bottom: 24px;
@@ -431,94 +303,38 @@
     }
     .toast {
       padding: 0.7rem 1.4rem;
-      background: rgba(20, 20, 30, 0.92);
+      background: rgba(20,20,30,0.92);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      animation: slideInToast 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: slideInToast 0.35s cubic-bezier(0.34,1.56,0.64,1);
       font-size: 0.82rem;
       border-left: 3px solid #3B82F6;
     }
-    .toast i {
-      color: #3B82F6;
-      font-size: 0.9rem;
-    }
-    .toast.success {
-      border-left-color: #22c55e;
-    }
-    .toast.success i {
-      color: #22c55e;
-    }
-    .toast.error {
-      border-left-color: #ef4444;
-    }
-    .toast.error i {
-      color: #ef4444;
-    }
+    .toast i { color: #3B82F6; font-size: 0.9rem; }
+    .toast.success { border-left-color: #22c55e; }
+    .toast.success i { color: #22c55e; }
+    .toast.error { border-left-color: #ef4444; }
+    .toast.error i { color: #ef4444; }
     @keyframes slideInToast {
-      from {
-        opacity: 0;
-        transform: translateX(50px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
+      from { opacity:0; transform:translateX(50px) scale(0.9); }
+      to { opacity:1; transform:translateX(0) scale(1); }
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 480px) {
-      .container {
-        padding: 1.5rem 1rem;
-        border-radius: 18px;
-      }
-      .container h1 {
-        font-size: 1.4rem;
-      }
-      .container .sub {
-        font-size: 0.82rem;
-      }
-      .wallpaper-preview {
-        max-height: 200px;
-        border-radius: 12px;
-      }
-      .overlay-box {
-        padding: 1.5rem 1rem;
-        border-radius: 18px;
-      }
-      .overlay-box h3 {
-        font-size: 1.05rem;
-      }
-      .countdown-circle {
-        width: 52px;
-        height: 52px;
-        font-size: 1.3rem;
-      }
-      .btn-download {
-        font-size: 0.9rem;
-        padding: 0.8rem 1.5rem;
-      }
-      .btn-download-overlay {
-        font-size: 0.85rem;
-        padding: 0.7rem 1.5rem;
-      }
-      .info-row {
-        gap: 0.8rem;
-        font-size: 0.65rem;
-      }
-      .back-link {
-        font-size: 0.7rem;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .container {
-        padding: 3rem 2.5rem;
-      }
+      .container { padding: 1.5rem 1rem; border-radius: 18px; }
+      .container h1 { font-size: 1.4rem; }
+      .container .sub { font-size: 0.82rem; }
+      .wallpaper-preview { max-height: 200px; border-radius: 12px; }
+      .overlay-box { padding: 1.5rem 1rem; border-radius: 18px; }
+      .overlay-box h3 { font-size: 1.05rem; }
+      .countdown-circle { width: 52px; height: 52px; font-size: 1.3rem; }
+      .btn-download { font-size: 0.9rem; padding: 0.8rem 1.5rem; }
+      .btn-download-overlay { font-size: 0.85rem; padding: 0.7rem 1.5rem; }
     }
   </style>
 </head>
@@ -545,10 +361,10 @@
       onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3ENo%20Image%3C/text%3E%3C/svg%3E'"
     />
 
-    <div class="info-row">
-      <span><i class="fas fa-image"></i> HD Quality</span>
-      <span><i class="fas fa-mobile-alt"></i> Mobile Friendly</span>
-      <span><i class="fas fa-cloud-download-alt"></i> Gratis</span>
+    <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;font-size:0.75rem;color:#6a6a7e;">
+      <span><i class="fas fa-image" style="color:#3B82F6;font-size:0.7rem;"></i> HD Quality</span>
+      <span><i class="fas fa-mobile-alt" style="color:#3B82F6;font-size:0.7rem;"></i> Mobile Friendly</span>
+      <span><i class="fas fa-cloud-download-alt" style="color:#3B82F6;font-size:0.7rem;"></i> Gratis</span>
     </div>
 
     <button class="btn-download" id="mainDownloadBtn" onclick="openOverlay()">
@@ -567,14 +383,6 @@
       <h3>Tunggu Sebentar</h3>
       <p class="sub">Iklan akan muncul di tab baru. Setelah selesai, kamu bisa download.</p>
 
-      <!-- TEMPAT IKLAN (akan diisi oleh Adsterra secara otomatis, kita hanya tampilkan loading) -->
-      <div class="ad-container" id="adContainer">
-        <div class="ad-loading" id="adLoading">
-          <i class="fas fa-ad"></i>
-          <span>Memuat iklan...</span>
-        </div>
-      </div>
-
       <!-- COUNTDOWN -->
       <div class="countdown-wrapper">
         <div class="countdown-circle" id="countdownCircle">10</div>
@@ -584,7 +392,6 @@
         </div>
       </div>
 
-      <!-- TOMBOL DOWNLOAD -->
       <button class="btn-download-overlay" id="downloadOverlayBtn" disabled>
         <i class="fas fa-download"></i> Download Sekarang
       </button>
@@ -598,21 +405,14 @@
   SCRIPTS
   ============================================================ -->
   <script>
-    // ============================================================
-    // KONFIGURASI
-    // ============================================================
-    const COUNTDOWN_DURATION = 10; // detik
+    const COUNTDOWN_DURATION = 10;
     const DOWNLOAD_URL = 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80&download=1';
     const WALLPAPER_NAME = 'wallpaper-akino.jpg';
 
-    // ============================================================
-    // ELEMEN
-    // ============================================================
     const overlay = document.getElementById('overlay');
     const countdownCircle = document.getElementById('countdownCircle');
     const downloadOverlayBtn = document.getElementById('downloadOverlayBtn');
     const mainBtn = document.getElementById('mainDownloadBtn');
-    const adLoading = document.getElementById('adLoading');
     const toastContainer = document.getElementById('toastContainer');
 
     let countdownInterval = null;
@@ -620,9 +420,6 @@
     let isDownloading = false;
     let adTriggered = false;
 
-    // ============================================================
-    // TOAST
-    // ============================================================
     function showToast(message, type = 'info') {
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
@@ -636,73 +433,43 @@
       }, 3500);
     }
 
-    // ============================================================
-    // TRIGGER ADSTERRA POPUNDER
-    // ============================================================
-    function triggerAdsterra() {
+    function triggerPopunder() {
       try {
-        // Coba panggil fungsi popunder dari Adsterra
+        // Coba panggil Adsterra Popunder
         if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
           Adsterra.showPopunder();
-          console.log('✅ Adsterra Popunder triggered');
+          console.log('✅ Popunder triggered');
           return true;
         }
-
-        // Alternatif: coba panggil dengan cara lain
+        // Alternatif
         if (typeof window.Adsterra !== 'undefined' && window.Adsterra.show) {
           window.Adsterra.show();
           console.log('✅ Adsterra show() triggered');
           return true;
         }
-
-        // Jika tidak ada fungsi, coba panggil melalui event
-        if (typeof window.triggerAdsterra !== 'undefined') {
-          window.triggerAdsterra();
-          console.log('✅ Adsterra triggerAdsterra() triggered');
-          return true;
-        }
-
-        console.warn('⚠️ Adsterra tidak merespons. Script mungkin belum siap.');
+        console.warn('⚠️ Adsterra tidak merespons');
         return false;
       } catch (e) {
-        console.warn('⚠️ Error triggering Adsterra:', e);
+        console.warn('⚠️ Error:', e);
         return false;
       }
     }
 
-    // ============================================================
-    // OPEN OVERLAY
-    // ============================================================
     function openOverlay() {
       if (isDownloading) return;
 
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
 
-      // Reset
       timeLeft = COUNTDOWN_DURATION;
       countdownCircle.textContent = timeLeft;
       countdownCircle.className = 'countdown-circle';
       downloadOverlayBtn.disabled = true;
       downloadOverlayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
-      adTriggered = false;
 
-      // Tampilkan loading iklan
-      if (adLoading) {
-        adLoading.style.display = 'flex';
-      }
+      // 🔥 Trigger Popunder
+      triggerPopunder();
 
-      // 🔥 Panggil Adsterra Popunder
-      const success = triggerAdsterra();
-
-      // Sembunyikan loading setelah 2 detik (asumsi iklan sudah muncul)
-      setTimeout(() => {
-        if (adLoading) {
-          adLoading.style.display = 'none';
-        }
-      }, 2000);
-
-      // Mulai countdown
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = setInterval(() => {
         timeLeft--;
@@ -715,18 +482,11 @@
           countdownCircle.className = 'countdown-circle done';
           downloadOverlayBtn.disabled = false;
           downloadOverlayBtn.innerHTML = '<i class="fas fa-download"></i> Download Sekarang';
-
-          // Event listener untuk download
-          downloadOverlayBtn.onclick = function() {
-            startDownload();
-          };
+          downloadOverlayBtn.onclick = function() { startDownload(); };
         }
       }, 1000);
     }
 
-    // ============================================================
-    // CLOSE OVERLAY
-    // ============================================================
     function closeOverlay() {
       overlay.classList.remove('active');
       document.body.style.overflow = '';
@@ -734,23 +494,14 @@
         clearInterval(countdownInterval);
         countdownInterval = null;
       }
-      // Reset button
       downloadOverlayBtn.disabled = true;
       downloadOverlayBtn.innerHTML = '<i class="fas fa-download"></i> Download Sekarang';
       downloadOverlayBtn.onclick = null;
       timeLeft = COUNTDOWN_DURATION;
       countdownCircle.textContent = timeLeft;
       countdownCircle.className = 'countdown-circle';
-
-      // Tampilkan kembali loading iklan
-      if (adLoading) {
-        adLoading.style.display = 'flex';
-      }
     }
 
-    // ============================================================
-    // START DOWNLOAD
-    // ============================================================
     function startDownload() {
       if (isDownloading) return;
       isDownloading = true;
@@ -787,27 +538,18 @@
       }, 500);
     }
 
-    // ============================================================
-    // ESCAPE KEY
-    // ============================================================
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('active')) {
         closeOverlay();
       }
     });
 
-    // ============================================================
-    // CLICK OUTSIDE OVERLAY
-    // ============================================================
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
         closeOverlay();
       }
     });
 
-    // ============================================================
-    // SERVICE WORKER (Opsional)
-    // ============================================================
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js?v=4.1')
@@ -817,29 +559,7 @@
     }
 
     console.log('📱 Download Wallpaper - Akino Store');
-    console.log('🔗 Script Adsterra aktif!');
-  </script>
-
-  <!-- ===== FORCE UPDATE SERVICE WORKER ===== -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistration().then(reg => {
-        if (reg) {
-          reg.update();
-          reg.addEventListener('updatefound', () => {
-            const newSW = reg.installing;
-            newSW.addEventListener('statechange', () => {
-              if (newSW.state === 'installed') {
-                newSW.postMessage('skipWaiting');
-                setTimeout(() => {
-                  window.location.reload();
-                }, 800);
-              }
-            });
-          });
-        }
-      });
-    }
+    console.log('🔗 Script Popunder aktif!');
   </script>
 </body>
 </html>
