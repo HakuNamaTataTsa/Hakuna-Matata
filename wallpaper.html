@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- ===== ADSTERRA POPUNDER ===== -->
-  <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
+  <!-- ===== ADSTERRA SOCIAL BAR / NATIVE BANNER ===== -->
+  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
 
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -47,22 +47,8 @@
       filter: blur(120px);
       opacity: 0.06;
     }
-    .ambient .glow-1 {
-      width: 500px;
-      height: 500px;
-      top: -200px;
-      left: -150px;
-      background: #3B82F6;
-      animation: float1 14s ease-in-out infinite;
-    }
-    .ambient .glow-2 {
-      width: 400px;
-      height: 400px;
-      bottom: -150px;
-      right: -100px;
-      background: #60a5fa;
-      animation: float2 18s ease-in-out infinite;
-    }
+    .ambient .glow-1 { width: 500px; height: 500px; top: -200px; left: -150px; background: #3B82F6; animation: float1 14s ease-in-out infinite; }
+    .ambient .glow-2 { width: 400px; height: 400px; bottom: -150px; right: -100px; background: #60a5fa; animation: float2 18s ease-in-out infinite; }
     @keyframes float1 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(80px,60px); } }
     @keyframes float2 { 0%,100% { transform:translate(0,0); } 50% { transform:translate(-60px,-80px); } }
 
@@ -114,7 +100,6 @@
       line-height: 1.6;
       margin-bottom: 1.5rem;
     }
-    .container .sub strong { color: #f0f0f0; font-weight: 600; }
 
     .wallpaper-preview {
       width: 100%;
@@ -125,6 +110,41 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       background: #1a1a2e;
+    }
+
+    /* ===== AD BANNER ===== */
+    .ad-banner-wrapper {
+      width: 100%;
+      min-height: 80px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .ad-banner-wrapper .ad-placeholder {
+      color: #4a4a5e;
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .ad-banner-wrapper .ad-placeholder i {
+      font-size: 1.2rem;
+      color: #3B82F6;
+    }
+    /* Tempat iklan Social Bar akan muncul di sini (biasanya di pojok) */
+    .ad-container {
+      width: 100%;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-download {
@@ -149,7 +169,6 @@
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 8px 40px rgba(59,130,246,0.35);
     }
-    .btn-download:active { transform: scale(0.97); }
     .btn-download:disabled {
       opacity: 0.4;
       cursor: not-allowed;
@@ -157,20 +176,21 @@
       box-shadow: none !important;
     }
 
+    /* ===== OVERLAY ===== */
     .overlay {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(16px);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .overlay.active { display: flex; animation: fadeInOverlay 0.35s ease; }
-    @keyframes fadeInOverlay {
-      from { opacity:0; transform:scale(0.96); }
+    .overlay.active { display: flex; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn {
+      from { opacity:0; transform:scale(0.95); }
       to { opacity:1; transform:scale(1); }
     }
 
@@ -179,7 +199,7 @@
       width: 100%;
       background: rgba(20,20,30,0.95);
       backdrop-filter: blur(24px);
-      border-radius: 24px;
+      border-radius: 20px;
       padding: 2rem 1.8rem;
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: 0 24px 80px rgba(0,0,0,0.6);
@@ -216,11 +236,7 @@
       color: #3B82F6;
       margin-bottom: 0.3rem;
     }
-    .overlay-box h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.2rem;
-    }
+    .overlay-box h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem; }
     .overlay-box .sub {
       color: #8a8a9e;
       font-size: 0.82rem;
@@ -315,7 +331,7 @@
       font-size: 0.82rem;
       border-left: 3px solid #3B82F6;
     }
-    .toast i { color: #3B82F6; font-size: 0.9rem; }
+    .toast i { color: #3B82F6; }
     .toast.success { border-left-color: #22c55e; }
     .toast.success i { color: #22c55e; }
     .toast.error { border-left-color: #ef4444; }
@@ -331,7 +347,6 @@
       .container .sub { font-size: 0.82rem; }
       .wallpaper-preview { max-height: 200px; border-radius: 12px; }
       .overlay-box { padding: 1.5rem 1rem; border-radius: 18px; }
-      .overlay-box h3 { font-size: 1.05rem; }
       .countdown-circle { width: 52px; height: 52px; font-size: 1.3rem; }
       .btn-download { font-size: 0.9rem; padding: 0.8rem 1.5rem; }
       .btn-download-overlay { font-size: 0.85rem; padding: 0.7rem 1.5rem; }
@@ -350,7 +365,7 @@
 
     <h1>Download <span>Wallpaper</span></h1>
     <p class="sub">
-      Klik tombol di bawah, <strong>tunggu iklan selesai</strong> (10 detik), lalu wallpaper akan terunduh otomatis.
+      Klik tombol di bawah, <strong>tunggu 10 detik</strong> sambil melihat iklan, lalu wallpaper akan terunduh.
     </p>
 
     <img
@@ -361,10 +376,14 @@
       onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3ENo%20Image%3C/text%3E%3C/svg%3E'"
     />
 
-    <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;font-size:0.75rem;color:#6a6a7e;">
-      <span><i class="fas fa-image" style="color:#3B82F6;font-size:0.7rem;"></i> HD Quality</span>
-      <span><i class="fas fa-mobile-alt" style="color:#3B82F6;font-size:0.7rem;"></i> Mobile Friendly</span>
-      <span><i class="fas fa-cloud-download-alt" style="color:#3B82F6;font-size:0.7rem;"></i> Gratis</span>
+    <!-- ===== NATIVE BANNER (Social Bar / In-Page Push) ===== -->
+    <div class="ad-banner-wrapper">
+      <div class="ad-container" id="adContainer">
+        <div class="ad-placeholder">
+          <i class="fas fa-ad"></i>
+          <span>Iklan akan muncul di sini</span>
+        </div>
+      </div>
     </div>
 
     <button class="btn-download" id="mainDownloadBtn" onclick="openOverlay()">
@@ -372,7 +391,7 @@
     </button>
   </div>
 
-  <!-- ===== OVERLAY ===== -->
+  <!-- ===== OVERLAY COUNTDOWN ===== -->
   <div class="overlay" id="overlay">
     <div class="overlay-box">
       <button class="close-overlay" onclick="closeOverlay()" aria-label="Tutup">
@@ -381,9 +400,18 @@
 
       <div class="icon-top"><i class="fas fa-clock"></i></div>
       <h3>Tunggu Sebentar</h3>
-      <p class="sub">Iklan akan muncul di tab baru. Setelah selesai, kamu bisa download.</p>
+      <p class="sub">Tunggu 10 detik sambil melihat iklan di bawah.</p>
 
-      <!-- COUNTDOWN -->
+      <!-- Banner di dalam overlay (biar user melihat iklan) -->
+      <div class="ad-banner-wrapper" style="margin-bottom:1rem;min-height:60px;">
+        <div class="ad-container" id="adContainerOverlay">
+          <div class="ad-placeholder">
+            <i class="fas fa-ad"></i>
+            <span>Iklan akan muncul di sini</span>
+          </div>
+        </div>
+      </div>
+
       <div class="countdown-wrapper">
         <div class="countdown-circle" id="countdownCircle">10</div>
         <div>
@@ -418,7 +446,6 @@
     let countdownInterval = null;
     let timeLeft = COUNTDOWN_DURATION;
     let isDownloading = false;
-    let adTriggered = false;
 
     function showToast(message, type = 'info') {
       const toast = document.createElement('div');
@@ -433,28 +460,6 @@
       }, 3500);
     }
 
-    function triggerPopunder() {
-      try {
-        // Coba panggil Adsterra Popunder
-        if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
-          Adsterra.showPopunder();
-          console.log('✅ Popunder triggered');
-          return true;
-        }
-        // Alternatif
-        if (typeof window.Adsterra !== 'undefined' && window.Adsterra.show) {
-          window.Adsterra.show();
-          console.log('✅ Adsterra show() triggered');
-          return true;
-        }
-        console.warn('⚠️ Adsterra tidak merespons');
-        return false;
-      } catch (e) {
-        console.warn('⚠️ Error:', e);
-        return false;
-      }
-    }
-
     function openOverlay() {
       if (isDownloading) return;
 
@@ -466,9 +471,6 @@
       countdownCircle.className = 'countdown-circle';
       downloadOverlayBtn.disabled = true;
       downloadOverlayBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
-
-      // 🔥 Trigger Popunder
-      triggerPopunder();
 
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = setInterval(() => {
@@ -559,7 +561,7 @@
     }
 
     console.log('📱 Download Wallpaper - Akino Store');
-    console.log('🔗 Script Popunder aktif!');
+    console.log('🔗 Script Native Banner aktif!');
   </script>
 </body>
 </html>
