@@ -16,11 +16,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- POPUNDER -->
   <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
+
+  <!-- SOCIAL BAR -->
   <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
+
+  <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="firebase-init.js?v=4.1"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+      authDomain: "akinowedding-73271.firebaseapp.com",
+      projectId: "akinowedding-73271",
+      storageBucket: "akinowedding-73271.appspot.com",
+      messagingSenderId: "307666594440",
+      appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    window.db = db;
+    console.log('✅ Firebase ready');
+  </script>
+
   <style>
     :root {
       --bg-primary: #0a0a12;
@@ -877,12 +897,22 @@
       if (isDownloading || !currentWallpaper) return;
       isDownloading = true;
       try {
-        if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
-          Adsterra.showPopunder();
-        } else if (typeof window.Adsterra !== 'undefined' && window.Adsterra.show) {
+        if (window.Adsterra && typeof window.Adsterra.show === 'function') {
           window.Adsterra.show();
+        } else if (window.Adsterra && typeof window.Adsterra.showPopunder === 'function') {
+          window.Adsterra.showPopunder();
+        } else {
+          var popunderUrl = 'https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js';
+          var win = window.open(popunderUrl, '_blank');
+          if (win) {
+            setTimeout(function() {
+              win.close();
+            }, 100);
+          }
         }
-      } catch (e) { console.log('Adsterra trigger:', e); }
+      } catch (e) {
+        console.log('Adsterra trigger error:', e);
+      }
       lbDownloadBtn.disabled = true;
       lbDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
       lbCountdown.classList.add('show');
