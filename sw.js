@@ -73,9 +73,21 @@ self.addEventListener('activate', event => {
 // ============================================================
 // FETCH - Strategi Cerdas (Cache + Network)
 // ============================================================
-// ============================================================
-// FETCH - Strategi Cerdas (Cache + Network)
-// ============================================================
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  const url = new URL(request.url);
+
+  // 🚫 LEWATI: Request ke domain iklan (JANGAN DI-CACHE)
+  if (url.hostname.includes('effectivecpmnetwork.com') ||
+      url.hostname.includes('pl30386775') ||
+      url.hostname.includes('pl30387021')) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // ... sisanya tetap sama seperti kode Anda
+  // (Lewati gambar, API, dll, lalu Cache First)
+});
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
