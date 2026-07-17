@@ -15,7 +15,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js?v=4.1"></script>
 
-  <!-- BANNER 728x90 -->
   <script>
     atOptions = {
       'key' : 'd2897c43e1f08075a75bca6c52d0085b',
@@ -179,6 +178,11 @@
       flex:0 1 auto;
     }
     .btn-submit.ai:hover { box-shadow:0 8px 32px rgba(139,92,246,0.3); }
+    .btn-submit.detect {
+      background:linear-gradient(145deg, #f59e0b, #d97706);
+      flex:0 1 auto;
+    }
+    .btn-submit.detect:hover { box-shadow:0 8px 32px rgba(245,158,11,0.3); }
 
     .modal-overlay {
       display:none;
@@ -361,7 +365,7 @@
       .form-card { padding:1rem; }
       .list-item .thumb { width:50px; height:50px; }
       .btn-group { flex-direction:column; }
-      .btn-submit.ai { flex:1; }
+      .btn-submit.ai, .btn-submit.detect { flex:1; }
     }
   </style>
 </head>
@@ -416,14 +420,19 @@
       </div>
       <div class="form-group">
         <label>URL Gambar (Cloudinary)</label>
-        <input type="text" id="wpImage" placeholder="https://res.cloudinary.com/..." />
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <input type="text" id="wpImage" placeholder="https://res.cloudinary.com/..." style="flex:1; min-width:200px;" />
+          <button class="btn-submit detect" id="detectBtn" style="flex:0 1 auto; padding:0.7rem 1.2rem; font-size:0.8rem;">
+            <i class="fas fa-robot"></i> Auto Detect
+          </button>
+        </div>
         <div class="helper">
           <i class="fas fa-info-circle"></i> Upload ke Cloudinary dulu, lalu copy URL-nya. Resolusi akan otomatis terdeteksi.
         </div>
       </div>
       <div class="btn-group">
         <button class="btn-submit" id="uploadBtn"><i class="fas fa-upload"></i> Upload Wallpaper</button>
-        <button class="btn-submit ai" id="generateBtn"><i class="fas fa-magic"></i> Generate Judul & Deskripsi</button>
+        <button class="btn-submit ai" id="generateBtn"><i class="fas fa-magic"></i> Generate Manual (Tema)</button>
       </div>
     </div>
 
@@ -449,7 +458,7 @@
     </div>
   </div>
 
-  <!-- Modal Generate AI -->
+  <!-- Modal Generate AI (Manual Tema) -->
   <div class="modal-overlay" id="aiModal">
     <div class="modal-box">
       <h3><i class="fas fa-magic" style="color:var(--accent);"></i> Generate Judul & Deskripsi dengan AI</h3>
@@ -468,7 +477,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <script>
-    // ===== WORKER URL UNTUK AI GENERATE =====
+    // ===== WORKER URL =====
     const WORKER_GENERATE_URL = 'https://wallpaperai.akinostore.workers.dev';
 
     const toastContainer = document.getElementById('toastContainer');
@@ -485,6 +494,7 @@
       }, 3500);
     }
 
+    // ===== THEME =====
     const themeToggle = document.getElementById('themeToggle');
     const icon = themeToggle.querySelector('i');
     const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -499,6 +509,7 @@
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
+    // ===== NAVBAR =====
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', function() {
@@ -512,6 +523,7 @@
       });
     });
 
+    // ===== AUTH =====
     const authText = document.getElementById('authText');
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -523,6 +535,7 @@
       }
     });
 
+    // ===== RESOLUTION DETECT =====
     function getImageResolution(url) {
       return new Promise((resolve) => {
         const img = new Image();
@@ -536,125 +549,9 @@
       });
     }
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (!user) {
-        showToast('Silakan login sebagai admin terlebih dahulu.', 'error');
-        setTimeout(() => window.location.href = 'login.html', 1500);
-        return;
-      }
-      loadWallpapers();
-    });
-
-    // ===== GENERATE AI =====
-    const generateBtn = document.getElementById('generateBtn');
-    const aiModal = document.getElementById('aiModal');
-    const aiTheme = document.getElementById('aiTheme');
-    const aiGenerate = document.getElementById('aiGenerate');
-    const aiCancel = document.getElementById('aiCancel');
-
-    generateBtn.addEventListener('click', function() {
-      aiModal.classList.add('active');
-      aiTheme.value = '';
-      aiTheme.focus();
-    });
-
-    aiCancel.addEventListener('click', function() {
-      aiModal.classList.remove('active');
-    });
-    aiModal.addEventListener('click', function(e) {
-      if (e.target === aiModal) aiModal.classList.remove('active');
-    });
-
-    aiGenerate.addEventListener('click', async function() {
-      const theme = aiTheme.value.trim();
-      if (!theme) {
-        showToast('Masukkan tema terlebih dahulu!', 'error');
-        return;
-      }
-
-      const category = document.getElementById('wpCategory').value;
-
-      this.disabled = true;
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-
-      try {
-        const response = await fetch(WORKER_GENERATE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ theme, category })
-        });
-
-        if (!response.ok) {
-          const err = await response.json();
-          throw new Error(err.error || 'Gagal generate');
-        }
-
-        const data = await response.json();
-        document.getElementById('wpTitle').value = data.title || '';
-        document.getElementById('wpDesc').value = data.description || '';
-        aiModal.classList.remove('active');
-        showToast('✅ Judul & deskripsi berhasil digenerate!', 'success');
-      } catch (error) {
-        showToast('❌ ' + error.message, 'error');
-      } finally {
-        this.disabled = false;
-        this.innerHTML = '<i class="fas fa-sparkles"></i> Generate';
-      }
-    });
-
-    // ===== UPLOAD =====
-    document.getElementById('uploadBtn').addEventListener('click', async function() {
-      const title = document.getElementById('wpTitle').value.trim();
-      const category = document.getElementById('wpCategory').value;
-      const desc = document.getElementById('wpDesc').value.trim();
-      const imageUrl = document.getElementById('wpImage').value.trim();
-
-      if (!title || !imageUrl) {
-        showToast('Judul dan URL gambar wajib diisi!', 'error');
-        return;
-      }
-
-      if (!imageUrl.includes('cloudinary.com')) {
-        showToast('Gunakan URL dari Cloudinary!', 'error');
-        return;
-      }
-
-      this.disabled = true;
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendeteksi resolusi...';
-
-      const resolution = await getImageResolution(imageUrl);
-
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-
-      db.collection('wallpapers').add({
-        title: title,
-        category: category,
-        description: desc || '',
-        imageUrl: imageUrl,
-        resolution: resolution,
-        downloads: 0,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      .then(function() {
-        showToast(`✅ Wallpaper berhasil diupload! (Resolusi: ${resolution})`, 'success');
-        document.getElementById('wpTitle').value = '';
-        document.getElementById('wpDesc').value = '';
-        document.getElementById('wpImage').value = '';
-        loadWallpapers();
-      })
-      .catch(function(err) {
-        showToast('❌ Gagal upload: ' + err.message, 'error');
-      })
-      .finally(function() {
-        document.getElementById('uploadBtn').disabled = false;
-        document.getElementById('uploadBtn').innerHTML = '<i class="fas fa-upload"></i> Upload Wallpaper';
-      });
-    });
-
     // ===== LOAD WALLPAPERS =====
     function loadWallpapers() {
       const container = document.getElementById('listContainer');
-
       db.collection('wallpapers')
         .orderBy('createdAt', 'desc')
         .get()
@@ -700,6 +597,177 @@
           container.innerHTML = `<div class="empty"><i class="fas fa-exclamation-triangle"></i> Gagal memuat.</div>`;
         });
     }
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        showToast('Silakan login sebagai admin terlebih dahulu.', 'error');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+        return;
+      }
+      loadWallpapers();
+    });
+
+    // ===== AUTO DETECT =====
+    const detectBtn = document.getElementById('detectBtn');
+    const wpImage = document.getElementById('wpImage');
+    const wpTitle = document.getElementById('wpTitle');
+    const wpCategory = document.getElementById('wpCategory');
+    const wpDesc = document.getElementById('wpDesc');
+
+    detectBtn.addEventListener('click', async function() {
+      const url = wpImage.value.trim();
+      if (!url) {
+        showToast('Masukkan URL gambar terlebih dahulu!', 'error');
+        return;
+      }
+      if (!url.includes('cloudinary.com')) {
+        showToast('Gunakan URL dari Cloudinary!', 'error');
+        return;
+      }
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menganalisis...';
+
+      try {
+        const response = await fetch(WORKER_GENERATE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: url })
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Gagal menganalisis');
+        }
+
+        const data = await response.json();
+        // Isi form
+        if (data.title) wpTitle.value = data.title;
+        if (data.description) wpDesc.value = data.description;
+        if (data.category) {
+          // Cari dan pilih opsi yang sesuai
+          const options = wpCategory.options;
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].value === data.category) {
+              wpCategory.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        showToast('✅ Auto detect berhasil! Silakan periksa dan edit jika perlu.', 'success');
+      } catch (error) {
+        showToast('❌ ' + error.message, 'error');
+      } finally {
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-robot"></i> Auto Detect';
+      }
+    });
+
+    // ===== GENERATE MANUAL (Tema) =====
+    const generateBtn = document.getElementById('generateBtn');
+    const aiModal = document.getElementById('aiModal');
+    const aiTheme = document.getElementById('aiTheme');
+    const aiGenerate = document.getElementById('aiGenerate');
+    const aiCancel = document.getElementById('aiCancel');
+
+    generateBtn.addEventListener('click', function() {
+      aiModal.classList.add('active');
+      aiTheme.value = '';
+      aiTheme.focus();
+    });
+
+    aiCancel.addEventListener('click', function() {
+      aiModal.classList.remove('active');
+    });
+    aiModal.addEventListener('click', function(e) {
+      if (e.target === aiModal) aiModal.classList.remove('active');
+    });
+
+    aiGenerate.addEventListener('click', async function() {
+      const theme = aiTheme.value.trim();
+      if (!theme) {
+        showToast('Masukkan tema terlebih dahulu!', 'error');
+        return;
+      }
+
+      const category = wpCategory.value;
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+      try {
+        const response = await fetch(WORKER_GENERATE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ theme, category })
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Gagal generate');
+        }
+
+        const data = await response.json();
+        wpTitle.value = data.title || '';
+        wpDesc.value = data.description || '';
+        aiModal.classList.remove('active');
+        showToast('✅ Judul & deskripsi berhasil digenerate!', 'success');
+      } catch (error) {
+        showToast('❌ ' + error.message, 'error');
+      } finally {
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-sparkles"></i> Generate';
+      }
+    });
+
+    // ===== UPLOAD =====
+    document.getElementById('uploadBtn').addEventListener('click', async function() {
+      const title = wpTitle.value.trim();
+      const category = wpCategory.value;
+      const desc = wpDesc.value.trim();
+      const imageUrl = wpImage.value.trim();
+
+      if (!title || !imageUrl) {
+        showToast('Judul dan URL gambar wajib diisi!', 'error');
+        return;
+      }
+
+      if (!imageUrl.includes('cloudinary.com')) {
+        showToast('Gunakan URL dari Cloudinary!', 'error');
+        return;
+      }
+
+      this.disabled = true;
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendeteksi resolusi...';
+
+      const resolution = await getImageResolution(imageUrl);
+
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+      db.collection('wallpapers').add({
+        title: title,
+        category: category,
+        description: desc || '',
+        imageUrl: imageUrl,
+        resolution: resolution,
+        downloads: 0,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(function() {
+        showToast(`✅ Wallpaper berhasil diupload! (Resolusi: ${resolution})`, 'success');
+        wpTitle.value = '';
+        wpDesc.value = '';
+        wpImage.value = '';
+        loadWallpapers();
+      })
+      .catch(function(err) {
+        showToast('❌ Gagal upload: ' + err.message, 'error');
+      })
+      .finally(function() {
+        document.getElementById('uploadBtn').disabled = false;
+        document.getElementById('uploadBtn').innerHTML = '<i class="fas fa-upload"></i> Upload Wallpaper';
+      });
+    });
   </script>
 </body>
 </html>
