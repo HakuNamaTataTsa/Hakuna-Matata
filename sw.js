@@ -73,9 +73,20 @@ self.addEventListener('activate', event => {
 // ============================================================
 // FETCH - Strategi Cerdas (Cache + Network)
 // ============================================================
+// ============================================================
+// FETCH - Strategi Cerdas (Cache + Network)
+// ============================================================
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
+
+  // 🚫 LEWATI: Request ke domain iklan (jangan di-cache, langsung network)
+  if (url.hostname.includes('effectivecpmnetwork.com') ||
+      url.hostname.includes('pl30386775') ||
+      url.hostname.includes('pl30387021')) {
+    event.respondWith(fetch(request));
+    return;
+  }
 
   // 🔥 LEWATI: file yang TIDAK perlu di-cache (API, gambar, dll)
   if (url.pathname.includes('/proxy-image') ||
@@ -92,9 +103,8 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
-        // Jika ada di cache, kembalikan (cepat!)
         if (cachedResponse) {
-          // 🔥 REVALIDASI: update cache di background (stale-while-revalidate)
+          // Revalidasi background
           fetch(request)
             .then(networkResponse => {
               if (networkResponse && networkResponse.ok) {
@@ -107,14 +117,11 @@ self.addEventListener('fetch', event => {
             .catch(() => {});
           return cachedResponse;
         }
-
-        // Jika tidak ada di cache, ambil dari network
         return fetch(request)
           .then(networkResponse => {
             if (!networkResponse || networkResponse.status !== 200) {
               return networkResponse;
             }
-            // Cache response untuk下次
             const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME)
               .then(cache => {
@@ -123,7 +130,6 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           })
           .catch(() => {
-            // Jika network gagal, coba fallback ke halaman utama
             if (request.mode === 'navigate') {
               return caches.match('/');
             }
@@ -131,7 +137,6 @@ self.addEventListener('fetch', event => {
       })
   );
 });
-
 // ============================================================
 // MESSAGE HANDLER - Terima pesan dari client
 // ============================================================
