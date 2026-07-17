@@ -16,51 +16,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
   <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
-  <script>
-    atOptions = {
-      'key' : 'd2897c43e1f08075a75bca6c52d0085b',
-      'format' : 'iframe',
-      'height' : 90,
-      'width' : 728,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
-  <script>
-    atOptions = {
-      'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
-      'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"></script>
-  <script>
-    atOptions = {
-      'key' : '6b8517f00022d9d8d364fa2d96e155d7',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"></script>
-  <script>
-    atOptions = {
-      'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
-      'format' : 'iframe',
-      'height' : 600,
-      'width' : 160,
-      'params' : {}
-    };
-  </script>
-  <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"></script>
-  <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"></script>
+  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js?v=4.1"></script>
   <style>
@@ -79,7 +37,6 @@
       --shadow: 0 8px 32px rgba(0,0,0,0.5);
       --radius: 14px;
       --radius-sm: 10px;
-      --radius-lg: 20px;
       --font: 'Inter', sans-serif;
       --navbar-height: 68px;
       --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
@@ -155,20 +112,6 @@
     .nav-actions .theme-btn:hover {
       border-color:var(--accent); color:var(--fg-primary); background:var(--accent-dim);
     }
-    .nav-actions .auth-btn {
-      padding:0.3rem 0.8rem; border-radius:var(--radius-sm);
-      font-size:0.75rem; font-weight:600; color:#fff;
-      background:var(--accent); border:none;
-      transition:all var(--transition);
-      display:inline-flex; align-items:center; gap:0.3rem;
-      text-decoration:none; font-family:var(--font);
-      box-shadow:0 2px 12px rgba(59,130,246,0.2);
-    }
-    .nav-actions .auth-btn:hover {
-      background:var(--accent-hover); transform:scale(1.02);
-      box-shadow:0 4px 20px rgba(59,130,246,0.3);
-    }
-    .nav-actions .auth-btn i { font-size:0.7rem; }
     .hamburger {
       display:none; flex-direction:column; gap:4px;
       background:none; border:none; padding:4px; cursor:pointer;
@@ -195,9 +138,7 @@
       color:var(--fg-primary); background:var(--bg-card);
     }
     .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
-    .container {
-      max-width:1400px; margin:0 auto; padding:0 16px;
-    }
+    .container { max-width:1400px; margin:0 auto; padding:0 16px; }
     .wallpaper-hero {
       padding:1.5rem 0 1rem;
       text-align:center;
@@ -212,43 +153,6 @@
       color:var(--fg-secondary);
       font-size:0.9rem;
       margin-top:0.2rem;
-    }
-    .ad-container {
-      background:var(--bg-card);
-      border-radius:var(--radius);
-      border:1px solid var(--border-color);
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      padding:0.3rem;
-      margin-bottom:1.2rem;
-    }
-    .ad-container iframe {
-      max-width:100%;
-      border:0;
-    }
-    .ad-container .ad-inner {
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:60px;
-    }
-    .ad-desktop-only { display:none; }
-    .ad-mobile-only { display:none; }
-    .ad-sidebar { display:none; }
-    @media (min-width: 769px) {
-      .ad-desktop-only { display:flex; }
-      .ad-mobile-only { display:none; }
-    }
-    @media (max-width: 768px) {
-      .ad-desktop-only { display:none; }
-      .ad-mobile-only { display:flex; }
-    }
-    @media (min-width: 1025px) {
-      .ad-sidebar { display:flex; }
     }
     .filter-bar {
       display:flex;
@@ -288,10 +192,7 @@
       min-width:120px;
     }
     .filter-bar select:focus { border-color:var(--accent); }
-    .filter-bar select option {
-      background:var(--bg-primary);
-      color:var(--fg-primary);
-    }
+    .filter-bar select option { background:var(--bg-primary); color:var(--fg-primary); }
     .filter-bar .btn-reset {
       padding:0.5rem 1rem;
       background:var(--bg-card);
@@ -420,29 +321,6 @@
       margin-right:0.2rem;
       font-size:0.5rem;
     }
-    .layout-two-col {
-      display:grid;
-      grid-template-columns:1fr 300px;
-      gap:1.5rem;
-    }
-    .sidebar-ad {
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-    }
-    .sidebar-ad .ad-box {
-      background:var(--bg-card);
-      border:1px solid var(--border-color);
-      border-radius:var(--radius);
-      padding:0.5rem;
-      min-height:250px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      flex-direction:column;
-    }
-    .sidebar-ad .ad-box iframe { max-width:100%; }
     .loading-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
@@ -626,9 +504,7 @@
       transform:none !important;
       box-shadow:none !important;
     }
-    .lightbox .lb-actions .btn-download i {
-      font-size:0.8rem;
-    }
+    .lightbox .lb-actions .btn-download i { font-size:0.8rem; }
     .lightbox .lb-countdown {
       font-size:0.7rem;
       color:var(--fg-secondary);
@@ -636,13 +512,8 @@
       padding:0.3rem 0;
       display:none;
     }
-    .lightbox .lb-countdown.show {
-      display:block;
-    }
-    .lightbox .lb-countdown .timer {
-      color:var(--accent);
-      font-weight:700;
-    }
+    .lightbox .lb-countdown.show { display:block; }
+    .lightbox .lb-countdown .timer { color:var(--accent); font-weight:700; }
     @keyframes fadeIn {
       from { opacity:0; }
       to { opacity:1; }
@@ -781,24 +652,14 @@
     body.light-theme .lightbox .lb-close:hover {
       background:rgba(0,0,0,0.2);
     }
-    @media (max-width: 1024px) {
-      .layout-two-col { grid-template-columns:1fr; }
-      .sidebar-ad {
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:0.8rem;
-      }
-    }
     @media (max-width: 768px) {
       :root { --navbar-height:56px; }
       .nav-menu { display:none; }
       .hamburger { display:flex; }
-      .nav-actions .auth-btn span { display:none; }
       .container { padding:0 12px; }
       .wallpaper-grid { grid-template-columns:repeat(2,1fr); gap:0.6rem; }
       .filter-bar { flex-direction:column; align-items:stretch; gap:0.4rem; }
       .filter-bar input { min-width:auto; }
-      .sidebar-ad { grid-template-columns:1fr; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:0.8rem; text-align:center; }
       .footer-grid h4 { text-align:center; }
       .chat-float { bottom:0.8rem; right:0.8rem; }
@@ -837,7 +698,6 @@
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
-        
         <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -857,122 +717,23 @@
       <p>Klik gambar untuk memperbesar, lalu download langsung.</p>
     </div>
 
-    <div class="ad-container ad-desktop-only" id="adTopDesktop">
-      <div class="ad-inner">
-        <script>
-          atOptions = {
-            'key' : 'd2897c43e1f08075a75bca6c52d0085b',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
-      </div>
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="Cari wallpaper..." />
+      <select id="categoryFilter">
+        <option value="">Semua Kategori</option>
+        <option value="Nature">🌿 Nature</option>
+        <option value="Abstract">🎨 Abstract</option>
+        <option value="Minimal">⬜ Minimal</option>
+        <option value="Dark">🌙 Dark</option>
+        <option value="Gradient">🌈 Gradient</option>
+        <option value="City">🌆 City</option>
+        <option value="Space">🚀 Space</option>
+        <option value="Anime">🎌 Anime</option>
+      </select>
+      <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
     </div>
 
-    <div class="ad-container ad-mobile-only" id="adTopMobile">
-      <div class="ad-inner">
-        <script>
-          atOptions = {
-            'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"></script>
-      </div>
-    </div>
-
-    <div class="layout-two-col">
-
-      <div>
-        <div class="filter-bar">
-          <input type="text" id="searchInput" placeholder="Cari wallpaper..." />
-          <select id="categoryFilter">
-            <option value="">Semua Kategori</option>
-            <option value="Nature">🌿 Nature</option>
-            <option value="Abstract">🎨 Abstract</option>
-            <option value="Minimal">⬜ Minimal</option>
-            <option value="Dark">🌙 Dark</option>
-            <option value="Gradient">🌈 Gradient</option>
-            <option value="City">🌆 City</option>
-            <option value="Space">🚀 Space</option>
-            <option value="Anime">🎌 Anime</option>
-          </select>
-          <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
-        </div>
-
-        <div class="wallpaper-grid" id="wallpaperGrid"></div>
-
-        <div class="ad-container ad-mobile-only" id="adBottomMobile">
-          <div class="ad-inner">
-            <script>
-              atOptions = {
-                'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"></script>
-          </div>
-        </div>
-
-        <div class="ad-container ad-desktop-only" id="adBottomDesktop">
-          <div class="ad-inner">
-            <script>
-              atOptions = {
-                'key' : 'd2897c43e1f08075a75bca6c52d0085b',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-ad ad-sidebar">
-        <div class="ad-box">
-          <script>
-            atOptions = {
-              'key' : '6b8517f00022d9d8d364fa2d96e155d7',
-              'format' : 'iframe',
-              'height' : 250,
-              'width' : 300,
-              'params' : {}
-            };
-          </script>
-          <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"></script>
-        </div>
-
-        <div class="ad-box">
-          <script>
-            atOptions = {
-              'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
-              'format' : 'iframe',
-              'height' : 600,
-              'width' : 160,
-              'params' : {}
-            };
-          </script>
-          <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"></script>
-        </div>
-
-        <div class="ad-box" style="min-height:100px;">
-          <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"></script>
-          <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
-        </div>
-      </div>
-
-    </div>
+    <div class="wallpaper-grid" id="wallpaperGrid"></div>
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -1035,7 +796,6 @@
       icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
-
     window.addEventListener('scroll', function() {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
       var btn = document.getElementById('backToTop');
@@ -1045,7 +805,6 @@
     document.getElementById('backToTop').addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', function() {
@@ -1058,21 +817,6 @@
         mobileMenu.classList.remove('open');
       });
     });
-
-    var authBtn = document.getElementById('authBtn');
-    var authText = document.getElementById('authText');
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        authText.textContent = 'Profil';
-        authBtn.href = 'profile.html?v=4.1';
-        authBtn.querySelector('i').className = 'fas fa-user-check';
-      } else {
-        authText.textContent = 'Login';
-        authBtn.href = 'login.html?v=4.1';
-        authBtn.querySelector('i').className = 'fas fa-user';
-      }
-    });
-
     var toastContainer = document.getElementById('toastContainer');
     function showToast(message, type) {
       type = type || 'info';
@@ -1087,7 +831,6 @@
         setTimeout(function() { toast.remove(); }, 300);
       }, 3500);
     }
-
     var lightbox = document.getElementById('lightbox');
     var lbImage = document.getElementById('lbImage');
     var lbTitle = document.getElementById('lbTitle');
@@ -1097,11 +840,9 @@
     var lbTimer = document.getElementById('lbTimer');
     var lbClose = document.getElementById('lbClose');
     var lbBackdrop = document.getElementById('lbBackdrop');
-
     var currentWallpaper = null;
     var countdownInterval = null;
     var isDownloading = false;
-
     function openLightbox(wp) {
       currentWallpaper = wp;
       lbImage.src = wp.imageUrl;
@@ -1113,7 +854,6 @@
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
     function closeLightbox() {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
@@ -1126,7 +866,6 @@
       lbDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
       lbCountdown.classList.remove('show');
     }
-
     lbClose.addEventListener('click', closeLightbox);
     lbBackdrop.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function(e) {
@@ -1134,11 +873,9 @@
         closeLightbox();
       }
     });
-
     lbDownloadBtn.addEventListener('click', function() {
       if (isDownloading || !currentWallpaper) return;
       isDownloading = true;
-
       try {
         if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
           Adsterra.showPopunder();
@@ -1146,13 +883,11 @@
           window.Adsterra.show();
         }
       } catch (e) { console.log('Adsterra trigger:', e); }
-
       lbDownloadBtn.disabled = true;
       lbDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
       lbCountdown.classList.add('show');
       var timeLeft = 5;
       lbTimer.textContent = timeLeft;
-
       if (countdownInterval) clearInterval(countdownInterval);
       countdownInterval = setInterval(function() {
         timeLeft--;
@@ -1162,11 +897,9 @@
           countdownInterval = null;
           lbCountdown.classList.remove('show');
           lbDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Mengunduh...';
-
           db.collection('wallpapers').doc(currentWallpaper.id).update({
             downloads: firebase.firestore.FieldValue.increment(1)
           }).catch(function(err) { console.error('Update download count:', err); });
-
           setTimeout(function() {
             fetch(currentWallpaper.imageUrl)
               .then(function(response) { return response.blob(); })
@@ -1202,10 +935,8 @@
         }
       }, 1000);
     });
-
     var wallpapers = [];
     var filteredWallpapers = [];
-
     function renderWallpapers(items) {
       var grid = document.getElementById('wallpaperGrid');
       if (!items || items.length === 0) {
@@ -1226,7 +957,6 @@
         grid.appendChild(card);
       });
     }
-
     function filterWallpapers() {
       var search = document.getElementById('searchInput').value.toLowerCase().trim();
       var category = document.getElementById('categoryFilter').value;
@@ -1237,7 +967,6 @@
       });
       renderWallpapers(filteredWallpapers);
     }
-
     document.getElementById('searchInput').addEventListener('input', filterWallpapers);
     document.getElementById('categoryFilter').addEventListener('change', filterWallpapers);
     document.getElementById('resetFilterBtn').addEventListener('click', function() {
@@ -1245,7 +974,6 @@
       document.getElementById('categoryFilter').value = '';
       filterWallpapers();
     });
-
     function loadWallpapers() {
       var grid = document.getElementById('wallpaperGrid');
       var skeletonHtml = '';
@@ -1253,24 +981,27 @@
         skeletonHtml += '<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"><div class="line"></div><div class="line short"></div></div></div>';
       }
       grid.innerHTML = skeletonHtml;
-
+      if (typeof db === 'undefined' || !db) {
+        console.error('Firestore db not initialized');
+        grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Koneksi database gagal. Coba refresh.</p></div>';
+        return;
+      }
       db.collection('wallpapers')
         .orderBy('createdAt', 'desc')
         .get()
         .then(function(snapshot) {
           wallpapers = [];
           snapshot.forEach(function(doc) {
-            wallpapers.push({ id: doc.id, 'imageUrl': doc.data().imageUrl, 'title': doc.data().title, 'category': doc.data().category, 'resolution': doc.data().resolution, 'downloads': doc.data().downloads });
+            wallpapers.push({ id: doc.id, imageUrl: doc.data().imageUrl, title: doc.data().title, category: doc.data().category, resolution: doc.data().resolution, downloads: doc.data().downloads });
           });
           filteredWallpapers = wallpapers;
           renderWallpapers(filteredWallpapers);
         })
         .catch(function(err) {
           console.error('Error loading wallpapers:', err);
-          grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Coba refresh.</p></div>';
+          grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Error: ' + err.message + '</p></div>';
         });
     }
-
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js?v=4.1')
@@ -1278,7 +1009,6 @@
           .catch(function(err) { console.log('❌ SW failed:', err); });
       });
     }
-
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistration().then(function(reg) {
         if (reg) {
@@ -1297,7 +1027,6 @@
         }
       });
     }
-
     loadWallpapers();
     console.log('🎨 Wallpaper Gallery loaded');
   </script>
