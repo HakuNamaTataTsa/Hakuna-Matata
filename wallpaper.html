@@ -17,13 +17,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- POPUNDER -->
+  <!-- SOCIAL BAR & POPUNDER -->
+  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
   <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js"></script>
 
-  <!-- SOCIAL BAR -->
-  <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
-
-  <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script>
@@ -38,7 +35,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     window.db = db;
-    console.log('✅ Firebase ready');
   </script>
 
   <style>
@@ -534,6 +530,20 @@
     }
     .lightbox .lb-countdown.show { display:block; }
     .lightbox .lb-countdown .timer { color:var(--accent); font-weight:700; }
+    .lightbox .lb-ad-container {
+      margin-top:0.5rem;
+      min-height:60px;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,0.03);
+      border-radius:var(--radius-sm);
+      border:1px solid var(--border-color);
+      padding:0.2rem;
+      overflow:hidden;
+    }
+    .lightbox .lb-ad-container.show { display:flex; }
+    .lightbox .lb-ad-container iframe { max-width:100%; border:0; }
     @keyframes fadeIn {
       from { opacity:0; }
       to { opacity:1; }
@@ -691,6 +701,7 @@
       .lightbox .lb-close { top:-8px; right:-8px; width:34px; height:34px; font-size:0.9rem; }
       .lightbox .lb-actions .btn-download { font-size:0.8rem; padding:0.4rem 1rem; }
       .lightbox .lb-info .lb-title { font-size:0.75rem; }
+      .lightbox .lb-ad-container { min-height:50px; }
     }
     @media (max-width: 480px) {
       .wallpaper-grid { grid-template-columns:repeat(2,1fr); gap:0.4rem; }
@@ -776,6 +787,7 @@
       <div class="lb-countdown" id="lbCountdown">
         <i class="fas fa-clock"></i> Tunggu <span class="timer" id="lbTimer">10</span> detik...
       </div>
+      <div class="lb-ad-container" id="lbAdContainer"></div>
     </div>
   </div>
 
@@ -860,9 +872,12 @@
     var lbTimer = document.getElementById('lbTimer');
     var lbClose = document.getElementById('lbClose');
     var lbBackdrop = document.getElementById('lbBackdrop');
+    var lbAdContainer = document.getElementById('lbAdContainer');
     var currentWallpaper = null;
     var countdownInterval = null;
     var isDownloading = false;
+    var adLoaded = false;
+
     function openLightbox(wp) {
       currentWallpaper = wp;
       lbImage.src = wp.imageUrl;
@@ -871,9 +886,13 @@
       lbDownloadBtn.disabled = false;
       lbDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
       lbCountdown.classList.remove('show');
+      lbAdContainer.classList.remove('show');
+      lbAdContainer.innerHTML = '';
+      adLoaded = false;
       lightbox.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
+
     function closeLightbox() {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
@@ -885,7 +904,11 @@
       lbDownloadBtn.disabled = false;
       lbDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
       lbCountdown.classList.remove('show');
+      lbAdContainer.classList.remove('show');
+      lbAdContainer.innerHTML = '';
+      adLoaded = false;
     }
+
     lbClose.addEventListener('click', closeLightbox);
     lbBackdrop.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function(e) {
@@ -893,29 +916,43 @@
         closeLightbox();
       }
     });
+
     lbDownloadBtn.addEventListener('click', function() {
       if (isDownloading || !currentWallpaper) return;
       isDownloading = true;
-      try {
-        if (window.Adsterra && typeof window.Adsterra.show === 'function') {
-          window.Adsterra.show();
-        } else if (window.Adsterra && typeof window.Adsterra.showPopunder === 'function') {
-          window.Adsterra.showPopunder();
-        } else {
-          var popunderUrl = 'https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js';
-          var win = window.open(popunderUrl, '_blank');
-          if (win) {
-            setTimeout(function() {
-              win.close();
-            }, 100);
-          }
-        }
-      } catch (e) {
-        console.log('Adsterra trigger error:', e);
-      }
+
+      // Tampilkan countdown & ad container
       lbDownloadBtn.disabled = true;
       lbDownloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
       lbCountdown.classList.add('show');
+      lbAdContainer.classList.add('show');
+
+      // Load banner iklan 468x60 (atau 320x50 untuk mobile)
+      if (!adLoaded) {
+        var isMobile = window.innerWidth < 768;
+        var adHtml = '';
+        if (isMobile) {
+          // Mobile: 320x50
+          adHtml = '<script>atOptions = { "key" : "6c6e6f1ff7f2f14058f50bc9cdf571dd", "format" : "iframe", "height" : 50, "width" : 320, "params" : {} };<\/script><script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"><\/script>';
+        } else {
+          // Desktop: 468x60
+          adHtml = '<script>atOptions = { "key" : "c32e372226ce234a827c9ece6ac77614", "format" : "iframe", "height" : 60, "width" : 468, "params" : {} };<\/script><script src="https://www.highperformanceformat.com/c32e372226ce234a827c9ece6ac77614/invoke.js"><\/script>';
+        }
+        lbAdContainer.innerHTML = adHtml;
+        adLoaded = true;
+      }
+
+      // Trigger popunder juga (opsional)
+      try {
+        if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
+          Adsterra.showPopunder();
+        } else if (typeof Adsterra !== 'undefined' && Adsterra.show) {
+          Adsterra.show();
+        }
+      } catch (e) {
+        console.log('Popunder error:', e);
+      }
+
       var timeLeft = 5;
       lbTimer.textContent = timeLeft;
       if (countdownInterval) clearInterval(countdownInterval);
@@ -926,10 +963,14 @@
           clearInterval(countdownInterval);
           countdownInterval = null;
           lbCountdown.classList.remove('show');
+          lbAdContainer.classList.remove('show');
+          lbAdContainer.innerHTML = '';
           lbDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Mengunduh...';
+
           db.collection('wallpapers').doc(currentWallpaper.id).update({
             downloads: firebase.firestore.FieldValue.increment(1)
           }).catch(function(err) { console.error('Update download count:', err); });
+
           setTimeout(function() {
             fetch(currentWallpaper.imageUrl)
               .then(function(response) { return response.blob(); })
@@ -960,11 +1001,14 @@
                 lbDownloadBtn.disabled = false;
                 isDownloading = false;
                 lbCountdown.classList.remove('show');
+                lbAdContainer.classList.remove('show');
+                lbAdContainer.innerHTML = '';
               });
           }, 300);
         }
       }, 1000);
     });
+
     var wallpapers = [];
     var filteredWallpapers = [];
     function renderWallpapers(items) {
@@ -1058,7 +1102,7 @@
       });
     }
     loadWallpapers();
-    console.log('🎨 Wallpaper Gallery loaded');
+    console.log('🎨 Wallpaper Gallery loaded with on-demand ad');
   </script>
 </body>
 </html>
