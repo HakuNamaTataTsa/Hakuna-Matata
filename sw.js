@@ -78,21 +78,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
 
   // 🚫 LEWATI: Request ke domain iklan (JANGAN DI-CACHE)
-  if (url.hostname.includes('effectivecpmnetwork.com') ||
-      url.hostname.includes('pl30386775') ||
-      url.hostname.includes('pl30387021')) {
-    event.respondWith(fetch(request));
-    return;
-  }
-
-  // ... sisanya tetap sama seperti kode Anda
-  // (Lewati gambar, API, dll, lalu Cache First)
-});
-self.addEventListener('fetch', event => {
-  const request = event.request;
-  const url = new URL(request.url);
-
-  // 🚫 LEWATI: Request ke domain iklan (jangan di-cache, langsung network)
+  // Ini mencegah error "undefined" yang menyebabkan reload loop di PC
   if (url.hostname.includes('effectivecpmnetwork.com') ||
       url.hostname.includes('pl30386775') ||
       url.hostname.includes('pl30387021')) {
@@ -115,8 +101,9 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
+        // Jika ada di cache, kembalikan (cepat!)
         if (cachedResponse) {
-          // Revalidasi background
+          // 🔥 REVALIDASI: update cache di background (stale-while-revalidate)
           fetch(request)
             .then(networkResponse => {
               if (networkResponse && networkResponse.ok) {
@@ -129,11 +116,14 @@ self.addEventListener('fetch', event => {
             .catch(() => {});
           return cachedResponse;
         }
+
+        // Jika tidak ada di cache, ambil dari network
         return fetch(request)
           .then(networkResponse => {
             if (!networkResponse || networkResponse.status !== 200) {
               return networkResponse;
             }
+            // Cache response untuk下次
             const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME)
               .then(cache => {
@@ -142,6 +132,7 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           })
           .catch(() => {
+            // Jika network gagal, coba fallback ke halaman utama
             if (request.mode === 'navigate') {
               return caches.match('/');
             }
@@ -149,6 +140,7 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+
 // ============================================================
 // MESSAGE HANDLER - Terima pesan dari client
 // ============================================================
