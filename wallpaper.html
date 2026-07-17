@@ -1093,6 +1093,10 @@
             newSW.addEventListener('statechange', function() {
               if (newSW.state === 'installed') {
                 newSW.postMessage('skipWaiting');
+                setTimeout(function() {
+                  window.location.reload();
+                }, 800);
+              }
             });
           });
         }
