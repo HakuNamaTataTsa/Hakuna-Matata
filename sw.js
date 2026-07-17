@@ -3,7 +3,7 @@
 // ============================================================
 
 // 🔥 VERSI - Ganti angka ini setiap kali update
-const APP_VERSION = 'v4.1';
+const APP_VERSION = 'v4.2';
 const CACHE_NAME = `akino-store-${APP_VERSION}`;
 
 // 🔥 File yang di-cache (strategi Cache First)

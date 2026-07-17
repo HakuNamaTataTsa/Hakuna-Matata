@@ -2,12 +2,12 @@
   "name": "Akino Store",
   "short_name": "Akino Store",
   "description": "Solusi Digital, Game & Baca Manga",
-  "start_url": "/?v=4.1",
+  "start_url": "/?v=4.2",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f0f0f",
   "theme_color": "#3B82F6",
-  "version": "4.1",
+  "version": "4.2",
   "icons": [
     {
       "src": "https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/apk_pgxcmo.png",
