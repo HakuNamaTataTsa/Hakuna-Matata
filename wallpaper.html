@@ -40,6 +40,7 @@
   </script>
 
   <style>
+    /* ===== SEMUA CSS SAMA PERSIS SEPERTI ASLI ===== */
     :root {
       --bg-primary: #0a0a12;
       --bg-secondary: #14141e;
@@ -718,6 +719,7 @@
 </head>
 <body>
 
+  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="navbar-inner">
       <a href="index.html?v=4.2" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
@@ -768,6 +770,7 @@
     <div class="wallpaper-grid" id="wallpaperGrid"></div>
   </div>
 
+  <!-- ===== LIGHTBOX ===== -->
   <div class="lightbox" id="lightbox">
     <div class="lb-backdrop" id="lbBackdrop"></div>
     <div class="lb-content" id="lbContent">
@@ -815,7 +818,11 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
+  <!-- ============================================================ -->
+  <!-- JAVASCRIPT UTAMA (semua fungsi tetap sama)                    -->
+  <!-- ============================================================ -->
   <script>
+    // ===== THEME TOGGLE =====
     var themeToggle = document.getElementById('themeToggle');
     var icon = themeToggle.querySelector('i');
     var currentTheme = localStorage.getItem('theme') || 'dark';
@@ -829,6 +836,8 @@
       icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
+
+    // ===== NAVBAR SCROLL =====
     window.addEventListener('scroll', function() {
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
       var btn = document.getElementById('backToTop');
@@ -838,6 +847,8 @@
     document.getElementById('backToTop').addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // ===== HAMBURGER =====
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobileMenu');
     hamburger.addEventListener('click', function() {
@@ -850,6 +861,8 @@
         mobileMenu.classList.remove('open');
       });
     });
+
+    // ===== TOAST =====
     var toastContainer = document.getElementById('toastContainer');
     function showToast(message, type) {
       type = type || 'info';
@@ -864,6 +877,8 @@
         setTimeout(function() { toast.remove(); }, 300);
       }, 3500);
     }
+
+    // ===== LIGHTBOX =====
     var lightbox = document.getElementById('lightbox');
     var lbImage = document.getElementById('lbImage');
     var lbTitle = document.getElementById('lbTitle');
@@ -1010,6 +1025,7 @@
       }, 1000);
     });
 
+    // ===== LOAD WALLPAPERS DARI FIRESTORE =====
     var wallpapers = [];
     var filteredWallpapers = [];
     function renderWallpapers(items) {
@@ -1077,33 +1093,51 @@
           grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Error: ' + err.message + '</p></div>';
         });
     }
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js?v=4.2')
-          .then(function() { console.log('✅ SW registered'); })
-          .catch(function(err) { console.log('❌ SW failed:', err); });
-      });
-    }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        if (reg) {
-          reg.update();
-          reg.addEventListener('updatefound', function() {
-            var newSW = reg.installing;
-            newSW.addEventListener('statechange', function() {
-              if (newSW.state === 'installed') {
-                newSW.postMessage('skipWaiting');
-                setTimeout(function() {
-                  window.location.reload();
-                }, 800);
-              }
-            });
-          });
-        }
-      });
-    }
     loadWallpapers();
     console.log('🎨 Wallpaper Gallery loaded');
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- SERVICE WORKER - VERSI UPDATE PINTAR (TANPA LOOP RELOAD)      -->
+  <!-- ============================================================ -->
+  <script>
+    if ('serviceWorker' in navigator) {
+
+      // 🛡️ Cek apakah kita sudah reload di sesi ini?
+      // Jika sudah, lewati agar tidak loop.
+      if (sessionStorage.getItem('sw_reloaded') === 'true') {
+        console.log('✅ SW sudah update di sesi ini, skip reload.');
+        // Hapus flag setelah 10 detik agar update berikutnya bisa jalan
+        setTimeout(() => {
+          sessionStorage.removeItem('sw_reloaded');
+        }, 10000);
+      } else {
+        // 🔄 Daftarkan SW
+        navigator.serviceWorker.register('/sw.js?v=4.2')
+          .then(function(reg) {
+            console.log('✅ SW registered');
+            
+            // 🔍 Cek apakah ada update
+            reg.update();
+
+            // 🎯 Dengarkan event controllerchange
+            // Event ini akan terpanggil ketika SW baru mengambil alih (aktif)
+            navigator.serviceWorker.addEventListener('controllerchange', function() {
+              // Cek lagi apakah sudah reload di sesi ini
+              if (sessionStorage.getItem('sw_reloaded') !== 'true') {
+                // Set flag agar tidak reload lagi
+                sessionStorage.setItem('sw_reloaded', 'true');
+                console.log('🔄 SW updated, reloading page...');
+                // 🔄 Reload SEKALI saja (yang dibutuhkan HP)
+                window.location.reload();
+              }
+            });
+          })
+          .catch(function(err) {
+            console.log('❌ SW failed:', err);
+          });
+      }
+    }
   </script>
 </body>
 </html>
