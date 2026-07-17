@@ -20,7 +20,7 @@
   <!-- SOCIAL BAR -->
   <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js"></script>
 
-  <!-- BANNER 728x90 -->
+  <!-- BANNER 728x90 (Desktop) -->
   <script>
     atOptions = {
       'key' : 'd2897c43e1f08075a75bca6c52d0085b',
@@ -32,7 +32,7 @@
   </script>
   <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"></script>
 
-  <!-- BANNER 320x50 -->
+  <!-- BANNER 320x50 (Mobile) -->
   <script>
     atOptions = {
       'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
@@ -43,6 +43,33 @@
     };
   </script>
   <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"></script>
+
+  <!-- BANNER 300x250 -->
+  <script>
+    atOptions = {
+      'key' : '6b8517f00022d9d8d364fa2d96e155d7',
+      'format' : 'iframe',
+      'height' : 250,
+      'width' : 300,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"></script>
+
+  <!-- BANNER 160x600 -->
+  <script>
+    atOptions = {
+      'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
+      'format' : 'iframe',
+      'height' : 600,
+      'width' : 160,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"></script>
+
+  <!-- NATIVE BANNER 4:1 -->
+  <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"></script>
 
   <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -86,9 +113,9 @@
       -webkit-user-select: none;
     }
     a { text-decoration:none; color:inherit; }
-    img { 
-      display:block; 
-      max-width:100%; 
+    img {
+      display:block;
+      max-width:100%;
       pointer-events: none;
       -webkit-user-drag: none;
       user-drag: none;
@@ -100,6 +127,7 @@
     ::-webkit-scrollbar-track { background:var(--bg-secondary); }
     ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:3px; }
 
+    /* ===== NAVBAR ===== */
     .navbar {
       position:fixed; top:0; left:0; right:0; z-index:1000;
       background:rgba(10,10,18,0.85);
@@ -186,10 +214,12 @@
     }
     .mobile-menu a.active { color:var(--accent); background:var(--accent-dim); }
 
+    /* ===== CONTAINER ===== */
     .container {
       max-width:1400px; margin:0 auto; padding:0 16px;
     }
 
+    /* ===== HERO ===== */
     .wallpaper-hero {
       padding:1.5rem 0 1rem;
       text-align:center;
@@ -206,10 +236,8 @@
       margin-top:0.2rem;
     }
 
-    .ad-top {
-      max-width:728px;
-      margin:0 auto 1.2rem;
-      min-height:90px;
+    /* ===== ADS ===== */
+    .ad-container {
       display:flex;
       justify-content:center;
       align-items:center;
@@ -218,9 +246,23 @@
       border:1px solid var(--border-color);
       overflow:hidden;
       padding:0.2rem;
+      margin:0.8rem 0;
+      min-height:60px;
     }
-    .ad-top iframe { max-width:100%; }
+    .ad-container iframe {
+      max-width:100%;
+    }
+    .ad-label {
+      font-size:0.5rem;
+      color:var(--fg-muted);
+      text-align:center;
+      padding:0.1rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      opacity:0.3;
+    }
 
+    /* ===== FILTER ===== */
     .filter-bar {
       display:flex;
       flex-wrap:wrap;
@@ -280,10 +322,11 @@
       background:var(--accent-dim);
     }
 
+    /* ===== GRID ===== */
     .wallpaper-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
-      gap:1rem;
+      gap:0.8rem;
       margin-bottom:1.5rem;
     }
 
@@ -310,7 +353,7 @@
       background:var(--bg-secondary);
     }
 
-    /* PROTECTION OVERLAY - mencegah screenshot dan download langsung */
+    /* PROTECTION OVERLAY */
     .wallpaper-card .thumb-wrap .protect-overlay {
       position:absolute;
       inset:0;
@@ -424,6 +467,7 @@
       box-shadow:0 4px 20px rgba(59,130,246,0.35);
     }
 
+    /* ===== SIDEBAR (Desktop) ===== */
     .layout-two-col {
       display:grid;
       grid-template-columns:1fr 300px;
@@ -441,41 +485,27 @@
       padding:0.5rem;
       min-height:250px;
       display:flex;
+      flex-direction:column;
       align-items:center;
       justify-content:center;
       overflow:hidden;
-      flex-direction:column;
     }
     .sidebar-ad .ad-box iframe { max-width:100%; }
     .sidebar-ad .ad-box .ad-label {
-      font-size:0.55rem;
+      font-size:0.5rem;
       color:var(--fg-muted);
       text-align:center;
-      padding:0.15rem;
+      padding:0.1rem;
       letter-spacing:1px;
       text-transform:uppercase;
-      opacity:0.5;
+      opacity:0.3;
     }
 
-    .ad-bottom {
-      max-width:728px;
-      margin:1.2rem auto;
-      min-height:60px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:var(--bg-card);
-      border-radius:var(--radius);
-      border:1px solid var(--border-color);
-      overflow:hidden;
-      padding:0.2rem;
-    }
-    .ad-bottom iframe { max-width:100%; }
-
+    /* ===== SKELETON ===== */
     .loading-grid {
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
-      gap:1rem;
+      gap:0.8rem;
     }
     .skeleton-card {
       background:var(--bg-card);
@@ -519,6 +549,7 @@
       opacity:0.3;
     }
 
+    /* ===== FOOTER ===== */
     .footer {
       padding:2rem 1rem 1rem;
       border-top:1px solid var(--border-color);
@@ -542,6 +573,7 @@
       padding-top:1rem; text-align:center; font-size:0.65rem; color:var(--fg-muted);
     }
 
+    /* ===== FLOATING CHAT & BACK TO TOP ===== */
     .chat-float {
       position:fixed; bottom:1.25rem; right:1.25rem; z-index:99;
       display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem;
@@ -578,6 +610,7 @@
     .back-to-top.show { opacity:1; transform:translateY(0); pointer-events:auto; }
     .back-to-top:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); }
 
+    /* ===== TOAST ===== */
     .toast-container {
       position:fixed; bottom:24px; right:24px; z-index:9999;
       display:flex; flex-direction:column; gap:0.5rem;
@@ -605,7 +638,7 @@
       to { opacity:1; transform:translateX(0) scale(1); }
     }
 
-    /* LIGHT THEME */
+    /* ===== LIGHT THEME ===== */
     body.light-theme {
       --bg-primary: #f0f2f5;
       --bg-secondary: #e4e7ec;
@@ -640,12 +673,16 @@
       border-color:var(--border-color);
     }
 
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .layout-two-col { grid-template-columns:1fr; }
       .sidebar-ad {
         display:grid;
         grid-template-columns:repeat(2,1fr);
         gap:0.8rem;
+      }
+      .sidebar-ad .ad-box {
+        min-height:150px;
       }
     }
     @media (max-width: 768px) {
@@ -657,9 +694,9 @@
       .wallpaper-grid { grid-template-columns:repeat(2,1fr); gap:0.6rem; }
       .filter-bar { flex-direction:column; align-items:stretch; gap:0.4rem; }
       .filter-bar input { min-width:auto; }
-      .sidebar-ad { grid-template-columns:1fr; }
-      .ad-top { min-height:60px; }
-      .ad-bottom { min-height:60px; }
+      .sidebar-ad { grid-template-columns:1fr 1fr; gap:0.6rem; }
+      .sidebar-ad .ad-box { min-height:120px; }
+      .ad-container { min-height:50px; }
       .footer-grid { grid-template-columns:1fr 1fr; gap:0.8rem; text-align:center; }
       .footer-grid h4 { text-align:center; }
       .chat-float { bottom:0.8rem; right:0.8rem; }
@@ -673,11 +710,13 @@
       .wallpaper-hero h1 { font-size:1.3rem; }
       .wallpaper-card .thumb-wrap .badge-res,
       .wallpaper-card .thumb-wrap .badge-category { font-size:0.45rem; padding:1px 6px; }
+      .sidebar-ad { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="navbar-inner">
       <a href="index.html" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
@@ -698,6 +737,7 @@
     </div>
   </nav>
 
+  <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="manga.html">Manga</a>
@@ -706,19 +746,25 @@
     <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
   </div>
 
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="container">
     <div class="wallpaper-hero">
       <h1>🎨 Download <span>Wallpaper</span> Gratis</h1>
       <p>Klik tombol download, tunggu iklan sebentar, lalu wallpaper siap kamu simpan.</p>
     </div>
 
-    <!-- AD TOP 728x90 -->
-    <div class="ad-top" id="adTop"></div>
+    <!-- ===== AD TOP (Desktop 728x90 / Mobile 320x50) ===== -->
+    <div class="ad-container" id="adTop">
+      <div class="ad-label">— Iklan —</div>
+    </div>
 
+    <!-- ===== LAYOUT 2 KOLOM ===== -->
     <div class="layout-two-col">
 
+      <!-- MAIN COLUMN -->
       <div>
 
+        <!-- FILTER -->
         <div class="filter-bar">
           <input type="text" id="searchInput" placeholder="Cari wallpaper..." />
           <select id="categoryFilter">
@@ -735,55 +781,45 @@
           <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
         </div>
 
+        <!-- WALLPAPER GRID -->
         <div class="wallpaper-grid" id="wallpaperGrid"></div>
+
+        <!-- ===== AD BOTTOM (Native Banner 4:1) ===== -->
+        <div class="ad-container" id="adBottomNative">
+          <div class="ad-label">— Iklan —</div>
+        </div>
 
       </div>
 
-      <!-- SIDEBAR ADS -->
+      <!-- SIDEBAR ADS (Desktop) -->
       <div class="sidebar-ad">
         <div class="ad-box">
-          <script>
-            atOptions = {
-              'key' : '6b8517f00022d9d8d364fa2d96e155d7',
-              'format' : 'iframe',
-              'height' : 250,
-              'width' : 300,
-              'params' : {}
-            };
-          </script>
-          <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"></script>
           <div class="ad-label">— Iklan —</div>
+          <div id="adSidebar300x250"></div>
         </div>
-
         <div class="ad-box">
-          <script>
-            atOptions = {
-              'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
-              'format' : 'iframe',
-              'height' : 600,
-              'width' : 160,
-              'params' : {}
-            };
-          </script>
-          <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"></script>
           <div class="ad-label">— Iklan —</div>
+          <div id="adSidebar160x600"></div>
         </div>
-
         <div class="ad-box" style="min-height:100px;">
-          <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"></script>
-          <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
           <div class="ad-label">— Iklan —</div>
+          <div id="adSidebarNative"></div>
         </div>
       </div>
 
     </div>
 
-    <!-- AD BOTTOM -->
-    <div class="ad-bottom" id="adBottom"></div>
+    <!-- ===== AD BOTTOM (Mobile 320x50) ===== -->
+    <div class="ad-container" id="adBottomMobile">
+      <div class="ad-label">— Iklan —</div>
+    </div>
+
   </div>
 
+  <!-- ===== TOAST ===== -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <!-- ===== FLOATING CHAT ===== -->
   <div class="chat-float">
     <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
     <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
@@ -791,10 +827,12 @@
     </a>
   </div>
 
+  <!-- ===== BACK TO TOP ===== -->
   <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <!-- ===== FOOTER ===== -->
   <footer class="footer" aria-label="Footer">
     <div class="footer-grid">
       <div><h4 class="brand-footer">Akino Store</h4><p>Jasa digital, game, & baca manga terpercaya sejak 2022.</p></div>
@@ -805,6 +843,9 @@
     <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
   </footer>
 
+  <!-- ============================================================
+  SCRIPTS
+  ============================================================ -->
   <script>
     // ===== THEME TOGGLE =====
     const themeToggle = document.getElementById('themeToggle');
@@ -875,7 +916,7 @@
       }, 3500);
     }
 
-    // ===== LOAD WALLPAPERS =====
+    // ===== WALLPAPER FUNCTIONS =====
     let wallpapers = [];
     let filteredWallpapers = [];
 
@@ -994,11 +1035,12 @@
     // ===== INIT =====
     loadWallpapers();
 
-    // ===== LOAD ADS AFTER PAGE READY =====
+    // ===== LOAD ADS =====
     window.addEventListener('load', function() {
-      // Ad 728x90
+      // Ad Top 728x90
       const adTop = document.getElementById('adTop');
       adTop.innerHTML = `
+        <div class="ad-label">— Iklan —</div>
         <script>
           atOptions = {
             'key' : 'd2897c43e1f08075a75bca6c52d0085b',
@@ -1011,9 +1053,18 @@
         <script src="https://www.highperformanceformat.com/d2897c43e1f08075a75bca6c52d0085b/invoke.js"><\/script>
       `;
 
-      // Ad 320x50 bottom
-      const adBottom = document.getElementById('adBottom');
-      adBottom.innerHTML = `
+      // Ad Bottom Native 4:1
+      const adBottomNative = document.getElementById('adBottomNative');
+      adBottomNative.innerHTML = `
+        <div class="ad-label">— Iklan —</div>
+        <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"><\/script>
+        <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
+      `;
+
+      // Ad Bottom Mobile 320x50
+      const adBottomMobile = document.getElementById('adBottomMobile');
+      adBottomMobile.innerHTML = `
+        <div class="ad-label">— Iklan —</div>
         <script>
           atOptions = {
             'key' : '6c6e6f1ff7f2f14058f50bc9cdf571dd',
@@ -1024,6 +1075,43 @@
           };
         <\/script>
         <script src="https://www.highperformanceformat.com/6c6e6f1ff7f2f14058f50bc9cdf571dd/invoke.js"><\/script>
+      `;
+
+      // Sidebar 300x250
+      const adSidebar300 = document.getElementById('adSidebar300x250');
+      adSidebar300.innerHTML = `
+        <script>
+          atOptions = {
+            'key' : '6b8517f00022d9d8d364fa2d96e155d7',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        <\/script>
+        <script src="https://www.highperformanceformat.com/6b8517f00022d9d8d364fa2d96e155d7/invoke.js"><\/script>
+      `;
+
+      // Sidebar 160x600
+      const adSidebar160 = document.getElementById('adSidebar160x600');
+      adSidebar160.innerHTML = `
+        <script>
+          atOptions = {
+            'key' : '93459c69c4a332ffecdcf9b46fd98b7f',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 160,
+            'params' : {}
+          };
+        <\/script>
+        <script src="https://www.highperformanceformat.com/93459c69c4a332ffecdcf9b46fd98b7f/invoke.js"><\/script>
+      `;
+
+      // Sidebar Native
+      const adSidebarNative = document.getElementById('adSidebarNative');
+      adSidebarNative.innerHTML = `
+        <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js"><\/script>
+        <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
       `;
     });
   </script>
