@@ -25,7 +25,7 @@
     <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js">
     </script>
 
-    <!-- ===== NATIVE BANNER (dipanggil nanti) ===== -->
+    <!-- ===== NATIVE BANNER ===== -->
     <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js">
     </script>
 
@@ -48,7 +48,7 @@
     </script>
 
     <style>
-        /* ===== SAMA PERSIS DENGAN SEBELUMNYA, HANYA ADA TAMBAHAN UNTUK BANNER DI BAWAH ===== */
+        /* ===== SEMUA CSS SAMA PERSIS ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -358,40 +358,6 @@
             background: var(--accent-dim);
         }
 
-        /* ===== BANNER DI BAWAH GRID (tidak mengganggu) ===== */
-        .ad-banner-wrapper {
-            margin: 1.5rem 0 1rem 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.3rem;
-            overflow: hidden;
-        }
-        .ad-banner-wrapper iframe {
-            max-width: 100%;
-            border: 0;
-        }
-        .ad-banner-wrapper .ad-label {
-            font-size: 0.5rem;
-            color: var(--fg-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
-            display: block;
-            text-align: center;
-            opacity: 0.5;
-        }
-        .ad-banner-wrapper #container-c81f5af115bb2c21b67b83b4606ce5a2 {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
         .wallpaper-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -557,6 +523,94 @@
             margin-bottom: 0.5rem;
             opacity: 0.3;
         }
+
+        /* ===== LOAD MORE BUTTON ===== */
+        .load-more-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 0.8rem 0 1rem;
+        }
+        .load-more-btn {
+            padding: 0.6rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--fg-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .load-more-btn:hover {
+            border-color: var(--accent);
+            color: var(--fg-primary);
+            background: var(--accent-dim);
+        }
+        .load-more-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .load-more-btn .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .load-more-btn.loading .spinner {
+            display: inline-block;
+        }
+        .load-more-btn.loading .btn-text {
+            opacity: 0.6;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== BANNER DI BAWAH ===== */
+        .ad-banner-wrapper {
+            margin: 0.5rem 0 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.3rem;
+            overflow: hidden;
+        }
+        .ad-banner-wrapper iframe {
+            max-width: 100%;
+            border: 0;
+        }
+        .ad-banner-wrapper .ad-label {
+            font-size: 0.5rem;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+            display: block;
+            text-align: center;
+            opacity: 0.5;
+        }
+        .ad-banner-wrapper #container-c81f5af115bb2c21b67b83b4606ce5a2 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
         .lightbox {
             position: fixed;
             inset: 0;
@@ -981,8 +1035,14 @@
             background: rgba(0, 0, 0, 0.03);
             border-color: var(--border-color);
         }
+        body.light-theme .load-more-btn {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+        }
+        body.light-theme .load-more-btn:hover {
+            background: var(--bg-card-hover);
+        }
 
-        /* ===== RESPONSIVE: banner di HP lebih kecil & jarak lebih rapat ===== */
         @media (max-width: 768px) {
             :root {
                 --navbar-height: 56px;
@@ -1055,16 +1115,14 @@
             .lightbox .lb-info .lb-title {
                 font-size: 0.75rem;
             }
-            /* Banner di HP lebih kecil & margin lebih kecil */
             .ad-banner-wrapper {
-                margin: 1rem 0 0.5rem 0;
+                margin: 0.5rem 0 0.5rem 0;
                 min-height: 56px;
                 padding: 0.2rem;
-                border-radius: var(--radius-sm);
             }
-            .ad-banner-wrapper iframe {
-                max-width: 100% !important;
-                height: auto !important;
+            .load-more-btn {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.8rem;
             }
         }
         @media (max-width: 480px) {
@@ -1097,7 +1155,7 @@
             .ad-banner-wrapper {
                 min-height: 50px;
                 padding: 0.1rem;
-                margin: 0.5rem 0 0.3rem 0;
+                margin: 0.3rem 0;
             }
         }
     </style>
@@ -1154,7 +1212,15 @@
 
         <div class="wallpaper-grid" id="wallpaperGrid"></div>
 
-        <!-- ===== NATIVE BANNER DI BAWAH GRID (tidak mengganggu) ===== -->
+        <!-- ===== TOMBOL LOAD MORE ===== -->
+        <div class="load-more-wrap" id="loadMoreWrap">
+            <button class="load-more-btn" id="loadMoreBtn">
+                <span class="spinner"></span>
+                <span class="btn-text"><i class="fas fa-chevron-down"></i> Load More</span>
+            </button>
+        </div>
+
+        <!-- ===== NATIVE BANNER ===== -->
         <div class="ad-banner-wrapper" id="nativeBannerWrapper">
             <span class="ad-label">— Iklan —</span>
             <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
@@ -1226,7 +1292,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT (SAMA PERSIS DENGAN SEBELUMNYA)                   -->
+    <!-- JAVASCRIPT DENGAN PAGINASI                                  -->
     <!-- ============================================================ -->
     <script>
         // ===== THEME TOGGLE =====
@@ -1286,7 +1352,7 @@
             }, 3500);
         }
 
-        // ===== LIGHTBOX =====
+        // ===== LIGHTBOX ===== (tidak berubah)
         var lightbox = document.getElementById('lightbox');
         var lbImage = document.getElementById('lbImage');
         var lbTitle = document.getElementById('lbTitle');
@@ -1439,18 +1505,31 @@
             }, 1000);
         });
 
-        // ===== LOAD WALLPAPERS DARI FIRESTORE =====
-        var wallpapers = [];
-        var filteredWallpapers = [];
+        // ============================================================
+        // ===== PAGINASI & LOAD WALLPAPERS ===========================
+        // ============================================================
+        var pageSize = 12; // jumlah per halaman
+        var lastVisible = null; // dokumen terakhir untuk startAfter
+        var allLoaded = false; // apakah semua data sudah dimuat
+        var isLoading = false;
+        var currentFilter = { search: '', category: '' };
 
-        function renderWallpapers(items) {
-            var grid = document.getElementById('wallpaperGrid');
+        var grid = document.getElementById('wallpaperGrid');
+        var loadMoreBtn = document.getElementById('loadMoreBtn');
+        var loadMoreWrap = document.getElementById('loadMoreWrap');
+
+        // Fungsi render wallpaper (sama seperti sebelumnya)
+        function renderWallpapers(items, append) {
+            if (!append) {
+                grid.innerHTML = '';
+            }
             if (!items || items.length === 0) {
-                grid.innerHTML =
-                    '<div class="empty-state"><i class="fas fa-image"></i><p>Belum ada wallpaper tersedia.</p></div>';
+                if (!append) {
+                    grid.innerHTML =
+                        '<div class="empty-state"><i class="fas fa-image"></i><p>Belum ada wallpaper tersedia.</p></div>';
+                }
                 return;
             }
-            grid.innerHTML = '';
             items.forEach(function(wp) {
                 var card = document.createElement('div');
                 card.className = 'wallpaper-card';
@@ -1465,72 +1544,189 @@
                         .downloads || 0) + '</span></div></div>';
                 card.addEventListener('click', function() {
                     var id = this.dataset.id;
-                    var wpData = wallpapers.find(function(w) { return w.id === id; });
+                    // Cari di semua wallpaper yang sudah dimuat (gunakan variabel global)
+                    var wpData = allLoadedWallpapers.find(function(w) { return w.id === id; });
                     if (wpData) openLightbox(wpData);
                 });
                 grid.appendChild(card);
             });
         }
 
-        function filterWallpapers() {
-            var search = document.getElementById('searchInput').value.toLowerCase().trim();
-            var category = document.getElementById('categoryFilter').value;
-            filteredWallpapers = wallpapers.filter(function(wp) {
-                var matchSearch = wp.title.toLowerCase().includes(search);
-                var matchCategory = !category || wp.category === category;
-                return matchSearch && matchCategory;
+        // Array untuk menyimpan semua wallpaper yang sudah dimuat (agar klik tetap bisa)
+        var allLoadedWallpapers = [];
+
+        // Fungsi untuk mengambil data dari Firestore dengan paginasi
+        function fetchWallpapers(reset) {
+            if (isLoading) return;
+            isLoading = true;
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memuat...';
+
+            var query = db.collection('wallpapers')
+                .orderBy('createdAt', 'desc')
+                .limit(pageSize);
+
+            if (!reset && lastVisible) {
+                query = query.startAfter(lastVisible);
+            }
+
+            // Terapkan filter jika ada
+            var search = currentFilter.search.trim().toLowerCase();
+            var category = currentFilter.category;
+
+            // Karena Firestore tidak mendukung filter teks langsung, kita ambil semua dulu lalu filter di client.
+            // Tapi untuk pagination dengan filter, kita perlu memodifikasi: kita filter di client setelah data diambil.
+            // Pendekatan: ambil data lebih banyak? Atau kita filter di server? 
+            // Untuk sederhana, kita ambil semua data (tanpa filter) dan filter di client, tapi pagination tetap berdasarkan urutan.
+            // Karena filter search bisa banyak, lebih baik kita filter di client setelah semua data diambil? 
+            // Tapi itu tidak efisien. Alternatif: kita lakukan filter di server dengan where jika category dipilih.
+            // Kita akan optimasi: jika category dipilih, kita tambahkan where; jika tidak, kita ambil semua.
+            // Untuk search, kita tetap filter client-side.
+
+            // Untuk category, kita bisa pakai where
+            if (category) {
+                query = query.where('category', '==', category);
+            }
+
+            // Jalankan query
+            query.get().then(function(snapshot) {
+                var docs = [];
+                snapshot.forEach(function(doc) {
+                    docs.push({
+                        id: doc.id,
+                        imageUrl: doc.data().imageUrl,
+                        title: doc.data().title || 'Untitled',
+                        category: doc.data().category || 'Uncategorized',
+                        resolution: doc.data().resolution || 'Auto',
+                        downloads: doc.data().downloads || 0
+                    });
+                });
+
+                // Filter search (client-side)
+                if (search) {
+                    docs = docs.filter(function(wp) {
+                        return wp.title.toLowerCase().includes(search);
+                    });
+                }
+
+                // Simpan lastVisible untuk pagination berikutnya
+                if (snapshot.docs.length > 0) {
+                    lastVisible = snapshot.docs[snapshot.docs.length - 1];
+                } else {
+                    // Jika tidak ada dokumen lagi, tandai semua sudah dimuat
+                    allLoaded = true;
+                }
+
+                // Jika hasil docs kurang dari pageSize, berarti sudah habis
+                if (docs.length < pageSize) {
+                    allLoaded = true;
+                }
+
+                // Tambahkan ke array global
+                if (reset) {
+                    allLoadedWallpapers = docs;
+                } else {
+                    allLoadedWallpapers = allLoadedWallpapers.concat(docs);
+                }
+
+                // Render
+                if (reset) {
+                    renderWallpapers(docs, false);
+                } else {
+                    renderWallpapers(docs, true);
+                }
+
+                // Tampilkan/sembunyikan tombol load more
+                if (allLoaded || docs.length < pageSize) {
+                    loadMoreWrap.style.display = 'none';
+                } else {
+                    loadMoreWrap.style.display = 'flex';
+                }
+
+                isLoading = false;
+                loadMoreBtn.disabled = false;
+                loadMoreBtn.classList.remove('loading');
+                loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
+
+                // Jika data kosong dan reset, tampilkan empty state
+                if (reset && docs.length === 0) {
+                    grid.innerHTML =
+                        '<div class="empty-state"><i class="fas fa-image"></i><p>Tidak ada wallpaper yang cocok.</p></div>';
+                    loadMoreWrap.style.display = 'none';
+                }
+            }).catch(function(err) {
+                console.error('Error fetching wallpapers:', err);
+                showToast('❌ Gagal memuat data. Error: ' + err.message, 'error');
+                isLoading = false;
+                loadMoreBtn.disabled = false;
+                loadMoreBtn.classList.remove('loading');
+                loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
+                if (reset) {
+                    grid.innerHTML =
+                        '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Coba refresh.</p></div>';
+                }
             });
-            renderWallpapers(filteredWallpapers);
         }
-        document.getElementById('searchInput').addEventListener('input', filterWallpapers);
-        document.getElementById('categoryFilter').addEventListener('change', filterWallpapers);
+
+        // Fungsi reset paginasi (saat filter berubah)
+        function resetPagination() {
+            lastVisible = null;
+            allLoaded = false;
+            allLoadedWallpapers = [];
+            fetchWallpapers(true);
+        }
+
+        // Event untuk tombol load more
+        loadMoreBtn.addEventListener('click', function() {
+            if (!isLoading && !allLoaded) {
+                fetchWallpapers(false);
+            }
+        });
+
+        // Filter event
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentFilter.search = this.value;
+            resetPagination();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            currentFilter.category = this.value;
+            resetPagination();
+        });
+
         document.getElementById('resetFilterBtn').addEventListener('click', function() {
             document.getElementById('searchInput').value = '';
             document.getElementById('categoryFilter').value = '';
-            filterWallpapers();
+            currentFilter.search = '';
+            currentFilter.category = '';
+            resetPagination();
         });
 
-        function loadWallpapers() {
-            var grid = document.getElementById('wallpaperGrid');
+        // Load awal
+        function initLoad() {
+            // Tampilkan skeleton
             var skeletonHtml = '';
-            for (var i = 0; i < 12; i++) {
+            for (var i = 0; i < pageSize; i++) {
                 skeletonHtml +=
                     '<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"><div class="line"></div><div class="line short"></div></div></div>';
             }
             grid.innerHTML = skeletonHtml;
-            if (typeof db === 'undefined' || !db) {
-                console.error('Firestore db not initialized');
-                grid.innerHTML =
-                    '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Koneksi database gagal. Coba refresh.</p></div>';
-                return;
-            }
-            db.collection('wallpapers')
-                .orderBy('createdAt', 'desc')
-                .get()
-                .then(function(snapshot) {
-                    wallpapers = [];
-                    snapshot.forEach(function(doc) {
-                        wallpapers.push({
-                            id: doc.id,
-                            imageUrl: doc.data().imageUrl,
-                            title: doc.data().title,
-                            category: doc.data().category,
-                            resolution: doc.data().resolution,
-                            downloads: doc.data().downloads
-                        });
-                    });
-                    filteredWallpapers = wallpapers;
-                    renderWallpapers(filteredWallpapers);
-                })
-                .catch(function(err) {
-                    console.error('Error loading wallpapers:', err);
-                    grid.innerHTML =
-                        '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Error: ' +
-                        err.message + '</p></div>';
-                });
+            // Muat data pertama
+            fetchWallpapers(true);
         }
-        loadWallpapers();
-        console.log('🎨 Wallpaper Gallery loaded');
+
+        // Cek apakah Firestore ready
+        if (typeof db === 'undefined' || !db) {
+            console.error('Firestore db not initialized');
+            grid.innerHTML =
+                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Koneksi database gagal. Coba refresh.</p></div>';
+            loadMoreWrap.style.display = 'none';
+        } else {
+            initLoad();
+        }
+
+        console.log('🎨 Wallpaper Gallery with pagination loaded');
     </script>
 
     <!-- ============================================================ -->
