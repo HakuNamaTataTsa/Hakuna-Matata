@@ -17,15 +17,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- ===== SOCIAL BAR (tetap) ===== -->
+    <!-- ===== SOCIAL BAR ===== -->
     <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js">
     </script>
 
-    <!-- ===== POPUNDER ADSTERRA (tetap) ===== -->
+    <!-- ===== POPUNDER ===== -->
     <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js">
     </script>
 
-    <!-- ===== NATIVE BANNER (BARU) ===== -->
+    <!-- ===== NATIVE BANNER (dipanggil nanti) ===== -->
     <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js">
     </script>
 
@@ -48,7 +48,7 @@
     </script>
 
     <style>
-        /* ===== SEMUA CSS SAMA PERSIS SEPERTI ASLI ===== */
+        /* ===== SAMA PERSIS DENGAN SEBELUMNYA, HANYA ADA TAMBAHAN UNTUK BANNER DI BAWAH ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -358,17 +358,18 @@
             background: var(--accent-dim);
         }
 
-        /* ===== BANNER ADS WRAPPER (BARU) ===== */
+        /* ===== BANNER DI BAWAH GRID (tidak mengganggu) ===== */
         .ad-banner-wrapper {
-            margin: 0 0 1.2rem 0;
+            margin: 1.5rem 0 1rem 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 70px;
             background: rgba(255, 255, 255, 0.02);
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
-            padding: 0.3rem;
+            padding: 0.4rem 0.3rem;
             overflow: hidden;
         }
         .ad-banner-wrapper iframe {
@@ -388,13 +389,14 @@
         .ad-banner-wrapper #container-c81f5af115bb2c21b67b83b4606ce5a2 {
             display: flex;
             justify-content: center;
+            width: 100%;
         }
 
         .wallpaper-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         .wallpaper-card {
             background: var(--bg-card);
@@ -750,7 +752,7 @@
         .footer {
             padding: 2rem 1rem 1rem;
             border-top: 1px solid var(--border-color);
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         .footer-grid {
             display: grid;
@@ -979,6 +981,8 @@
             background: rgba(0, 0, 0, 0.03);
             border-color: var(--border-color);
         }
+
+        /* ===== RESPONSIVE: banner di HP lebih kecil & jarak lebih rapat ===== */
         @media (max-width: 768px) {
             :root {
                 --navbar-height: 56px;
@@ -1051,6 +1055,17 @@
             .lightbox .lb-info .lb-title {
                 font-size: 0.75rem;
             }
+            /* Banner di HP lebih kecil & margin lebih kecil */
+            .ad-banner-wrapper {
+                margin: 1rem 0 0.5rem 0;
+                min-height: 56px;
+                padding: 0.2rem;
+                border-radius: var(--radius-sm);
+            }
+            .ad-banner-wrapper iframe {
+                max-width: 100% !important;
+                height: auto !important;
+            }
         }
         @media (max-width: 480px) {
             .wallpaper-grid {
@@ -1080,8 +1095,9 @@
                 gap: 0.2rem;
             }
             .ad-banner-wrapper {
-                min-height: 56px;
-                padding: 0.2rem;
+                min-height: 50px;
+                padding: 0.1rem;
+                margin: 0.5rem 0 0.3rem 0;
             }
         }
     </style>
@@ -1136,13 +1152,13 @@
             <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
         </div>
 
-        <!-- ===== NATIVE BANNER (BARU) ===== -->
+        <div class="wallpaper-grid" id="wallpaperGrid"></div>
+
+        <!-- ===== NATIVE BANNER DI BAWAH GRID (tidak mengganggu) ===== -->
         <div class="ad-banner-wrapper" id="nativeBannerWrapper">
             <span class="ad-label">— Iklan —</span>
             <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
         </div>
-
-        <div class="wallpaper-grid" id="wallpaperGrid"></div>
     </div>
 
     <!-- ===== LIGHTBOX ===== -->
@@ -1210,7 +1226,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT UTAMA                                             -->
+    <!-- JAVASCRIPT (SAMA PERSIS DENGAN SEBELUMNYA)                   -->
     <!-- ============================================================ -->
     <script>
         // ===== THEME TOGGLE =====
@@ -1518,7 +1534,7 @@
     </script>
 
     <!-- ============================================================ -->
-    <!-- SERVICE WORKER - VERSI UPDATE PINTAR (TANPA LOOP RELOAD)     -->
+    <!-- SERVICE WORKER                                               -->
     <!-- ============================================================ -->
     <script>
         if ('serviceWorker' in navigator) {
