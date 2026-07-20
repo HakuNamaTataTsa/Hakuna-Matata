@@ -637,9 +637,9 @@
   <div class="slider-wrap" aria-label="Galeri layanan CPM">
     <div class="slider">
       <div class="slides" id="slides">
-        <div class="slide"><img src="Screenshot_20260619-210721.png" alt="Tampilan layanan CPM 1" loading="lazy" onerror="this.src='placeholder.png'"></div>
-        <div class="slide"><img src="20240911_122112_0000.png" alt="Tampilan layanan CPM 2" loading="lazy" onerror="this.src='placeholder.png'"></div>
-        <div class="slide"><img src="20240911_122314_0000.png" alt="Tampilan layanan CPM 3" loading="lazy" onerror="this.src='placeholder.png'"></div>
+        <div class="slide"><img src="20240911_123453_0000.png" alt="Tampilan layanan CPM 1" loading="lazy" onerror="this.src='placeholder.png'"></div>
+        <div class="slide"><img src="20240911_122850_0000.png" alt="Tampilan layanan CPM 2" loading="lazy" onerror="this.src='placeholder.png'"></div>
+        <div class="slide"><img src="20240911_125134_0000.png" alt="Tampilan layanan CPM 3" loading="lazy" onerror="this.src='placeholder.png'"></div>
         <div class="slide"><img src="20240911_122413_0000.png" alt="Tampilan layanan CPM 4" loading="lazy" onerror="this.src='placeholder.png'"></div>
         <div class="slide"><img src="sirine.png" alt="Tampilan layanan CPM 5" loading="lazy" onerror="this.src='placeholder.png'"></div>
       </div>
@@ -827,25 +827,26 @@
     const db = getFirestore(app);
 
     const DEFAULT_SERVICES = [
-      { name: "Tune Up", price: "Rp 3.000", image: "20240911_122112_0000.png", desc: "Kecepatan seperti standard tapi lebih kencang. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
-      { name: "Tune Up Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122314_0000.png", desc: "Tune up dengan suara asli + performa. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
-      { name: "FFA / Ghoib", price: "Rp 3.000", image: "20240911_122413_0000.png", desc: "Bisa jalan auto (jalan biasa) jika gas ditinggal, dan saat balap berubah menjadi glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
-      { name: "FFA / Ghoib Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122501_0000.png", desc: "FFA dengan suara asli + performa glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
-      { name: "Glitch", price: "Rp 3.000", image: "20240911_122520_0000.png", desc: "Mode cepat (manual) untuk balapan. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
-      { name: "Glitch Suara Asli / ECU", price: "Rp 4.000", image: "20240911_122545_0000.png", desc: "Glitch dengan suara asli + performa maksimal. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
+      { name: "Tune Up", price: "Rp 3.000", image: "Error.png", desc: "Kecepatan seperti standard tapi lebih kencang. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "Tune Up Suara Asli / ECU", price: "Rp 4.000", image: "Error.png", desc: "Tune up dengan suara asli + performa. <span class='highlight'>Race 400m ±5/6 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib", price: "Rp 3.000", image: "Error.png", desc: "Bisa jalan auto (jalan biasa) jika gas ditinggal, dan saat balap berubah menjadi glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "FFA / Ghoib Suara Asli / ECU", price: "Rp 4.000", image: "Error.png", desc: "FFA dengan suara asli + performa glitch. <span class='highlight'>Race 300m ±4/5 detik.</span>", note: "", kategori: "Tune Up" },
+      { name: "Glitch", price: "Rp 3.000", image: "Error.png", desc: "Mode cepat (manual) untuk balapan. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
+      { name: "Glitch Suara Asli / ECU", price: "Rp 4.000", image: "Error.png", desc: "Glitch dengan suara asli + performa maksimal. <span class='highlight'>Race 400m ±4/5 detik.</span>", note: "", kategori: "Glitch" },
       { name: "Chrome / Bakar Body / Velg", price: "Rp 3.000", image: "20240911_122655_0000.png", desc: "Cat chrome atau bakar pada body/velg", note: "", kategori: "Lainnya" },
       { name: "Custom Spoiler / Trondol", price: "Rp 3.000", image: "20240911_122743_0000.png", desc: "Pasang spoiler custom", note: "", kategori: "Lainnya" },
       { name: "Alis Nyala / Kaliper", price: "Rp 3.000", image: "20240911_122808_0000.png", desc: "Alis nyala atau kaliper", note: "", kategori: "Lainnya" },
       { name: "Custom ID", price: "Rp 5.000", image: "Screenshot_20260619-210721.png", desc: "Ganti ID mobil sesuai keinginan", note: "", kategori: "Lainnya" },
       { name: "Unlock Sirine", price: "Rp 5.000", image: "sirine.png", desc: "Buka kunci semua sirine", note: "", kategori: "Sirine" },
-      { name: "Unlock Paid / Premium Car", price: "Rp 5.000", image: "Error.png", desc: "Buka mobil premium berbayar", note: "", kategori: "Premium Car" },
-      { name: "Unlock Premium Car + Sirine", price: "Rp 8.000", image: "Error.png", desc: "Buka premium car + sirine", note: "", kategori: "Premium Car" },
+      { name: "Unlock Paid / Premium Car", price: "Rp 5.000", image: "Screenshot_20260720-131345.png", desc: "Buka mobil premium berbayar", note: "", kategori: "Premium Car" },
+      { name: "Unlock Premium Car + Sirine", price: "Rp 8.000", image: "Screenshot_20260720-131345.png", desc: "Buka premium car + sirine", note: "", kategori: "Premium Car" },
+      { name: "Unlock Premium Body", price: "Rp 3.000", image: "Screenshot_20260720-122331.png", desc: "Premium Body", note: "", kategori: "Premium Car" },
       { name: "Isi Koin Bebas Request", price: "Rp 5.000", image: "20240911_122850_0000.png", desc: "Isi koin sesuai request (maks 500.000).", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
       { name: "Isi 50.000.000 Uang", price: "Rp 4.000", image: "20240911_122850_0000.png", desc: "Isi 50 juta uang", note: "", kategori: "Coin/Uang" },
       { name: "Bundle Uang + Koin (bebas req koin)", price: "Rp 8.000", image: "20240911_122850_0000.png", desc: "Paket hemat uang + koin (request jumlah koin).", note: "Wajib pilih metode login akun", kategori: "Coin/Uang" },
-      { name: "Joki Akun Ke King", price: "Rp 0", image: "Error.png", desc: "Bonus isi uang + koin (akun baru/lama)", note: "Wajib pilih metode login akun", kategori: "Lainnya" },
+      { name: "Akun King Baru (Free Koin+Uang+unlock W16)", price: "Rp 15.000", image: "20240911_125220_0000.png", desc: "Bonus isi uang + koin + W16 (stock/akun baru/belum terdaftar)", note: "Wajib pilih metode login akun", kategori: "Lainnya" },
       { name: "Request Livery Mobil", price: "Rp 20.000 — Rp 50.000", image: "20240911_123629_0000.png", desc: "Desain livery sesuai request", note: "Tergantung tingkat kesulitan", kategori: "Livery" },
-      { name: "Stock Mobil Murah", price: "Lihat Stock", image: "20240911_125134_0000.png", desc: "Pilih sendiri mobil dari stok", note: "", kategori: "Lainnya", isSpecial: true }
+      { name: "Stock Mobil Murah dan Secret Car", price: "Lihat Stock", image: "20240911_125134_0000.png", desc: "Pilih sendiri mobil dari stok", note: "", kategori: "Lainnya", isSpecial: true }  
     ];
 
     const SERVICES_COLLECTION = 'services';
