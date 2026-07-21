@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+
+    <!-- ===== PINTEREST VERIFICATION ===== -->
+    <meta name="p:domain_verify" content="YOUR_PINTEREST_VERIFICATION_CODE"/>
+
+    <!-- ===== OPEN GRAPH TAGS UNTUK PINTEREST ===== -->
+    <meta property="og:title" content="Wallpaper - Akino Store" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://akinoch.my.id/wallpaper-detail.html" />
+    <meta property="og:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Download wallpaper gratis berkualitas tinggi. Koleksi wallpaper aesthetic, nature, anime, dan banyak lagi." />
+    <meta property="og:site_name" content="Akino Store" />
+    <meta property="og:locale" content="id_ID" />
+
+    <!-- ===== TWITTER CARD ===== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wallpaper - Akino Store" />
+    <meta name="twitter:description" content="Download wallpaper gratis berkualitas tinggi." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
+
     <title>Detail Wallpaper - Akino Store</title>
     <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
     <link rel="manifest" href="/manifest.json?v=4.2" />
@@ -50,6 +71,15 @@
     <!-- ===== DETEKSI ADBLOCK ===== -->
     <script>
         (function() {
+            var adblockDetected = false;
+
+            setTimeout(function() {
+                if (typeof Adsterra === 'undefined') {
+                    adblockDetected = true;
+                    showAdblockWarning();
+                }
+            }, 500);
+
             var testDiv = document.createElement('div');
             testDiv.className = 'ad-container';
             testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
@@ -64,12 +94,14 @@
                     (window.getComputedStyle(testDiv).opacity === '0');
 
                 if (isHidden) {
+                    adblockDetected = true;
                     showAdblockWarning();
                 }
                 document.body.removeChild(testDiv);
-            }, 300);
+            }, 400);
 
             function showAdblockWarning() {
+                if (document.getElementById('adblock-overlay')) return;
                 var overlay = document.createElement('div');
                 overlay.id = 'adblock-overlay';
                 overlay.style.cssText = `
@@ -925,7 +957,6 @@
     </div>
 
     <div class="container" id="mainContainer">
-        <!-- CONTENT DI-RENDER OLEH JAVASCRIPT -->
         <div id="contentArea"></div>
     </div>
 
@@ -1063,7 +1094,27 @@
             `;
         }
 
+        function updateOpenGraph(data) {
+            // Update OG tags secara dinamis
+            var title = data.title || 'Wallpaper - Akino Store';
+            var description = data.description || 'Download wallpaper gratis berkualitas tinggi.';
+            var imageUrl = data.imageUrl || 'https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg';
+            var url = window.location.href;
+
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
+            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
+            document.title = title + ' - Akino Store';
+        }
+
         function renderDetail(wp) {
+            // Update Open Graph tags
+            updateOpenGraph(wp);
+
             var isMobile = window.innerWidth < 768;
             var bannerKey = isMobile ? '6c6e6f1ff7f2f14058f50bc9cdf571dd' : 'c32e372226ce234a827c9ece6ac77614';
             var bannerWidth = isMobile ? 320 : 468;
@@ -1306,14 +1357,12 @@
                 });
         }
 
-        // ===== START =====
         loadWallpaper();
-
         console.log('📸 Wallpaper Detail loaded, ID:', wallpaperId);
     </script>
 
     <!-- ============================================================ -->
-    <!-- SERVICE WORKER - UPDATE PINTAR                               -->
+    <!-- SERVICE WORKER                                               -->
     <!-- ============================================================ -->
     <script>
         if ('serviceWorker' in navigator) {
