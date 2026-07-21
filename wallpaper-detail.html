@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Detail Wallpaper - Akino Store</title>
+    <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
+    <link rel="manifest" href="/manifest.json?v=4.2" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/d39mdjct/image/upload/w_152,h_152,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/d39mdjct/image/upload/w_167,h_167,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/d39mdjct/image/upload/w_180,h_180,c_fit/v1783493763/apk_pgxcmo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- ===== SOCIAL BAR ===== -->
+    <script src="https://pl30386775.effectivecpmnetwork.com/92/36/af/9236af5d2f23d040cdecdbfaa9b47fb6.js">
+    </script>
+
+    <!-- ===== POPUNDER ===== -->
+    <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js">
+    </script>
+
+    <!-- ===== NATIVE BANNER ===== -->
+    <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js">
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js">
+    </script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
+            authDomain: "akinowedding-73271.firebaseapp.com",
+            projectId: "akinowedding-73271",
+            storageBucket: "akinowedding-73271.appspot.com",
+            messagingSenderId: "307666594440",
+            appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        window.db = db;
+    </script>
+
+    <!-- ===== DETEKSI ADBLOCK ===== -->
+    <script>
+        (function() {
+            var testDiv = document.createElement('div');
+            testDiv.className = 'ad-container';
+            testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+            testDiv.innerHTML = '&nbsp;';
+            document.body.appendChild(testDiv);
+
+            setTimeout(function() {
+                var rect = testDiv.getBoundingClientRect();
+                var isHidden = (rect.width === 0 && rect.height === 0) ||
+                    (window.getComputedStyle(testDiv).display === 'none') ||
+                    (window.getComputedStyle(testDiv).visibility === 'hidden') ||
+                    (window.getComputedStyle(testDiv).opacity === '0');
+
+                if (isHidden) {
+                    showAdblockWarning();
+                }
+                document.body.removeChild(testDiv);
+            }, 300);
+
+            function showAdblockWarning() {
+                var overlay = document.createElement('div');
+                overlay.id = 'adblock-overlay';
+                overlay.style.cssText = `
+                        position:fixed; inset:0; z-index:99999; 
+                        background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
+                        display:flex; align-items:center; justify-content:center;
+                        flex-direction:column; padding:2rem 1.5rem;
+                        font-family:'Inter',sans-serif; color:#fff; text-align:center;
+                    `;
+                overlay.innerHTML = `
+                        <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                            <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
+                            <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
+                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:1rem;">
+                                Untuk mengakses wallpaper dan fitur download, 
+                                harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda 
+                                di browser ini, lalu <strong style="color:#FFDD57;">refresh halaman</strong>.
+                            </p>
+                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1.2rem;">
+                                Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
+                            </p>
+                            <button onclick="location.reload()" style="
+                                    padding:0.7rem 2rem; 
+                                    border:none; 
+                                    border-radius:10px; 
+                                    background:linear-gradient(145deg, #FFDD57, #f5c842); 
+                                    color:#0a0a0f; 
+                                    font-weight:700; 
+                                    font-size:0.9rem; 
+                                    cursor:pointer;
+                                    box-shadow:0 4px 20px rgba(255,221,87,0.25);
+                                    transition:all 0.3s ease;
+                                " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                <i class="fas fa-sync-alt"></i> Refresh Sekarang
+                            </button>
+                            <div style="margin-top:0.8rem; font-size:0.65rem; color:#6a6a7e;">
+                                Setelah mematikan AdBlock, klik tombol di atas.
+                            </div>
+                        </div>
+                    `;
+                document.body.appendChild(overlay);
+            }
+        })();
+    </script>
+
+    <style>
+        /* ===== STYLE SAMA DENGAN WALLPAPER.HTML ===== */
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-secondary: #14141e;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #22223a;
+            --fg-primary: #f0f0f0;
+            --fg-secondary: #a0a0b0;
+            --fg-muted: #6a6a7e;
+            --accent: #3B82F6;
+            --accent-hover: #2563eb;
+            --accent-dim: rgba(59, 130, 246, 0.15);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --radius: 14px;
+            --radius-sm: 10px;
+            --font: 'Inter', sans-serif;
+            --navbar-height: 68px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--fg-primary);
+            transition: background var(--transition), color var(--transition);
+            padding-top: var(--navbar-height);
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-touch-callout: none;
+        }
+        button {
+            cursor: pointer;
+            font-family: var(--font);
+            border: none;
+            background: none;
+            color: inherit;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 18, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--navbar-height);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow);
+        }
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            gap: 0.8rem;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--fg-primary);
+            flex-shrink: 0;
+        }
+        .navbar .logo i {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+        .navbar .logo span {
+            color: var(--accent);
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            list-style: none;
+            flex: 1;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav-menu a {
+            padding: 0.3rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--fg-secondary);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--fg-primary);
+            background: var(--bg-card);
+        }
+        .nav-menu a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+        .nav-actions .theme-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--fg-secondary);
+            transition: all var(--transition);
+            font-size: 0.8rem;
+        }
+        .nav-actions .theme-btn:hover {
+            border-color: var(--accent);
+            color: var(--fg-primary);
+            background: var(--accent-dim);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--fg-primary);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: var(--navbar-height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 999;
+            border-top: 1px solid var(--border-color);
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .mobile-menu.open {
+            display: flex;
+        }
+        .mobile-menu a {
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--fg-secondary);
+            transition: all var(--transition);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--fg-primary);
+            background: var(--bg-card);
+        }
+        .mobile-menu a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .detail-hero {
+            padding: 1rem 0 0.5rem;
+            text-align: center;
+        }
+        .detail-hero h1 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .detail-hero .breadcrumb {
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            margin-top: 0.2rem;
+        }
+        .detail-hero .breadcrumb a {
+            color: var(--accent);
+        }
+        .detail-hero .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        .detail-card .image-wrap {
+            position: relative;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        .detail-card .image-wrap img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+        .detail-card .image-wrap .watermark {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: var(--fg-secondary);
+            border: 1px solid var(--border-color);
+            letter-spacing: 0.5px;
+            pointer-events: none;
+        }
+        .detail-card .info-wrap {
+            padding: 1rem 1.2rem;
+        }
+        .detail-card .info-wrap .title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .detail-card .info-wrap .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            font-size: 0.8rem;
+            color: var(--fg-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .detail-card .info-wrap .meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .detail-card .info-wrap .meta i {
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+        .detail-card .info-wrap .desc {
+            font-size: 0.85rem;
+            color: var(--fg-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--accent);
+        }
+
+        .detail-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .detail-actions .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.25);
+            font-family: var(--font);
+            min-height: 52px;
+            width: 100%;
+        }
+        .detail-actions .btn-download:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(34, 197, 94, 0.35);
+        }
+        .detail-actions .btn-download:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        .detail-actions .btn-download i {
+            font-size: 1rem;
+        }
+
+        .countdown-box {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--fg-secondary);
+            padding: 0.3rem 0;
+            display: none;
+        }
+        .countdown-box.show {
+            display: block;
+        }
+        .countdown-box .timer {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .ad-banner-container {
+            margin-top: 0.5rem;
+            min-height: 60px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem;
+            overflow: hidden;
+        }
+        .ad-banner-container.show {
+            display: flex;
+        }
+        .ad-banner-container iframe {
+            max-width: 100%;
+            border: 0;
+        }
+
+        .share-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .share-section .share-label {
+            font-size: 0.7rem;
+            color: var(--fg-muted);
+            width: 100%;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .share-section .share-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--fg-secondary);
+            font-size: 0.75rem;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        .share-section .share-btn:hover {
+            border-color: var(--accent);
+            color: var(--fg-primary);
+            background: var(--accent-dim);
+        }
+
+        .footer {
+            padding: 2rem 1rem 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto 1.5rem;
+            text-align: left;
+        }
+        .footer-grid h4 {
+            font-size: 0.8rem;
+            color: var(--fg-primary);
+            margin-bottom: 0.6rem;
+        }
+        .footer-grid p,
+        .footer-grid a {
+            font-size: 0.75rem;
+            color: var(--fg-secondary);
+            line-height: 1.8;
+        }
+        .footer-grid a {
+            display: block;
+            transition: color 0.2s;
+        }
+        .footer-grid a:hover {
+            color: var(--accent);
+        }
+        .footer-grid .brand-footer {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--fg-muted);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 90%;
+        }
+        .toast {
+            padding: 0.7rem 1.4rem;
+            background: rgba(20, 20, 30, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: slideInToast 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.82rem;
+            border-left: 3px solid var(--accent);
+        }
+        .toast i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        .toast.success {
+            border-left-color: #22c55e;
+        }
+        .toast.success i {
+            color: #22c55e;
+        }
+        .toast.error {
+            border-left-color: #ef4444;
+        }
+        .toast.error i {
+            color: #ef4444;
+        }
+        @keyframes slideInToast {
+            from {
+                opacity: 0;
+                transform: translateX(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .chat-float {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+        .chat-float-label {
+            background: rgba(12, 12, 24, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.4rem 0.9rem;
+            font-size: 0.72rem;
+            color: var(--fg-secondary);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(6px) scale(0.95);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .chat-float-label span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .chat-float:hover .chat-float-label {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .chat-float-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #25D366, #1da851);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 24px rgba(37, 211, 102, 0.35);
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .chat-float-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 36px rgba(37, 211, 102, 0.45);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            z-index: 99;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--fg-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+        .back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .back-to-top:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        .loading-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+            gap: 1rem;
+        }
+        .loading-wrap .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .loading-wrap p {
+            color: var(--fg-muted);
+            font-size: 0.85rem;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--fg-muted);
+        }
+        .empty-state i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.3;
+        }
+
+        body.light-theme {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #e4e7ec;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f7fa;
+            --fg-primary: #1a1a2e;
+            --fg-secondary: #4a4a5e;
+            --fg-muted: #8a8a9e;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+        body.light-theme .navbar {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid var(--border-color);
+        }
+        body.light-theme .navbar .logo {
+            color: var(--fg-primary);
+        }
+        body.light-theme .toast {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--border-color);
+        }
+        body.light-theme .detail-card .info-wrap .desc {
+            background: rgba(0, 0, 0, 0.02);
+        }
+        body.light-theme .detail-card .image-wrap .watermark {
+            background: rgba(255, 255, 255, 0.85);
+            color: var(--fg-secondary);
+        }
+        body.light-theme .share-section .share-btn {
+            background: var(--bg-secondary);
+        }
+        body.light-theme .share-section .share-btn:hover {
+            background: var(--bg-card-hover);
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --navbar-height: 56px;
+            }
+            .nav-menu {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .container {
+                padding: 0 12px;
+            }
+            .detail-card .image-wrap img {
+                max-height: 55vh;
+            }
+            .detail-card .info-wrap {
+                padding: 0.8rem;
+            }
+            .detail-card .info-wrap .title {
+                font-size: 0.95rem;
+            }
+            .detail-actions .btn-download {
+                font-size: 0.9rem;
+                min-height: 48px;
+                padding: 0.6rem 1rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+                text-align: center;
+            }
+            .footer-grid h4 {
+                text-align: center;
+            }
+            .chat-float {
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+            .chat-float-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .back-to-top {
+                bottom: 0.8rem;
+                left: 0.8rem;
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+            .share-section .share-btn {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .detail-hero h1 {
+                font-size: 1.1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .detail-card .image-wrap img {
+                max-height: 45vh;
+            }
+            .detail-card .info-wrap .meta {
+                font-size: 0.7rem;
+                gap: 0.3rem 0.8rem;
+            }
+            .detail-card .info-wrap .desc {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+            .share-section {
+                gap: 0.3rem;
+            }
+            .share-section .share-btn {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
+                flex: 1 1 auto;
+            }
+            .ad-banner-container {
+                min-height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="index.html?v=4.2" class="logo"><i class="fas fa-store"></i> Akino<span>Store</span></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html?v=4.2">Home</a></li>
+                <li><a href="manga.html?v=4.2">Manga</a></li>
+                <li><a href="wallpaper.html?v=4.2" class="active">Wallpaper</a></li>
+                <li><a href="about.html?v=4.2">About</a></li>
+                <li><a href="https://wa.me/6289687163314" target="_blank">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html?v=4.2">Home</a>
+        <a href="manga.html?v=4.2">Manga</a>
+        <a href="wallpaper.html?v=4.2" class="active">Wallpaper</a>
+        <a href="about.html?v=4.2">About</a>
+        <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <!-- CONTENT DI-RENDER OLEH JAVASCRIPT -->
+        <div id="contentArea"></div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="chat-float">
+        <div class="chat-float-label">Chat Admin: <span>089687163314</span></div>
+        <a href="https://wa.me/6289687163314" target="_blank" rel="noopener" class="chat-float-btn" aria-label="Chat Admin WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="footer" aria-label="Footer">
+        <div class="footer-grid">
+            <div>
+                <h4 class="brand-footer">Akino Store</h4>
+                <p>Jasa digital, game, & baca manga terpercaya sejak 2022.</p>
+            </div>
+            <div>
+                <h4>Layanan</h4>
+                <a href="CarParkingMultiplayer.html?v=4.2">Car Parking</a>
+                <a href="SosialMedia.html?v=4.2">Sosial Media</a>
+                <a href="designedit.html?v=4.2">Design / Edit</a>
+            </div>
+            <div>
+                <h4>Tentang</h4>
+                <a href="about.html?v=4.2">About Us</a>
+                <a href="https://wa.me/6289687163314" target="_blank">Contact</a>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <a href="privacy.html?v=4.2">Kebijakan Privasi</a>
+                <a href="terms.html?v=4.2">Syarat &amp; Ketentuan</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2022 Akino Store. All Rights Reserved.</div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT                                                   -->
+    <!-- ============================================================ -->
+    <script>
+        // ===== THEME TOGGLE =====
+        var themeToggle = document.getElementById('themeToggle');
+        var icon = themeToggle.querySelector('i');
+        var currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-theme');
+            icon.className = 'fas fa-sun';
+        }
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            var isLight = document.body.classList.contains('light-theme');
+            icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', function() {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+            var btn = document.getElementById('backToTop');
+            if (window.scrollY > 400) btn.classList.add('show');
+            else btn.classList.remove('show');
+        });
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== HAMBURGER =====
+        var hamburger = document.getElementById('hamburger');
+        var mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+        });
+        mobileMenu.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // ===== TOAST =====
+        var toastContainer = document.getElementById('toastContainer');
+
+        function showToast(message, type) {
+            type = type || 'info';
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            var icons = { info: 'fa-info-circle', success: 'fa-check-circle', error: 'fa-exclamation-circle' };
+            toast.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + message;
+            toastContainer.appendChild(toast);
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(40px) scale(0.9)';
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 3500);
+        }
+
+        // ============================================================
+        // AMBIL PARAMETER ID DARI URL
+        // ============================================================
+        function getUrlParam(name) {
+            var params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        var wallpaperId = getUrlParam('id');
+
+        // ============================================================
+        // RENDER HALAMAN
+        // ============================================================
+        var contentArea = document.getElementById('contentArea');
+
+        function renderLoading() {
+            contentArea.innerHTML = `
+                <div class="loading-wrap">
+                    <div class="spinner"></div>
+                    <p>Memuat wallpaper...</p>
+                </div>
+            `;
+        }
+
+        function renderNotFound() {
+            contentArea.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-image"></i>
+                    <p>Wallpaper tidak ditemukan.</p>
+                    <a href="wallpaper.html" style="color:var(--accent);font-weight:600;margin-top:0.5rem;display:inline-block;">← Kembali ke Galeri</a>
+                </div>
+            `;
+        }
+
+        function renderDetail(wp) {
+            var isMobile = window.innerWidth < 768;
+            var bannerKey = isMobile ? '6c6e6f1ff7f2f14058f50bc9cdf571dd' : 'c32e372226ce234a827c9ece6ac77614';
+            var bannerWidth = isMobile ? 320 : 468;
+            var bannerHeight = isMobile ? 50 : 60;
+
+            var baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
+            var shareUrl = baseUrl + 'wallpaper-detail.html?id=' + wp.id;
+
+            function formatNum(n) { return (n || 0).toLocaleString('id-ID') }
+
+            contentArea.innerHTML = `
+                <div class="detail-hero">
+                    <div class="breadcrumb">
+                        <a href="wallpaper.html">Galeri</a> / <span>${escHtml(wp.title || 'Wallpaper')}</span>
+                    </div>
+                    <h1>${escHtml(wp.title || 'Wallpaper')}</h1>
+                </div>
+
+                <div class="detail-card">
+                    <div class="image-wrap">
+                        <img src="${escHtml(wp.imageUrl)}" alt="${escHtml(wp.title)}" />
+                        <span class="watermark"><i class="fas fa-lock"></i> AkinoStore</span>
+                    </div>
+                    <div class="info-wrap">
+                        <div class="title">${escHtml(wp.title || 'Untitled')}</div>
+                        <div class="meta">
+                            <span><i class="fas fa-tag"></i> ${escHtml(wp.category || 'Uncategorized')}</span>
+                            <span><i class="fas fa-expand"></i> ${escHtml(wp.resolution || 'Auto')}</span>
+                            <span><i class="fas fa-download"></i> ${formatNum(wp.downloads)} download</span>
+                        </div>
+                        ${wp.description ? `<div class="desc">${escHtml(wp.description)}</div>` : ''}
+                        <div class="detail-actions">
+                            <button class="btn-download" id="downloadBtn">
+                                <i class="fas fa-download"></i> Download Wallpaper
+                            </button>
+                            <div class="countdown-box" id="countdownBox">
+                                <i class="fas fa-clock"></i> Tunggu <span class="timer" id="timerDisplay">5</span> detik...
+                            </div>
+                            <div class="ad-banner-container" id="adContainer"></div>
+                        </div>
+                        <div class="share-section">
+                            <span class="share-label"><i class="fas fa-share-alt"></i> Bagikan link wallpaper ini:</span>
+                            <button class="share-btn" onclick="copyLink('${shareUrl}')">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                            <button class="share-btn" onclick="shareWhatsApp('${shareUrl}', '${escHtml(wp.title)}')">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                            <button class="share-btn" onclick="shareTwitter('${shareUrl}', '${escHtml(wp.title)}')">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                            <button class="share-btn" onclick="shareFacebook('${shareUrl}', '${escHtml(wp.title)}')">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // ===== DOWNLOAD LOGIC =====
+            var downloadBtn = document.getElementById('downloadBtn');
+            var countdownBox = document.getElementById('countdownBox');
+            var timerDisplay = document.getElementById('timerDisplay');
+            var adContainer = document.getElementById('adContainer');
+            var isDownloading = false;
+            var countdownInterval = null;
+            var adLoaded = false;
+
+            downloadBtn.addEventListener('click', function() {
+                if (isDownloading) return;
+                isDownloading = true;
+                downloadBtn.disabled = true;
+                downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menunggu...';
+                countdownBox.classList.add('show');
+                adContainer.classList.add('show');
+
+                if (!adLoaded) {
+                    var iframe = document.createElement('iframe');
+                    iframe.width = bannerWidth;
+                    iframe.height = bannerHeight;
+                    iframe.scrolling = 'no';
+                    iframe.frameBorder = '0';
+                    iframe.allowTransparency = 'true';
+                    var srcdoc = '<html><head><script>atOptions = { "key" : "' + bannerKey +
+                        '", "format" : "iframe", "height" : ' + bannerHeight + ', "width" : ' + bannerWidth +
+                        ', "params" : {} };<\/script><script src="https://www.highperformanceformat.com/' +
+                        bannerKey + '/invoke.js"><\/script></head><body></body></html>';
+                    iframe.srcdoc = srcdoc;
+                    adContainer.appendChild(iframe);
+                    adLoaded = true;
+                }
+
+                try {
+                    if (typeof Adsterra !== 'undefined' && Adsterra.showPopunder) {
+                        Adsterra.showPopunder();
+                    } else if (typeof Adsterra !== 'undefined' && Adsterra.show) {
+                        Adsterra.show();
+                    }
+                } catch (e) {
+                    console.log('Popunder error:', e);
+                }
+
+                var timeLeft = 5;
+                timerDisplay.textContent = timeLeft;
+                if (countdownInterval) clearInterval(countdownInterval);
+                countdownInterval = setInterval(function() {
+                    timeLeft--;
+                    timerDisplay.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownInterval = null;
+                        countdownBox.classList.remove('show');
+                        adContainer.classList.remove('show');
+                        adContainer.innerHTML = '';
+                        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Mengunduh...';
+
+                        db.collection('wallpapers').doc(wp.id).update({
+                            downloads: firebase.firestore.FieldValue.increment(1)
+                        }).catch(function(err) { console.error('Update count:', err); });
+
+                        setTimeout(function() {
+                            fetch(wp.imageUrl)
+                                .then(function(response) { return response.blob(); })
+                                .then(function(blob) {
+                                    var link = document.createElement('a');
+                                    var blobUrl = URL.createObjectURL(blob);
+                                    link.href = blobUrl;
+                                    var ext = blob.type === 'image/png' ? 'png' : 'jpg';
+                                    var title = (wp.title || 'wallpaper').replace(/\s+/g, '_');
+                                    link.download = title + '.' + ext;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                    URL.revokeObjectURL(blobUrl);
+                                    showToast('✅ Wallpaper berhasil diunduh!', 'success');
+                                    downloadBtn.innerHTML = '<i class="fas fa-check"></i> Selesai!';
+                                    downloadBtn.disabled = false;
+                                    isDownloading = false;
+                                    var newDownloads = (wp.downloads || 0) + 1;
+                                    wp.downloads = newDownloads;
+                                    var metaEl = document.querySelector('.meta span:last-child');
+                                    if (metaEl) {
+                                        metaEl.innerHTML =
+                                            '<i class="fas fa-download"></i> ' + newDownloads
+                                            .toLocaleString('id-ID') + ' download';
+                                    }
+                                })
+                                .catch(function(err) {
+                                    console.error('Gagal fetch:', err);
+                                    showToast('❌ Gagal mengunduh. Coba buka di tab baru.', 'error');
+                                    window.open(wp.imageUrl, '_blank');
+                                    downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
+                                    downloadBtn.disabled = false;
+                                    isDownloading = false;
+                                    countdownBox.classList.remove('show');
+                                    adContainer.classList.remove('show');
+                                    adContainer.innerHTML = '';
+                                });
+                        }, 300);
+                    }
+                }, 1000);
+            });
+        }
+
+        function escHtml(str) {
+            if (!str) return '';
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ===== SHARE FUNCTIONS =====
+        window.copyLink = function(url) {
+            navigator.clipboard.writeText(url).then(function() {
+                showToast('✅ Link berhasil disalin!', 'success');
+            }).catch(function() {
+                var input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('✅ Link berhasil disalin!', 'success');
+            });
+        };
+
+        window.shareWhatsApp = function(url, title) {
+            var text = encodeURIComponent('📸 ' + title + '\nDownload di: ' + url);
+            window.open('https://wa.me/?text=' + text, '_blank');
+        };
+
+        window.shareTwitter = function(url, title) {
+            var text = encodeURIComponent('📸 ' + title + ' - Download wallpaper keren ini!');
+            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(url),
+            '_blank');
+        };
+
+        window.shareFacebook = function(url, title) {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url) +
+                '&quote=' + encodeURIComponent('📸 ' + title), '_blank');
+        };
+
+        // ============================================================
+        // LOAD DATA DARI FIRESTORE
+        // ============================================================
+        function loadWallpaper() {
+            if (!wallpaperId) {
+                renderNotFound();
+                return;
+            }
+            if (typeof db === 'undefined' || !db) {
+                renderNotFound();
+                showToast('❌ Koneksi database gagal.', 'error');
+                return;
+            }
+
+            renderLoading();
+
+            db.collection('wallpapers').doc(wallpaperId).get()
+                .then(function(doc) {
+                    if (!doc.exists) {
+                        renderNotFound();
+                        return;
+                    }
+                    var data = doc.data();
+                    renderDetail({
+                        id: doc.id,
+                        title: data.title || 'Untitled',
+                        category: data.category || 'Uncategorized',
+                        description: data.description || '',
+                        imageUrl: data.imageUrl,
+                        resolution: data.resolution || 'Auto',
+                        downloads: data.downloads || 0
+                    });
+                })
+                .catch(function(err) {
+                    console.error('Error loading wallpaper:', err);
+                    renderNotFound();
+                    showToast('❌ Gagal memuat data: ' + err.message, 'error');
+                });
+        }
+
+        // ===== START =====
+        loadWallpaper();
+
+        console.log('📸 Wallpaper Detail loaded, ID:', wallpaperId);
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- SERVICE WORKER - UPDATE PINTAR                               -->
+    <!-- ============================================================ -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            if (sessionStorage.getItem('sw_reloaded') === 'true') {
+                console.log('✅ SW sudah update di sesi ini, skip reload.');
+                setTimeout(() => {
+                    sessionStorage.removeItem('sw_reloaded');
+                }, 10000);
+            } else {
+                navigator.serviceWorker.register('/sw.js?v=4.2')
+                    .then(function(reg) {
+                        console.log('✅ SW registered');
+                        reg.update();
+                        navigator.serviceWorker.addEventListener('controllerchange', function() {
+                            if (sessionStorage.getItem('sw_reloaded') !== 'true') {
+                                sessionStorage.setItem('sw_reloaded', 'true');
+                                console.log('🔄 SW updated, reloading page...');
+                                window.location.reload();
+                            }
+                        });
+                    })
+                    .catch(function(err) {
+                        console.log('❌ SW failed:', err);
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

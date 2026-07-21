@@ -25,7 +25,7 @@
     <script src="https://pl30387021.effectivecpmnetwork.com/62/5e/81/625e817afef72f8347a665edc4754811.js">
     </script>
 
-    <!-- ===== NATIVE BANNER ===== -->
+    <!-- ===== NATIVE BANNER (dipanggil nanti) ===== -->
     <script async="async" data-cfasync="false" src="https://pl30387181.effectivecpmnetwork.com/c81f5af115bb2c21b67b83b4606ce5a2/invoke.js">
     </script>
 
@@ -47,8 +47,79 @@
         window.db = db;
     </script>
 
+    <!-- ===== DETEKSI ADBLOCK ===== -->
+    <script>
+        // Buat elemen uji yang sering diblokir
+        (function() {
+            var testDiv = document.createElement('div');
+            testDiv.className = 'ad-container';
+            testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+            testDiv.innerHTML = '&nbsp;';
+            document.body.appendChild(testDiv);
+
+            // Cek setelah 200ms apakah elemen masih ada (tidak disembunyikan)
+            setTimeout(function() {
+                var rect = testDiv.getBoundingClientRect();
+                var isHidden = (rect.width === 0 && rect.height === 0) ||
+                    (window.getComputedStyle(testDiv).display === 'none') ||
+                    (window.getComputedStyle(testDiv).visibility === 'hidden') ||
+                    (window.getComputedStyle(testDiv).opacity === '0');
+
+                if (isHidden) {
+                    // Adblock terdeteksi → tampilkan overlay
+                    showAdblockWarning();
+                }
+                document.body.removeChild(testDiv);
+            }, 300);
+
+            function showAdblockWarning() {
+                var overlay = document.createElement('div');
+                overlay.id = 'adblock-overlay';
+                overlay.style.cssText = `
+                        position:fixed; inset:0; z-index:99999; 
+                        background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
+                        display:flex; align-items:center; justify-content:center;
+                        flex-direction:column; padding:2rem 1.5rem;
+                        font-family:'Inter',sans-serif; color:#fff; text-align:center;
+                    `;
+                overlay.innerHTML = `
+                        <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                            <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
+                            <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
+                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:1rem;">
+                                Untuk mengakses galeri wallpaper dan menikmati fitur download, 
+                                harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda 
+                                di browser ini, lalu <strong style="color:#FFDD57;">refresh halaman</strong>.
+                            </p>
+                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1.2rem;">
+                                Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
+                            </p>
+                            <button onclick="location.reload()" style="
+                                    padding:0.7rem 2rem; 
+                                    border:none; 
+                                    border-radius:10px; 
+                                    background:linear-gradient(145deg, #FFDD57, #f5c842); 
+                                    color:#0a0a0f; 
+                                    font-weight:700; 
+                                    font-size:0.9rem; 
+                                    cursor:pointer;
+                                    box-shadow:0 4px 20px rgba(255,221,87,0.25);
+                                    transition:all 0.3s ease;
+                                " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                <i class="fas fa-sync-alt"></i> Refresh Sekarang
+                            </button>
+                            <div style="margin-top:0.8rem; font-size:0.65rem; color:#6a6a7e;">
+                                Setelah mematikan AdBlock, klik tombol di atas.
+                            </div>
+                        </div>
+                    `;
+                document.body.appendChild(overlay);
+            }
+        })();
+    </script>
+
     <style>
-        /* ===== SEMUA CSS SAMA PERSIS ===== */
+        /* ===== SEMUA CSS SAMA PERSIS SEPERTI ASLI ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -358,6 +429,39 @@
             background: var(--accent-dim);
         }
 
+        .ad-banner-wrapper {
+            margin: 0.5rem 0 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.3rem;
+            overflow: hidden;
+        }
+        .ad-banner-wrapper iframe {
+            max-width: 100%;
+            border: 0;
+        }
+        .ad-banner-wrapper .ad-label {
+            font-size: 0.5rem;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+            display: block;
+            text-align: center;
+            opacity: 0.5;
+        }
+        .ad-banner-wrapper #container-c81f5af115bb2c21b67b83b4606ce5a2 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
         .wallpaper-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -524,7 +628,6 @@
             opacity: 0.3;
         }
 
-        /* ===== LOAD MORE BUTTON ===== */
         .load-more-wrap {
             display: flex;
             justify-content: center;
@@ -575,40 +678,6 @@
             100% {
                 transform: rotate(360deg);
             }
-        }
-
-        /* ===== BANNER DI BAWAH ===== */
-        .ad-banner-wrapper {
-            margin: 0.5rem 0 1rem 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 70px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.3rem;
-            overflow: hidden;
-        }
-        .ad-banner-wrapper iframe {
-            max-width: 100%;
-            border: 0;
-        }
-        .ad-banner-wrapper .ad-label {
-            font-size: 0.5rem;
-            color: var(--fg-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
-            display: block;
-            text-align: center;
-            opacity: 0.5;
-        }
-        .ad-banner-wrapper #container-c81f5af115bb2c21b67b83b4606ce5a2 {
-            display: flex;
-            justify-content: center;
-            width: 100%;
         }
 
         .lightbox {
@@ -720,6 +789,7 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 0.2rem;
+            flex-wrap: wrap;
         }
         .lightbox .lb-actions .btn-download {
             display: inline-flex;
@@ -738,6 +808,7 @@
             font-family: var(--font);
             flex: 1;
             justify-content: center;
+            min-width: 120px;
         }
         .lightbox .lb-actions .btn-download:hover {
             transform: translateY(-2px);
@@ -752,6 +823,34 @@
         .lightbox .lb-actions .btn-download i {
             font-size: 0.8rem;
         }
+
+        /* ===== TOMBOL SALIN LINK ===== */
+        .lightbox .lb-actions .btn-share-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--fg-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all var(--transition);
+            font-family: var(--font);
+            flex: 1;
+            justify-content: center;
+            min-width: 100px;
+        }
+        .lightbox .lb-actions .btn-share-link:hover {
+            border-color: var(--accent);
+            color: var(--fg-primary);
+            background: var(--accent-dim);
+        }
+        .lightbox .lb-actions .btn-share-link i {
+            font-size: 0.8rem;
+        }
+
         .lightbox .lb-countdown {
             font-size: 0.7rem;
             color: var(--fg-secondary);
@@ -803,6 +902,7 @@
                 transform: scale(1) translateY(0);
             }
         }
+
         .footer {
             padding: 2rem 1rem 1rem;
             border-top: 1px solid var(--border-color);
@@ -847,6 +947,7 @@
             font-size: 0.65rem;
             color: var(--fg-muted);
         }
+
         .chat-float {
             position: fixed;
             bottom: 1.25rem;
@@ -899,6 +1000,7 @@
             transform: scale(1.08);
             box-shadow: 0 8px 36px rgba(37, 211, 102, 0.45);
         }
+
         .back-to-top {
             position: fixed;
             bottom: 1.25rem;
@@ -931,6 +1033,7 @@
             border-color: var(--accent);
             background: var(--accent-dim);
         }
+
         .toast-container {
             position: fixed;
             bottom: 24px;
@@ -981,6 +1084,7 @@
                 transform: translateX(0) scale(1);
             }
         }
+
         body.light-theme {
             --bg-primary: #f0f2f5;
             --bg-secondary: #e4e7ec;
@@ -1041,6 +1145,14 @@
         }
         body.light-theme .load-more-btn:hover {
             background: var(--bg-card-hover);
+        }
+        body.light-theme .lightbox .lb-actions .btn-share-link {
+            background: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        body.light-theme .lightbox .lb-actions .btn-share-link:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
         }
 
         @media (max-width: 768px) {
@@ -1111,6 +1223,12 @@
             .lightbox .lb-actions .btn-download {
                 font-size: 0.8rem;
                 padding: 0.4rem 1rem;
+                min-width: 80px;
+            }
+            .lightbox .lb-actions .btn-share-link {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+                min-width: 70px;
             }
             .lightbox .lb-info .lb-title {
                 font-size: 0.75rem;
@@ -1151,6 +1269,16 @@
                 flex-direction: column;
                 align-items: stretch;
                 gap: 0.2rem;
+            }
+            .lightbox .lb-actions .btn-download {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+                min-width: 60px;
+            }
+            .lightbox .lb-actions .btn-share-link {
+                font-size: 0.65rem;
+                padding: 0.3rem 0.6rem;
+                min-width: 60px;
             }
             .ad-banner-wrapper {
                 min-height: 50px;
@@ -1210,20 +1338,20 @@
             <button class="btn-reset" id="resetFilterBtn"><i class="fas fa-times"></i> Reset</button>
         </div>
 
+        <!-- ===== NATIVE BANNER (tetap) ===== -->
+        <div class="ad-banner-wrapper" id="nativeBannerWrapper">
+            <span class="ad-label">— Iklan —</span>
+            <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
+        </div>
+
         <div class="wallpaper-grid" id="wallpaperGrid"></div>
 
-        <!-- ===== TOMBOL LOAD MORE ===== -->
+        <!-- ===== LOAD MORE ===== -->
         <div class="load-more-wrap" id="loadMoreWrap">
             <button class="load-more-btn" id="loadMoreBtn">
                 <span class="spinner"></span>
                 <span class="btn-text"><i class="fas fa-chevron-down"></i> Load More</span>
             </button>
-        </div>
-
-        <!-- ===== NATIVE BANNER ===== -->
-        <div class="ad-banner-wrapper" id="nativeBannerWrapper">
-            <span class="ad-label">— Iklan —</span>
-            <div id="container-c81f5af115bb2c21b67b83b4606ce5a2"></div>
         </div>
     </div>
 
@@ -1243,6 +1371,10 @@
             <div class="lb-actions">
                 <button class="btn-download" id="lbDownloadBtn">
                     <i class="fas fa-download"></i> Download
+                </button>
+                <!-- ===== TOMBOL SALIN LINK ===== -->
+                <button class="btn-share-link" id="lbShareBtn">
+                    <i class="fas fa-copy"></i> Salin Link
                 </button>
             </div>
             <div class="lb-countdown" id="lbCountdown">
@@ -1292,7 +1424,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT DENGAN PAGINASI                                  -->
+    <!-- JAVASCRIPT LENGKAP                                           -->
     <!-- ============================================================ -->
     <script>
         // ===== THEME TOGGLE =====
@@ -1352,12 +1484,15 @@
             }, 3500);
         }
 
-        // ===== LIGHTBOX ===== (tidak berubah)
+        // ============================================================
+        // ===== LIGHTBOX =====
+        // ============================================================
         var lightbox = document.getElementById('lightbox');
         var lbImage = document.getElementById('lbImage');
         var lbTitle = document.getElementById('lbTitle');
         var lbMeta = document.getElementById('lbMeta');
         var lbDownloadBtn = document.getElementById('lbDownloadBtn');
+        var lbShareBtn = document.getElementById('lbShareBtn');
         var lbCountdown = document.getElementById('lbCountdown');
         var lbTimer = document.getElementById('lbTimer');
         var lbClose = document.getElementById('lbClose');
@@ -1368,6 +1503,38 @@
         var isDownloading = false;
         var adLoaded = false;
 
+        // ===== SALIN LINK =====
+        function copyWallpaperLink() {
+            if (!currentWallpaper) {
+                showToast('❌ Tidak ada wallpaper yang dipilih.', 'error');
+                return;
+            }
+            // Buat URL ke wallpaper-detail.html
+            var baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
+            var detailUrl = baseUrl + 'wallpaper-detail.html?id=' + currentWallpaper.id;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(detailUrl).then(function() {
+                    showToast('✅ Link wallpaper disalin!', 'success');
+                }).catch(function() {
+                    fallbackCopy(detailUrl);
+                });
+            } else {
+                fallbackCopy(detailUrl);
+            }
+        }
+
+        function fallbackCopy(text) {
+            var input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast('✅ Link wallpaper disalin!', 'success');
+        }
+
+        // ===== BUKA / TUTUP LIGHTBOX =====
         function openLightbox(wp) {
             currentWallpaper = wp;
             lbImage.src = wp.imageUrl;
@@ -1407,6 +1574,10 @@
             }
         });
 
+        // ===== EVENT TOMBOL SALIN LINK =====
+        lbShareBtn.addEventListener('click', copyWallpaperLink);
+
+        // ===== DOWNLOAD =====
         lbDownloadBtn.addEventListener('click', function() {
             if (isDownloading || !currentWallpaper) return;
             isDownloading = true;
@@ -1508,17 +1679,17 @@
         // ============================================================
         // ===== PAGINASI & LOAD WALLPAPERS ===========================
         // ============================================================
-        var pageSize = 12; // jumlah per halaman
-        var lastVisible = null; // dokumen terakhir untuk startAfter
-        var allLoaded = false; // apakah semua data sudah dimuat
+        var pageSize = 12;
+        var lastVisible = null;
+        var allLoaded = false;
         var isLoading = false;
         var currentFilter = { search: '', category: '' };
 
         var grid = document.getElementById('wallpaperGrid');
         var loadMoreBtn = document.getElementById('loadMoreBtn');
         var loadMoreWrap = document.getElementById('loadMoreWrap');
+        var allLoadedWallpapers = [];
 
-        // Fungsi render wallpaper (sama seperti sebelumnya)
         function renderWallpapers(items, append) {
             if (!append) {
                 grid.innerHTML = '';
@@ -1544,7 +1715,6 @@
                         .downloads || 0) + '</span></div></div>';
                 card.addEventListener('click', function() {
                     var id = this.dataset.id;
-                    // Cari di semua wallpaper yang sudah dimuat (gunakan variabel global)
                     var wpData = allLoadedWallpapers.find(function(w) { return w.id === id; });
                     if (wpData) openLightbox(wpData);
                 });
@@ -1552,10 +1722,6 @@
             });
         }
 
-        // Array untuk menyimpan semua wallpaper yang sudah dimuat (agar klik tetap bisa)
-        var allLoadedWallpapers = [];
-
-        // Fungsi untuk mengambil data dari Firestore dengan paginasi
         function fetchWallpapers(reset) {
             if (isLoading) return;
             isLoading = true;
@@ -1571,25 +1737,13 @@
                 query = query.startAfter(lastVisible);
             }
 
-            // Terapkan filter jika ada
             var search = currentFilter.search.trim().toLowerCase();
             var category = currentFilter.category;
 
-            // Karena Firestore tidak mendukung filter teks langsung, kita ambil semua dulu lalu filter di client.
-            // Tapi untuk pagination dengan filter, kita perlu memodifikasi: kita filter di client setelah data diambil.
-            // Pendekatan: ambil data lebih banyak? Atau kita filter di server? 
-            // Untuk sederhana, kita ambil semua data (tanpa filter) dan filter di client, tapi pagination tetap berdasarkan urutan.
-            // Karena filter search bisa banyak, lebih baik kita filter di client setelah semua data diambil? 
-            // Tapi itu tidak efisien. Alternatif: kita lakukan filter di server dengan where jika category dipilih.
-            // Kita akan optimasi: jika category dipilih, kita tambahkan where; jika tidak, kita ambil semua.
-            // Untuk search, kita tetap filter client-side.
-
-            // Untuk category, kita bisa pakai where
             if (category) {
                 query = query.where('category', '==', category);
             }
 
-            // Jalankan query
             query.get().then(function(snapshot) {
                 var docs = [];
                 snapshot.forEach(function(doc) {
@@ -1603,41 +1757,34 @@
                     });
                 });
 
-                // Filter search (client-side)
                 if (search) {
                     docs = docs.filter(function(wp) {
                         return wp.title.toLowerCase().includes(search);
                     });
                 }
 
-                // Simpan lastVisible untuk pagination berikutnya
                 if (snapshot.docs.length > 0) {
                     lastVisible = snapshot.docs[snapshot.docs.length - 1];
                 } else {
-                    // Jika tidak ada dokumen lagi, tandai semua sudah dimuat
                     allLoaded = true;
                 }
 
-                // Jika hasil docs kurang dari pageSize, berarti sudah habis
                 if (docs.length < pageSize) {
                     allLoaded = true;
                 }
 
-                // Tambahkan ke array global
                 if (reset) {
                     allLoadedWallpapers = docs;
                 } else {
                     allLoadedWallpapers = allLoadedWallpapers.concat(docs);
                 }
 
-                // Render
                 if (reset) {
                     renderWallpapers(docs, false);
                 } else {
                     renderWallpapers(docs, true);
                 }
 
-                // Tampilkan/sembunyikan tombol load more
                 if (allLoaded || docs.length < pageSize) {
                     loadMoreWrap.style.display = 'none';
                 } else {
@@ -1649,7 +1796,6 @@
                 loadMoreBtn.classList.remove('loading');
                 loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
 
-                // Jika data kosong dan reset, tampilkan empty state
                 if (reset && docs.length === 0) {
                     grid.innerHTML =
                         '<div class="empty-state"><i class="fas fa-image"></i><p>Tidak ada wallpaper yang cocok.</p></div>';
@@ -1669,7 +1815,6 @@
             });
         }
 
-        // Fungsi reset paginasi (saat filter berubah)
         function resetPagination() {
             lastVisible = null;
             allLoaded = false;
@@ -1677,14 +1822,12 @@
             fetchWallpapers(true);
         }
 
-        // Event untuk tombol load more
         loadMoreBtn.addEventListener('click', function() {
             if (!isLoading && !allLoaded) {
                 fetchWallpapers(false);
             }
         });
 
-        // Filter event
         document.getElementById('searchInput').addEventListener('input', function() {
             currentFilter.search = this.value;
             resetPagination();
@@ -1703,20 +1846,16 @@
             resetPagination();
         });
 
-        // Load awal
         function initLoad() {
-            // Tampilkan skeleton
             var skeletonHtml = '';
             for (var i = 0; i < pageSize; i++) {
                 skeletonHtml +=
                     '<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"><div class="line"></div><div class="line short"></div></div></div>';
             }
             grid.innerHTML = skeletonHtml;
-            // Muat data pertama
             fetchWallpapers(true);
         }
 
-        // Cek apakah Firestore ready
         if (typeof db === 'undefined' || !db) {
             console.error('Firestore db not initialized');
             grid.innerHTML =
@@ -1726,11 +1865,11 @@
             initLoad();
         }
 
-        console.log('🎨 Wallpaper Gallery with pagination loaded');
+        console.log('🎨 Wallpaper Gallery loaded with Share Link & Adblock detector');
     </script>
 
     <!-- ============================================================ -->
-    <!-- SERVICE WORKER                                               -->
+    <!-- SERVICE WORKER - UPDATE PINTAR                               -->
     <!-- ============================================================ -->
     <script>
         if ('serviceWorker' in navigator) {
