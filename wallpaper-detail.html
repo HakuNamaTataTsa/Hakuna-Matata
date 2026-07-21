@@ -7,16 +7,16 @@
     <!-- ===== PINTEREST VERIFICATION ===== -->
     <meta name="p:domain_verify" content="YOUR_PINTEREST_VERIFICATION_CODE" />
 
-    <!-- ===== OPEN GRAPH TAGS (akan di-update oleh JS) ===== -->
+    <!-- ===== OPEN GRAPH TAGS (STATIS - AKAN DIUPDATE OLEH JS) ===== -->
     <meta property="og:title" content="Wallpaper - Akino Store" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://akinoch.my.id/wallpaper-detail.html" />
-    <!-- Gambar default, nanti di-override -->
+    <!-- Ganti dengan URL gambar default (akan di-override oleh JS) -->
     <meta property="og:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
     <meta property="og:image:secure_url" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:description" content="Download wallpaper gratis berkualitas tinggi. Koleksi wallpaper aesthetic, nature, anime, dan banyak lagi." />
+    <meta property="og:description" content="Download wallpaper gratis berkualitas tinggi." />
     <meta property="og:site_name" content="Akino Store" />
     <meta property="og:locale" content="id_ID" />
 
@@ -110,34 +110,34 @@
                     overlay = document.createElement('div');
                     overlay.id = 'adblock-overlay';
                     overlay.style.cssText = `
-                            position:fixed; inset:0; z-index:99999; 
-                            background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
-                            display:flex; align-items:center; justify-content:center;
-                            flex-direction:column; padding:2rem 1.5rem;
-                            font-family:'Inter',sans-serif; color:#fff; text-align:center;
-                            animation:fadeIn 0.3s ease;
-                        `;
+                        position:fixed; inset:0; z-index:99999; 
+                        background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
+                        display:flex; align-items:center; justify-content:center;
+                        flex-direction:column; padding:2rem 1.5rem;
+                        font-family:'Inter',sans-serif; color:#fff; text-align:center;
+                        animation:fadeIn 0.3s ease;
+                    `;
                     overlay.innerHTML = `
-                            <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-                                <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
-                                <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
-                                <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:0.5rem;">
-                                    Untuk mengakses wallpaper, harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda.
-                                </p>
-                                <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1rem;">
-                                    Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
-                                </p>
-                                <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
-                                    <button onclick="location.reload()" style="padding:0.7rem 1.5rem; border:none; border-radius:10px; background:linear-gradient(145deg, #FFDD57, #f5c842); color:#0a0a0f; font-weight:700; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 20px rgba(255,221,87,0.25); transition:all 0.3s ease;">
-                                        <i class="fas fa-sync-alt"></i> Refresh
-                                    </button>
-                                    <button id="adblock-proceed-btn" style="padding:0.7rem 1.5rem; border:1px solid rgba(255,255,255,0.15); border-radius:10px; background:rgba(255,255,255,0.05); color:#a0a0b0; font-weight:600; font-size:0.85rem; cursor:pointer; transition:all 0.3s ease;">
-                                        <i class="fas fa-arrow-right"></i> Lanjutkan
-                                    </button>
-                                </div>
-                                <div style="margin-top:0.5rem; font-size:0.6rem; color:#6a6a7e;">Jika yakin AdBlock sudah dimatikan, klik "Lanjutkan".</div>
+                        <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                            <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
+                            <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
+                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:0.5rem;">
+                                Untuk mengakses wallpaper, harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda.
+                            </p>
+                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1rem;">
+                                Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
+                            </p>
+                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+                                <button onclick="location.reload()" style="padding:0.7rem 1.5rem; border:none; border-radius:10px; background:linear-gradient(145deg, #FFDD57, #f5c842); color:#0a0a0f; font-weight:700; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 20px rgba(255,221,87,0.25); transition:all 0.3s ease;">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                                <button id="adblock-proceed-btn" style="padding:0.7rem 1.5rem; border:1px solid rgba(255,255,255,0.15); border-radius:10px; background:rgba(255,255,255,0.05); color:#a0a0b0; font-weight:600; font-size:0.85rem; cursor:pointer; transition:all 0.3s ease;">
+                                    <i class="fas fa-arrow-right"></i> Lanjutkan
+                                </button>
                             </div>
-                        `;
+                            <div style="margin-top:0.5rem; font-size:0.6rem; color:#6a6a7e;">Jika yakin AdBlock sudah dimatikan, klik "Lanjutkan".</div>
+                        </div>
+                    `;
                     document.body.appendChild(overlay);
                     isOverlayShown = true;
 
@@ -1113,7 +1113,6 @@
         function updateOpenGraph(data) {
             var title = data.title || 'Wallpaper - Akino Store';
             var description = data.description || 'Download wallpaper gratis berkualitas tinggi.';
-            // PASTIKAN URL GAMBAR ABSOLUT DAN BISA DIAKSES PUBLIK
             var imageUrl = data.imageUrl || 'https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg';
             var url = window.location.href;
 
@@ -1170,7 +1169,7 @@
         }
 
         function renderDetail(wp) {
-            // Update Open Graph tags SEBELUM render, agar Pinterest cepat membaca
+            // Update Open Graph tags
             updateOpenGraph(wp);
 
             var isMobile = window.innerWidth < 768;
