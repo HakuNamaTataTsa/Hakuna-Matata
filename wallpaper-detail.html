@@ -7,11 +7,26 @@
     <!-- ===== PINTEREST VERIFICATION ===== -->
     <meta name="p:domain_verify" content="YOUR_PINTEREST_VERIFICATION_CODE" />
 
-    <!-- ===== OPEN GRAPH TAGS (STATIS - AKAN DIUPDATE OLEH JS) ===== -->
+    <!-- ===== BOT DETECTION & REDIRECT TO WORKER ===== -->
+    <script>
+        (function() {
+            var ua = navigator.userAgent.toLowerCase();
+            var bots = ['bot', 'crawler', 'spider', 'facebookexternalhit', 'twitterbot', 'pinterest', 'googlebot', 'slackbot', 'discordbot', 'whatsapp'];
+            var isBot = bots.some(function(bot) { return ua.indexOf(bot) !== -1; });
+            if (isBot) {
+                var id = new URLSearchParams(window.location.search).get('id');
+                if (id) {
+                    var workerUrl = 'https://wallpaperdownload.akinostore.workers.dev/?id=' + encodeURIComponent(id);
+                    window.location.replace(workerUrl);
+                }
+            }
+        })();
+    </script>
+
+    <!-- ===== OPEN GRAPH TAGS (STATIS - AKAN DIUPDATE OLEH JS UNTUK MANUSIA) ===== -->
     <meta property="og:title" content="Wallpaper - Akino Store" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://akinoch.my.id/wallpaper-detail.html" />
-    <!-- Ganti dengan URL gambar default (akan di-override oleh JS) -->
     <meta property="og:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
     <meta property="og:image:secure_url" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -19,17 +34,11 @@
     <meta property="og:description" content="Download wallpaper gratis berkualitas tinggi." />
     <meta property="og:site_name" content="Akino Store" />
     <meta property="og:locale" content="id_ID" />
-
-    <!-- ===== TWITTER CARD ===== -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Wallpaper - Akino Store" />
     <meta name="twitter:description" content="Download wallpaper gratis berkualitas tinggi." />
     <meta name="twitter:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
-
-    <!-- ===== IMAGE_SRC untuk Pinterest (alternatif) ===== -->
     <link rel="image_src" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
-
-    <!-- ===== CANONICAL URL ===== -->
     <link rel="canonical" href="https://akinoch.my.id/wallpaper-detail.html" />
 
     <title>Detail Wallpaper - Akino Store</title>
@@ -151,8 +160,7 @@
                     checkInterval = setInterval(function() {
                         if (!isAdblockActive()) {
                             hideOverlay();
-                            if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.',
-                            'success');
+                            if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
                         }
                     }, 2000);
                 }
@@ -190,8 +198,7 @@
                 document.addEventListener('visibilitychange', function() {
                     if (!document.hidden && isOverlayShown && overlay && !isAdblockActive()) {
                         hideOverlay();
-                        if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.',
-                        'success');
+                        if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
                     }
                 });
                 console.log('🛡️ Adblock detector aktif');
@@ -200,7 +207,6 @@
     </script>
 
     <style>
-        /* ===== STYLE ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -1109,7 +1115,7 @@
         }
         window.showToast = showToast;
 
-        // ===== PERBAIKAN UNTUK PINTEREST =====
+        // ===== UPDATE OPEN GRAPH =====
         function updateOpenGraph(data) {
             var title = data.title || 'Wallpaper - Akino Store';
             var description = data.description || 'Download wallpaper gratis berkualitas tinggi.';
@@ -1169,7 +1175,6 @@
         }
 
         function renderDetail(wp) {
-            // Update Open Graph tags
             updateOpenGraph(wp);
 
             var isMobile = window.innerWidth < 768;
@@ -1177,8 +1182,8 @@
             var bannerWidth = isMobile ? 320 : 468;
             var bannerHeight = isMobile ? 50 : 60;
 
-            var baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
-            var shareUrl = baseUrl + 'wallpaper-detail.html?id=' + wp.id;
+            var workerBase = 'https://wallpaperdownload.akinostore.workers.dev/';
+            var shareUrl = workerBase + '?id=' + wp.id;
 
             function formatNum(n) { return (n || 0).toLocaleString('id-ID') }
 
@@ -1215,7 +1220,7 @@
                             <div class="share-section">
                                 <span class="share-label"><i class="fas fa-share-alt"></i> Bagikan link wallpaper ini:</span>
                                 <button class="share-btn" onclick="copyLink('${shareUrl}')">
-                                    <i class="fas fa-copy"></i> Copy Link
+                                    <i class="fas fa-copy"></i> Copy Link (Worker)
                                 </button>
                                 <button class="share-btn" onclick="shareWhatsApp('${shareUrl}', '${escHtml(wp.title)}')">
                                     <i class="fab fa-whatsapp"></i> WhatsApp
@@ -1363,8 +1368,7 @@
 
         window.shareTwitter = function(url, title) {
             var text = encodeURIComponent('📸 ' + title + ' - Download wallpaper keren ini!');
-            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(url),
-            '_blank');
+            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(url), '_blank');
         };
 
         window.shareFacebook = function(url, title) {
