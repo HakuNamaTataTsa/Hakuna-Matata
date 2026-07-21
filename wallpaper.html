@@ -51,7 +51,7 @@
     </script>
 
     <style>
-        /* ===== SEMUA CSS ===== */
+        /* ===== SEMUA CSS SAMA PERSIS SEPERTI SEBELUMNYA ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -1355,27 +1355,35 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT LENGKAP + ADBLOCK HANDAL                          -->
+    <!-- JAVASCRIPT LENGKAP + ADBLOCK FIX (DENGAN OPSI LANJUTKAN)     -->
     <!-- ============================================================ -->
     <script>
         // ============================================================
-        // ===== ADBLOCK DETEKSI SUPER HANDAL (AUTO HILANG) =====
+        // ===== ADBLOCK DETEKSI FIX - DENGAN TOMBOL LANJUTKAN =====
         // ============================================================
         (function() {
             var overlay = null;
             var checkInterval = null;
             var isOverlayShown = false;
+            var isForceProceed = false;
 
-            // ===== 5 METODE DETEKSI =====
+            // Cek apakah user sudah memilih "Lanjutkan" sebelumnya (dalam sesi ini)
+            if (sessionStorage.getItem('adblock_force_proceed') === 'true') {
+                isForceProceed = true;
+                console.log('⏩ User memilih lanjutkan, skip adblock check.');
+                return;
+            }
+
+            // ===== METODE DETEKSI YANG LEBIH AKURAT =====
             function isAdblockActive() {
-                // METODE 1: Elemen uji dengan class yang sering diblokir
+                // METODE 1: Cek elemen dengan class yang sering diblokir
                 var testDiv1 = document.getElementById('adblock-test-1');
                 if (!testDiv1) {
                     testDiv1 = document.createElement('div');
                     testDiv1.id = 'adblock-test-1';
                     testDiv1.className = 'ad-container';
                     testDiv1.style.cssText =
-                    'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+                        'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
                     testDiv1.innerHTML = '&nbsp;';
                     document.body.appendChild(testDiv1);
                 }
@@ -1385,44 +1393,29 @@
                     (window.getComputedStyle(testDiv1).visibility === 'hidden') ||
                     (window.getComputedStyle(testDiv1).opacity === '0');
 
-                // METODE 2: Elemen uji dengan ID umum
-                var testDiv2 = document.getElementById('adblock-test-2');
-                if (!testDiv2) {
-                    testDiv2 = document.createElement('div');
-                    testDiv2.id = 'adblock-test-2';
-                    testDiv2.className = 'banner-ad';
-                    testDiv2.style.cssText =
-                    'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
-                    testDiv2.innerHTML = '&nbsp;';
-                    document.body.appendChild(testDiv2);
-                }
-                var rect2 = testDiv2.getBoundingClientRect();
-                var isHidden2 = (rect2.width === 0 && rect2.height === 0) ||
-                    (window.getComputedStyle(testDiv2).display === 'none') ||
-                    (window.getComputedStyle(testDiv2).visibility === 'hidden') ||
-                    (window.getComputedStyle(testDiv2).opacity === '0');
-
-                // METODE 3: Cek apakah Adsterra terdefinisi
-                var isAdsterraBlocked = (typeof Adsterra === 'undefined');
-
-                // METODE 4: Cek elemen banner native
+                // METODE 2: Cek apakah elemen banner native benar-benar muncul
                 var nativeBanner = document.getElementById('container-c81f5af115bb2c21b67b83b4606ce5a2');
                 var isNativeBlocked = false;
                 if (nativeBanner) {
                     var rect3 = nativeBanner.getBoundingClientRect();
+                    // Jika banner tidak memiliki konten (kosong) atau disembunyikan
                     isNativeBlocked = (rect3.width === 0 && rect3.height === 0) ||
-                        (window.getComputedStyle(nativeBanner).display === 'none');
+                        (window.getComputedStyle(nativeBanner).display === 'none') ||
+                        (nativeBanner.innerHTML.trim() === '');
                 }
 
-                // METODE 5: Cek apakah iframe iklan bisa dimuat (lewat fetch)
+                // METODE 3: Cek apakah Adsterra terdefinisi
+                var isAdsterraBlocked = (typeof Adsterra === 'undefined');
+
+                // METODE 4: Cek apakah ada script iklan yang diblokir (via fetch)
                 var isFetchBlocked = false;
                 try {
-                    // Coba fetch ke URL iklan (dengan timeout)
                     var xhr = new XMLHttpRequest();
                     xhr.open('HEAD', 'https://www.highperformanceformat.com/invoke.js', false);
                     xhr.timeout = 2000;
                     try {
                         xhr.send();
+                        // Jika status 0 atau 404, kemungkinan diblokir
                         if (xhr.status === 0 || xhr.status === 404) {
                             isFetchBlocked = true;
                         }
@@ -1433,16 +1426,25 @@
                     isFetchBlocked = true;
                 }
 
-                // Gabungkan semua metode
-                var result = isHidden1 || isHidden2 || isAdsterraBlocked || isNativeBlocked || isFetchBlocked;
+                // METODE 5: Cek apakah elemen iklan di lightbox bisa dimuat (pre-fetch)
+                var lbAd = document.getElementById('lbAdContainer');
+                var isLbAdBlocked = false;
+                if (lbAd) {
+                    var rect4 = lbAd.getBoundingClientRect();
+                    isLbAdBlocked = (rect4.width === 0 && rect4.height === 0) ||
+                        (window.getComputedStyle(lbAd).display === 'none');
+                }
 
-                // Debug (bisa dihapus)
-                console.log('Adblock check:', {
+                // GABUNGKAN SEMUA METODE
+                var result = isHidden1 || isNativeBlocked || isAdsterraBlocked || isFetchBlocked || isLbAdBlocked;
+
+                // Debug
+                console.log('🔍 Adblock check:', {
                     isHidden1,
-                    isHidden2,
-                    isAdsterraBlocked,
                     isNativeBlocked,
+                    isAdsterraBlocked,
                     isFetchBlocked,
+                    isLbAdBlocked,
                     result
                 });
 
@@ -1475,7 +1477,7 @@
                         </p>
                         <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
                             <button onclick="location.reload()" style="
-                                    padding:0.7rem 2rem; 
+                                    padding:0.7rem 1.5rem; 
                                     border:none; 
                                     border-radius:10px; 
                                     background:linear-gradient(145deg, #FFDD57, #f5c842); 
@@ -1486,25 +1488,46 @@
                                     box-shadow:0 4px 20px rgba(255,221,87,0.25);
                                     transition:all 0.3s ease;
                                 " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                <i class="fas fa-sync-alt"></i> Refresh Sekarang
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                            <button id="adblock-proceed-btn" style="
+                                    padding:0.7rem 1.5rem; 
+                                    border:1px solid rgba(255,255,255,0.15); 
+                                    border-radius:10px; 
+                                    background:rgba(255,255,255,0.05); 
+                                    color:#a0a0b0; 
+                                    font-weight:600; 
+                                    font-size:0.85rem; 
+                                    cursor:pointer;
+                                    transition:all 0.3s ease;
+                                " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                                <i class="fas fa-arrow-right"></i> Lanjutkan Tanpa Iklan
                             </button>
                         </div>
                         <div style="margin-top:0.5rem; font-size:0.6rem; color:#6a6a7e;">
-                            Atau matikan AdBlock, overlay akan hilang otomatis dalam 2-3 detik.
+                            Jika yakin AdBlock sudah dimatikan, klik "Lanjutkan".
                         </div>
                     </div>
                 `;
                 document.body.appendChild(overlay);
                 isOverlayShown = true;
 
-                // Mulai pemantauan otomatis setiap 1 detik
+                // Tombol "Lanjutkan"
+                document.getElementById('adblock-proceed-btn').addEventListener('click', function() {
+                    sessionStorage.setItem('adblock_force_proceed', 'true');
+                    hideOverlay();
+                    showToast('✅ Anda melanjutkan tanpa iklan.', 'info');
+                });
+
+                // Mulai pemantauan otomatis
                 if (checkInterval) clearInterval(checkInterval);
                 checkInterval = setInterval(function() {
                     if (!isAdblockActive()) {
                         // Adblock sudah dimatikan!
                         hideOverlay();
+                        showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
                     }
-                }, 1000);
+                }, 1500);
             }
 
             function hideOverlay() {
@@ -1527,49 +1550,37 @@
                 // Hapus elemen uji
                 var t1 = document.getElementById('adblock-test-1');
                 if (t1) t1.parentNode.removeChild(t1);
-                var t2 = document.getElementById('adblock-test-2');
-                if (t2) t2.parentNode.removeChild(t2);
             }
 
             // ===== INISIALISASI =====
-            // Tunggu semua script termuat
             window.addEventListener('load', function() {
-                // Cek setelah 1 detik (biar script iklan sempat load)
+                // Tunggu 3 detik agar semua script iklan termuat
                 setTimeout(function() {
+                    // Jika user sudah memilih "Lanjutkan" sebelumnya, skip
+                    if (sessionStorage.getItem('adblock_force_proceed') === 'true') {
+                        console.log('⏩ User memilih lanjutkan, skip adblock check.');
+                        return;
+                    }
+
                     if (isAdblockActive()) {
                         showOverlay();
                     } else {
                         // Hapus elemen uji jika tidak ada adblock
                         var t1 = document.getElementById('adblock-test-1');
                         if (t1) t1.parentNode.removeChild(t1);
-                        var t2 = document.getElementById('adblock-test-2');
-                        if (t2) t2.parentNode.removeChild(t2);
                     }
-                }, 1000);
-            });
-
-            // Ekstra: jika user klik di mana saja, cek ulang
-            document.addEventListener('click', function() {
-                if (isOverlayShown && overlay && !isAdblockActive()) {
-                    hideOverlay();
-                }
+                }, 3000);
             });
 
             // Ekstra: cek saat window focus kembali
             document.addEventListener('visibilitychange', function() {
                 if (!document.hidden && isOverlayShown && overlay && !isAdblockActive()) {
                     hideOverlay();
+                    showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
                 }
             });
 
-            // Ekstra: scroll juga trigger check
-            document.addEventListener('scroll', function() {
-                if (isOverlayShown && overlay && !isAdblockActive()) {
-                    hideOverlay();
-                }
-            });
-
-            console.log('🛡️ Adblock detector aktif dengan 5 metode deteksi');
+            console.log('🛡️ Adblock detector aktif (dengan opsi lanjutkan)');
         })();
 
 
@@ -2017,7 +2028,7 @@
             initLoad();
         }
 
-        console.log('🎨 Wallpaper Gallery loaded with Share Link & Adblock detector (5 methods)');
+        console.log('🎨 Wallpaper Gallery loaded with Adblock fix + Proceed button');
     </script>
 
     <!-- ============================================================ -->
