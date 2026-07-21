@@ -50,77 +50,52 @@
         window.db = db;
     </script>
 
-    <!-- ===== DETEKSI ADBLOCK - METODE LANJUT ===== -->
+    <!-- ===== DETEKSI ADBLOCK CERDAS (AUTO-HILANG) ===== -->
     <script>
         (function() {
-            // ===== METODE 1: Cek apakah script iklan terblokir =====
             var adblockDetected = false;
+            var overlay = null;
+            var checkInterval = null;
 
-            // Cek apakah Adsterra terdefinisi (script popunder)
-            setTimeout(function() {
-                if (typeof Adsterra === 'undefined') {
-                    // Jika tidak terdefinisi, kemungkinan script diblokir
-                    adblockDetected = true;
-                    showAdblockWarning();
+            function isAdblockActive() {
+                // METODE 1: Cek elemen uji
+                var testDiv = document.getElementById('adblock-test');
+                if (!testDiv) {
+                    testDiv = document.createElement('div');
+                    testDiv.id = 'adblock-test';
+                    testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+                    testDiv.innerHTML = '&nbsp;';
+                    document.body.appendChild(testDiv);
                 }
-            }, 500);
-
-            // ===== METODE 2: Cek elemen uji =====
-            var testDiv = document.createElement('div');
-            testDiv.className = 'ad-container';
-            testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
-            testDiv.innerHTML = '&nbsp;';
-            document.body.appendChild(testDiv);
-
-            setTimeout(function() {
                 var rect = testDiv.getBoundingClientRect();
                 var isHidden = (rect.width === 0 && rect.height === 0) ||
                     (window.getComputedStyle(testDiv).display === 'none') ||
                     (window.getComputedStyle(testDiv).visibility === 'hidden') ||
                     (window.getComputedStyle(testDiv).opacity === '0');
 
-                if (isHidden) {
-                    adblockDetected = true;
-                    showAdblockWarning();
-                }
-                document.body.removeChild(testDiv);
-            }, 400);
+                // METODE 2: Cek apakah Adsterra terdefinisi
+                var isAdsterraBlocked = (typeof Adsterra === 'undefined');
 
-            // ===== METODE 3: Cek apakah banner iframe bisa dimuat =====
-            var bannerTest = document.createElement('div');
-            bannerTest.id = 'banner-test';
-            bannerTest.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
-            document.body.appendChild(bannerTest);
-
-            // Coba muat banner via iframe
-            var iframeTest = document.createElement('iframe');
-            iframeTest.width = 1;
-            iframeTest.height = 1;
-            iframeTest.src = 'https://www.highperformanceformat.com/invoke.js';
-            iframeTest.onerror = function() {
-                adblockDetected = true;
-                showAdblockWarning();
-            };
-            bannerTest.appendChild(iframeTest);
-
-            setTimeout(function() {
-                // Jika iframe tidak dimuat, deteksi
-                try {
-                    if (iframeTest.contentWindow === null) {
-                        adblockDetected = true;
-                        showAdblockWarning();
+                // METODE 3: Cek apakah iframe iklan bisa dimuat
+                var bannerTest = document.getElementById('banner-test-iframe');
+                var isBannerBlocked = false;
+                if (bannerTest) {
+                    try {
+                        if (bannerTest.contentWindow === null) {
+                            isBannerBlocked = true;
+                        }
+                    } catch (e) {
+                        isBannerBlocked = false;
                     }
-                } catch (e) {
-                    // Cross-origin, artinya iframe dimuat
                 }
-                document.body.removeChild(bannerTest);
-            }, 1000);
+
+                return isHidden || isAdsterraBlocked || isBannerBlocked;
+            }
 
             function showAdblockWarning() {
-                // Cek apakah overlay sudah ada
                 if (document.getElementById('adblock-overlay')) return;
 
-                var overlay = document.createElement('div');
+                overlay = document.createElement('div');
                 overlay.id = 'adblock-overlay';
                 overlay.style.cssText = `
                         position:fixed; inset:0; z-index:99999; 
@@ -128,45 +103,126 @@
                         display:flex; align-items:center; justify-content:center;
                         flex-direction:column; padding:2rem 1.5rem;
                         font-family:'Inter',sans-serif; color:#fff; text-align:center;
+                        animation:fadeIn 0.3s ease;
                     `;
                 overlay.innerHTML = `
                         <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
                             <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
                             <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
-                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:1rem;">
+                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:0.5rem;">
                                 Untuk mengakses galeri wallpaper dan menikmati fitur download, 
-                                harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda 
-                                di browser ini, lalu <strong style="color:#FFDD57;">refresh halaman</strong>.
+                                harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda.
                             </p>
-                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1.2rem;">
+                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1rem;">
                                 Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
                             </p>
-                            <button onclick="location.reload()" style="
-                                    padding:0.7rem 2rem; 
-                                    border:none; 
-                                    border-radius:10px; 
-                                    background:linear-gradient(145deg, #FFDD57, #f5c842); 
-                                    color:#0a0a0f; 
-                                    font-weight:700; 
-                                    font-size:0.9rem; 
-                                    cursor:pointer;
-                                    box-shadow:0 4px 20px rgba(255,221,87,0.25);
-                                    transition:all 0.3s ease;
-                                " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                <i class="fas fa-sync-alt"></i> Refresh Sekarang
-                            </button>
-                            <div style="margin-top:0.8rem; font-size:0.65rem; color:#6a6a7e;">
-                                Setelah mematikan AdBlock, klik tombol di atas.
+                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+                                <button onclick="location.reload()" style="
+                                        padding:0.7rem 2rem; 
+                                        border:none; 
+                                        border-radius:10px; 
+                                        background:linear-gradient(145deg, #FFDD57, #f5c842); 
+                                        color:#0a0a0f; 
+                                        font-weight:700; 
+                                        font-size:0.9rem; 
+                                        cursor:pointer;
+                                        box-shadow:0 4px 20px rgba(255,221,87,0.25);
+                                        transition:all 0.3s ease;
+                                    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                    <i class="fas fa-sync-alt"></i> Refresh Sekarang
+                                </button>
+                            </div>
+                            <div style="margin-top:0.5rem; font-size:0.6rem; color:#6a6a7e;">
+                                Atau matikan AdBlock, overlay akan hilang otomatis dalam beberapa detik.
                             </div>
                         </div>
                     `;
                 document.body.appendChild(overlay);
+
+                // Mulai pemantauan otomatis
+                if (checkInterval) clearInterval(checkInterval);
+                checkInterval = setInterval(function() {
+                    if (!isAdblockActive()) {
+                        hideOverlay();
+                    }
+                }, 1500);
             }
+
+            function hideOverlay() {
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                    overlay.style.transition = 'opacity 0.3s ease';
+                    setTimeout(function() {
+                        if (overlay && overlay.parentNode) {
+                            overlay.parentNode.removeChild(overlay);
+                        }
+                        overlay = null;
+                    }, 300);
+                }
+                if (checkInterval) {
+                    clearInterval(checkInterval);
+                    checkInterval = null;
+                }
+                // Hapus elemen uji
+                var testDiv = document.getElementById('adblock-test');
+                if (testDiv) testDiv.parentNode.removeChild(testDiv);
+                var bannerTest = document.getElementById('banner-test-iframe');
+                if (bannerTest) bannerTest.parentNode.removeChild(bannerTest);
+                var bannerContainer = document.getElementById('banner-test-container');
+                if (bannerContainer) bannerContainer.parentNode.removeChild(bannerContainer);
+            }
+
+            // ===== INISIALISASI =====
+            // Buat elemen uji
+            var testDiv = document.createElement('div');
+            testDiv.id = 'adblock-test';
+            testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+            testDiv.innerHTML = '&nbsp;';
+            document.body.appendChild(testDiv);
+
+            // Buat iframe uji
+            var bannerContainer = document.createElement('div');
+            bannerContainer.id = 'banner-test-container';
+            bannerContainer.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+            document.body.appendChild(bannerContainer);
+            var iframeTest = document.createElement('iframe');
+            iframeTest.id = 'banner-test-iframe';
+            iframeTest.width = 1;
+            iframeTest.height = 1;
+            iframeTest.src = 'https://www.highperformanceformat.com/invoke.js';
+            bannerContainer.appendChild(iframeTest);
+
+            // Tunggu sebentar lalu cek
+            setTimeout(function() {
+                if (isAdblockActive()) {
+                    showAdblockWarning();
+                } else {
+                    // Hapus elemen uji jika tidak ada adblock
+                    var t = document.getElementById('adblock-test');
+                    if (t) t.parentNode.removeChild(t);
+                    var b = document.getElementById('banner-test-container');
+                    if (b) b.parentNode.removeChild(b);
+                }
+            }, 800);
+
+            // Ekstra: jika user klik di mana saja, cek ulang (responsive)
+            document.addEventListener('click', function() {
+                if (overlay && !isAdblockActive()) {
+                    hideOverlay();
+                }
+            });
+
+            // Ekstra: cek saat window focus kembali (user pindah tab lalu kembali)
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden && overlay && !isAdblockActive()) {
+                    hideOverlay();
+                }
+            });
         })();
     </script>
 
     <style>
-        /* ===== SEMUA CSS SAMA PERSIS ===== */
+        /* ===== SEMUA CSS ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -1470,7 +1526,7 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT LENGKAP                                           -->
+    <!-- JAVASCRIPT UTAMA                                             -->
     <!-- ============================================================ -->
     <script>
         // ===== THEME TOGGLE =====
@@ -1909,17 +1965,17 @@
             initLoad();
         }
 
-        console.log('🎨 Wallpaper Gallery loaded with Share Link & Adblock detector');
+        console.log('🎨 Wallpaper Gallery loaded with Smart Adblock detector & Share Link');
     </script>
 
     <!-- ============================================================ -->
-    <!-- SERVICE WORKER                                               -->
+    <!-- SERVICE WORKER - UPDATE PINTAR                               -->
     <!-- ============================================================ -->
     <script>
         if ('serviceWorker' in navigator) {
             if (sessionStorage.getItem('sw_reloaded') === 'true') {
                 console.log('✅ SW sudah update di sesi ini, skip reload.');
-                setTimeout(() => {
+                setTimeout(function() {
                     sessionStorage.removeItem('sw_reloaded');
                 }, 10000);
             } else {
