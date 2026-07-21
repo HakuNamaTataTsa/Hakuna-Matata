@@ -7,7 +7,7 @@
     <!-- ===== PINTEREST VERIFICATION ===== -->
     <meta name="p:domain_verify" content="YOUR_PINTEREST_VERIFICATION_CODE"/>
 
-    <!-- ===== OPEN GRAPH TAGS UNTUK PINTEREST ===== -->
+    <!-- ===== OPEN GRAPH TAGS ===== -->
     <meta property="og:title" content="Wallpaper - Akino Store" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://akinoch.my.id/wallpaper-detail.html" />
@@ -23,6 +23,9 @@
     <meta name="twitter:title" content="Wallpaper - Akino Store" />
     <meta name="twitter:description" content="Download wallpaper gratis berkualitas tinggi." />
     <meta name="twitter:image" content="https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg" />
+
+    <!-- ===== CANONICAL URL ===== -->
+    <link rel="canonical" href="https://akinoch.my.id/wallpaper-detail.html" />
 
     <title>Detail Wallpaper - Akino Store</title>
     <link rel="icon" href="https://res.cloudinary.com/d39mdjct/image/upload/v1783478697/icon_tnzy32.ico" />
@@ -68,87 +71,129 @@
         window.db = db;
     </script>
 
-    <!-- ===== DETEKSI ADBLOCK ===== -->
+    <!-- ============================================================ -->
+    <!-- ===== ADBLOCK DETEKSI ===== -->
+    <!-- ============================================================ -->
     <script>
-        (function() {
-            var adblockDetected = false;
+        if (sessionStorage.getItem('adblock_proceed') !== 'true') {
+            document.addEventListener('DOMContentLoaded', function() {
+                var overlay = null;
+                var checkInterval = null;
+                var isOverlayShown = false;
 
-            setTimeout(function() {
-                if (typeof Adsterra === 'undefined') {
-                    adblockDetected = true;
-                    showAdblockWarning();
+                function isAdblockActive() {
+                    var el = document.getElementById('adblock-detector');
+                    if (el) {
+                        var rect = el.getBoundingClientRect();
+                        var style = window.getComputedStyle(el);
+                        var isHidden = (rect.width === 0 && rect.height === 0) ||
+                            style.display === 'none' ||
+                            style.visibility === 'hidden' ||
+                            style.opacity === '0';
+                        if (isHidden) return true;
+                    } else {
+                        return true;
+                    }
+                    if (typeof Adsterra === 'undefined') {
+                        return true;
+                    }
+                    return false;
                 }
-            }, 500);
 
-            var testDiv = document.createElement('div');
-            testDiv.className = 'ad-container';
-            testDiv.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
-            testDiv.innerHTML = '&nbsp;';
-            document.body.appendChild(testDiv);
-
-            setTimeout(function() {
-                var rect = testDiv.getBoundingClientRect();
-                var isHidden = (rect.width === 0 && rect.height === 0) ||
-                    (window.getComputedStyle(testDiv).display === 'none') ||
-                    (window.getComputedStyle(testDiv).visibility === 'hidden') ||
-                    (window.getComputedStyle(testDiv).opacity === '0');
-
-                if (isHidden) {
-                    adblockDetected = true;
-                    showAdblockWarning();
-                }
-                document.body.removeChild(testDiv);
-            }, 400);
-
-            function showAdblockWarning() {
-                if (document.getElementById('adblock-overlay')) return;
-                var overlay = document.createElement('div');
-                overlay.id = 'adblock-overlay';
-                overlay.style.cssText = `
+                function showOverlay() {
+                    if (document.getElementById('adblock-overlay')) return;
+                    overlay = document.createElement('div');
+                    overlay.id = 'adblock-overlay';
+                    overlay.style.cssText = `
                         position:fixed; inset:0; z-index:99999; 
                         background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
                         display:flex; align-items:center; justify-content:center;
                         flex-direction:column; padding:2rem 1.5rem;
                         font-family:'Inter',sans-serif; color:#fff; text-align:center;
+                        animation:fadeIn 0.3s ease;
                     `;
-                overlay.innerHTML = `
+                    overlay.innerHTML = `
                         <div style="max-width:480px; background:#1a1a2e; border-radius:16px; padding:2rem 1.5rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 20px 60px rgba(0,0,0,0.5);">
                             <div style="font-size:3rem; margin-bottom:0.5rem;">🛑</div>
                             <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">AdBlock Terdeteksi!</h2>
-                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:1rem;">
-                                Untuk mengakses wallpaper dan fitur download, 
-                                harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda 
-                                di browser ini, lalu <strong style="color:#FFDD57;">refresh halaman</strong>.
+                            <p style="font-size:0.9rem; color:#a0a0b0; line-height:1.6; margin-bottom:0.5rem;">
+                                Untuk mengakses wallpaper, harap <strong style="color:#FFDD57;">matikan AdBlock / AdBlocker</strong> Anda.
                             </p>
-                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1.2rem;">
+                            <p style="font-size:0.75rem; color:#6a6a7e; margin-bottom:1rem;">
                                 Iklan membantu kami tetap menyediakan wallpaper gratis untuk Anda. 🙏
                             </p>
-                            <button onclick="location.reload()" style="
-                                    padding:0.7rem 2rem; 
-                                    border:none; 
-                                    border-radius:10px; 
-                                    background:linear-gradient(145deg, #FFDD57, #f5c842); 
-                                    color:#0a0a0f; 
-                                    font-weight:700; 
-                                    font-size:0.9rem; 
-                                    cursor:pointer;
-                                    box-shadow:0 4px 20px rgba(255,221,87,0.25);
-                                    transition:all 0.3s ease;
-                                " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-                                <i class="fas fa-sync-alt"></i> Refresh Sekarang
-                            </button>
-                            <div style="margin-top:0.8rem; font-size:0.65rem; color:#6a6a7e;">
-                                Setelah mematikan AdBlock, klik tombol di atas.
+                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+                                <button onclick="location.reload()" style="padding:0.7rem 1.5rem; border:none; border-radius:10px; background:linear-gradient(145deg, #FFDD57, #f5c842); color:#0a0a0f; font-weight:700; font-size:0.9rem; cursor:pointer; box-shadow:0 4px 20px rgba(255,221,87,0.25); transition:all 0.3s ease;">
+                                    <i class="fas fa-sync-alt"></i> Refresh
+                                </button>
+                                <button id="adblock-proceed-btn" style="padding:0.7rem 1.5rem; border:1px solid rgba(255,255,255,0.15); border-radius:10px; background:rgba(255,255,255,0.05); color:#a0a0b0; font-weight:600; font-size:0.85rem; cursor:pointer; transition:all 0.3s ease;">
+                                    <i class="fas fa-arrow-right"></i> Lanjutkan
+                                </button>
                             </div>
+                            <div style="margin-top:0.5rem; font-size:0.6rem; color:#6a6a7e;">Jika yakin AdBlock sudah dimatikan, klik "Lanjutkan".</div>
                         </div>
                     `;
-                document.body.appendChild(overlay);
-            }
-        })();
+                    document.body.appendChild(overlay);
+                    isOverlayShown = true;
+
+                    document.getElementById('adblock-proceed-btn').addEventListener('click', function() {
+                        sessionStorage.setItem('adblock_proceed', 'true');
+                        hideOverlay();
+                        if (window.showToast) window.showToast('✅ Anda melanjutkan tanpa iklan.', 'info');
+                    });
+
+                    if (checkInterval) clearInterval(checkInterval);
+                    checkInterval = setInterval(function() {
+                        if (!isAdblockActive()) {
+                            hideOverlay();
+                            if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
+                        }
+                    }, 2000);
+                }
+
+                function hideOverlay() {
+                    if (overlay) {
+                        overlay.style.opacity = '0';
+                        overlay.style.transition = 'opacity 0.3s ease';
+                        setTimeout(function() {
+                            if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                            overlay = null;
+                        }, 300);
+                    }
+                    if (checkInterval) { clearInterval(checkInterval);
+                        checkInterval = null; }
+                    isOverlayShown = false;
+                }
+
+                var el = document.createElement('div');
+                el.id = 'adblock-detector';
+                el.className = 'ad-container';
+                el.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;';
+                el.innerHTML = '&nbsp;';
+                document.body.appendChild(el);
+
+                setTimeout(function() {
+                    if (isAdblockActive()) {
+                        showOverlay();
+                    } else {
+                        var detector = document.getElementById('adblock-detector');
+                        if (detector) detector.parentNode.removeChild(detector);
+                    }
+                }, 3000);
+
+                document.addEventListener('visibilitychange', function() {
+                    if (!document.hidden && isOverlayShown && overlay && !isAdblockActive()) {
+                        hideOverlay();
+                        if (window.showToast) window.showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
+                    }
+                });
+                console.log('🛡️ Adblock detector aktif');
+            });
+        }
     </script>
 
     <style>
-        /* ===== STYLE SAMA DENGAN WALLPAPER.HTML ===== */
+        /* ===== STYLE ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -1000,10 +1045,9 @@
     </footer>
 
     <!-- ============================================================ -->
-    <!-- JAVASCRIPT                                                   -->
+    <!-- JAVASCRIPT UTAMA                                             -->
     <!-- ============================================================ -->
     <script>
-        // ===== THEME TOGGLE =====
         var themeToggle = document.getElementById('themeToggle');
         var icon = themeToggle.querySelector('i');
         var currentTheme = localStorage.getItem('theme') || 'dark';
@@ -1018,7 +1062,6 @@
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
         });
 
-        // ===== NAVBAR SCROLL =====
         window.addEventListener('scroll', function() {
             document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
             var btn = document.getElementById('backToTop');
@@ -1029,7 +1072,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== HAMBURGER =====
         var hamburger = document.getElementById('hamburger');
         var mobileMenu = document.getElementById('mobileMenu');
         hamburger.addEventListener('click', function() {
@@ -1043,7 +1085,6 @@
             });
         });
 
-        // ===== TOAST =====
         var toastContainer = document.getElementById('toastContainer');
 
         function showToast(message, type) {
@@ -1059,20 +1100,41 @@
                 setTimeout(function() { toast.remove(); }, 300);
             }, 3500);
         }
+        window.showToast = showToast;
 
-        // ============================================================
-        // AMBIL PARAMETER ID DARI URL
-        // ============================================================
+        function updateOpenGraph(data) {
+            var title = data.title || 'Wallpaper - Akino Store';
+            var description = data.description || 'Download wallpaper gratis berkualitas tinggi.';
+            var imageUrl = data.imageUrl || 'https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg';
+            var url = window.location.href;
+
+            var ogTitle = document.querySelector('meta[property="og:title"]');
+            var ogDesc = document.querySelector('meta[property="og:description"]');
+            var ogImage = document.querySelector('meta[property="og:image"]');
+            var ogUrl = document.querySelector('meta[property="og:url"]');
+            var twitterTitle = document.querySelector('meta[name="twitter:title"]');
+            var twitterDesc = document.querySelector('meta[name="twitter:description"]');
+            var twitterImage = document.querySelector('meta[name="twitter:image"]');
+            var canonical = document.querySelector('link[rel="canonical"]');
+
+            if (ogTitle) ogTitle.setAttribute('content', title);
+            if (ogDesc) ogDesc.setAttribute('content', description);
+            if (ogImage) ogImage.setAttribute('content', imageUrl);
+            if (ogUrl) ogUrl.setAttribute('content', url);
+            if (twitterTitle) twitterTitle.setAttribute('content', title);
+            if (twitterDesc) twitterDesc.setAttribute('content', description);
+            if (twitterImage) twitterImage.setAttribute('content', imageUrl);
+            if (canonical) canonical.setAttribute('href', url);
+
+            document.title = title + ' - Akino Store';
+        }
+
         function getUrlParam(name) {
             var params = new URLSearchParams(window.location.search);
             return params.get(name);
         }
 
         var wallpaperId = getUrlParam('id');
-
-        // ============================================================
-        // RENDER HALAMAN
-        // ============================================================
         var contentArea = document.getElementById('contentArea');
 
         function renderLoading() {
@@ -1094,25 +1156,7 @@
             `;
         }
 
-        function updateOpenGraph(data) {
-            // Update OG tags secara dinamis
-            var title = data.title || 'Wallpaper - Akino Store';
-            var description = data.description || 'Download wallpaper gratis berkualitas tinggi.';
-            var imageUrl = data.imageUrl || 'https://res.cloudinary.com/d39mdjct/image/upload/v1783493763/og-default.jpg';
-            var url = window.location.href;
-
-            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
-            document.querySelector('meta[property="og:image"]').setAttribute('content', imageUrl);
-            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
-            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
-            document.querySelector('meta[name="twitter:description"]').setAttribute('content', description);
-            document.querySelector('meta[name="twitter:image"]').setAttribute('content', imageUrl);
-            document.title = title + ' - Akino Store';
-        }
-
         function renderDetail(wp) {
-            // Update Open Graph tags
             updateOpenGraph(wp);
 
             var isMobile = window.innerWidth < 768;
@@ -1174,7 +1218,6 @@
                 </div>
             `;
 
-            // ===== DOWNLOAD LOGIC =====
             var downloadBtn = document.getElementById('downloadBtn');
             var countdownBox = document.getElementById('countdownBox');
             var timerDisplay = document.getElementById('timerDisplay');
@@ -1286,7 +1329,6 @@
             return div.innerHTML;
         }
 
-        // ===== SHARE FUNCTIONS =====
         window.copyLink = function(url) {
             navigator.clipboard.writeText(url).then(function() {
                 showToast('✅ Link berhasil disalin!', 'success');
@@ -1317,9 +1359,6 @@
                 '&quote=' + encodeURIComponent('📸 ' + title), '_blank');
         };
 
-        // ============================================================
-        // LOAD DATA DARI FIRESTORE
-        // ============================================================
         function loadWallpaper() {
             if (!wallpaperId) {
                 renderNotFound();
