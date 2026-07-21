@@ -54,7 +54,6 @@
     <!-- ===== ADBLOCK DETEKSI STABIL + TOMBOL LANJUTKAN ============= -->
     <!-- ============================================================ -->
     <script>
-        // Cek apakah user sudah memilih "Lanjutkan" di sesi ini
         if (sessionStorage.getItem('adblock_proceed') === 'true') {
             console.log('⏩ User memilih lanjutkan, skip adblock check.');
         } else {
@@ -63,9 +62,7 @@
                 var checkInterval = null;
                 var isOverlayShown = false;
 
-                // ===== DETEKSI ADBLOCK (2 METODE STABIL) =====
                 function isAdblockActive() {
-                    // METODE 1: Elemen uji dengan class "ad-container"
                     var el = document.getElementById('adblock-detector');
                     if (el) {
                         var rect = el.getBoundingClientRect();
@@ -76,21 +73,16 @@
                             style.opacity === '0';
                         if (isHidden) return true;
                     } else {
-                        // Elemen hilang dari DOM (dihapus adblock)
                         return true;
                     }
-
-                    // METODE 2: Cek apakah Adsterra terdefinisi
                     if (typeof Adsterra === 'undefined') {
                         return true;
                     }
-
                     return false;
                 }
 
                 function showOverlay() {
                     if (document.getElementById('adblock-overlay')) return;
-
                     overlay = document.createElement('div');
                     overlay.id = 'adblock-overlay';
                     overlay.style.cssText = `
@@ -149,21 +141,17 @@
                     document.body.appendChild(overlay);
                     isOverlayShown = true;
 
-                    // Event tombol Lanjutkan
                     document.getElementById('adblock-proceed-btn').addEventListener('click', function() {
                         sessionStorage.setItem('adblock_proceed', 'true');
                         hideOverlay();
-                        // Tampilkan toast jika fungsi showToast tersedia
                         if (window.showToast) {
                             window.showToast('✅ Anda melanjutkan tanpa iklan.', 'info');
                         }
                     });
 
-                    // Mulai pemantauan otomatis setiap 2 detik
                     if (checkInterval) clearInterval(checkInterval);
                     checkInterval = setInterval(function() {
                         if (!isAdblockActive()) {
-                            // Adblock sudah dimatikan!
                             hideOverlay();
                             if (window.showToast) {
                                 window.showToast('✅ AdBlock dimatikan, iklan akan tampil.', 'success');
@@ -190,8 +178,6 @@
                     isOverlayShown = false;
                 }
 
-                // ===== INISIALISASI =====
-                // 1. Buat elemen uji
                 var el = document.createElement('div');
                 el.id = 'adblock-detector';
                 el.className = 'ad-container';
@@ -199,18 +185,15 @@
                 el.innerHTML = '&nbsp;';
                 document.body.appendChild(el);
 
-                // 2. Tunggu 3 detik agar semua script iklan termuat
                 setTimeout(function() {
                     if (isAdblockActive()) {
                         showOverlay();
                     } else {
-                        // Hapus elemen uji jika tidak ada adblock
                         var detector = document.getElementById('adblock-detector');
                         if (detector) detector.parentNode.removeChild(detector);
                     }
                 }, 3000);
 
-                // 3. Pantau saat window focus kembali
                 document.addEventListener('visibilitychange', function() {
                     if (!document.hidden && isOverlayShown && overlay && !isAdblockActive()) {
                         hideOverlay();
@@ -226,7 +209,6 @@
     </script>
 
     <style>
-        /* ===== SEMUA CSS SAMA PERSIS ===== */
         :root {
             --bg-primary: #0a0a12;
             --bg-secondary: #14141e;
@@ -451,11 +433,13 @@
             color: var(--accent);
             background: var(--accent-dim);
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 16px;
         }
+
         .wallpaper-hero {
             padding: 1.5rem 0 1rem;
             text-align: center;
@@ -473,6 +457,7 @@
             font-size: 0.9rem;
             margin-top: 0.2rem;
         }
+
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -683,6 +668,7 @@
             margin-right: 0.2rem;
             font-size: 0.5rem;
         }
+
         .loading-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -777,14 +763,6 @@
         }
         .load-more-btn.loading .btn-text {
             opacity: 0.6;
-        }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         .lightbox {
@@ -931,7 +909,6 @@
             font-size: 0.8rem;
         }
 
-        /* ===== TOMBOL SALIN LINK ===== */
         .lightbox .lb-actions .btn-share-link {
             padding: 0.5rem 1rem;
             border-radius: var(--radius-sm);
@@ -990,24 +967,6 @@
         .lightbox .lb-ad-container iframe {
             max-width: 100%;
             border: 0;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.92) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
         }
 
         .footer {
@@ -1180,16 +1139,6 @@
         }
         .toast.error i {
             color: #ef4444;
-        }
-        @keyframes slideInToast {
-            from {
-                opacity: 0;
-                transform: translateX(50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
         }
 
         body.light-theme {
@@ -1618,18 +1567,18 @@
         var isDownloading = false;
         var adLoaded = false;
 
-        // ===== SALIN LINK =====
+        // ===== SALIN LINK MENGGUNAKAN WORKER =====
         function copyWallpaperLink() {
             if (!currentWallpaper) {
                 showToast('❌ Tidak ada wallpaper yang dipilih.', 'error');
                 return;
             }
-            var baseUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
-            var detailUrl = baseUrl + 'wallpaper-detail.html?id=' + currentWallpaper.id;
+            var workerBase = 'https://wallpaperdownload.akinostore.workers.dev/';
+            var detailUrl = workerBase + '?id=' + currentWallpaper.id;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(detailUrl).then(function() {
-                    showToast('✅ Link wallpaper disalin!', 'success');
+                    showToast('✅ Link wallpaper (Worker) disalin!', 'success');
                 }).catch(function() {
                     fallbackCopy(detailUrl);
                 });
@@ -1645,7 +1594,7 @@
             input.select();
             document.execCommand('copy');
             document.body.removeChild(input);
-            showToast('✅ Link wallpaper disalin!', 'success');
+            showToast('✅ Link wallpaper (Worker) disalin!', 'success');
         }
 
         // ===== BUKA / TUTUP LIGHTBOX =====
@@ -1702,8 +1651,7 @@
 
             if (!adLoaded) {
                 var isMobile = window.innerWidth < 768;
-                var bannerKey = isMobile ? '6c6e6f1ff7f2f14058f50bc9cdf571dd' :
-                    'c32e372226ce234a827c9ece6ac77614';
+                var bannerKey = isMobile ? '6c6e6f1ff7f2f14058f50bc9cdf571dd' : 'c32e372226ce234a827c9ece6ac77614';
                 var bannerWidth = isMobile ? 320 : 468;
                 var bannerHeight = isMobile ? 50 : 60;
                 var iframe = document.createElement('iframe');
@@ -1757,8 +1705,7 @@
                                 var blobUrl = URL.createObjectURL(blob);
                                 link.href = blobUrl;
                                 var ext = blob.type === 'image/png' ? 'png' : 'jpg';
-                                var title = (currentWallpaper.title || 'wallpaper').replace(
-                                    /\s+/g, '_');
+                                var title = (currentWallpaper.title || 'wallpaper').replace(/\s+/g, '_');
                                 link.download = title + '.' + ext;
                                 document.body.appendChild(link);
                                 link.click();
@@ -1769,8 +1716,7 @@
                                 lbDownloadBtn.disabled = false;
                                 isDownloading = false;
                                 var newDownloads = (currentWallpaper.downloads || 0) + 1;
-                                lbMeta.textContent = newDownloads + ' downloads • ' + (currentWallpaper
-                                    .resolution || 'Auto');
+                                lbMeta.textContent = newDownloads + ' downloads • ' + (currentWallpaper.resolution || 'Auto');
                                 currentWallpaper.downloads = newDownloads;
                             })
                             .catch(function(err) {
@@ -1809,8 +1755,7 @@
             }
             if (!items || items.length === 0) {
                 if (!append) {
-                    grid.innerHTML =
-                        '<div class="empty-state"><i class="fas fa-image"></i><p>Belum ada wallpaper tersedia.</p></div>';
+                    grid.innerHTML = '<div class="empty-state"><i class="fas fa-image"></i><p>Belum ada wallpaper tersedia.</p></div>';
                 }
                 return;
             }
@@ -1821,11 +1766,9 @@
                 card.innerHTML =
                     '<div class="thumb-wrap"><img src="' + wp.imageUrl + '" alt="' + wp.title +
                     '" loading="lazy" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 600%22%3E%3Crect width=%22400%22 height=%22600%22 fill=%22%231a1a2e%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2220%22%3ENo%20Image%3C/text%3E%3C/svg%3E\'" /><div class="protect-overlay"></div><span class="badge-category">' +
-                    (wp.category || 'Uncategorized') + '</span><span class="badge-res">' + (wp.resolution ||
-                        'Auto') +
+                    (wp.category || 'Uncategorized') + '</span><span class="badge-res">' + (wp.resolution || 'Auto') +
                     '</span></div><div class="card-body"><h4>' + (wp.title || 'Untitled') +
-                    '</h4><div class="meta"><span class="download-count"><i class="fas fa-download"></i> ' + (wp
-                        .downloads || 0) + '</span></div></div>';
+                    '</h4><div class="meta"><span class="download-count"><i class="fas fa-download"></i> ' + (wp.downloads || 0) + '</span></div></div>';
                 card.addEventListener('click', function() {
                     var id = this.dataset.id;
                     var wpData = allLoadedWallpapers.find(function(w) { return w.id === id; });
@@ -1910,8 +1853,7 @@
                 loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
 
                 if (reset && docs.length === 0) {
-                    grid.innerHTML =
-                        '<div class="empty-state"><i class="fas fa-image"></i><p>Tidak ada wallpaper yang cocok.</p></div>';
+                    grid.innerHTML = '<div class="empty-state"><i class="fas fa-image"></i><p>Tidak ada wallpaper yang cocok.</p></div>';
                     loadMoreWrap.style.display = 'none';
                 }
             }).catch(function(err) {
@@ -1922,8 +1864,7 @@
                 loadMoreBtn.classList.remove('loading');
                 loadMoreBtn.querySelector('.btn-text').innerHTML = '<i class="fas fa-chevron-down"></i> Load More';
                 if (reset) {
-                    grid.innerHTML =
-                        '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Coba refresh.</p></div>';
+                    grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat wallpaper. Coba refresh.</p></div>';
                 }
             });
         }
@@ -1971,8 +1912,7 @@
 
         if (typeof db === 'undefined' || !db) {
             console.error('Firestore db not initialized');
-            grid.innerHTML =
-                '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Koneksi database gagal. Coba refresh.</p></div>';
+            grid.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Koneksi database gagal. Coba refresh.</p></div>';
             loadMoreWrap.style.display = 'none';
         } else {
             initLoad();
