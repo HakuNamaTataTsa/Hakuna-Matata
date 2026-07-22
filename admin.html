@@ -16,14 +16,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- ===== FIREBASE (harus di-load dulu) ===== -->
+    <!-- ===== FIREBASE ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <!-- ===== KONFIGURASI FIREBASE ===== -->
     <script>
-        // 🔥 Inisialisasi Firebase di sini, langsung di admin.html
         const firebaseConfig = {
             apiKey: "AIzaSyD4sgRYUhk08Y4oZPR4GXJbSuX1fHjXBtg",
             authDomain: "akinowedding-73271.firebaseapp.com",
@@ -33,15 +31,10 @@
             appId: "1:307666594440:web:e7d3496744464f4c6d0d3d"
         };
         firebase.initializeApp(firebaseConfig);
-
-        // 🔥 Buat db GLOBAL
         const auth = firebase.auth();
         const db = firebase.firestore();
-
-        // 🔥 Buat window.db agar bisa diakses dari mana saja
         window.db = db;
         window.auth = auth;
-
         console.log('✅ Firebase initialized, db ready');
     </script>
 
@@ -634,7 +627,7 @@
             <button class="tab-btn" onclick="switchTab('wallpaper')"><i class="fas fa-image"></i> Wallpaper</button>
         </div>
 
-        <!-- ===== TAB STOCK ===== -->
+        <!-- ===== TAB STOCK (sama persis) ===== -->
         <div class="tab-panel active" id="tabStock">
             <div class="stats" id="stockStats"></div>
             <div class="search-bar">
@@ -746,7 +739,7 @@
             <div id="pagDel"></div>
         </div>
 
-        <!-- ===== TAB LIMITED ===== -->
+        <!-- ===== TAB LIMITED (sama) ===== -->
         <div class="tab-panel" id="tabLimited">
             <div class="stats" id="secretStats"></div>
             <div class="form-card">
@@ -771,14 +764,14 @@
             <div id="scListDel"></div>
         </div>
 
-        <!-- ===== TAB SOSMED ===== -->
+        <!-- ===== TAB SOSMED (sama) ===== -->
         <div class="tab-panel" id="tabSosmed">
             <div class="stats" id="sosmedStats"></div>
             <div class="filter-row" id="sosmedFilter"></div>
             <div id="sosmedList"></div>
         </div>
 
-        <!-- ===== TAB WALLPAPER ===== -->
+        <!-- ===== TAB WALLPAPER (dengan fitur Pin Queue) ===== -->
         <div class="tab-panel" id="tabWallpaper">
             <div class="stats" id="wpStats"></div>
             <div class="form-card" id="uploadForm">
@@ -820,13 +813,21 @@
                     <button class="btn-primary" id="wpGenerateBtn" style="background:#8b5cf6;color:#fff;"><i class="fas fa-magic"></i> Generate Manual (Tema)</button>
                 </div>
             </div>
+
+            <!-- Daftar wallpaper -->
             <div class="sec-title"><i class="fas fa-images"></i> Daftar Wallpaper <span class="count" id="wpCnt">0</span></div>
             <div id="wpListContainer"><div class="empty"><i class="fas fa-spinner fa-spin"></i> Memuat...</div></div>
+
+            <!-- ===== ANTRIAN PIN KE PINTEREST ===== -->
+            <div style="margin-top:1.5rem;">
+                <div class="sec-title"><i class="fab fa-pinterest" style="color:#E60023;"></i> Antrian Pin ke Pinterest <span class="count" id="pinQueueCount">0</span></div>
+                <div id="pinQueueList"></div>
+            </div>
         </div>
         <!-- ===== END WALLPAPER ===== -->
     </div>
 
-    <!-- ===== MODALS ===== -->
+    <!-- ===== MODALS (sama) ===== -->
     <div class="modal-overlay" id="batchAddModal">
         <div class="modal-box">
             <h3><i class="fas fa-layer-group"></i> Tambah Stock Batch</h3>
@@ -924,9 +925,12 @@
 
     <div class="toast-wrap" id="toasts"></div>
 
+    <!-- ============================================================ -->
+    <!-- SCRIPT UTAMA (semua fungsi admin + wallpaper + pin queue)     -->
+    <!-- ============================================================ -->
     <script>
         // ============================================================
-        // ADMIN LOGIN + GLOBAL FUNCTIONS
+        // ADMIN LOGIN + GLOBAL
         // ============================================================
         var PASS = 'bajingan011';
         var sosmedFilter = 'all';
@@ -960,9 +964,9 @@
             if (document.getElementById('passInput').value.trim() === PASS) {
                 document.getElementById('loginWrap').style.display = 'none';
                 document.getElementById('dash').classList.add('active');
-                // Panggil init setelah login
                 if (window.initStock) window.initStock();
                 if (window.loadWallpapers) setTimeout(window.loadWallpapers, 300);
+                if (window.renderPinQueue) setTimeout(window.renderPinQueue, 400);
             } else { document.getElementById('loginErr').textContent = 'Password salah!'; }
         }
 
@@ -981,8 +985,9 @@
             document.getElementById('tabLimited').classList.toggle('active', tab === 'limited');
             document.getElementById('tabSosmed').classList.toggle('active', tab === 'sosmed');
             document.getElementById('tabWallpaper').classList.toggle('active', tab === 'wallpaper');
-            if (tab === 'wallpaper' && window.loadWallpapers) {
+            if (tab === 'wallpaper') {
                 setTimeout(window.loadWallpapers, 200);
+                setTimeout(window.renderPinQueue, 300);
             }
         }
 
@@ -1118,20 +1123,15 @@
         }
         window.onOrderUpdated = function() { toast('Status pesanan berhasil diupdate', 'ok') };
         window.onOrderUpdateError = function(err) { toast('Gagal update: ' + err, 'err') };
-    </script>
 
-    <!-- ============================================================ -->
-    <!-- MODUL STOCK, SECRET, SOSMED (sama persis dengan admin.html asli) -->
-    <!-- ============================================================ -->
-    <script>
-        // ===== MODUL STOCK (menggunakan db global) =====
+        // ============================================================
+        // MODUL STOCK (dari asli)
+        // ============================================================
         (function() {
-            // Pastikan db tersedia
             if (typeof db === 'undefined') {
                 console.error('db tidak tersedia!');
                 return;
             }
-
             var SOLD_HOURS = 24,
                 POSTS = [],
                 editIdx = null,
@@ -2374,7 +2374,7 @@
             }, (err) => { console.error("Stock listener error:", err) });
 
             // ============================================================
-            // SECRET CAR
+            // SECRET CAR (sama seperti asli)
             // ============================================================
             var CARS = [],
                 scEditIdx = null,
@@ -2537,7 +2537,7 @@
                 renderSecretCars() }, (err) => { console.error("Secret cars listener error:", err) });
 
             // ============================================================
-            // SOSMED
+            // SOSMED (sama)
             // ============================================================
             var ORDERS_COL = "orders";
             db.collection(ORDERS_COL).orderBy("createdAt", "desc").onSnapshot((snap) => { var orders = [];
@@ -2566,13 +2566,32 @@
                     btnEl.disabled = false;
                     btnEl.innerHTML = origText } };
         })();
-    </script>
 
-    <!-- ============================================================ -->
-    <!-- WALLPAPER MODULE (FULL) - di sini semua fungsi wallpaper -->
-    <!-- ============================================================ -->
-    <script>
-        // ===== WALLPAPER FUNCTIONS (menggunakan db GLOBAL) =====
+        function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+            toast('✅ Link disalin: ' + text, 'ok');
+        }).catch(function() {
+            fallbackCopy(text);
+        });
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    var input = document.createElement('input');
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    toast('✅ Link disalin: ' + text, 'ok');
+}
+
+        // ============================================================
+        // WALLPAPER + PIN QUEUE
+        // ============================================================
         (function() {
             if (typeof db === 'undefined') {
                 console.error('db tidak tersedia untuk wallpaper!');
@@ -2595,77 +2614,159 @@
             }
 
             window.loadWallpapers = function() {
-                const container = document.getElementById('wpListContainer');
-                const cntEl = document.getElementById('wpCnt');
+    const container = document.getElementById('wpListContainer');
+    const cntEl = document.getElementById('wpCnt');
 
-                if (!db) {
-                    console.warn('db belum siap');
-                    container.innerHTML =
-                        `<div class="empty"><i class="fas fa-spinner fa-spin"></i> Menunggu database...</div>`;
-                    return;
-                }
+    if (!db) {
+        console.warn('db belum siap');
+        container.innerHTML =
+            `<div class="empty"><i class="fas fa-spinner fa-spin"></i> Menunggu database...</div>`;
+        return;
+    }
 
-                db.collection('wallpapers')
-                    .orderBy('createdAt', 'desc')
-                    .get()
-                    .then(function(snapshot) {
-                        if (snapshot.empty) {
-                            container.innerHTML =
-                                `<div class="empty"><i class="fas fa-image"></i> Belum ada wallpaper.</div>`;
-                            cntEl.textContent = '0';
-                            return;
-                        }
-                        let html = '';
-                        let count = 0;
-                        snapshot.forEach(function(doc) {
-                            const data = doc.data();
-                            html += `
-                                <div class="wp-list-item">
-                                    <img src="${data.imageUrl}" alt="${data.title}" class="wp-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2212%22%3ENo%20Image%3C/text%3E%3C/svg%3E'" />
-                                    <div class="info">
-                                        <h4>${data.title}</h4>
-                                        <span>${data.category} • ${data.resolution || 'Auto'} • ${data.downloads || 0} downloads</span>
-                                    </div>
-                                    <button class="btn-del" data-id="${doc.id}"><i class="fas fa-trash-alt"></i></button>
-                                </div>
-                            `;
-                            count++;
-                        });
-                        container.innerHTML = html;
-                        cntEl.textContent = count;
+    db.collection('wallpapers')
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then(function(snapshot) {
+            if (snapshot.empty) {
+                container.innerHTML =
+                    `<div class="empty"><i class="fas fa-image"></i> Belum ada wallpaper.</div>`;
+                cntEl.textContent = '0';
+                if (window.renderPinQueue) window.renderPinQueue();
+                return;
+            }
+            let html = '';
+            let count = 0;
+            const origin = window.location.origin;
+            snapshot.forEach(function(doc) {
+                const data = doc.data();
+                const detailUrl = origin + '/wallpaper-detail.html?id=' + doc.id;
+                html += `
+                    <div class="wp-list-item">
+                        <img src="${data.imageUrl}" alt="${data.title}" class="wp-thumb" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23222%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23555%22 font-size=%2212%22%3ENo%20Image%3C/text%3E%3C/svg%3E'" />
+                        <div class="info">
+                            <h4>${data.title}</h4>
+                            <span>${data.category} • ${data.resolution || 'Auto'} • ${data.downloads || 0} downloads</span>
+                        </div>
+                        <button class="btn-sm" style="background:transparent;border:1px solid var(--border);color:var(--fg-muted);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;cursor:pointer;" onclick="copyToClipboard('${detailUrl}')" title="Salin link wallpaper">
+                            <i class="fas fa-copy"></i> Salin Link
+                        </button>
+                        <button class="btn-del" data-id="${doc.id}"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                `;
+                count++;
+            });
+            container.innerHTML = html;
+            cntEl.textContent = count;
 
-                        // Event listener delete
-                        container.querySelectorAll('.btn-del').forEach(function(btn) {
-                            btn.addEventListener('click', function() {
-                                const id = this.dataset.id;
-                                if (confirm('Hapus wallpaper ini?')) {
-                                    db.collection('wallpapers').doc(id).delete()
-                                        .then(function() {
-                                            toast('✅ Wallpaper dihapus.', 'ok');
-                                            window.loadWallpapers();
-                                        })
-                                        .catch(function(err) {
-                                            toast('❌ Gagal hapus: ' + err.message, 'err');
-                                        });
-                                }
+            container.querySelectorAll('.btn-del').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    if (confirm('Hapus wallpaper ini?')) {
+                        db.collection('wallpapers').doc(id).delete()
+                            .then(function() {
+                                toast('✅ Wallpaper dihapus.', 'ok');
+                                window.loadWallpapers();
+                                if (window.renderPinQueue) window.renderPinQueue();
+                            })
+                            .catch(function(err) {
+                                toast('❌ Gagal hapus: ' + err.message, 'err');
                             });
-                        });
+                    }
+                });
+            });
 
-                        // Stats
-                        const statsEl = document.getElementById('wpStats');
-                        if (statsEl) {
-                            statsEl.innerHTML = `
-                                <div class="stat-card"><div class="sv yellow">${count}</div><div class="sl">Total Wallpaper</div></div>
-                                <div class="stat-card"><div class="sv green">${count}</div><div class="sl">Tersedia</div></div>
-                                <div class="stat-card"><div class="sv blue">${count}</div><div class="sl">Downloads</div></div>
-                            `;
-                        }
-                    })
-                    .catch(function(err) {
-                        console.error('Error loading wallpapers:', err);
-                        container.innerHTML =
-                            `<div class="empty"><i class="fas fa-exclamation-triangle"></i> Gagal memuat: ${err.message}</div>`;
-                    });
+            const statsEl = document.getElementById('wpStats');
+            if (statsEl) {
+                statsEl.innerHTML = `
+                    <div class="stat-card"><div class="sv yellow">${count}</div><div class="sl">Total Wallpaper</div></div>
+                    <div class="stat-card"><div class="sv green">${count}</div><div class="sl">Tersedia</div></div>
+                    <div class="stat-card"><div class="sv blue">${count}</div><div class="sl">Downloads</div></div>
+                `;
+            }
+            if (window.renderPinQueue) window.renderPinQueue();
+        })
+        .catch(function(err) {
+            console.error('Error loading wallpapers:', err);
+            container.innerHTML =
+                `<div class="empty"><i class="fas fa-exclamation-triangle"></i> Gagal memuat: ${err.message}</div>`;
+        });
+};
+
+            window.renderPinQueue = function() {
+    const container = document.getElementById('pinQueueList');
+    const countEl = document.getElementById('pinQueueCount');
+
+    if (!db) {
+        container.innerHTML = `<div class="empty" style="color:#f87171;">Database tidak siap</div>`;
+        return;
+    }
+
+    db.collection('wallpapers')
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then((snapshot) => {
+            let html = '';
+            let count = 0;
+            const origin = window.location.origin;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                if (!data.pinned) {
+                    count++;
+                    const title = data.title || 'Untitled';
+                    const imageUrl = data.imageUrl;
+                    const desc = data.description || title;
+                    const detailUrl = origin + '/wallpaper-detail.html?id=' + doc.id;
+                    const pinUrl =
+                        `https://www.pinterest.com/pin/create/button/?media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(title + '\n' + desc)}`;
+
+                    html += `
+                        <div class="wp-list-item" style="border-bottom:1px solid var(--border-color); padding:0.5rem 0;">
+                            <img src="${imageUrl}" class="wp-thumb" style="width:40px;height:40px;object-fit:cover;border-radius:4px;" />
+                            <div class="info" style="flex:1;margin-left:0.5rem;">
+                                <h4 style="font-size:0.8rem;">${title}</h4>
+                            </div>
+                            <button class="btn-sm" style="background:transparent;border:1px solid var(--border);color:var(--fg-muted);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;cursor:pointer;" onclick="copyToClipboard('${detailUrl}')" title="Salin link wallpaper">
+                                <i class="fas fa-copy"></i> Salin Link
+                            </button>
+                            <a href="${pinUrl}" target="_blank" class="btn-sm" style="background:#E60023;color:#fff;padding:0.3rem 0.8rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;border:none;text-decoration:none;">
+                                <i class="fab fa-pinterest"></i> Pin
+                            </a>
+                            <button onclick="markAsPinned('${doc.id}')" style="background:transparent;border:none;color:var(--fg-muted);font-size:0.6rem;cursor:pointer;margin-left:0.3rem;" title="Tandai sudah dipin">✅</button>
+                        </div>
+                    `;
+                }
+            });
+
+            countEl.textContent = count;
+            if (count === 0) {
+                container.innerHTML =
+                    `<div class="empty" style="padding:0.5rem 0;font-size:0.7rem;"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Semua wallpaper sudah di-pin!</div>`;
+            } else {
+                container.innerHTML = html;
+            }
+        })
+        .catch(err => {
+            console.error('Error loading pin queue:', err);
+            container.innerHTML =
+                `<div class="empty" style="color:#f87171;">Gagal muat antrian</div>`;
+        });
+};
+
+            // Fungsi untuk menandai sudah dipin (update Firestore)
+            window.markAsPinned = function(docId) {
+                if (confirm('Tandai wallpaper ini sudah di-pin ke Pinterest?')) {
+                    db.collection('wallpapers').doc(docId).update({
+                            pinned: true
+                        })
+                        .then(() => {
+                            toast('✅ Ditandai sudah di-pin!', 'ok');
+                            if (window.renderPinQueue) window.renderPinQueue();
+                        })
+                        .catch(err => {
+                            toast('❌ Gagal: ' + err.message, 'err');
+                        });
+                }
             };
 
             // ===== AUTO DETECT =====
@@ -2783,6 +2884,7 @@
                     imageUrl: imageUrl,
                     resolution: resolution,
                     downloads: 0,
+                    pinned: false, // tambahan field untuk pin queue
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 })
                 .then(function() {
@@ -2791,6 +2893,7 @@
                     document.getElementById('wpDesc').value = '';
                     document.getElementById('wpImage').value = '';
                     if (window.loadWallpapers) window.loadWallpapers();
+                    if (window.renderPinQueue) window.renderPinQueue();
                 })
                 .catch(function(err) {
                     toast('❌ Gagal upload: ' + err.message, 'err');
@@ -2805,12 +2908,13 @@
             // ===== LOAD AWAL =====
             if (document.getElementById('dash').classList.contains('active')) {
                 setTimeout(window.loadWallpapers, 500);
+                setTimeout(window.renderPinQueue, 600);
             }
         })();
-    </script>
 
-    <!-- ===== SERVICE WORKER ===== -->
-    <script>
+        // ============================================================
+        // SERVICE WORKER (sama)
+        // ============================================================
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')

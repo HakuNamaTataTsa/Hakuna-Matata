@@ -1569,23 +1569,32 @@
 
         // ===== SALIN LINK MENGGUNAKAN WORKER =====
         function copyWallpaperLink() {
-            if (!currentWallpaper) {
-                showToast('❌ Tidak ada wallpaper yang dipilih.', 'error');
-                return;
-            }
-            var workerBase = 'https://wallpaperdownload.akinostore.workers.dev/';
-            var detailUrl = workerBase + '?id=' + currentWallpaper.id;
+    if (!currentWallpaper) {
+        showToast('❌ Tidak ada wallpaper yang dipilih.', 'error');
+        return;
+    }
+    var detailUrl = window.location.origin + '/wallpaper-detail.html?id=' + currentWallpaper.id;
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(detailUrl).then(function() {
-                    showToast('✅ Link wallpaper (Worker) disalin!', 'success');
-                }).catch(function() {
-                    fallbackCopy(detailUrl);
-                });
-            } else {
-                fallbackCopy(detailUrl);
-            }
-        }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(detailUrl).then(function() {
+            showToast('✅ Link wallpaper (detail) disalin!', 'success');
+        }).catch(function() {
+            fallbackCopy(detailUrl);
+        });
+    } else {
+        fallbackCopy(detailUrl);
+    }
+}
+
+function fallbackCopy(text) {
+    var input = document.createElement('input');
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    showToast('✅ Link wallpaper (detail) disalin!', 'success');
+}
 
         function fallbackCopy(text) {
             var input = document.createElement('input');
