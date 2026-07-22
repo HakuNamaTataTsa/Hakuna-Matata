@@ -2840,79 +2840,66 @@
 
             // ===== PIN QUEUE =====
             window.renderPinQueue = function() {
-                const container = document.getElementById('pinQueueList');
-                const countEl = document.getElementById('pinQueueCount');
+    const container = document.getElementById('pinQueueList');
+    const countEl = document.getElementById('pinQueueCount');
 
-                if (!db) {
-                    container.innerHTML = `<div class="empty" style="color:#f87171;">Database tidak siap</div>`;
-                    return;
+    if (!db) {
+        container.innerHTML = `<div class="empty" style="color:#f87171;">Database tidak siap</div>`;
+        return;
+    }
+
+    db.collection('wallpapers')
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then((snapshot) => {
+            let html = '';
+            let count = 0;
+            const origin = window.location.origin;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                if (!data.pinned) {
+                    count++;
+                    const title = data.title || 'Untitled';
+                    const imageUrl = data.imageUrl;
+                    const desc = data.description || title;
+                    const detailUrl = origin + '/wallpaper-detail.html?id=' + doc.id;
+                    // ===== PERUBAHAN: tambahkan &url=detailUrl =====
+                    const pinUrl =
+                        `https://www.pinterest.com/pin/create/button/?media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(title + '\n' + desc)}&url=${encodeURIComponent(detailUrl)}`;
+
+                    html += `
+                        <div class="wp-list-item" style="border-bottom:1px solid var(--border-color); padding:0.5rem 0;">
+                            <img src="${imageUrl}" class="wp-thumb" style="width:40px;height:40px;object-fit:cover;border-radius:4px;" />
+                            <div class="info" style="flex:1;margin-left:0.5rem;">
+                                <h4 style="font-size:0.8rem;">${title}</h4>
+                            </div>
+                            <button class="btn-sm" style="background:transparent;border:1px solid var(--border);color:var(--fg-muted);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;cursor:pointer;" onclick="copyToClipboard('${detailUrl}')" title="Salin link wallpaper">
+                                <i class="fas fa-copy"></i> Salin Link
+                            </button>
+                            <!-- ===== PERUBAHAN: tombol Pin pakai popup ===== -->
+                            <a href="#" onclick="window.open('${pinUrl}','pinwin','width=750,height=700,scrollbars=yes');return false;" class="btn-sm" style="background:#E60023;color:#fff;padding:0.3rem 0.8rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;border:none;text-decoration:none;">
+                                <i class="fab fa-pinterest"></i> Pin
+                            </a>
+                            <button onclick="markAsPinned('${doc.id}')" style="background:transparent;border:none;color:var(--fg-muted);font-size:0.6rem;cursor:pointer;margin-left:0.3rem;" title="Tandai sudah dipin">✅</button>
+                        </div>
+                    `;
                 }
+            });
 
-                db.collection('wallpapers')
-                    .orderBy('createdAt', 'desc')
-                    .get()
-                    .then((snapshot) => {
-                        let html = '';
-                        let count = 0;
-                        const origin = window.location.origin;
-                        snapshot.forEach((doc) => {
-                            const data = doc.data();
-                            if (!data.pinned) {
-                                count++;
-                                const title = data.title || 'Untitled';
-                                const imageUrl = data.imageUrl;
-                                const desc = data.description || title;
-                                const detailUrl = origin + '/wallpaper-detail.html?id=' + doc.id;
-                                const pinUrl =
-                                    `https://www.pinterest.com/pin/create/button/?media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(title + '\n' + desc)}`;
-
-                                html += `
-                                    <div class="wp-list-item" style="border-bottom:1px solid var(--border-color); padding:0.5rem 0;">
-                                        <img src="${imageUrl}" class="wp-thumb" style="width:40px;height:40px;object-fit:cover;border-radius:4px;" />
-                                        <div class="info" style="flex:1;margin-left:0.5rem;">
-                                            <h4 style="font-size:0.8rem;">${title}</h4>
-                                        </div>
-                                        <button class="btn-sm" style="background:transparent;border:1px solid var(--border);color:var(--fg-muted);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;cursor:pointer;" onclick="copyToClipboard('${detailUrl}')" title="Salin link wallpaper">
-                                            <i class="fas fa-copy"></i> Salin Link
-                                        </button>
-                                        <a href="${pinUrl}" target="_blank" class="btn-sm" style="background:#E60023;color:#fff;padding:0.3rem 0.8rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;border:none;text-decoration:none;">
-                                            <i class="fab fa-pinterest"></i> Pin
-                                        </a>
-                                        <button onclick="markAsPinned('${doc.id}')" style="background:transparent;border:none;color:var(--fg-muted);font-size:0.6rem;cursor:pointer;margin-left:0.3rem;" title="Tandai sudah dipin">✅</button>
-                                    </div>
-                                `;
-                            }
-                        });
-
-                        countEl.textContent = count;
-                        if (count === 0) {
-                            container.innerHTML =
-                                `<div class="empty" style="padding:0.5rem 0;font-size:0.7rem;"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Semua wallpaper sudah di-pin!</div>`;
-                        } else {
-                            container.innerHTML = html;
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Error loading pin queue:', err);
-                        container.innerHTML =
-                            `<div class="empty" style="color:#f87171;">Gagal muat antrian</div>`;
-                    });
-            };
-
-            window.markAsPinned = function(docId) {
-                if (confirm('Tandai wallpaper ini sudah di-pin ke Pinterest?')) {
-                    db.collection('wallpapers').doc(docId).update({
-                            pinned: true
-                        })
-                        .then(() => {
-                            toast('✅ Ditandai sudah di-pin!', 'ok');
-                            if (window.renderPinQueue) window.renderPinQueue();
-                        })
-                        .catch(err => {
-                            toast('❌ Gagal: ' + err.message, 'err');
-                        });
-                }
-            };
+            countEl.textContent = count;
+            if (count === 0) {
+                container.innerHTML =
+                    `<div class="empty" style="padding:0.5rem 0;font-size:0.7rem;"><i class="fas fa-check-circle" style="color:#4ade80;"></i> Semua wallpaper sudah di-pin!</div>`;
+            } else {
+                container.innerHTML = html;
+            }
+        })
+        .catch(err => {
+            console.error('Error loading pin queue:', err);
+            container.innerHTML =
+                `<div class="empty" style="color:#f87171;">Gagal muat antrian</div>`;
+        });
+};
 
             // ===== UPLOAD KE FIRESTORE =====
             document.getElementById('wpUploadBtn').addEventListener('click', async function() {
