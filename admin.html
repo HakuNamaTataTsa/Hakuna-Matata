@@ -39,6 +39,9 @@
     </script>
 
     <style>
+        /* ============================================================
+           STYLE LENGKAP (sama seperti sebelumnya)
+           ============================================================ */
         * { margin:0; padding:0; box-sizing:border-box }
         :root {
             --bg: #07070d;
@@ -596,6 +599,7 @@
         <div class="glow glow-3"></div>
     </div>
 
+    <!-- LOGIN -->
     <div class="login-wrap" id="loginWrap">
         <div class="login-card">
             <div class="lc-icon"><i class="fas fa-shield-halved"></i></div>
@@ -607,6 +611,7 @@
         </div>
     </div>
 
+    <!-- DASHBOARD -->
     <div class="dash" id="dash">
         <div class="topbar" id="topbar">
             <div class="topbar-inner">
@@ -619,6 +624,7 @@
             </div>
         </div>
 
+        <!-- TABS -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('stock')"><i class="fas fa-car"></i> Stock Mobil</button>
             <button class="tab-btn" onclick="switchTab('limited')"><i class="fas fa-star"></i> Secret Car</button>
@@ -626,7 +632,9 @@
             <button class="tab-btn" onclick="switchTab('wallpaper')"><i class="fas fa-image"></i> Wallpaper</button>
         </div>
 
-        <!-- ===== TAB STOCK ===== -->
+        <!-- ============================================================
+             TAB STOCK
+             ============================================================ -->
         <div class="tab-panel active" id="tabStock">
             <div class="stats" id="stockStats"></div>
             <div class="search-bar">
@@ -680,6 +688,7 @@
                 </div>
             </div>
 
+            <!-- Edit Harga -->
             <div class="edit-card" id="editCard" style="display:none">
                 <h4><i class="fas fa-pen-to-square"></i> Edit Harga</h4>
                 <div class="fr"><label>Item</label><input type="text" id="editName" readonly /></div>
@@ -688,6 +697,7 @@
                 <div class="ea"><button class="btn-save" onclick="savePrice()"><i class="fas fa-check"></i> Simpan</button><button class="btn-cancel" onclick="cancelPrice()"><i class="fas fa-xmark"></i> Batal</button></div>
             </div>
 
+            <!-- Edit Deskripsi -->
             <div class="edit-card" id="editDescCard" style="display:none;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.04)">
                 <h4 style="color:#60a5fa"><i class="fas fa-pen-to-square"></i> Edit Deskripsi</h4>
                 <div class="fr"><label>Item</label><input type="text" id="editDescName" readonly /></div>
@@ -696,6 +706,7 @@
                 <div class="ea"><button class="btn-save" onclick="saveDesc()" style="background:#60a5fa;color:#0a0a0f"><i class="fas fa-check"></i> Simpan</button><button class="btn-cancel" onclick="cancelDescEdit()"><i class="fas fa-xmark"></i> Batal</button></div>
             </div>
 
+            <!-- Batch Bar -->
             <div class="batch-bar empty" id="batchBar">
                 <label class="bb-select-all">
                     <input type="checkbox" id="selectAllCheck" onchange="toggleSelectAll()" />
@@ -723,6 +734,7 @@
                 </button>
             </div>
 
+            <!-- Daftar Stock -->
             <div class="sec-title"><i class="fas fa-check-circle"></i> Tersedia <span class="count" id="cntAvail">0</span></div>
             <div id="listAvail"></div>
             <div id="pagAvail"></div>
@@ -738,7 +750,9 @@
             <div id="pagDel"></div>
         </div>
 
-        <!-- ===== TAB LIMITED ===== -->
+        <!-- ============================================================
+             TAB LIMITED (SECRET CAR)
+             ============================================================ -->
         <div class="tab-panel" id="tabLimited">
             <div class="stats" id="secretStats"></div>
             <div class="form-card">
@@ -763,14 +777,18 @@
             <div id="scListDel"></div>
         </div>
 
-        <!-- ===== TAB SOSMED ===== -->
+        <!-- ============================================================
+             TAB SOSMED
+             ============================================================ -->
         <div class="tab-panel" id="tabSosmed">
             <div class="stats" id="sosmedStats"></div>
             <div class="filter-row" id="sosmedFilter"></div>
             <div id="sosmedList"></div>
         </div>
 
-        <!-- ===== TAB WALLPAPER ===== -->
+        <!-- ============================================================
+             TAB WALLPAPER
+             ============================================================ -->
         <div class="tab-panel" id="tabWallpaper">
             <div class="stats" id="wpStats"></div>
             <div class="form-card" id="uploadForm">
@@ -820,18 +838,23 @@
                 </div>
             </div>
 
+            <!-- Daftar Wallpaper -->
             <div class="sec-title"><i class="fas fa-images"></i> Daftar Wallpaper <span class="count" id="wpCnt">0</span></div>
             <div id="wpListContainer"><div class="empty"><i class="fas fa-spinner fa-spin"></i> Memuat...</div></div>
 
+            <!-- ANTRIAN PIN PINTEREST -->
             <div style="margin-top:1.5rem;">
                 <div class="sec-title"><i class="fab fa-pinterest" style="color:#E60023;"></i> Antrian Pin ke Pinterest <span class="count" id="pinQueueCount">0</span></div>
                 <div id="pinQueueList"></div>
             </div>
         </div>
-        <!-- END WALLPAPER -->
+        <!-- END TAB WALLPAPER -->
     </div>
 
-    <!-- ===== MODALS ===== -->
+    <!-- ============================================================
+         MODALS
+         ============================================================ -->
+    <!-- Batch Add Modal -->
     <div class="modal-overlay" id="batchAddModal">
         <div class="modal-box">
             <h3><i class="fas fa-layer-group"></i> Tambah Stock Batch</h3>
@@ -895,6 +918,7 @@
         </div>
     </div>
 
+    <!-- Batch Edit Modal -->
     <div class="modal-overlay" id="batchModal">
         <div class="modal-box">
             <h3 id="modalTitle"><i class="fas fa-pen"></i> Batch Edit</h3>
@@ -912,6 +936,7 @@
         </div>
     </div>
 
+    <!-- AI Generate Modal -->
     <div class="modal-overlay" id="aiModal">
         <div class="modal-box">
             <h3><i class="fas fa-magic" style="color:var(--accent);"></i> Generate Judul & Deskripsi dengan AI</h3>
@@ -927,11 +952,12 @@
         </div>
     </div>
 
+    <!-- Toast -->
     <div class="toast-wrap" id="toasts"></div>
 
-    <!-- ============================================================ -->
-    <!-- SCRIPT UTAMA                                                  -->
-    <!-- ============================================================ -->
+    <!-- ============================================================
+         JAVASCRIPT UTAMA
+         ============================================================ -->
     <script>
         // ============================================================
         // 1. ADMIN LOGIN + GLOBAL
@@ -1070,6 +1096,9 @@
             for (var i = 0; i < 3; i++) addBatchRow();
         });
 
+        // ============================================================
+        // SOSMED
+        // ============================================================
         window.renderSosmedOrders = function(orders) { sosmedOrders = orders || [];
             renderSosmedStats();
             renderSosmedFilter();
@@ -1151,7 +1180,7 @@
         window.onOrderUpdateError = function(err) { toast('Gagal update: ' + err, 'err') };
 
         // ============================================================
-        // 2. STOCK (dari asli)
+        // 2. STOCK MODULE (lengkap)
         // ============================================================
         (function() {
             if (typeof db === 'undefined') {
@@ -2563,7 +2592,7 @@
                 renderSecretCars() }, (err) => { console.error("Secret cars listener error:", err) });
 
             // ============================================================
-            // SOSMED
+            // SOSMED LISTENER
             // ============================================================
             var ORDERS_COL = "orders";
             db.collection(ORDERS_COL).orderBy("createdAt", "desc").onSnapshot((snap) => { var orders = [];
@@ -2642,6 +2671,7 @@
                 return data.secure_url;
             }
 
+            // ===== FILE INPUT =====
             document.getElementById('wpFile').addEventListener('change', async function(e) {
                 const file = this.files[0];
                 if (!file) return;
@@ -2678,7 +2708,7 @@
                 }
             });
 
-            // Auto Detect
+            // ===== AUTO DETECT =====
             document.getElementById('wpDetectBtn').addEventListener('click', async function() {
                 const url = document.getElementById('wpImage').value.trim();
                 if (!url) { toast('Masukkan URL gambar terlebih dahulu!', 'err'); return; }
@@ -2716,7 +2746,7 @@
                 }
             });
 
-            // Generate Manual
+            // ===== GENERATE MANUAL =====
             document.getElementById('wpGenerateBtn').addEventListener('click', function() {
                 document.getElementById('aiModal').classList.add('active');
                 document.getElementById('aiTheme').value = '';
@@ -2838,8 +2868,8 @@
                     });
             };
 
-            // ===== PIN QUEUE =====
-            window.renderPinQueue = function() {
+            // ===== PIN QUEUE (DENGAN LINK KE WALLPAPER-DETAIL) =====
+           window.renderPinQueue = function() {
     const container = document.getElementById('pinQueueList');
     const countEl = document.getElementById('pinQueueCount');
 
@@ -2863,7 +2893,8 @@
                     const imageUrl = data.imageUrl;
                     const desc = data.description || title;
                     const detailUrl = origin + '/wallpaper-detail.html?id=' + doc.id;
-                    // ===== PERUBAHAN: tambahkan &url=detailUrl =====
+                    
+                    // Buat URL Pinterest dengan parameter url (destination link)
                     const pinUrl =
                         `https://www.pinterest.com/pin/create/button/?media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(title + '\n' + desc)}&url=${encodeURIComponent(detailUrl)}`;
 
@@ -2876,7 +2907,6 @@
                             <button class="btn-sm" style="background:transparent;border:1px solid var(--border);color:var(--fg-muted);padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;cursor:pointer;" onclick="copyToClipboard('${detailUrl}')" title="Salin link wallpaper">
                                 <i class="fas fa-copy"></i> Salin Link
                             </button>
-                            <!-- ===== PERUBAHAN: tombol Pin pakai popup ===== -->
                             <a href="#" onclick="window.open('${pinUrl}','pinwin','width=750,height=700,scrollbars=yes');return false;" class="btn-sm" style="background:#E60023;color:#fff;padding:0.3rem 0.8rem;border-radius:6px;display:inline-flex;align-items:center;gap:0.3rem;font-size:0.7rem;border:none;text-decoration:none;">
                                 <i class="fab fa-pinterest"></i> Pin
                             </a>
@@ -2900,7 +2930,6 @@
                 `<div class="empty" style="color:#f87171;">Gagal muat antrian</div>`;
         });
 };
-
             // ===== UPLOAD KE FIRESTORE =====
             document.getElementById('wpUploadBtn').addEventListener('click', async function() {
                 const title = document.getElementById('wpTitle').value.trim();
@@ -2966,7 +2995,7 @@
         })();
 
         // ============================================================
-        // SERVICE WORKER
+        // 4. SERVICE WORKER
         // ============================================================
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
